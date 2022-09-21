@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Plugins/Elephant/elephant_scene.unity
     guid: 47a686e3b898646ae802a7832a649176
   - enabled: 1
-    path: Assets/Project/Scenes/Game.unity
+    path: "Assets/Project/Scenes/GameBahad\u0131r.unity"
     guid: 82e327e5380394f6db03c513b9aee4ba
   m_configObjects: {}

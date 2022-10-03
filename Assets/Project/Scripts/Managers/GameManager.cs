@@ -11,6 +11,8 @@ public class GameManager : MonoSingleton<GameManager>
     public float carProduction = 1f;
     public float greenlightPermission = 1f;
     
+    
+    
     private void Awake()
     {
         Application.targetFrameRate = 60;

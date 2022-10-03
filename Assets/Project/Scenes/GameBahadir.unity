@@ -7893,8 +7893,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c67bfd4159084d79811a291b375a2c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reactionDelayPerCar: 10
-  carSpeed: 10
+  reactionDelayPerCar: 3
+  carSpeed: 5
   carMovementEase: 3
   carProduction: 1
   greenlightPermission: 1

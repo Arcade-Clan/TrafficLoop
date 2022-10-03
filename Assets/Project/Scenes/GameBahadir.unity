@@ -682,7 +682,7 @@ MonoBehaviour:
   m_Script: {fileID: -333801856, guid: aa0b1eebb5db27a419fa4564bbe5c9c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateType: 0
+  updateType: 2
   isSpeedBased: 0
   hasOnStart: 0
   hasOnPlay: 0
@@ -3666,7 +3666,7 @@ MonoBehaviour:
   m_Script: {fileID: -333801856, guid: aa0b1eebb5db27a419fa4564bbe5c9c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateType: 0
+  updateType: 2
   isSpeedBased: 0
   hasOnStart: 0
   hasOnPlay: 0
@@ -3743,27 +3743,27 @@ MonoBehaviour:
   upDirection: {x: 0, y: 1, z: 0}
   tweenRigidbody: 0
   wps:
-  - {x: 3.43, y: 0, z: 1.3375}
+  - {x: 3.410881, y: 0, z: 1.3375}
   - {x: 14.99314, y: 0, z: 1.3375}
   fullWps: []
   path:
     wpLengths:
     - 0
-    - 6.3074007
-    - 11.618517
+    - 6.3028007
+    - 11.637588
     wps:
     - {x: 1.3375, y: 0, z: -4.287094}
-    - {x: 3.43, y: 0, z: 1.3375}
+    - {x: 3.410881, y: 0, z: 1.3375}
     - {x: 14.99314, y: 0, z: 1.3375}
     type: 1
     subdivisionsXSegment: 10
     subdivisions: 30
     controlPoints:
-    - a: {x: 3.43, y: 0, z: 1.3375}
+    - a: {x: 3.410881, y: 0, z: 1.3375}
       b: {x: 0, y: 0, z: 0}
-    - a: {x: 26.55628, y: 0, z: 1.3375}
+    - a: {x: 26.5754, y: 0, z: 1.3375}
       b: {x: 0, y: 0, z: 0}
-    length: 17.931353
+    length: 17.945848
     isFinalized: 1
     timesTable:
     - 0.033333335
@@ -3797,36 +3797,36 @@ MonoBehaviour:
     - 0.9666667
     - 1
     lengthsTable:
-    - 0.060018692
-    - 0.2300165
-    - 0.49501076
-    - 0.8401896
-    - 1.250968
-    - 1.7130686
-    - 2.2126348
-    - 2.7364054
-    - 3.2719727
-    - 3.8081925
-    - 4.3358135
-    - 4.848481
-    - 5.3442426
-    - 5.8276086
-    - 6.311651
-    - 6.8337317
-    - 7.417492
-    - 8.061263
-    - 8.760525
-    - 9.50907
-    - 10.299676
-    - 11.124476
-    - 11.975205
-    - 12.843341
-    - 13.720213
-    - 14.597087
-    - 15.465221
-    - 16.31595
-    - 17.140749
-    - 17.931353
+    - 0.06002593
+    - 0.23003261
+    - 0.49501842
+    - 0.840153
+    - 1.250834
+    - 1.7127678
+    - 2.2120833
+    - 2.735509
+    - 3.2706301
+    - 3.8063045
+    - 4.333296
+    - 4.845287
+    - 5.340395
+    - 5.823247
+    - 6.3070765
+    - 6.829313
+    - 7.413533
+    - 8.058041
+    - 8.758281
+    - 9.50801
+    - 10.29997
+    - 11.126258
+    - 11.978576
+    - 12.848368
+    - 13.72693
+    - 14.605494
+    - 15.475284
+    - 16.327602
+    - 17.15389
+    - 17.945848
   inspectorMode: 0
   pathType: 1
   handlesType: 1
@@ -5941,7 +5941,7 @@ MonoBehaviour:
   m_Script: {fileID: -333801856, guid: aa0b1eebb5db27a419fa4564bbe5c9c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateType: 0
+  updateType: 2
   isSpeedBased: 0
   hasOnStart: 0
   hasOnPlay: 0
@@ -6371,7 +6371,7 @@ MonoBehaviour:
   m_Script: {fileID: -333801856, guid: aa0b1eebb5db27a419fa4564bbe5c9c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateType: 0
+  updateType: 2
   isSpeedBased: 0
   hasOnStart: 0
   hasOnPlay: 0
@@ -6448,27 +6448,27 @@ MonoBehaviour:
   upDirection: {x: 0, y: 1, z: 0}
   tweenRigidbody: 0
   wps:
-  - {x: -3.43, y: 0, z: 1.3375}
+  - {x: -1.1298203, y: 0, z: 1.3375}
   - {x: -14.99314, y: 0, z: 1.3375}
   fullWps: []
   path:
     wpLengths:
     - 0
-    - 7.5366135
-    - 11.614354
+    - 6.5340443
+    - 13.909751
     wps:
     - {x: 1.3375, y: 0, z: -4.287094}
-    - {x: -3.43, y: 0, z: 1.3375}
+    - {x: -1.1298203, y: 0, z: 1.3375}
     - {x: -14.99314, y: 0, z: 1.3375}
     type: 1
     subdivisionsXSegment: 10
     subdivisions: 30
     controlPoints:
-    - a: {x: -3.43, y: 0, z: 1.3375}
+    - a: {x: -1.1298203, y: 0, z: 1.3375}
       b: {x: 0, y: 0, z: 0}
-    - a: {x: -26.55628, y: 0, z: 1.3375}
+    - a: {x: -28.85646, y: 0, z: 1.3375}
       b: {x: 0, y: 0, z: 0}
-    length: 19.154165
+    length: 20.44953
     isFinalized: 1
     timesTable:
     - 0.033333335
@@ -6502,36 +6502,36 @@ MonoBehaviour:
     - 0.9666667
     - 1
     lengthsTable:
-    - 0.06573813
-    - 0.25318134
-    - 0.54775083
-    - 0.9349915
-    - 1.4006072
-    - 1.9305094
-    - 2.51088
-    - 3.1282682
-    - 3.7697198
-    - 4.4229794
-    - 5.0767756
-    - 5.7212744
-    - 6.3487477
-    - 6.954608
-    - 7.5388775
-    - 8.135229
-    - 8.774197
-    - 9.454958
-    - 10.174788
-    - 10.929673
-    - 11.714731
-    - 12.524483
-    - 13.353053
-    - 14.194299
-    - 15.041921
-    - 15.889544
-    - 16.73079
-    - 17.559359
-    - 18.36911
-    - 19.154165
+    - 0.060045063
+    - 0.23006831
+    - 0.49505216
+    - 0.8402247
+    - 1.2511404
+    - 1.7137944
+    - 2.2147837
+    - 2.7415493
+    - 3.2827272
+    - 3.8286836
+    - 4.3722916
+    - 4.9100614
+    - 5.4436026
+    - 5.9812036
+    - 6.538767
+    - 7.154151
+    - 7.848787
+    - 8.618304
+    - 9.455857
+    - 10.353164
+    - 11.301094
+    - 12.289977
+    - 13.309813
+    - 14.350382
+    - 15.401346
+    - 16.452312
+    - 17.492882
+    - 18.512716
+    - 19.501598
+    - 20.44953
   inspectorMode: 0
   pathType: 1
   handlesType: 1
@@ -7893,9 +7893,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c67bfd4159084d79811a291b375a2c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reactionDelayPerCar: 0.5
-  carSpeed: 5
+  reactionDelayPerCar: 10
+  carSpeed: 10
   carMovementEase: 3
+  carProduction: 1
+  greenlightPermission: 1
 --- !u!114 &1897629320
 MonoBehaviour:
   m_ObjectHideFlags: 0

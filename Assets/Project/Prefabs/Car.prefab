@@ -51,6 +51,9 @@ MonoBehaviour:
   - {fileID: 7100649274435702177}
   - {fileID: 7100649273599755181}
   - {fileID: 7100649274318449787}
+  place: 0
+  arrived: 0
+  targetPlace: -1
 --- !u!1001 &7098982642061531155
 PrefabInstance:
   m_ObjectHideFlags: 0

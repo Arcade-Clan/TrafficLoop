@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DG.Tweening;
 using UnityEngine;
 using UnityExtensions;
 
@@ -19,27 +18,36 @@ public class TrafficController : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine("AssignCarRoutine");
+        //StartCoroutine("CreateCarRoutine");
+        //StartCoroutine("GreenlightCarRoutine");
     }
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
             roads.GetRandom().startPath.CreateCar();
-        //if (Input.GetMouseButtonDown(1))
-        //    DestroyCar();
+        if (Input.GetMouseButtonDown(1))
+            SendARandomCar();
     }
 
-    IEnumerator AssignCarRoutine()
+    IEnumerator CreateCarRoutine()
     {
         while (true)
         {
             roads.GetRandom().startPath.CreateCar();
-            SendARandomCar();
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(GameManager.Instance.carProduction);
         }
     }
 
+    IEnumerator GreenlightCarRoutine()
+    {
+        while (true)
+        {
+            SendARandomCar();
+            yield return new WaitForSeconds(GameManager.Instance.greenlightPermission);
+        }
+    }
+    
     void SendARandomCar()
     {
         RoadClass road = roads.GetRandom();

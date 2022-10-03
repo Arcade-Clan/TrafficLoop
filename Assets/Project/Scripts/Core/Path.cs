@@ -22,8 +22,8 @@ public class Path : MonoBehaviour
         float position = pathLength;
         for (int a = 0; a < cars.Count; a++)
         {
-            cars[a].Move(this, position,a/5f);
             position -= cars[a].size;
+            cars[a].UpdateCar(this, position);
         }
     }
     
@@ -43,7 +43,7 @@ public class Path : MonoBehaviour
 
     public void AddCar(Car car)
     {
-        car.place = 0;
+        car.position = 0;
         cars.Add(car);
         SendCars();
     }

@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 0
   companyName: ArcadeClan
-  productName: Template
+  productName: TrafficLoop
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}

@@ -10,7 +10,7 @@ public class GameManager : MonoSingleton<GameManager>
     public Ease carMovementEase = Ease.OutSine;
     public float carProduction = 1f;
     public float greenlightPermission = 1f;
-    
+    public Car[] carPrefabs;
     
     
     private void Awake()

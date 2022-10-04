@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityExtensions;
+using Random = UnityEngine.Random;
 
 public class TrafficController : MonoBehaviour
 {
@@ -14,12 +15,31 @@ public class TrafficController : MonoBehaviour
         public Path startPath;
         public List<Path> followPaths;
     }
-    public RoadClass[] roads;
+    public List <RoadClass> roads = new ();
 
-    void Start()
+    void Awake()
     {
-        //StartCoroutine("CreateCarRoutine");
-        //StartCoroutine("GreenlightCarRoutine");
+        AddRoads();
+    }
+
+    void AddRoads()
+    {
+        GameObject[] startPaths = GameObject.FindGameObjectsWithTag("StartPath");
+        for (int a = 0; a < startPaths.Length; a++)
+        {
+            roads.Add(new RoadClass());
+            RoadClass currentRoad = roads.Last();
+            currentRoad.startPath = startPaths[a].GetComponent<Path>();
+            currentRoad.followPaths = currentRoad.startPath.GetComponentsInChildren<Path>().ToList();
+            currentRoad.followPaths.Remove(currentRoad.startPath);
+        }
+    }
+    
+    IEnumerator Start()
+    {
+        yield return null;
+        StartCoroutine("CreateCarRoutine");
+        StartCoroutine("GreenlightCarRoutine");
     }
 
     void Update()
@@ -50,12 +70,21 @@ public class TrafficController : MonoBehaviour
     
     void SendARandomCar()
     {
-        RoadClass road = roads.GetRandom();
-        Car firstCar = road.startPath.cars.First();
-        if (firstCar.arrived)
+        int randomStart = Random.Range(0,roads.Count);
+        RoadClass selectedRoad = null;
+        for (int a = randomStart; a < randomStart+roads.Count; a++)
         {
-            road.startPath.RemoveCar(firstCar);
-            road.followPaths.GetRandom().AddCar(firstCar);
+            if (roads[randomStart].startPath.cars.Count != 0 && roads[randomStart].startPath.cars.First().arrived)
+            {
+                selectedRoad = roads[randomStart];
+                break;  
+            }
         }
+
+        if (selectedRoad==null)
+            return;
+        Car firstCar = selectedRoad.startPath.cars.First();
+        selectedRoad.startPath.RemoveCar(firstCar);
+            selectedRoad.followPaths.GetRandom().AddCar(firstCar);
     }
 }

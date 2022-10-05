@@ -358,7 +358,7 @@ MonoBehaviour:
   path: {fileID: 8165020043708977757}
   pathLength: 0
   cars: []
-  endPath: 0
+  endPath: 1
 --- !u!1 &8165020043855569132
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,7 +570,7 @@ MonoBehaviour:
   path: {fileID: 8165020043855569131}
   pathLength: 0
   cars: []
-  endPath: 0
+  endPath: 1
 --- !u!1 &8165020044108635255
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,10 @@ public class GameManager : MonoSingleton<GameManager>
     public Car[] carPrefabs;
     public List<Level> levels;
     public float slowStrength = 0.1f;
-    [FormerlySerializedAs("currentSpeed")] [ReadOnly] public float carSpeed;
+    public float carSpeed;
+    [ReadOnly]
+    public float simulationSpeed;
+    float speedUp = 1;
     public float speedUpTimer = 0.5f;
     public float speedUpMultiplier = 2f;
     public float rayDistance = 2;
@@ -96,6 +99,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void StartGame()
     {
+        StartCoroutine("SpeedUpRoutine");
         //Analytics.Instance.SendLevelStart((PlayerPrefs.GetInt("Level") + 1));
         UIManager.Instance.panels[3].Show();
         UIManager.Instance.panels[4].Hide();
@@ -126,23 +130,32 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void RefreshStats()
     { 
-        carSpeed = upgrades[0].Value();
+        //carSpeed = upgrades[0].Value();
     }
 
     public void SpeedUp()
     {
         Taptic.Light();
-        StopCoroutine("SpeedUpRoutine");
-        carSpeed = speedUpMultiplier * upgrades[0].Value();
-        StartCoroutine("SpeedUpRoutine");
+        StopCoroutine("SpeedUpCoolDown");
+        simulationSpeed = speedUpMultiplier * speedUp;
+        Time.timeScale = simulationSpeed;
+        StartCoroutine("SpeedUpCoolDown");
     }
 
-    IEnumerator SpeedUpRoutine()
+    IEnumerator SpeedUpCoolDown()
     {
         yield return new WaitForSeconds(speedUpTimer);
-        carSpeed = upgrades[0].Value();
+        simulationSpeed = speedUp;
     }
-    
+
+    public IEnumerator SpeedUpRoutine()
+    {
+        while (true)
+        {
+            Time.timeScale = Mathf.Lerp(Time.timeScale, simulationSpeed, 0.05f);
+            yield return null;
+        }
+    }
     
 
 
@@ -196,9 +209,9 @@ public class GameManager : MonoSingleton<GameManager>
             Application.LoadLevel(0);
         }
 
-        if (Input.GetKey(KeyCode.S))
-            Time.timeScale = 10;
-        else
-            Time.timeScale = 1;
+        if (Input.GetKeyDown(KeyCode.S))
+            simulationSpeed = 10;
+        else if (Input.GetKeyUp(KeyCode.S))
+            simulationSpeed = 1;
     }
 }

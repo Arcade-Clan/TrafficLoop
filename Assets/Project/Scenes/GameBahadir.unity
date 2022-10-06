@@ -833,7 +833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roads: []
-  freeTraffic: 0
+  freeTraffic: 1
 --- !u!4 &276310389
 Transform:
   m_ObjectHideFlags: 0
@@ -5876,10 +5876,11 @@ MonoBehaviour:
   - {fileID: 5652619583543868578, guid: c50478a533d444a98a3c5e68bcad2550, type: 3}
   levels: []
   slowStrength: 0.1
-  carSpeed: 8
+  carSpeed: 6
+  simulationSpeed: 0
   speedUpTimer: 0.5
   speedUpMultiplier: 2
-  rayDistance: 2.5
+  rayDistance: 4
   trafficController: {fileID: 0}
   upgrades:
   - upgradeName: Speed

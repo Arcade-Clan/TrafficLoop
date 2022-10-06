@@ -62,14 +62,20 @@ public class Car : MonoBehaviour
 
     Car CheckRay()
     {
-        Physics.SphereCast(rayPoint.position,0.25f, rayPoint.forward, out RaycastHit hit, GameManager.Instance.rayDistance, LayerMask.GetMask("Car"));
-        if (hit.transform)
-        {
-            Debug.DrawLine(rayPoint.position, rayPoint.position+rayPoint.forward* GameManager.Instance.rayDistance, Color.red);
-            return hit.transform.GetComponent<Car>();
-        }
 
-        Debug.DrawLine(rayPoint.position, rayPoint.position + rayPoint.forward * GameManager.Instance.rayDistance, Color.green);
+        for (int a = 1; a <= 10; a++)
+        {
+            Vector3 startPosition = path.tween.PathGetPoint((place+1 + (GameManager.Instance.rayDistance * a -1) / 10f) / path.pathLength);
+            Vector3 endPosition = path.tween.PathGetPoint((place + 1 + GameManager.Instance.rayDistance * a / 10f) / path.pathLength);
+            Physics.Raycast(startPosition, endPosition - startPosition, out RaycastHit hit, GameManager.Instance.rayDistance,
+                LayerMask.GetMask("Car"));
+            if (hit.transform)
+            {
+                Debug.DrawLine(startPosition, endPosition, Color.red);
+                return hit.transform.GetComponent<Car>();
+            }
+            Debug.DrawLine(startPosition, endPosition, Color.green);
+        }
         return null;
     }
     

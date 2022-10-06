@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Hand : MonoBehaviour
 {
 
-    public SpriteRenderer[] handSpriteRenderers;
-    public float distance = 5;
+    public Image[] handSpriteRenderers;
+    public float scale;
+    void Start()
+    {
+        scale = FindObjectOfType<Canvas>().transform.localScale.x;
+    }
+    
     void Update()
     {
-        var v3 = Input.mousePosition;
-        v3.z = distance;
-        v3 = Camera.main.ScreenToWorldPoint(v3);
-        transform.position = v3;
+        GetComponent<RectTransform>().anchoredPosition= Input.mousePosition/ scale;
         if (Input.GetMouseButton(0))
         {
             handSpriteRenderers[0].enabled = true;

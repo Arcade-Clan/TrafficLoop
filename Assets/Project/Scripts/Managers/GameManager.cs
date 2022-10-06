@@ -1,20 +1,204 @@
-﻿using DG.Tweening;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 using UnityExtensions;
 
 public class GameManager : MonoSingleton<GameManager>
 {
 
-    public float reactionDelayPerCar;
-    public float carSpeed = 0.1f;
-    public Ease carMovementEase = Ease.OutSine;
+    public int gold;
     public float carProduction = 1f;
-    public float greenlightPermission = 1f;
     public Car[] carPrefabs;
-    
-    
+    public List<Level> levels;
+    public float slowStrength = 0.1f;
+    [FormerlySerializedAs("currentSpeed")] [ReadOnly] public float carSpeed;
+    public float speedUpTimer = 0.5f;
+    public float speedUpMultiplier = 2f;
+    public float rayDistance = 2;
+    Canvas canvas;
+    Camera cam;
+    [HideInInspector]
+    public TrafficController trafficController;
+    [Serializable]
+    public class UpgradeClass
+    {
+        public string upgradeName;
+        public int upgradeLevel;
+        public float[] upgradeValue;
+        public int[] upgradeCost;
+        public TextMeshProUGUI goldText;
+        public TextMeshProUGUI levelText;
+        public GameObject upgradePanel;
+        public Image coverImage;
+        public int Cost() { return upgradeCost[upgradeLevel]; }
+        public float Value() { return upgradeValue[upgradeLevel]; }
+        public bool Max() { return upgradeValue.Length - 1 == upgradeLevel; }
+    }
+    public UpgradeClass[] upgrades;
+
+/*
+    [Serializable]
+    public class SoundClass
+    {
+
+        public AudioClip sound;
+        [Range(0f, 1f)] public float volume = 1;
+
+    }
+
+    public SoundClass[] sounds;
+
+    public void PlaySound(int value)
+    {
+        if (sounds.Length > 0)
+            GetComponent<AudioSource>().PlayOneShot(sounds[value].sound, sounds[value].volume);
+    }
+    */
+
     private void Awake()
     {
         Application.targetFrameRate = 60;
+        SetObjects();
+        GetSaves();
+    }
+
+    void SetObjects()
+    {
+        cam = FindObjectOfType<Camera>();
+        canvas = FindObjectOfType<Canvas>();
+        if (!FindObjectOfType<Level>())
+            Instantiate(levels[PlayerPrefs.GetInt("Level") % levels.Count]);
+        trafficController = FindObjectOfType<TrafficController>();
+        
+    }
+
+    public void GetSaves()
+    {
+        gold = PlayerPrefs.GetInt("Gold");
+        UIManager.Instance.goldText.text = "" + gold;
+        for (int a = 0; a < upgrades.Length; a++)
+            upgrades[a].upgradeLevel = PlayerPrefs.GetInt(upgrades[a].upgradeName);
+        UpdateEconomy();
+    }
+
+
+    private void Start()
+    {
+        StartGame();
+        RefreshStats();
+    }
+
+    public void StartGame()
+    {
+        //Analytics.Instance.SendLevelStart((PlayerPrefs.GetInt("Level") + 1));
+        UIManager.Instance.panels[3].Show();
+        UIManager.Instance.panels[4].Hide();
+        Destroy(FindObjectOfType<InputPanel>().GetComponent<EventTrigger>());
+        InputPanel.Instance.OnPointerDownEvent.AddListener(SpeedUp);
+        trafficController.StartCoroutine("StartTrafficRoutine");
+    }
+    
+    void UpdateEconomy()
+    {
+        for (int a = 0; a < upgrades.Length; a++)
+        {
+            if (upgrades[a].Max())
+            {
+                upgrades[a].upgradePanel.Hide();
+                upgrades[a].coverImage.Hide();
+            }
+            else
+            {
+                upgrades[a].goldText.text = "" + upgrades[a].Cost();
+                upgrades[a].levelText.text = "LEVEL " + (upgrades[a].upgradeLevel + 1);
+                upgrades[a].coverImage.gameObject.SetActive(upgrades[a].Cost() >= gold);
+            }
+        }
+    }
+
+
+
+    public void RefreshStats()
+    { 
+        carSpeed = upgrades[0].Value();
+    }
+
+    public void SpeedUp()
+    {
+        Taptic.Light();
+        StopCoroutine("SpeedUpRoutine");
+        carSpeed = speedUpMultiplier * upgrades[0].Value();
+        StartCoroutine("SpeedUpRoutine");
+    }
+
+    IEnumerator SpeedUpRoutine()
+    {
+        yield return new WaitForSeconds(speedUpTimer);
+        carSpeed = upgrades[0].Value();
+    }
+    
+    
+
+
+
+    public void Win()
+    {
+        //Analytics.Instance.SendLevelComplete((PlayerPrefs.GetInt("Level") + 1));
+        UIManager.Instance.panels[1].Show();
+        PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
+    }
+
+    public void IncreaseMoney(GameObject placement)
+    {
+        gold += Mathf.RoundToInt(upgrades[2].Value());
+        PlayerPrefs.SetInt("Gold", gold);
+        UIManager.Instance.goldText.text = "" + gold;
+        //TextMeshProUGUI newText = Instantiate(counterText);
+        //newText.text = "+" + upgrades[2].Value();
+        //newText.transform.SetParent(canvas.transform);
+        //newText.transform.SetAsFirstSibling();
+        //newText.GetComponent<RectTransform>().anchoredPosition =RectTransformUtility.WorldToScreenPoint(cam, placement.transform.position) / canvas.transform.localScale.x;
+        UpdateEconomy();
+    }
+
+    public void IncreaseStat(int value)
+    {
+        //PlaySound(1);
+        Taptic.Medium();
+        gold -= upgrades[value].Cost();
+        PlayerPrefs.SetInt("Gold", gold);
+        UIManager.Instance.goldText.text = "" + gold;
+        upgrades[value].upgradeLevel += 1;
+        PlayerPrefs.SetInt(upgrades[value].upgradeName, upgrades[value].upgradeLevel);
+        UpdateEconomy();
+        RefreshStats();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            gold += 1000;
+            PlayerPrefs.SetInt("Gold", gold);
+            UIManager.Instance.goldText.text = "" + gold;
+            UpdateEconomy();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            PlayerPrefs.DeleteAll();
+            Application.LoadLevel(0);
+        }
+
+        if (Input.GetKey(KeyCode.S))
+            Time.timeScale = 10;
+        else
+            Time.timeScale = 1;
     }
 }

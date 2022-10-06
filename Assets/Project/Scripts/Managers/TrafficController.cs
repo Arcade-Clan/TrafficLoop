@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using UnityExtensions;
 using Random = UnityEngine.Random;
@@ -16,7 +17,8 @@ public class TrafficController : MonoBehaviour
         public List<Path> followPaths;
     }
     public List <RoadClass> roads = new ();
-
+    public bool freeTraffic;
+    
     void Awake()
     {
         AddRoads();
@@ -35,56 +37,46 @@ public class TrafficController : MonoBehaviour
         }
     }
     
-    IEnumerator Start()
+    IEnumerator StartTrafficRoutine()
     {
         yield return null;
         StartCoroutine("CreateCarRoutine");
-        StartCoroutine("GreenlightCarRoutine");
+        if(freeTraffic)
+        {
+            foreach (RoadClass t in roads)
+                t.startPath.Pass();
+        }
+        else
+            StartCoroutine("GreenlightPathRoutine");
     }
 
-    void Update()
+    IEnumerator GreenlightPathRoutine()
     {
-        if (Input.GetMouseButtonDown(0))
-            roads.GetRandom().startPath.CreateCar();
-        if (Input.GetMouseButtonDown(1))
-            SendARandomCar();
+        int pathIndex = 0;
+        while (true)
+        {
+            pathIndex = (pathIndex + 1) % roads.Count;
+            roads[pathIndex].startPath.Pass();
+            yield return new WaitForSeconds(roads[pathIndex].startPath.lightTimer);
+            roads[pathIndex].startPath.Stop();
+        }
     }
-
+    
     IEnumerator CreateCarRoutine()
     {
         while (true)
         {
-            roads.GetRandom().startPath.CreateCar();
+            CreateCar();
             yield return new WaitForSeconds(GameManager.Instance.carProduction);
         }
     }
 
-    IEnumerator GreenlightCarRoutine()
+    void CreateCar()
     {
-        while (true)
-        {
-            SendARandomCar();
-            yield return new WaitForSeconds(GameManager.Instance.greenlightPermission);
-        }
-    }
-    
-    void SendARandomCar()
-    {
-        int randomStart = Random.Range(0,roads.Count);
-        RoadClass selectedRoad = null;
-        for (int a = randomStart; a < randomStart+roads.Count; a++)
-        {
-            if (roads[randomStart].startPath.cars.Count != 0 && roads[randomStart].startPath.cars.First().arrived)
-            {
-                selectedRoad = roads[randomStart];
-                break;  
-            }
-        }
-
-        if (selectedRoad==null)
-            return;
-        Car firstCar = selectedRoad.startPath.cars.First();
-        selectedRoad.startPath.RemoveCar(firstCar);
-            selectedRoad.followPaths.GetRandom().AddCar(firstCar);
+        RoadClass randomRoad = roads.GetRandom();
+        Vector3 newPosition = randomRoad.startPath.tween.PathGetPoint(0);
+        Car newCar = Instantiate(GameManager.Instance.carPrefabs.GetRandom(), newPosition,
+            Quaternion.LookRotation(randomRoad.startPath.tween.PathGetPoint(0.01f) - newPosition));
+        newCar.MoveCar(randomRoad);
     }
 }

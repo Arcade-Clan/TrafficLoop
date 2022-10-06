@@ -6,54 +6,34 @@ using UnityExtensions;
 
 public class Path : MonoBehaviour
 {
+
+    [HideInInspector]
     public DOTweenPath path;
+    [HideInInspector]
     public float pathLength;
-    public List<Car> cars = new ();
+    [HideInInspector]
     public Tween tween;
     public bool endPath;
+    public SpriteRenderer trafficLight;
+    public float lightTimer = 5f;
+    [ReadOnly]
+    public bool canPass;
+    
     void Start()
     {
         tween = path.GetTween();
         pathLength = tween.PathLength();
     }
     
-    void SendCars()
+    public void Pass()
     {
-        float position = pathLength;
-        for (int a = 0; a < cars.Count; a++)
-        {
-            if(a!=0)
-                position -= cars[a-1].size;
-            cars[a].Move(this, position,a);
-        }
-    }
-    
-    public void CreateCar()
-    {
-        Vector3 newPosition = path.tween.PathGetPoint(0);
-        Car newCar = Instantiate(GameManager.Instance.carPrefabs.GetRandom(), newPosition, Quaternion.LookRotation(path.tween.PathGetPoint(0.01f) - newPosition));
-        cars.Add(newCar);
-        SendCars();
+        canPass = true;
+        trafficLight.color = Color.green;
     }
 
-    public void RemoveCar(Car car)
+    public void Stop()
     {
-        cars.Remove(car);
-        SendCars();
-    }
-
-    public void DestroyCar(Car car)
-    {
-        cars.Remove(car);
-        Destroy(car.gameObject);
-        SendCars();
-    }
-    
-    public void AddCar(Car car)
-    {
-        car.place = 0;
-        car.arrived = false;
-        cars.Add(car);
-        SendCars();
+        canPass = false;
+        trafficLight.color = Color.red;
     }
 }

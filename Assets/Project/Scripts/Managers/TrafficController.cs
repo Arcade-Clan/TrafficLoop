@@ -17,8 +17,7 @@ public class TrafficController : MonoBehaviour
         public List<Path> followPaths;
     }
     public List <RoadClass> roads = new ();
-    public bool freeTraffic;
-    
+
     void Awake()
     {
         AddRoads();
@@ -41,7 +40,7 @@ public class TrafficController : MonoBehaviour
     {
         yield return null;
         StartCoroutine("CreateCarRoutine");
-        if(freeTraffic)
+        if(GameManager.Instance.freeTraffic)
         {
             foreach (RoadClass t in roads)
                 t.startPath.Pass();

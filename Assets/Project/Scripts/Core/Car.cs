@@ -16,6 +16,8 @@ public class Car : MonoBehaviour
     public Transform[] wheels;
     Vector3 wheelRotation;
     public Path path;
+    public int value = 1;
+    
     
     void Start()
     {

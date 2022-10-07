@@ -24,10 +24,12 @@ public class GameManager : MonoSingleton<GameManager>
     public float speedUpTimer = 0.5f;
     public float speedUpMultiplier = 2f;
     public float rayDistance = 2;
-    Canvas canvas;
+
     Camera cam;
     [HideInInspector]
     public TrafficController trafficController;
+
+    public bool freeTraffic;
     [Serializable]
     public class UpgradeClass
     {
@@ -44,6 +46,7 @@ public class GameManager : MonoSingleton<GameManager>
         public bool Max() { return upgradeValue.Length - 1 == upgradeLevel; }
     }
     public UpgradeClass[] upgrades;
+
 
 /*
     [Serializable]
@@ -73,8 +76,6 @@ public class GameManager : MonoSingleton<GameManager>
 
     void SetObjects()
     {
-        cam = FindObjectOfType<Camera>();
-        canvas = FindObjectOfType<Canvas>();
         if (!FindObjectOfType<Level>())
             Instantiate(levels[PlayerPrefs.GetInt("Level") % levels.Count]);
         trafficController = FindObjectOfType<TrafficController>();
@@ -167,16 +168,13 @@ public class GameManager : MonoSingleton<GameManager>
         PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
     }
 
-    public void IncreaseMoney(GameObject placement)
+    public void IncreaseMoney(Car car,Vector3 position)
     {
-        gold += Mathf.RoundToInt(upgrades[2].Value());
+        int value = car.value * (int)upgrades[2].Value();
+        gold += Mathf.RoundToInt(value);
         PlayerPrefs.SetInt("Gold", gold);
         UIManager.Instance.goldText.text = "" + gold;
-        //TextMeshProUGUI newText = Instantiate(counterText);
-        //newText.text = "+" + upgrades[2].Value();
-        //newText.transform.SetParent(canvas.transform);
-        //newText.transform.SetAsFirstSibling();
-        //newText.GetComponent<RectTransform>().anchoredPosition =RectTransformUtility.WorldToScreenPoint(cam, placement.transform.position) / canvas.transform.localScale.x;
+        UIManager.Instance.CreateText(value, position);
         UpdateEconomy();
     }
 

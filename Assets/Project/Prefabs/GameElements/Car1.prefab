@@ -80,15 +80,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1df5c769ec814f289a1dec60eecfa88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  place: 0
+  currentSpeed: 0
+  rayPoint: {fileID: 4405454626573240343}
   wheels:
   - {fileID: 7100649274447093015}
   - {fileID: 7100649274435702177}
   - {fileID: 7100649273599755181}
   - {fileID: 7100649274318449787}
-  place: 0
-  rayDistance: 4
-  currentSpeed: 0
-  rayPoint: {fileID: 4405454626573240343}
+  path: {fileID: 0}
+  forwardCar: {fileID: 0}
+  ignoredCars: []
 --- !u!54 &5796438164445229631
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -451,13 +453,7 @@ PrefabInstance:
       propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 64000013333129272, guid: e21eb2023d2364176bed9c15b3e4bbee,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 64000013333129272, guid: e21eb2023d2364176bed9c15b3e4bbee, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e21eb2023d2364176bed9c15b3e4bbee, type: 3}
 --- !u!1 &7099690171894248057 stripped
 GameObject:

@@ -835,7 +835,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roads: []
-  freeTraffic: 0
   cars: []
 --- !u!4 &276310389
 Transform:
@@ -2854,27 +2853,27 @@ MonoBehaviour:
   upDirection: {x: 0, y: 1, z: 0}
   tweenRigidbody: 0
   wps:
-  - {x: 6.25, y: 0, z: -1.225}
+  - {x: 7.5, y: 0, z: -1.225}
   - {x: 45, y: 0, z: -1.225}
   fullWps: []
   path:
     wpLengths:
     - 0
-    - 9.511795
-    - 38.77124
+    - 9.952393
+    - 37.52162
     wps:
     - {x: 1.225, y: 0, z: -7.5}
-    - {x: 6.25, y: 0, z: -1.225}
+    - {x: 7.5, y: 0, z: -1.225}
     - {x: 45, y: 0, z: -1.225}
     type: 1
     subdivisionsXSegment: 10
     subdivisions: 30
     controlPoints:
-    - a: {x: 6.25, y: 0, z: -1.225}
+    - a: {x: 7.5, y: 0, z: -1.225}
       b: {x: 0, y: 0, z: 0}
-    - a: {x: 83.75, y: 0, z: -1.225}
+    - a: {x: 82.5, y: 0, z: -1.225}
       b: {x: 0, y: 0, z: 0}
-    length: 48.293518
+    length: 47.482254
     isFinalized: 1
     timesTable:
     - 0.033333335
@@ -2908,36 +2907,36 @@ MonoBehaviour:
     - 0.9666667
     - 1
     lengthsTable:
-    - 0.07208814
-    - 0.27298212
-    - 0.5805123
-    - 0.9740526
-    - 1.4351625
-    - 1.9485061
-    - 2.503133
-    - 3.094123
-    - 3.7243676
-    - 4.4058976
-    - 5.1598725
-    - 6.014814
-    - 7.0036917
-    - 8.161166
-    - 9.521778
-    - 11.136154
-    - 13.01466
-    - 15.130144
-    - 17.454176
-    - 19.957611
-    - 22.610928
-    - 25.384342
-    - 28.247944
-    - 31.171711
-    - 34.12557
-    - 37.07943
-    - 40.003193
-    - 42.866795
-    - 45.640205
-    - 48.293518
+    - 0.06780597
+    - 0.25866187
+    - 0.5546897
+    - 0.9396212
+    - 1.3993332
+    - 1.922537
+    - 2.501629
+    - 3.1336436
+    - 3.8211372
+    - 4.5727487
+    - 5.4031367
+    - 6.332196
+    - 7.3837113
+    - 8.583897
+    - 9.960139
+    - 11.563844
+    - 13.411686
+    - 15.478695
+    - 17.738667
+    - 20.164696
+    - 22.729494
+    - 25.405508
+    - 28.165054
+    - 30.980328
+    - 33.823475
+    - 36.66663
+    - 39.4819
+    - 42.241444
+    - 44.91746
+    - 47.482254
   inspectorMode: 0
   pathType: 1
   handlesType: 1
@@ -3441,27 +3440,27 @@ MonoBehaviour:
   upDirection: {x: 0, y: 1, z: 0}
   tweenRigidbody: 0
   wps:
-  - {x: -1.225, y: 0, z: -6.25}
+  - {x: -1.225, y: 0, z: -7.5}
   - {x: -1.225, y: 0, z: -45}
   fullWps: []
   path:
     wpLengths:
     - 0
-    - 9.511795
-    - 38.77124
+    - 9.952393
+    - 37.52162
     wps:
     - {x: -7.5, y: 0, z: -1.225}
-    - {x: -1.225, y: 0, z: -6.25}
+    - {x: -1.225, y: 0, z: -7.5}
     - {x: -1.225, y: 0, z: -45}
     type: 1
     subdivisionsXSegment: 10
     subdivisions: 30
     controlPoints:
-    - a: {x: -1.225, y: 0, z: -6.25}
+    - a: {x: -1.225, y: 0, z: -7.5}
       b: {x: 0, y: 0, z: 0}
-    - a: {x: -1.225, y: 0, z: -83.75}
+    - a: {x: -1.225, y: 0, z: -82.5}
       b: {x: 0, y: 0, z: 0}
-    length: 48.293518
+    length: 47.482254
     isFinalized: 1
     timesTable:
     - 0.033333335
@@ -3495,36 +3494,36 @@ MonoBehaviour:
     - 0.9666667
     - 1
     lengthsTable:
-    - 0.07208814
-    - 0.27298212
-    - 0.5805123
-    - 0.9740526
-    - 1.4351625
-    - 1.9485061
-    - 2.503133
-    - 3.094123
-    - 3.7243676
-    - 4.4058976
-    - 5.1598725
-    - 6.014814
-    - 7.0036917
-    - 8.161166
-    - 9.521778
-    - 11.136154
-    - 13.01466
-    - 15.130144
-    - 17.454176
-    - 19.957611
-    - 22.610928
-    - 25.384342
-    - 28.247944
-    - 31.171711
-    - 34.12557
-    - 37.07943
-    - 40.003193
-    - 42.866795
-    - 45.640205
-    - 48.293518
+    - 0.06780597
+    - 0.25866187
+    - 0.5546897
+    - 0.9396212
+    - 1.3993332
+    - 1.922537
+    - 2.501629
+    - 3.1336436
+    - 3.8211372
+    - 4.5727487
+    - 5.4031367
+    - 6.332196
+    - 7.3837113
+    - 8.583897
+    - 9.960139
+    - 11.563844
+    - 13.411686
+    - 15.478695
+    - 17.738667
+    - 20.164696
+    - 22.729494
+    - 25.405508
+    - 28.165054
+    - 30.980328
+    - 33.823475
+    - 36.66663
+    - 39.4819
+    - 42.241444
+    - 44.91746
+    - 47.482254
   inspectorMode: 0
   pathType: 1
   handlesType: 1
@@ -5215,27 +5214,27 @@ MonoBehaviour:
   upDirection: {x: 0, y: 1, z: 0}
   tweenRigidbody: 0
   wps:
-  - {x: 1, y: 0, z: 6.25}
+  - {x: 1, y: 0, z: 7.5}
   - {x: 1.225, y: 0, z: 45}
   fullWps: []
   path:
     wpLengths:
     - 0
-    - 9.702573
-    - 38.773655
+    - 10.13624
+    - 37.52415
     wps:
     - {x: 7.5, y: 0, z: 1.225}
-    - {x: 1, y: 0, z: 6.25}
+    - {x: 1, y: 0, z: 7.5}
     - {x: 1.225, y: 0, z: 45}
     type: 1
     subdivisionsXSegment: 10
     subdivisions: 30
     controlPoints:
-    - a: {x: 1, y: 0, z: 6.25}
+    - a: {x: 1, y: 0, z: 7.5}
       b: {x: 0, y: 0, z: 0}
-    - a: {x: 1.45, y: 0, z: 83.75}
+    - a: {x: 1.45, y: 0, z: 82.5}
       b: {x: 0, y: 0, z: 0}
-    length: 48.486996
+    length: 47.668938
     isFinalized: 1
     timesTable:
     - 0.033333335
@@ -5269,36 +5268,36 @@ MonoBehaviour:
     - 0.9666667
     - 1
     lengthsTable:
-    - 0.07475746
-    - 0.2832834
-    - 0.6028158
-    - 1.0120828
-    - 1.4919126
-    - 2.0261154
-    - 2.602716
-    - 3.2155685
-    - 3.8661814
-    - 4.5652246
-    - 5.332851
-    - 6.19722
-    - 7.191645
-    - 8.351633
-    - 9.712801
-    - 11.32696
-    - 13.205085
-    - 15.320227
-    - 17.644047
-    - 20.147438
-    - 22.80088
-    - 25.574574
-    - 28.438578
-    - 31.362833
-    - 34.317223
-    - 37.271614
-    - 40.195866
-    - 43.059868
-    - 45.833557
-    - 48.486996
+    - 0.0706373
+    - 0.26951075
+    - 0.5779886
+    - 0.9789846
+    - 1.4574711
+    - 2.0011559
+    - 2.6013267
+    - 3.253831
+    - 3.9600432
+    - 4.7275705
+    - 5.570373
+    - 6.508115
+    - 7.564849
+    - 8.767458
+    - 10.14425
+    - 11.747736
+    - 13.595191
+    - 15.661849
+    - 17.921602
+    - 20.347586
+    - 22.912516
+    - 25.58882
+    - 28.348783
+    - 31.164564
+    - 34.008263
+    - 36.85197
+    - 39.667747
+    - 42.427708
+    - 45.104015
+    - 47.668938
   inspectorMode: 0
   pathType: 1
   handlesType: 1
@@ -5603,27 +5602,27 @@ MonoBehaviour:
   upDirection: {x: 0, y: 1, z: 0}
   tweenRigidbody: 0
   wps:
-  - {x: -6.25, y: 0, z: 1.225}
+  - {x: -7.5, y: 0, z: 1.225}
   - {x: -45, y: 0, z: 1.225}
   fullWps: []
   path:
     wpLengths:
     - 0
-    - 9.511795
-    - 38.77124
+    - 9.952393
+    - 37.52162
     wps:
     - {x: -1.225, y: 0, z: 7.5}
-    - {x: -6.25, y: 0, z: 1.225}
+    - {x: -7.5, y: 0, z: 1.225}
     - {x: -45, y: 0, z: 1.225}
     type: 1
     subdivisionsXSegment: 10
     subdivisions: 30
     controlPoints:
-    - a: {x: -6.25, y: 0, z: 1.225}
+    - a: {x: -7.5, y: 0, z: 1.225}
       b: {x: 0, y: 0, z: 0}
-    - a: {x: -83.75, y: 0, z: 1.225}
+    - a: {x: -82.5, y: 0, z: 1.225}
       b: {x: 0, y: 0, z: 0}
-    length: 48.293518
+    length: 47.482254
     isFinalized: 1
     timesTable:
     - 0.033333335
@@ -5657,36 +5656,36 @@ MonoBehaviour:
     - 0.9666667
     - 1
     lengthsTable:
-    - 0.07208814
-    - 0.27298212
-    - 0.5805123
-    - 0.9740526
-    - 1.4351625
-    - 1.9485061
-    - 2.503133
-    - 3.094123
-    - 3.7243676
-    - 4.4058976
-    - 5.1598725
-    - 6.014814
-    - 7.0036917
-    - 8.161166
-    - 9.521778
-    - 11.136154
-    - 13.01466
-    - 15.130144
-    - 17.454176
-    - 19.957611
-    - 22.610928
-    - 25.384342
-    - 28.247944
-    - 31.171711
-    - 34.12557
-    - 37.07943
-    - 40.003193
-    - 42.866795
-    - 45.640205
-    - 48.293518
+    - 0.06780597
+    - 0.25866187
+    - 0.5546897
+    - 0.9396212
+    - 1.3993332
+    - 1.922537
+    - 2.501629
+    - 3.1336436
+    - 3.8211372
+    - 4.5727487
+    - 5.4031367
+    - 6.332196
+    - 7.3837113
+    - 8.583897
+    - 9.960139
+    - 11.563844
+    - 13.411686
+    - 15.478695
+    - 17.738667
+    - 20.164696
+    - 22.729494
+    - 25.405508
+    - 28.165054
+    - 30.980328
+    - 33.823475
+    - 36.66663
+    - 39.4819
+    - 42.241444
+    - 44.91746
+    - 47.482254
   inspectorMode: 0
   pathType: 1
   handlesType: 1
@@ -5792,6 +5791,7 @@ MonoBehaviour:
   speedUpMultiplier: 2
   rayDistance: 3
   trafficController: {fileID: 0}
+  freeTraffic: 1
   upgrades:
   - upgradeName: Car Amount
     upgradeLevel: 0
@@ -5800,7 +5800,7 @@ MonoBehaviour:
     - 20
     - 25
     - 30
-    - 35
+    - 60
     upgradeCost: 640000002c010000e8030000b80b000088130000
     goldText: {fileID: 1517700366}
     levelText: {fileID: 1915973829}
@@ -6745,10 +6745,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 694673509, guid: 2b299400713d7c8409b221abfe170205, type: 3}
-      propertyPath: m_FillAmount
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1720970304180032552, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -6826,3 +6822,72 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b299400713d7c8409b221abfe170205, type: 3}
+--- !u!1001 &8326037907849701918
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.225
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375436, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_Name
+      value: Gate
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5f05ced2eca0e4c20aa32b866652168f, type: 3}

@@ -9771,9 +9771,8 @@ GameObject:
   - component: {fileID: 4000011796746428}
   - component: {fileID: 33000013738735580}
   - component: {fileID: 23000013786566016}
-  - component: {fileID: 64000013333129272}
   m_Layer: 0
-  m_Name: Car_1B
+  m_Name: Car_1B.1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9850,20 +9849,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64000013333129272
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000012832795242}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 625bfe95406a044c7916eb59310ff559, type: 3}
 --- !u!1 &1000013707520432
 GameObject:
   m_ObjectHideFlags: 0

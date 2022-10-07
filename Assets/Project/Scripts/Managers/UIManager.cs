@@ -17,9 +17,13 @@ public class UIManager : MonoSingleton<UIManager>
    public TextMeshProUGUI carAmountPerMinute;
    public TextMeshProUGUI incomePerMinute;
    public Image trafficDensity;
-   
+   public TextMeshProUGUI counterText;
+   Canvas canvas;
+   Camera cam;
    private void Start()
    {
+      cam = FindObjectOfType<Camera>();
+      canvas = FindObjectOfType<Canvas>();
       texts[0].text = "LEVEL " + (PlayerPrefs.GetInt("Level") + 1);
       texts[1].text = "LEVEL " + (PlayerPrefs.GetInt("Level") + 1) + " COMPLETED";
       texts[2].text = "LEVEL " + (PlayerPrefs.GetInt("Level") + 1) + " FAILED";
@@ -49,6 +53,14 @@ public class UIManager : MonoSingleton<UIManager>
       if(cars.Count>0)
          trafficDensity.fillAmount = Mathf.Lerp(trafficDensity.fillAmount, density / cars.Count,0.1f);
    }
-   
+
+   public void CreateText(int value, Vector3 position)
+   {
+      TextMeshProUGUI newText = Instantiate(counterText);
+      newText.text = "+" + value;
+      newText.transform.SetParent(canvas.transform);
+      newText.transform.SetAsFirstSibling();
+      newText.GetComponent<RectTransform>().anchoredPosition =RectTransformUtility.WorldToScreenPoint(cam, position) / canvas.transform.localScale.x;
+   }
    
 }

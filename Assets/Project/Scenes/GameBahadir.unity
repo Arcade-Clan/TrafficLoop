@@ -5805,7 +5805,7 @@ MonoBehaviour:
     goldText: {fileID: 1517700366}
     levelText: {fileID: 1915973829}
     upgradePanel: {fileID: 401452681}
-    coverImage: {fileID: 1771555028}
+    coverImage: {fileID: 1906758491}
   - upgradeName: Size
     upgradeLevel: 0
     upgradeValue:
@@ -5818,7 +5818,7 @@ MonoBehaviour:
     goldText: {fileID: 1111138989}
     levelText: {fileID: 1175396127}
     upgradePanel: {fileID: 747313822}
-    coverImage: {fileID: 1906758491}
+    coverImage: {fileID: 1771555028}
   - upgradeName: Income
     upgradeLevel: 0
     upgradeValue:
@@ -6820,6 +6820,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 8045780469752215632, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1897629319}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b299400713d7c8409b221abfe170205, type: 3}
 --- !u!1001 &8326037907849701918

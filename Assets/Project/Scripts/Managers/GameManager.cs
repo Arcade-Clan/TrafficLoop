@@ -123,6 +123,7 @@ public class GameManager : MonoSingleton<GameManager>
                 upgrades[a].goldText.text = "" + upgrades[a].Cost();
                 upgrades[a].levelText.text = "LEVEL " + (upgrades[a].upgradeLevel + 1);
                 upgrades[a].coverImage.gameObject.SetActive(upgrades[a].Cost() >= gold);
+                upgrades[a].coverImage.transform.parent.GetComponent<Button>().enabled = upgrades[a].Cost() < gold;
             }
         }
     }
@@ -204,7 +205,7 @@ public class GameManager : MonoSingleton<GameManager>
         if (Input.GetKeyDown(KeyCode.R))
         {
             PlayerPrefs.DeleteAll();
-            Application.LoadLevel(0);
+            Application.LoadLevel(1);
         }
 
         if (Input.GetKeyDown(KeyCode.S))

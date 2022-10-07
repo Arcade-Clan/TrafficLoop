@@ -403,6 +403,7 @@ MonoBehaviour:
   trafficLight: {fileID: 0}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 0
 --- !u!114 &246250260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -625,6 +626,7 @@ MonoBehaviour:
   trafficLight: {fileID: 0}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 0
 --- !u!114 &247752469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -833,7 +835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roads: []
-  freeTraffic: 1
+  freeTraffic: 0
 --- !u!4 &276310389
 Transform:
   m_ObjectHideFlags: 0
@@ -2136,6 +2138,7 @@ MonoBehaviour:
   trafficLight: {fileID: 1266836950}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 1
 --- !u!114 &994043236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2354,6 +2357,7 @@ MonoBehaviour:
   trafficLight: {fileID: 1500304736}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 0
 --- !u!114 &1007930232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2587,6 +2591,7 @@ MonoBehaviour:
   trafficLight: {fileID: 0}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 0
 --- !u!114 &1061632397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2987,6 +2992,7 @@ MonoBehaviour:
   trafficLight: {fileID: 0}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 0
 --- !u!1 &1093926049
 GameObject:
   m_ObjectHideFlags: 0
@@ -3038,6 +3044,7 @@ MonoBehaviour:
   trafficLight: {fileID: 0}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 0
 --- !u!114 &1093926052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3422,6 +3429,7 @@ MonoBehaviour:
   trafficLight: {fileID: 0}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 0
 --- !u!114 &1166095659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3891,6 +3899,7 @@ MonoBehaviour:
   trafficLight: {fileID: 903061435}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 2
 --- !u!114 &1393266691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4657,6 +4666,7 @@ MonoBehaviour:
   trafficLight: {fileID: 1773595060}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 0
 --- !u!114 &1651670692 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7750611423768258099, guid: 2b299400713d7c8409b221abfe170205,
@@ -4906,6 +4916,7 @@ MonoBehaviour:
   trafficLight: {fileID: 0}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 0
 --- !u!114 &1664839244 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1982145769265918875, guid: 2b299400713d7c8409b221abfe170205,
@@ -5216,6 +5227,7 @@ MonoBehaviour:
   trafficLight: {fileID: 0}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 0
 --- !u!114 &1821556550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5603,6 +5615,7 @@ MonoBehaviour:
   trafficLight: {fileID: 0}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 0
 --- !u!114 &1864428483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5869,18 +5882,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: 0
-  carProduction: 0.5
+  carProduction: 5
   carPrefabs:
   - {fileID: 7098982642445039189, guid: 6e9056bfba70245f6abcd061075e2a8a, type: 3}
   - {fileID: 8311895967091944074, guid: 60c811a1db7d64ee28e6c674e957d038, type: 3}
   - {fileID: 5652619583543868578, guid: c50478a533d444a98a3c5e68bcad2550, type: 3}
   levels: []
-  slowStrength: 0.1
+  slowStrength: 1
   carSpeed: 6
-  simulationSpeed: 0
+  simulationSpeed: 1
   speedUpTimer: 0.5
   speedUpMultiplier: 2
-  rayDistance: 4
+  rayDistance: 3
   trafficController: {fileID: 0}
   upgrades:
   - upgradeName: Speed
@@ -6115,6 +6128,7 @@ MonoBehaviour:
   trafficLight: {fileID: 0}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 0
 --- !u!114 &1987555943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6341,6 +6355,7 @@ MonoBehaviour:
   trafficLight: {fileID: 0}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 0
 --- !u!114 &2008857093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6555,6 +6570,7 @@ MonoBehaviour:
   trafficLight: {fileID: 0}
   lightTimer: 5
   canPass: 0
+  trafficIndex: 0
 --- !u!114 &2026059260
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public class GameManager : MonoSingleton<GameManager>
     public float slowStrength = 0.1f;
     public float carSpeed;
     [ReadOnly]
-    public float simulationSpeed;
+    public float simulationSpeed =1;
     float speedUp = 1;
     public float speedUpTimer = 0.5f;
     public float speedUpMultiplier = 2f;

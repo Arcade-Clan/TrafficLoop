@@ -18,6 +18,7 @@ public class Path : MonoBehaviour
     public float lightTimer = 5f;
     [ReadOnly]
     public bool canPass;
+    public int trafficIndex;
     
     void Start()
     {

@@ -17,6 +17,11 @@ public class Car : MonoBehaviour
     Vector3 wheelRotation;
     public Path path;
     
+    void Start()
+    {
+        rayPointDistance = Vector3.Distance(transform.position, rayPoint.position);
+        StartCoroutine("ForwardCarTimer");
+    }
     
     public void MoveCar(TrafficController.RoadClass newRoad)
     {
@@ -25,20 +30,24 @@ public class Car : MonoBehaviour
         StartCoroutine("MoveRoutine");
     }
 
+    Car forwardCar;
+    
     IEnumerator MoveRoutine()
     {
         while (true)
         {
-            Car forwardCar = CheckRay();
+            forwardCar = CheckRay();
             if (place >= path.pathLength && !path.canPass)
                 currentSpeed = 0;
+            else if (forwardCar)
+                currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             else if (path.pathLength - place <= GameManager.Instance.rayDistance && !path.canPass)
                 currentSpeed = Mathf.Lerp(currentSpeed, GameManager.Instance.carSpeed * 0.3f, GameManager.Instance.slowStrength);
-            else if(forwardCar)
-                currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             else
                 currentSpeed = Mathf.Lerp(currentSpeed, GameManager.Instance.carSpeed, GameManager.Instance.slowStrength);
-            place += currentSpeed / 60;
+            Vector3 rotation = path.tween.PathGetPoint((place + currentSpeed / 60) / path.pathLength);
+            float angle = Vector3.Angle((rotation - transform.position).normalized, transform.forward);
+            place += (currentSpeed - Mathf.Min(angle/2f,currentSpeed/1.5f)) / 60;
             Vector3 newPosition = path.tween.PathGetPoint(place / path.pathLength);
             Rotate(newPosition);
             transform.position = newPosition;
@@ -60,21 +69,46 @@ public class Car : MonoBehaviour
         }
     }
 
+    public List<Car> ignoredCars;
+    
+    public IEnumerator ForwardCarTimer()
+    {
+        while (true)
+        {
+            if (!forwardCar || forwardCar.path==path)
+                yield return null;
+            yield return new WaitForSeconds(1f);
+            if (forwardCar && forwardCar.path != path)
+            {
+                if(!ignoredCars.Contains(forwardCar))
+                    ignoredCars.Add(forwardCar);
+            }
+        }
+
+    }
+
+    float rayPointDistance;
+    
     Car CheckRay()
     {
-
+        float ray = GameManager.Instance.rayDistance + rayPointDistance;
         for (int a = 1; a <= 10; a++)
         {
-            Vector3 startPosition = path.tween.PathGetPoint((place+1 + (GameManager.Instance.rayDistance * a -1) / 10f) / path.pathLength);
-            Vector3 endPosition = path.tween.PathGetPoint((place + 1 + GameManager.Instance.rayDistance * a / 10f) / path.pathLength);
-            Physics.Raycast(startPosition, endPosition - startPosition, out RaycastHit hit, GameManager.Instance.rayDistance,
-                LayerMask.GetMask("Car"));
+            Vector3 startPosition = path.tween.PathGetPoint((place + ray * (a - 1) / 10f) / path.pathLength);
+            Vector3 endPosition = path.tween.PathGetPoint((place + ray * a / 10f) / path.pathLength);
+            Physics.SphereCast(startPosition+Vector3.up, 0.5f, endPosition - startPosition, out RaycastHit hit, ray/10f, LayerMask.GetMask("Car"));
+            
             if (hit.transform)
             {
-                Debug.DrawLine(startPosition, endPosition, Color.red);
+                for (int b = 0; b < ignoredCars.Count; b++)
+                {
+                    if (ignoredCars[b] && hit.transform == ignoredCars[b].transform)
+                        return null;
+                }
+                Debug.DrawRay(startPosition + Vector3.up, endPosition - startPosition, Color.red);
                 return hit.transform.GetComponent<Car>();
             }
-            Debug.DrawLine(startPosition, endPosition, Color.green);
+            Debug.DrawRay(startPosition + Vector3.up, endPosition - startPosition, Color.green);
         }
         return null;
     }

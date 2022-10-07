@@ -53,12 +53,40 @@ public class TrafficController : MonoBehaviour
     IEnumerator GreenlightPathRoutine()
     {
         int pathIndex = 0;
+        bool checkForLights = false;
+        float timer = 0;
         while (true)
         {
-            pathIndex = (pathIndex + 1) % roads.Count;
-            roads[pathIndex].startPath.Pass();
-            yield return new WaitForSeconds(roads[pathIndex].startPath.lightTimer);
-            roads[pathIndex].startPath.Stop();
+            checkForLights = false;
+            for (int a = 0; a < roads.Count; a++)
+            {
+                if(roads[a].startPath.trafficIndex ==pathIndex)
+                {
+                    roads[a].startPath.Pass();
+                    timer = roads[a].startPath.lightTimer;
+                    checkForLights = true;
+                }
+                else
+                    roads[a].startPath.Stop();
+            }
+
+            if (!checkForLights)
+            {
+                pathIndex = 0;
+                for (int a = 0; a < roads.Count; a++)
+                {
+                    if (roads[a].startPath.trafficIndex == pathIndex)
+                    {
+                        roads[a].startPath.Pass();
+                        timer = roads[a].startPath.lightTimer;
+                    }
+                    else
+                        roads[a].startPath.Stop();
+                }
+            }
+
+            yield return new WaitForSeconds(timer);
+            pathIndex += 1;  
         }
     }
     

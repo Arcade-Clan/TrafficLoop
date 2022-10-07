@@ -15,8 +15,9 @@ public class UIManager : MonoSingleton<UIManager>
    public TextMeshProUGUI goldText;
    public TextMeshProUGUI carAmount;
    public TextMeshProUGUI carAmountPerMinute;
-
-
+   public TextMeshProUGUI incomePerMinute;
+   public Image trafficDensity;
+   
    private void Start()
    {
       texts[0].text = "LEVEL " + (PlayerPrefs.GetInt("Level") + 1);
@@ -37,6 +38,16 @@ public class UIManager : MonoSingleton<UIManager>
    {
       carAmount.text = "" + GameManager.Instance.trafficController.cars.Count;
       carAmountPerMinute.text = "" + GameManager.Instance.upgrades[0].Value();
+      incomePerMinute.text = "" + GameManager.Instance.upgrades[0].Value() * GameManager.Instance.upgrades[2].Value();
+      List<Car> cars = GameManager.Instance.trafficController.cars;
+      float density = 0;
+      for (int a = 0; a < cars.Count; a++)
+      {
+         if (cars[a].forwardCar)
+            density += 1;
+      }
+      if(cars.Count>0)
+         trafficDensity.fillAmount = Mathf.Lerp(trafficDensity.fillAmount, density / cars.Count,0.1f);
    }
    
    

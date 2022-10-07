@@ -30,7 +30,8 @@ public class Car : MonoBehaviour
         StartCoroutine("MoveRoutine");
     }
 
-    Car forwardCar;
+    [HideInInspector]
+    public Car forwardCar;
     
     IEnumerator MoveRoutine()
     {

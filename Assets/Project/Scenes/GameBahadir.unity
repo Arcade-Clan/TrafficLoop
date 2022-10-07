@@ -5793,7 +5793,7 @@ MonoBehaviour:
   rayDistance: 3
   trafficController: {fileID: 0}
   upgrades:
-  - upgradeName: Speed
+  - upgradeName: Car Amount
     upgradeLevel: 0
     upgradeValue:
     - 15
@@ -5802,10 +5802,10 @@ MonoBehaviour:
     - 30
     - 35
     upgradeCost: 640000002c010000e8030000b80b000088130000
-    goldText: {fileID: 1111138989}
-    levelText: {fileID: 1175396127}
-    upgradePanel: {fileID: 747313822}
-    coverImage: {fileID: 1906758491}
+    goldText: {fileID: 1517700366}
+    levelText: {fileID: 1915973829}
+    upgradePanel: {fileID: 401452681}
+    coverImage: {fileID: 1771555028}
   - upgradeName: Size
     upgradeLevel: 0
     upgradeValue:
@@ -5815,10 +5815,10 @@ MonoBehaviour:
     - 4
     - 5
     upgradeCost: 640000002c010000e8030000b80b000088130000
-    goldText: {fileID: 1517700366}
-    levelText: {fileID: 1915973829}
-    upgradePanel: {fileID: 401452681}
-    coverImage: {fileID: 1771555028}
+    goldText: {fileID: 1111138989}
+    levelText: {fileID: 1175396127}
+    upgradePanel: {fileID: 747313822}
+    coverImage: {fileID: 1906758491}
   - upgradeName: Income
     upgradeLevel: 0
     upgradeValue:
@@ -6745,6 +6745,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 694673509, guid: 2b299400713d7c8409b221abfe170205, type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1720970304180032552, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1897629319}
+    - target: {fileID: 5011611659847267057, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1897629319}
+    - target: {fileID: 5791503732254426950, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1897629319}
     - target: {fileID: 6519744099050329121, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_RootOrder

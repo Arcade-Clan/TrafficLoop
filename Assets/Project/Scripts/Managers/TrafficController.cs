@@ -94,20 +94,30 @@ public class TrafficController : MonoBehaviour
         while (true)
         {
             CreateCar();
-            yield return new WaitForSeconds(60f/GameManager.Instance.upgrades[0].Value());
+            yield return new WaitForSeconds(60f/ GameManager.Instance.upgrades[0].Value());
         }
     }
 
     void CreateCar()
     {
+        int percentage = Random.Range(0, 101);
+        int increment = 0;
+        int randomIndex = 0;
+        for (int a = 0; a < GameManager.Instance.cars.Length; a++)
+        {
+            if (percentage >= increment && percentage <= increment + GameManager.Instance.cars[a].carLevel)
+            {
+                randomIndex = a;
+                break;
+            }
+            increment += GameManager.Instance.cars[a].carLevel;
+        }
         RoadClass randomRoad = roads.GetRandom();
         Vector3 newPosition = randomRoad.startPath.tween.PathGetPoint(0);
-        Car newCar = Instantiate(GameManager.Instance.carPrefabs.GetRandom(), newPosition,
+        Car newCar = Instantiate(GameManager.Instance.cars[randomIndex].carPrefab, newPosition,
             Quaternion.LookRotation(randomRoad.startPath.tween.PathGetPoint(0.01f) - newPosition));
+        GameManager.Instance.cars[randomIndex].cars.Add(newCar);
         newCar.MoveCar(randomRoad);
-        cars.Add(newCar);
+        UIManager.Instance.UpdateEconomyUI();
     }
-
-    public List<Car> cars;
-
 }

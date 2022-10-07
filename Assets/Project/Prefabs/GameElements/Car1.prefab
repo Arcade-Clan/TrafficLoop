@@ -89,6 +89,7 @@ MonoBehaviour:
   - {fileID: 7100649273599755181}
   - {fileID: 7100649274318449787}
   path: {fileID: 0}
+  carIndex: 0
   forwardCar: {fileID: 0}
   ignoredCars: []
 --- !u!54 &5796438164445229631

@@ -13,8 +13,6 @@ public class GameManager : MonoSingleton<GameManager>
 {
 
     public int gold;
-    public float carProduction = 1f;
-    public Car[] carPrefabs;
     public List<Level> levels;
     public float slowStrength = 0.1f;
     public float carSpeed;
@@ -35,45 +33,57 @@ public class GameManager : MonoSingleton<GameManager>
     {
         public string upgradeName;
         public int upgradeLevel;
-        public float[] upgradeValue;
-        public int[] upgradeCost;
-        public TextMeshProUGUI goldText;
-        public TextMeshProUGUI levelText;
-        public GameObject upgradePanel;
-        public Image coverImage;
-        public int Cost() { return upgradeCost[upgradeLevel]; }
-        public float Value() { return upgradeValue[upgradeLevel]; }
-        public bool Max() { return upgradeValue.Length - 1 == upgradeLevel; }
+        public int maxLevel = -1;
+        public float baseValue;
+        public float increment;
+        public float expoRatio;
+        public float startValue;
+        public float incrementValue;
+        public int Cost(int value)
+        {
+            if (value == 0)
+                return Mathf.RoundToInt(baseValue + increment * upgradeLevel + upgradeLevel * ((upgradeLevel + 1) / 2) * expoRatio);
+            return Mathf.RoundToInt(baseValue + increment * upgradeLevel * expoRatio);
+        }
+        public float Value() { return startValue + incrementValue * upgradeLevel; }
+        public bool Max() { return maxLevel == upgradeLevel; }
     }
     public UpgradeClass[] upgrades;
 
-
-/*
     [Serializable]
-    public class SoundClass
+    public class CarClass
     {
-
-        public AudioClip sound;
-        [Range(0f, 1f)] public float volume = 1;
-
+        public string carName;
+        public Car carPrefab;
+        public int carLevel;
+        public int carValue;
+        public List<Car> cars =new List<Car>();
     }
+    public CarClass[] cars;
 
-    public SoundClass[] sounds;
-
-    public void PlaySound(int value)
+    [Serializable]
+    public class MergeClass
     {
-        if (sounds.Length > 0)
-            GetComponent<AudioSource>().PlayOneShot(sounds[value].sound, sounds[value].volume);
+        public string mergeName;
+        public int mergeLevel;
+        public float baseValue;
+        public float increment;
+        public float expoRatio;
+        public int Cost() { return Mathf.RoundToInt(baseValue + increment * mergeLevel + mergeLevel * ((mergeLevel + 1) / 2) * expoRatio); }
     }
-    */
-
-    private void Awake()
+    public MergeClass merge;
+    
+    
+    void Awake()
     {
         Application.targetFrameRate = 60;
         SetObjects();
         GetSaves();
+        CalculateMerge();
     }
 
+    
+    
     void SetObjects()
     {
         if (!FindObjectOfType<Level>())
@@ -88,14 +98,31 @@ public class GameManager : MonoSingleton<GameManager>
         UIManager.Instance.goldText.text = "" + gold;
         for (int a = 0; a < upgrades.Length; a++)
             upgrades[a].upgradeLevel = PlayerPrefs.GetInt(upgrades[a].upgradeName);
-        UpdateEconomy();
+        merge.mergeLevel = PlayerPrefs.GetInt(merge.mergeName);
+        UIManager.Instance.UpdateEconomyUI();
     }
 
+    void CalculateMerge()
+    {
+        cars[0].carLevel = 100;
 
-    private void Start()
+        for (int a = 1; a < cars.Length; a++)
+        {
+            cars[a].carLevel = 0;
+        }
+        int carIndex = 0;
+        for (int b = 0; b < merge.mergeLevel; b++)
+        {
+            cars[carIndex].carLevel -= 1;
+            cars[carIndex+1].carLevel += 1;
+            if (cars[carIndex].carLevel <= 0)
+                carIndex += 1;
+        }
+    }
+    
+    void Start()
     {
         StartGame();
-        RefreshStats();
     }
 
     public void StartGame()
@@ -108,32 +135,8 @@ public class GameManager : MonoSingleton<GameManager>
         InputPanel.Instance.OnPointerDownEvent.AddListener(SpeedUp);
         trafficController.StartCoroutine("StartTrafficRoutine");
     }
-    
-    void UpdateEconomy()
-    {
-        for (int a = 0; a < upgrades.Length; a++)
-        {
-            if (upgrades[a].Max())
-            {
-                upgrades[a].upgradePanel.Hide();
-                upgrades[a].coverImage.Hide();
-            }
-            else
-            {
-                upgrades[a].goldText.text = "" + upgrades[a].Cost();
-                upgrades[a].levelText.text = "LEVEL " + (upgrades[a].upgradeLevel + 1);
-                upgrades[a].coverImage.gameObject.SetActive(upgrades[a].Cost() >= gold);
-                upgrades[a].coverImage.transform.parent.GetComponent<Button>().enabled = upgrades[a].Cost() < gold;
-            }
-        }
-    }
 
-
-
-    public void RefreshStats()
-    { 
-        //carSpeed = upgrades[0].Value();
-    }
+#region SpeedUp
 
     public void SpeedUp()
     {
@@ -159,38 +162,9 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
     
+#endregion
 
-
-
-    public void Win()
-    {
-        //Analytics.Instance.SendLevelComplete((PlayerPrefs.GetInt("Level") + 1));
-        UIManager.Instance.panels[1].Show();
-        PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
-    }
-
-    public void IncreaseMoney(Car car,Vector3 position)
-    {
-        int value = car.value * (int)upgrades[2].Value();
-        gold += Mathf.RoundToInt(value);
-        PlayerPrefs.SetInt("Gold", gold);
-        UIManager.Instance.goldText.text = "" + gold;
-        UIManager.Instance.CreateText(value, position);
-        UpdateEconomy();
-    }
-
-    public void IncreaseStat(int value)
-    {
-        //PlaySound(1);
-        Taptic.Medium();
-        gold -= upgrades[value].Cost();
-        PlayerPrefs.SetInt("Gold", gold);
-        UIManager.Instance.goldText.text = "" + gold;
-        upgrades[value].upgradeLevel += 1;
-        PlayerPrefs.SetInt(upgrades[value].upgradeName, upgrades[value].upgradeLevel);
-        UpdateEconomy();
-        RefreshStats();
-    }
+#region HelperUpdate
 
     void Update()
     {
@@ -199,7 +173,7 @@ public class GameManager : MonoSingleton<GameManager>
             gold += 1000;
             PlayerPrefs.SetInt("Gold", gold);
             UIManager.Instance.goldText.text = "" + gold;
-            UpdateEconomy();
+            UIManager.Instance.UpdateEconomyUI();
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -213,4 +187,110 @@ public class GameManager : MonoSingleton<GameManager>
         else if (Input.GetKeyUp(KeyCode.S))
             simulationSpeed = 1;
     }
+
+#endregion
+
+#region Sounds
+
+    /*
+      [Serializable]
+      public class SoundClass
+      {
+  
+          public AudioClip sound;
+          [Range(0f, 1f)] public float volume = 1;
+  
+      }
+  
+      public SoundClass[] sounds;
+  
+      public void PlaySound(int value)
+      {
+          if (sounds.Length > 0)
+              GetComponent<AudioSource>().PlayOneShot(sounds[value].sound, sounds[value].volume);
+      }
+      */  
+
+#endregion
+    
+    public void Win()
+    {
+        //Analytics.Instance.SendLevelComplete((PlayerPrefs.GetInt("Level") + 1));
+        UIManager.Instance.panels[1].Show();
+        PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
+    }
+
+    public void IncreaseMoney(Car car,Vector3 position)
+    {
+        int value = cars[car.carIndex].carValue * (int)upgrades[2].Value();
+        gold += Mathf.RoundToInt(value);
+        PlayerPrefs.SetInt("Gold", gold);
+        UIManager.Instance.goldText.text = "" + gold;
+        UIManager.Instance.CreateText(value, position);
+        UIManager.Instance.UpdateEconomyUI();
+    }
+
+    public void IncreaseCarCount()
+    {
+        //PlaySound(1);
+        Taptic.Medium();
+        gold -= upgrades[0].Cost(0);
+        PlayerPrefs.SetInt("Gold", gold);
+        UIManager.Instance.goldText.text = "" + gold;
+        upgrades[0].upgradeLevel += 1;
+        PlayerPrefs.SetInt(upgrades[0].upgradeName, upgrades[0].upgradeLevel);
+        UIManager.Instance.UpdateEconomyUI();
+    }
+
+    public void IncreaseSize()
+    {
+        //PlaySound(1);
+        Taptic.Medium();
+        gold -= upgrades[1].Cost(1);
+        PlayerPrefs.SetInt("Gold", gold);
+        UIManager.Instance.goldText.text = "" + gold;
+        upgrades[1].upgradeLevel += 1;
+        PlayerPrefs.SetInt(upgrades[1].upgradeName, upgrades[1].upgradeLevel);
+        UIManager.Instance.UpdateEconomyUI();
+        //ChangeRoads();
+    }
+
+    public void IncreaseIncome()
+    {
+        //PlaySound(1);
+        Taptic.Medium();
+        gold -= upgrades[2].Cost(2);
+        PlayerPrefs.SetInt("Gold", gold);
+        UIManager.Instance.goldText.text = "" + gold;
+        upgrades[2].upgradeLevel += 1;
+        PlayerPrefs.SetInt(upgrades[2].upgradeName, upgrades[2].upgradeLevel);
+        UIManager.Instance.UpdateEconomyUI();
+
+    }
+
+    public void Merge()
+    {
+        //PlaySound(1);
+        Taptic.Medium();
+        gold -= merge.Cost();
+        PlayerPrefs.SetInt("Gold", gold);
+        UIManager.Instance.goldText.text = "" + gold;
+        merge.mergeLevel += 1;
+        PlayerPrefs.SetInt(merge.mergeName, merge.mergeLevel);
+        CalculateMerge();
+        UIManager.Instance.UpdateEconomyUI();
+    }
+
+    public bool CanMerge()
+    {
+        for (int a = 0; a < cars.Length-1; a++)
+        {
+            if (cars[a].cars.Count >= 3)
+                return true;
+        }
+
+        return false;
+    }
+    
+   
 }

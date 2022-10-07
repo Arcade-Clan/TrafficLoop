@@ -1,11 +1,9 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using UnityExtensions;
-using Random = UnityEngine.Random;
+
 
 public class Car : MonoBehaviour
 {
@@ -16,7 +14,7 @@ public class Car : MonoBehaviour
     public Transform[] wheels;
     Vector3 wheelRotation;
     public Path path;
-    public int value = 1;
+    public int carIndex = 1;
     
     
     void Start()
@@ -58,7 +56,8 @@ public class Car : MonoBehaviour
             {
                 if (path.endPath)
                 {
-                    GameManager.Instance.trafficController.cars.Remove(this);
+                    GameManager.Instance.cars[carIndex].cars.Remove(this);
+                    UIManager.Instance.UpdateEconomyUI();
                     Destroy(gameObject);
                     yield break;
                 }

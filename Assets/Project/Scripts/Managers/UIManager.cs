@@ -20,7 +20,30 @@ public class UIManager : MonoSingleton<UIManager>
    public TextMeshProUGUI counterText;
    Canvas canvas;
    Camera cam;
-   private void Start()
+
+   [Serializable]
+   public class UpgradeClass
+   {
+      public TextMeshProUGUI goldText;
+      public TextMeshProUGUI levelText;
+      public GameObject upgradePanel;
+      public Image coverImage;
+   }
+   public UpgradeClass[] upgrades;
+
+   [Serializable]
+   public class MergeClass
+   {
+      public TextMeshProUGUI goldText;
+      public GameObject upgradePanel;
+      public Image coverImage;
+   }
+   public MergeClass merge;
+
+
+   
+
+   void Start()
    {
       cam = FindObjectOfType<Camera>();
       canvas = FindObjectOfType<Canvas>();
@@ -32,18 +55,23 @@ public class UIManager : MonoSingleton<UIManager>
    public void NextButton()
    {
       PlayerPrefs.SetInt("Gold", 0);
-      PlayerPrefs.SetInt("Speed", 0);
-      PlayerPrefs.SetInt("Size", 0);
-      PlayerPrefs.SetInt("Income", 0);
+      PlayerPrefs.SetInt(GameManager.Instance.upgrades[0].upgradeName, 0);
+      PlayerPrefs.SetInt(GameManager.Instance.upgrades[1].upgradeName, 0);
+      PlayerPrefs.SetInt(GameManager.Instance.upgrades[2].upgradeName, 0);
+      PlayerPrefs.SetInt(GameManager.Instance.merge.mergeName, 0);
       SceneManager.LoadScene(1);
    }
 
    void Update()
    {
-      carAmount.text = "" + GameManager.Instance.trafficController.cars.Count;
+      List<Car> cars = new ();
+      for (int a = 0; a < GameManager.Instance.cars.Length; a++)
+      {
+         cars.AddRange(GameManager.Instance.cars[a].cars);
+      }
+      carAmount.text = "" + cars.Count;
       carAmountPerMinute.text = "" + GameManager.Instance.upgrades[0].Value();
       incomePerMinute.text = "" + GameManager.Instance.upgrades[0].Value() * GameManager.Instance.upgrades[2].Value();
-      List<Car> cars = GameManager.Instance.trafficController.cars;
       float density = 0;
       for (int a = 0; a < cars.Count; a++)
       {
@@ -62,5 +90,38 @@ public class UIManager : MonoSingleton<UIManager>
       newText.transform.SetAsFirstSibling();
       newText.GetComponent<RectTransform>().anchoredPosition =RectTransformUtility.WorldToScreenPoint(cam, position) / canvas.transform.localScale.x;
    }
-   
+
+
+   public void UpdateEconomyUI()
+   {
+      for (int a = 0; a < upgrades.Length; a++)
+      {
+         if (GameManager.Instance.upgrades[a].Max())
+         {
+            upgrades[a].upgradePanel.Hide();
+         }
+         else
+         {
+            float cost = GameManager.Instance.upgrades[a].Cost(a);
+            upgrades[a].levelText.text = "LEVEL " + (GameManager.Instance.upgrades[a].upgradeLevel + 1);
+            upgrades[a].goldText.text = "" + cost;
+            upgrades[a].coverImage.gameObject.SetActive(cost >= GameManager.Instance.gold);
+            upgrades[a].coverImage.transform.parent.GetComponent<Button>().enabled =
+               cost < GameManager.Instance.gold;
+         }
+      }
+
+      if (!GameManager.Instance.CanMerge())
+      {
+         merge.upgradePanel.Hide();
+      }
+      else
+      {
+         merge.upgradePanel.Show();
+         float cost = GameManager.Instance.merge.Cost();
+         merge.goldText.text = "" + cost;
+         merge.coverImage.gameObject.SetActive(cost >= GameManager.Instance.gold);
+         merge.coverImage.transform.parent.GetComponent<Button>().enabled = cost < GameManager.Instance.gold;
+      }
+   }
 }

@@ -1105,8 +1105,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: IncreaseStat
-        m_Mode: 3
+        m_MethodName: IncreaseCarCount
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1380,8 +1380,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: IncreaseStat
-        m_Mode: 3
+        m_MethodName: IncreaseIncome
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2817,8 +2817,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: IncreaseStat
-        m_Mode: 3
+        m_MethodName: IncreaseSize
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4388,6 +4388,23 @@ MonoBehaviour:
   trafficDensity: {fileID: 694673509}
   counterText: {fileID: 5498535327799098591, guid: 6f6d8b7657c2b44b48edc6f9dbd22dc7,
     type: 3}
+  upgrades:
+  - goldText: {fileID: 1982145769499954550}
+    levelText: {fileID: 1982145768285931675}
+    upgradePanel: {fileID: 1982145768267123008}
+    coverImage: {fileID: 1008809429}
+  - goldText: {fileID: 7750611425735860076}
+    levelText: {fileID: 7750611423972699165}
+    upgradePanel: {fileID: 1982145769894618547}
+    coverImage: {fileID: 857237261}
+  - goldText: {fileID: 7750611425766021937}
+    levelText: {fileID: 7750611424880549458}
+    upgradePanel: {fileID: 1982145768389213655}
+    coverImage: {fileID: 886051736}
+  merge:
+    goldText: {fileID: 371704802431740809}
+    upgradePanel: {fileID: 7472393133979681761}
+    coverImage: {fileID: 500261436797412363}
 --- !u!1 &6519744099083867231
 GameObject:
   m_ObjectHideFlags: 0
@@ -4864,8 +4881,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: IncreaseStat
-        m_Mode: 3
+        m_MethodName: Merge
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

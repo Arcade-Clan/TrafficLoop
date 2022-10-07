@@ -45,6 +45,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7098982642445039189, guid: 6e9056bfba70245f6abcd061075e2a8a,
         type: 3}
+      propertyPath: carIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098982642445039189, guid: 6e9056bfba70245f6abcd061075e2a8a,
+        type: 3}
       propertyPath: rayPoint
       value: 
       objectReference: {fileID: 8724066629667439117}

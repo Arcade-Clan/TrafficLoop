@@ -835,7 +835,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roads: []
-  cars: []
 --- !u!4 &276310389
 Transform:
   m_ObjectHideFlags: 0
@@ -1000,12 +999,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7775769785762902462, guid: 4a6263f6b458e4e29ad477e7da61b703,
     type: 3}
   m_PrefabInstance: {fileID: 288361708}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &401452681 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1982145768267123008, guid: 2b299400713d7c8409b221abfe170205,
-    type: 3}
-  m_PrefabInstance: {fileID: 6231647502159214437}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &421815481
 PrefabInstance:
@@ -1457,18 +1450,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 708376272}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &717806951 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 886051736, guid: 2b299400713d7c8409b221abfe170205,
-    type: 3}
-  m_PrefabInstance: {fileID: 6231647502159214437}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &720581648
 GameObject:
   m_ObjectHideFlags: 0
@@ -1501,12 +1482,6 @@ Transform:
   m_Father: {fileID: 139372434}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &747313822 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1982145769894618547, guid: 2b299400713d7c8409b221abfe170205,
-    type: 3}
-  m_PrefabInstance: {fileID: 6231647502159214437}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &752706456
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1836,12 +1811,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7775769785762902462, guid: 4a6263f6b458e4e29ad477e7da61b703,
     type: 3}
   m_PrefabInstance: {fileID: 835446373}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &843050802 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1982145768389213655, guid: 2b299400713d7c8409b221abfe170205,
-    type: 3}
-  m_PrefabInstance: {fileID: 6231647502159214437}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &892747700
 PrefabInstance:
@@ -3207,18 +3176,6 @@ MonoBehaviour:
   lastSrcRotation: {x: 0, y: 0, z: 0, w: 1}
   wpsDropdown: 1
   dropToFloorOffset: 0
---- !u!114 &1111138989 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7750611425735860076, guid: 2b299400713d7c8409b221abfe170205,
-    type: 3}
-  m_PrefabInstance: {fileID: 6231647502159214437}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1125434630
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3537,18 +3494,6 @@ MonoBehaviour:
   lastSrcRotation: {x: 0, y: 0, z: 0, w: 1}
   wpsDropdown: 1
   dropToFloorOffset: 0
---- !u!114 &1175396127 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7750611423972699165, guid: 2b299400713d7c8409b221abfe170205,
-    type: 3}
-  m_PrefabInstance: {fileID: 6231647502159214437}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1266836949
 GameObject:
   m_ObjectHideFlags: 0
@@ -4238,30 +4183,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1516263680}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1517700366 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1982145769499954550, guid: 2b299400713d7c8409b221abfe170205,
-    type: 3}
-  m_PrefabInstance: {fileID: 6231647502159214437}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1538172505 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7750611425766021937, guid: 2b299400713d7c8409b221abfe170205,
-    type: 3}
-  m_PrefabInstance: {fileID: 6231647502159214437}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1571684702
 GameObject:
   m_ObjectHideFlags: 0
@@ -4976,18 +4897,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1723146851}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1771555028 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 857237261, guid: 2b299400713d7c8409b221abfe170205,
-    type: 3}
-  m_PrefabInstance: {fileID: 6231647502159214437}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1773595059
 GameObject:
   m_ObjectHideFlags: 0
@@ -5778,11 +5687,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: 0
-  carProduction: 5
-  carPrefabs:
-  - {fileID: 7098982642445039189, guid: 6e9056bfba70245f6abcd061075e2a8a, type: 3}
-  - {fileID: 8311895967091944074, guid: 60c811a1db7d64ee28e6c674e957d038, type: 3}
-  - {fileID: 5652619583543868578, guid: c50478a533d444a98a3c5e68bcad2550, type: 3}
   levels: []
   slowStrength: 1
   carSpeed: 6
@@ -5795,43 +5699,53 @@ MonoBehaviour:
   upgrades:
   - upgradeName: Car Amount
     upgradeLevel: 0
-    upgradeValue:
-    - 15
-    - 20
-    - 25
-    - 30
-    - 60
-    upgradeCost: 640000002c010000e8030000b80b000088130000
-    goldText: {fileID: 1517700366}
-    levelText: {fileID: 1915973829}
-    upgradePanel: {fileID: 401452681}
-    coverImage: {fileID: 1906758491}
+    maxLevel: -1
+    baseValue: 40
+    increment: 20
+    expoRatio: 0.25
+    startValue: 10
+    incrementValue: 1
   - upgradeName: Size
     upgradeLevel: 0
-    upgradeValue:
-    - 1
-    - 2
-    - 3
-    - 4
-    - 5
-    upgradeCost: 640000002c010000e8030000b80b000088130000
-    goldText: {fileID: 1111138989}
-    levelText: {fileID: 1175396127}
-    upgradePanel: {fileID: 747313822}
-    coverImage: {fileID: 1771555028}
+    maxLevel: 10
+    baseValue: 200
+    increment: 125
+    expoRatio: 1.5
+    startValue: 0
+    incrementValue: 1
   - upgradeName: Income
     upgradeLevel: 0
-    upgradeValue:
-    - 1
-    - 2
-    - 3
-    - 4
-    - 5
-    upgradeCost: 640000002c010000e8030000b80b000088130000
-    goldText: {fileID: 1538172505}
-    levelText: {fileID: 2000676641}
-    upgradePanel: {fileID: 843050802}
-    coverImage: {fileID: 717806951}
+    maxLevel: -1
+    baseValue: 80
+    increment: 60
+    expoRatio: 30
+    startValue: 5
+    incrementValue: 5
+  cars:
+  - carName: Car1
+    carPrefab: {fileID: 7098982642445039189, guid: 6e9056bfba70245f6abcd061075e2a8a,
+      type: 3}
+    carLevel: 100
+    carValue: 1
+    cars: []
+  - carName: Car2
+    carPrefab: {fileID: 8311895967091944074, guid: 60c811a1db7d64ee28e6c674e957d038,
+      type: 3}
+    carLevel: 0
+    carValue: 5
+    cars: []
+  - carName: Car3
+    carPrefab: {fileID: 5652619583543868578, guid: c50478a533d444a98a3c5e68bcad2550,
+      type: 3}
+    carLevel: 0
+    carValue: 15
+    cars: []
+  merge:
+    mergeName: Merge
+    mergeLevel: 0
+    baseValue: 200
+    increment: 125
+    expoRatio: 1.5
 --- !u!114 &1897629320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5842,30 +5756,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 32bacf8906c5f4af293505dbf34de298, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1906758491 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1008809429, guid: 2b299400713d7c8409b221abfe170205,
-    type: 3}
-  m_PrefabInstance: {fileID: 6231647502159214437}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1915973829 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1982145768285931675, guid: 2b299400713d7c8409b221abfe170205,
-    type: 3}
-  m_PrefabInstance: {fileID: 6231647502159214437}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1969767014
@@ -6189,18 +6079,6 @@ MonoBehaviour:
   lastSrcRotation: {x: 0, y: 0, z: 0, w: 1}
   wpsDropdown: 1
   dropToFloorOffset: 0
---- !u!114 &2000676641 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7750611424880549458, guid: 2b299400713d7c8409b221abfe170205,
-    type: 3}
-  m_PrefabInstance: {fileID: 6231647502159214437}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2008857090
 GameObject:
   m_ObjectHideFlags: 0

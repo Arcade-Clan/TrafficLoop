@@ -55,6 +55,7 @@ public class Car : MonoBehaviour
             {
                 if (path.endPath)
                 {
+                    GameManager.Instance.trafficController.cars.Remove(this);
                     Destroy(gameObject);
                     yield break;
                 }

@@ -95,7 +95,7 @@ public class TrafficController : MonoBehaviour
         while (true)
         {
             CreateCar();
-            yield return new WaitForSeconds(GameManager.Instance.carProduction);
+            yield return new WaitForSeconds(60f/GameManager.Instance.upgrades[0].Value());
         }
     }
 
@@ -106,5 +106,9 @@ public class TrafficController : MonoBehaviour
         Car newCar = Instantiate(GameManager.Instance.carPrefabs.GetRandom(), newPosition,
             Quaternion.LookRotation(randomRoad.startPath.tween.PathGetPoint(0.01f) - newPosition));
         newCar.MoveCar(randomRoad);
+        cars.Add(newCar);
     }
+
+    public List<Car> cars;
+
 }

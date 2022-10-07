@@ -13,6 +13,9 @@ public class UIManager : MonoSingleton<UIManager>
    public List<GameObject> panels;
    public List<TextMeshProUGUI> texts;
    public TextMeshProUGUI goldText;
+   public TextMeshProUGUI carAmount;
+   public TextMeshProUGUI carAmountPerMinute;
+
 
    private void Start()
    {
@@ -29,5 +32,12 @@ public class UIManager : MonoSingleton<UIManager>
       PlayerPrefs.SetInt("Income", 0);
       SceneManager.LoadScene(1);
    }
+
+   void Update()
+   {
+      carAmount.text = "" + GameManager.Instance.trafficController.cars.Count;
+      carAmountPerMinute.text = "" + GameManager.Instance.upgrades[0].Value();
+   }
+   
    
 }

@@ -15,6 +15,7 @@ public class GameManager : MonoSingleton<GameManager>
     public int gold;
     public List<Level> levels;
     public float slowStrength = 0.1f;
+    public float rotationSlowDownStrength = 5;
     public float carSpeed;
     [ReadOnly]
     public float simulationSpeed =1;

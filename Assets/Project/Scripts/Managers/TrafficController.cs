@@ -10,13 +10,8 @@ using Random = UnityEngine.Random;
 public class TrafficController : MonoBehaviour
 {
 
-    [Serializable]
-    public class RoadClass
-    {
-        public Path startPath;
-        public List<Path> followPaths;
-    }
-    public List <RoadClass> roads = new ();
+    public List<Path> paths;
+
 
     void Awake()
     {
@@ -25,15 +20,12 @@ public class TrafficController : MonoBehaviour
 
     void AddRoads()
     {
-        GameObject[] startPaths = GameObject.FindGameObjectsWithTag("StartPath");
-        for (int a = 0; a < startPaths.Length; a++)
+        GameObject[] newPaths = GameObject.FindGameObjectsWithTag("StartPath");
+        for (int a = 0; a < newPaths.Length; a++)
         {
-            roads.Add(new RoadClass());
-            RoadClass currentRoad = roads.Last();
-            currentRoad.startPath = startPaths[a].GetComponent<Path>();
-            currentRoad.followPaths = currentRoad.startPath.GetComponentsInChildren<Path>().ToList();
-            currentRoad.followPaths.Remove(currentRoad.startPath);
+            paths.Add(newPaths[a].GetComponent<Path>());
         }
+
     }
     
     IEnumerator StartTrafficRoutine()
@@ -42,8 +34,8 @@ public class TrafficController : MonoBehaviour
         StartCoroutine("CreateCarRoutine");
         if(GameManager.Instance.freeTraffic)
         {
-            foreach (RoadClass t in roads)
-                t.startPath.Pass();
+            foreach (Path t in paths)
+                t.Pass();
         }
         else
             StartCoroutine("GreenlightPathRoutine");
@@ -57,30 +49,30 @@ public class TrafficController : MonoBehaviour
         while (true)
         {
             checkForLights = false;
-            for (int a = 0; a < roads.Count; a++)
+            for (int a = 0; a < paths.Count; a++)
             {
-                if(roads[a].startPath.trafficIndex ==pathIndex)
+                if(paths[a].trafficIndex ==pathIndex)
                 {
-                    roads[a].startPath.Pass();
-                    timer = roads[a].startPath.lightTimer;
+                    paths[a].Pass();
+                    timer = paths[a].lightTimer;
                     checkForLights = true;
                 }
                 else
-                    roads[a].startPath.Stop();
+                    paths[a].Stop();
             }
 
             if (!checkForLights)
             {
                 pathIndex = 0;
-                for (int a = 0; a < roads.Count; a++)
+                for (int a = 0; a < paths.Count; a++)
                 {
-                    if (roads[a].startPath.trafficIndex == pathIndex)
+                    if (paths[a].trafficIndex == pathIndex)
                     {
-                        roads[a].startPath.Pass();
-                        timer = roads[a].startPath.lightTimer;
+                        paths[a].Pass();
+                        timer = paths[a].lightTimer;
                     }
                     else
-                        roads[a].startPath.Stop();
+                        paths[a].Stop();
                 }
             }
 
@@ -112,12 +104,12 @@ public class TrafficController : MonoBehaviour
             }
             increment += GameManager.Instance.cars[a].carLevel;
         }
-        RoadClass randomRoad = roads.GetRandom();
-        Vector3 newPosition = randomRoad.startPath.tween.PathGetPoint(0);
+        Path randomPath = paths.GetRandom();
+        Vector3 newPosition = randomPath.tween.PathGetPoint(0);
         Car newCar = Instantiate(GameManager.Instance.cars[randomIndex].carPrefab, newPosition,
-            Quaternion.LookRotation(randomRoad.startPath.tween.PathGetPoint(0.01f) - newPosition));
+            Quaternion.LookRotation(randomPath.tween.PathGetPoint(0.01f) - newPosition));
         GameManager.Instance.cars[randomIndex].cars.Add(newCar);
-        newCar.MoveCar(randomRoad);
+        newCar.MoveCar(randomPath);
         UIManager.Instance.UpdateEconomyUI();
     }
 }

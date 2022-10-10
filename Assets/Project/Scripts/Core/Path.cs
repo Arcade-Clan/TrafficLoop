@@ -13,12 +13,13 @@ public class Path : MonoBehaviour
     public float pathLength;
     [HideInInspector]
     public Tween tween;
-    public bool endPath;
     public SpriteRenderer trafficLight;
     public float lightTimer = 5f;
     [ReadOnly]
     public bool canPass;
     public int trafficIndex;
+    public float stopPosition = 10;
+    
     
     void Start()
     {

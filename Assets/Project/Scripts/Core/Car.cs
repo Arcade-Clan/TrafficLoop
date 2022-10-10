@@ -9,13 +9,11 @@ public class Car : MonoBehaviour
 {
     public float place;
     public float currentSpeed = 1;
-    TrafficController.RoadClass road;
+    Path path;
     public Transform rayPoint;
     public Transform[] wheels;
     Vector3 wheelRotation;
-    public Path path;
     public int carIndex = 1;
-    
     
     void Start()
     {
@@ -23,10 +21,9 @@ public class Car : MonoBehaviour
         StartCoroutine("ForwardCarTimer");
     }
     
-    public void MoveCar(TrafficController.RoadClass newRoad)
+    public void MoveCar(Path newPath)
     {
-        road = newRoad;
-        path = newRoad.startPath;
+        path = newPath;
         StartCoroutine("MoveRoutine");
     }
 
@@ -38,34 +35,27 @@ public class Car : MonoBehaviour
         while (true)
         {
             forwardCar = CheckRay();
-            if (place >= path.pathLength && !path.canPass)
-                currentSpeed = 0;
-            else if (forwardCar)
+            if (forwardCar)
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
-            else if (path.pathLength - place <= GameManager.Instance.rayDistance && !path.canPass)
-                currentSpeed = Mathf.Lerp(currentSpeed, GameManager.Instance.carSpeed * 0.3f, GameManager.Instance.slowStrength);
+            else if (!path.canPass && path.stopPosition >= place && path.stopPosition - place <= GameManager.Instance.rayDistance)
+                currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             else
                 currentSpeed = Mathf.Lerp(currentSpeed, GameManager.Instance.carSpeed, GameManager.Instance.slowStrength);
+            
+            //Slow Down
             Vector3 rotation = path.tween.PathGetPoint((place + currentSpeed / 60) / path.pathLength);
             float angle = Vector3.Angle((rotation - transform.position).normalized, transform.forward);
-            place += (currentSpeed - Mathf.Min(angle/2f,currentSpeed/1.5f)) / 60;
+            //
+            place += (currentSpeed - angle * GameManager.Instance.rotationSlowDownStrength /10f) / 60;
             Vector3 newPosition = path.tween.PathGetPoint(place / path.pathLength);
             Rotate(newPosition);
             transform.position = newPosition;
             if (place>=path.pathLength)
             {
-                if (path.endPath)
-                {
-                    GameManager.Instance.cars[carIndex].cars.Remove(this);
+                GameManager.Instance.cars[carIndex].cars.Remove(this);
                     UIManager.Instance.UpdateEconomyUI();
                     Destroy(gameObject);
                     yield break;
-                }
-                if(path.canPass)
-                {
-                    place = 0;
-                    path = road.followPaths.GetRandom();
-                }
             }
 
             yield return new WaitForFixedUpdate();

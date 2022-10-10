@@ -17,14 +17,14 @@ public class Gate : MonoBehaviour
     {
         GameManager.Instance.IncreaseMoney(other.transform.parent.GetComponent<Car>(),transform.position+Vector3.up);
         DOTween.Kill(model);
-        model.DORotate(new Vector3(0,180,0), openTime).SetEase(gateOpenEase);
+        model.DOLocalRotate(new Vector3(0,180,0), openTime).SetEase(gateOpenEase);
     }
 
     void OnTriggerExit(Collider other)
     {
         GameManager.Instance.IncreaseMoney(other.transform.parent.GetComponent<Car>(), transform.position + Vector3.up);
         DOTween.Kill(model);
-        model.DORotate(new Vector3(0, 90, 0), closeTime).SetEase(gateCloseEase);
+        model.DOLocalRotate(new Vector3(0, 90, 0), closeTime).SetEase(gateCloseEase);
     }
     
 }

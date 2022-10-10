@@ -5695,7 +5695,7 @@ MonoBehaviour:
   speedUpMultiplier: 2
   rayDistance: 3
   trafficController: {fileID: 0}
-  freeTraffic: 1
+  freeTraffic: 0
   upgrades:
   - upgradeName: Car Amount
     upgradeLevel: 0
@@ -6705,72 +6705,3 @@ PrefabInstance:
       objectReference: {fileID: 1897629319}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b299400713d7c8409b221abfe170205, type: 3}
---- !u!1001 &8326037907849701918
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 8.31
-      objectReference: {fileID: 0}
-    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.225
-      objectReference: {fileID: 0}
-    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8326037909054375434, guid: 5f05ced2eca0e4c20aa32b866652168f,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8326037909054375436, guid: 5f05ced2eca0e4c20aa32b866652168f,
-        type: 3}
-      propertyPath: m_Name
-      value: Gate
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 5f05ced2eca0e4c20aa32b866652168f, type: 3}

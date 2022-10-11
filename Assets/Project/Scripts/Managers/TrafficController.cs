@@ -10,74 +10,60 @@ using Random = UnityEngine.Random;
 public class TrafficController : MonoBehaviour
 {
 
-    public List<Path> paths;
+    public Path[] paths;
+    public TrafficLight[] trafficLights;
 
-
-    void Awake()
+    
+    void Start()
     {
-        AddRoads();
-    }
-
-    void AddRoads()
-    {
-        GameObject[] newPaths = GameObject.FindGameObjectsWithTag("StartPath");
-        for (int a = 0; a < newPaths.Length; a++)
-        {
-            paths.Add(newPaths[a].GetComponent<Path>());
-        }
-
+        trafficLights = FindObjectsOfType<TrafficLight>();
+        paths = FindObjectsOfType<Path>();
     }
     
     IEnumerator StartTrafficRoutine()
     {
         yield return null;
         StartCoroutine("CreateCarRoutine");
-        if(GameManager.Instance.freeTraffic)
-        {
-            foreach (Path t in paths)
-                t.Pass();
-        }
-        else
+       
             StartCoroutine("GreenlightPathRoutine");
     }
 
     IEnumerator GreenlightPathRoutine()
     {
-        int pathIndex = 0;
-        bool checkForLights = false;
+        int trafficIndex = 0;
         float timer = 0;
         while (true)
         {
-            checkForLights = false;
-            for (int a = 0; a < paths.Count; a++)
+            bool checkForLights = false;
+            for (int a = 0; a < trafficLights.Length; a++)
             {
-                if(paths[a].trafficIndex ==pathIndex)
+                if(trafficLights[a].trafficIndex ==trafficIndex)
                 {
-                    paths[a].Pass();
-                    timer = paths[a].lightTimer;
+                    trafficLights[a].Pass(true);
+                    timer = trafficLights[a].timer;
                     checkForLights = true;
                 }
                 else
-                    paths[a].Stop();
+                    trafficLights[a].Pass(false);
             }
 
             if (!checkForLights)
             {
-                pathIndex = 0;
-                for (int a = 0; a < paths.Count; a++)
+                trafficIndex = 0;
+                for (int a = 0; a < trafficLights.Length; a++)
                 {
-                    if (paths[a].trafficIndex == pathIndex)
+                    if (trafficLights[a].trafficIndex == trafficIndex)
                     {
-                        paths[a].Pass();
-                        timer = paths[a].lightTimer;
+                        trafficLights[a].Pass(true);
+                        timer = trafficLights[a].timer;
                     }
                     else
-                        paths[a].Stop();
+                        trafficLights[a].Pass(false);
                 }
             }
 
             yield return new WaitForSeconds(timer);
-            pathIndex += 1;  
+            trafficIndex += 1;  
         }
     }
     
@@ -87,6 +73,8 @@ public class TrafficController : MonoBehaviour
         {
             CreateCar();
             yield return new WaitForSeconds(60f/ GameManager.Instance.upgrades[0].Value());
+            while (GameManager.Instance.stopCarCreationOnTrafficDensity < GameManager.Instance.trafficDensity)
+                yield return null;
         }
     }
 

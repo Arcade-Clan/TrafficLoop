@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
-using UnityExtensions;
 
 
 public class Car : MonoBehaviour
@@ -14,6 +13,7 @@ public class Car : MonoBehaviour
     public Transform[] wheels;
     Vector3 wheelRotation;
     public int carIndex = 1;
+    public TrafficLight trafficLight;
     
     void Start()
     {
@@ -37,16 +37,14 @@ public class Car : MonoBehaviour
             forwardCar = CheckRay();
             if (forwardCar)
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
-            else if (!path.canPass && path.stopPosition >= place && path.stopPosition - place <= GameManager.Instance.rayDistance)
+            else if (trafficLight)
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             else
                 currentSpeed = Mathf.Lerp(currentSpeed, GameManager.Instance.carSpeed, GameManager.Instance.slowStrength);
             
-            //Slow Down
             Vector3 rotation = path.tween.PathGetPoint((place + currentSpeed / 60) / path.pathLength);
             float angle = Vector3.Angle((rotation - transform.position).normalized, transform.forward);
-            //
-            place += (currentSpeed - angle * GameManager.Instance.rotationSlowDownStrength /10f) / 60;
+            place += currentSpeed * (1 - angle / 28f) / 60;
             Vector3 newPosition = path.tween.PathGetPoint(place / path.pathLength);
             Rotate(newPosition);
             transform.position = newPosition;
@@ -62,23 +60,7 @@ public class Car : MonoBehaviour
         }
     }
 
-    public List<Car> ignoredCars;
-    
-    public IEnumerator ForwardCarTimer()
-    {
-        while (true)
-        {
-            if (!forwardCar || forwardCar.path==path)
-                yield return null;
-            yield return new WaitForSeconds(1f);
-            if (forwardCar && forwardCar.path != path)
-            {
-                if(!ignoredCars.Contains(forwardCar))
-                    ignoredCars.Add(forwardCar);
-            }
-        }
-
-    }
+   
 
     float rayPointDistance;
     
@@ -95,8 +77,8 @@ public class Car : MonoBehaviour
             {
                 for (int b = 0; b < ignoredCars.Count; b++)
                 {
-                    if (ignoredCars[b] && hit.transform == ignoredCars[b].transform)
-                        return null;
+                   // if (ignoredCars[b] && hit.transform == ignoredCars[b].transform)
+                   //     return null;
                 }
                 Debug.DrawRay(startPosition + Vector3.up, endPosition - startPosition, Color.red);
                 return hit.transform.GetComponent<Car>();
@@ -117,6 +99,38 @@ public class Car : MonoBehaviour
         wheels[0].transform.localEulerAngles = new Vector3(wheelRotation.x, -angle*2, wheelRotation.z);
         wheels[1].transform.localEulerAngles = new Vector3(wheelRotation.x, -angle*2, wheelRotation.z);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(newPosition - transform.position), 0.25f);
+    }
+
+
+    public List<Car> ignoredCars;
+
+    public IEnumerator ForwardCarTimer()
+    {
+        while (true)
+        {
+            if (!forwardCar || forwardCar.path == path)
+                yield return null;
+            yield return new WaitForSeconds(1f);
+            if (forwardCar && forwardCar.path != path)
+            {
+                if (!ignoredCars.Contains(forwardCar))
+                    ignoredCars.Add(forwardCar);
+            }
+        }
+
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<TrafficLight>())
+            trafficLight = other.GetComponent<TrafficLight>();
+    }
+
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<TrafficLight>())
+            trafficLight = null;
     }
     
 }

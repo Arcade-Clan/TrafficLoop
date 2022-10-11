@@ -158,7 +158,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.ArcadeClan.Template
-    Standalone: com.ArcadeClan.Template
+    Standalone: com.ArcadeClan.TrafficLoop
     iPhone: com.ArcadeClan.Template
   buildNumber:
     Standalone: 0

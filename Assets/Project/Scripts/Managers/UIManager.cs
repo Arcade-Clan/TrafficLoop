@@ -82,6 +82,9 @@ public class UIManager : MonoSingleton<UIManager>
          trafficDensity.fillAmount = Mathf.Lerp(trafficDensity.fillAmount, density / cars.Count,0.1f);
    }
 
+   
+   
+   
    public void CreateText(int value, Vector3 position)
    {
       TextMeshProUGUI newText = Instantiate(counterText);

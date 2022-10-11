@@ -1,19 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using DG.Tweening;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 using UnityExtensions;
 
 public class GameManager : MonoSingleton<GameManager>
 {
 
     public int gold;
-    public List<Level> levels;
+
     public float slowStrength = 0.1f;
     public float rotationSlowDownStrength = 5;
     public float carSpeed;
@@ -24,11 +20,14 @@ public class GameManager : MonoSingleton<GameManager>
     public float speedUpMultiplier = 2f;
     public float rayDistance = 2;
 
+    [ReadOnly]
+    public float trafficDensity;
+
+    public float stopCarCreationOnTrafficDensity = 0.5f;
+    
     Camera cam;
     [HideInInspector]
     public TrafficController trafficController;
-
-    public bool freeTraffic;
     [Serializable]
     public class UpgradeClass
     {
@@ -73,24 +72,21 @@ public class GameManager : MonoSingleton<GameManager>
         public int Cost() { return Mathf.RoundToInt(baseValue + increment * mergeLevel + mergeLevel * ((mergeLevel + 1) / 2) * expoRatio); }
     }
     public MergeClass merge;
-    
-    
+
+
     void Awake()
     {
         Application.targetFrameRate = 60;
         SetObjects();
         GetSaves();
+        LevelManager.Instance.CreateLevel();
         CalculateMerge();
     }
 
-    
-    
+
     void SetObjects()
     {
-        if (!FindObjectOfType<Level>())
-            Instantiate(levels[PlayerPrefs.GetInt("Level") % levels.Count]);
         trafficController = FindObjectOfType<TrafficController>();
-        
     }
 
     public void GetSaves()
@@ -252,6 +248,7 @@ public class GameManager : MonoSingleton<GameManager>
         UIManager.Instance.goldText.text = "" + gold;
         upgrades[1].upgradeLevel += 1;
         PlayerPrefs.SetInt(upgrades[1].upgradeName, upgrades[1].upgradeLevel);
+        LevelManager.Instance.SwitchLevel();
         UIManager.Instance.UpdateEconomyUI();
         //ChangeRoads();
     }
@@ -280,8 +277,14 @@ public class GameManager : MonoSingleton<GameManager>
         PlayerPrefs.SetInt(merge.mergeName, merge.mergeLevel);
         CalculateMerge();
         UIManager.Instance.UpdateEconomyUI();
+        MergeCars();
     }
 
+    void MergeCars()
+    {
+        
+    }
+    
     public bool CanMerge()
     {
         for (int a = 0; a < cars.Length-1; a++)
@@ -292,6 +295,30 @@ public class GameManager : MonoSingleton<GameManager>
 
         return false;
     }
-    
+
+    void FixedUpdate()
+    {
+        List<Car> calculatedCars = new();
+        for (int a = 0; a < cars.Length; a++)
+            calculatedCars.AddRange(cars[a].cars);
+        
+
+        UIManager.Instance.carAmount.text = "" + calculatedCars.Count;
+        UIManager.Instance.carAmountPerMinute.text = "" + upgrades[0].Value();
+        UIManager.Instance.incomePerMinute.text = "" + upgrades[0].Value() * upgrades[2].Value();
+        
+        float density = 0;
+        for (int a = 0; a < calculatedCars.Count; a++)
+        {
+            if (calculatedCars[a].forwardCar)
+                density += 1;
+        }
+
+        if (calculatedCars.Count > 0)
+        {
+            trafficDensity = density / calculatedCars.Count;
+            UIManager.Instance.trafficDensity.fillAmount = Mathf.Lerp(UIManager.Instance.trafficDensity.fillAmount, trafficDensity, 0.1f);
+        }
+    }
    
 }

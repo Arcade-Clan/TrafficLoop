@@ -167,7 +167,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.M)||Input.GetMouseButtonDown(1))
         {
             gold += 1000;
             PlayerPrefs.SetInt("Gold", gold);
@@ -175,15 +175,15 @@ public class GameManager : MonoSingleton<GameManager>
             UIManager.Instance.UpdateEconomyUI();
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(3))
         {
             PlayerPrefs.DeleteAll();
-            Application.LoadLevel(1);
+            Application.LoadLevel(0);
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetMouseButtonDown(2))
             simulationSpeed = 10;
-        else if (Input.GetKeyUp(KeyCode.S))
+        else if (Input.GetKeyUp(KeyCode.S) || Input.GetMouseButtonUp(2))
             simulationSpeed = 1;
     }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CloudBuildSettings
   m_EditorClassIdentifier: 
   OrganizationID: 2483540
-  ProjectID: SetupRequired
+  ProjectID: 2325c0c4-92b2-4d08-8e85-81e946a79189
   IOSBuildTargetID: ios
   AndroidBuildTargetID: android
   APIKey: 0f799ed723547f75211fe12ef849ab51

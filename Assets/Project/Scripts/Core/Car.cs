@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityExtensions;
@@ -18,12 +19,10 @@ public class Car : MonoBehaviour
     Path path;
     Vector3 wheelRotation;
     float rayPointDistance;
-    public int priority;
 
-    
+
     void Start()
     {
-        priority = Random.Range(0, 1000);
         rayPointDistance = Vector3.Distance(transform.position, rayPoint.position);
     }
     
@@ -38,19 +37,32 @@ public class Car : MonoBehaviour
     
     IEnumerator MoveRoutine()
     {
+        float speed  = Random.Range(0.9f, 1.1f) * GameManager.Instance.carSpeed;
+        TextMeshPro text = GetComponentInChildren<TextMeshPro>();
         while (true)
         {
             colliderCar = CheckRay();
-            if (colliderCar && (path.transform.position == colliderCar.path.transform.position ||
-                                path.path.wps.Last() == colliderCar.path.path.wps.Last()))
+            if (colliderCar && (Vector3.Distance(path.transform.position, colliderCar.path.transform.position) <0.1f || Vector3.Distance(path.path.wps.Last(), colliderCar.path.path.wps.Last())<0.1f))
+            {
+                text.text = "Same Path";
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
-            if (colliderCar && priority < colliderCar.priority)
+            }
+
+            if (colliderCar && currentSpeed < colliderCar.currentSpeed)
+            {
+                text.text = "Different Speed";
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
+            }
             else if (trafficLight)
+            {
+                text.text = "Light";
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
+            }
             else
-                currentSpeed = Mathf.Lerp(currentSpeed, GameManager.Instance.carSpeed, GameManager.Instance.slowStrength);
-            
+            {
+                text.text = "Go";
+                currentSpeed = Mathf.Lerp(currentSpeed, speed, GameManager.Instance.slowStrength);
+            }
             Vector3 rotation = path.tween.PathGetPoint((place + currentSpeed / 60) / path.pathLength);
             float angle = Vector3.Angle((rotation - transform.position).normalized, transform.forward);
             place += currentSpeed * (1 - angle / 28f) / 60;

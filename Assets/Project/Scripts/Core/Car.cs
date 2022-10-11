@@ -10,11 +10,10 @@ public class Car : MonoBehaviour
     public float currentSpeed = 1;
     Path path;
     public Transform rayPoint;
-    public Transform[] wheels;
     Vector3 wheelRotation;
     public int carIndex = 1;
     public TrafficLight trafficLight;
-    public GameObject[] cars;
+    public CarModel[] cars;
 
     public void UpgradeCar()
     {
@@ -99,13 +98,13 @@ public class Car : MonoBehaviour
     public void Rotate(Vector3 newPosition)
     {
         wheelRotation += new Vector3(Vector3.Distance(newPosition,transform.position) * 150f, 0, 0);
-        for (int a = 0; a < wheels.Length; a++)
-            wheels[a].transform.localEulerAngles = wheelRotation;
+        for (int a = 0; a < cars[carIndex].wheels.Length; a++)
+            cars[carIndex].wheels[a].transform.localEulerAngles = wheelRotation;
         if (newPosition == transform.position)
             return;
         float angle = Vector3.SignedAngle((newPosition - transform.position).normalized, transform.forward, Vector3.up);
-        wheels[0].transform.localEulerAngles = new Vector3(wheelRotation.x, -angle*2, wheelRotation.z);
-        wheels[1].transform.localEulerAngles = new Vector3(wheelRotation.x, -angle*2, wheelRotation.z);
+        cars[carIndex].wheels[0].transform.localEulerAngles = new Vector3(wheelRotation.x, -angle*2, wheelRotation.z);
+        cars[carIndex].wheels[1].transform.localEulerAngles = new Vector3(wheelRotation.x, -angle*2, wheelRotation.z);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(newPosition - transform.position), 0.25f);
     }
 

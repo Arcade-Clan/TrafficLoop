@@ -83,6 +83,7 @@ public class GameManager : MonoSingleton<GameManager>
         GetSaves();
         LevelManager.Instance.CreateLevel();
         CalculateMerge();
+        StartCoroutine("GetStatsRoutine");
     }
 
 
@@ -293,11 +294,11 @@ public class GameManager : MonoSingleton<GameManager>
             }
         }
         Car[] closestCars = cars[carIndex].cars.OrderBy(p => Vector3.Distance(p.transform.position,Vector3.zero)).ToArray();
-        StartCoroutine(MergeCarsRoutine(carIndex,closestCars));
+        StartCoroutine(MergeCarsRoutine(closestCars));
 
     }
 
-    IEnumerator MergeCarsRoutine(int carIndex, Car[] closestCars)
+    IEnumerator MergeCarsRoutine(Car[] closestCars)
     {
         cars[closestCars[0].carIndex].cars.Remove(closestCars[0]);
         cars[closestCars[1].carIndex].cars.Remove(closestCars[1]);
@@ -337,29 +338,35 @@ public class GameManager : MonoSingleton<GameManager>
         return false;
     }
 
-    void FixedUpdate()
+    IEnumerator GetStatsRoutine()
     {
-        List<Car> calculatedCars = new();
-        for (int a = 0; a < cars.Length; a++)
-            calculatedCars.AddRange(cars[a].cars);
-        
-
-        UIManager.Instance.carAmount.text = "" + calculatedCars.Count;
-        UIManager.Instance.carAmountPerMinute.text = "" + upgrades[0].Value();
-        UIManager.Instance.incomePerMinute.text = "" + upgrades[0].Value() * upgrades[2].Value();
-        
-        float density = 0;
-        for (int a = 0; a < calculatedCars.Count; a++)
+        while(true)
         {
-            if (calculatedCars[a].forwardCar)
-                density += 1;
+            List<Car> calculatedCars = new();
+            for (int a = 0; a < cars.Length; a++)
+                calculatedCars.AddRange(cars[a].cars);
+
+
+            UIManager.Instance.carAmount.text = "" + calculatedCars.Count;
+            UIManager.Instance.carAmountPerMinute.text = "" + upgrades[0].Value();
+            UIManager.Instance.incomePerMinute.text = "" + upgrades[0].Value() * upgrades[2].Value();
+
+            float density = 0;
+            for (int a = 0; a < calculatedCars.Count; a++)
+            {
+                if (calculatedCars[a].forwardCar)
+                    density += 1;
+            }
+
+            if (calculatedCars.Count > 0)
+            {
+                trafficDensity = density / calculatedCars.Count;
+                UIManager.Instance.trafficDensity.fillAmount =
+                    Mathf.Lerp(UIManager.Instance.trafficDensity.fillAmount, trafficDensity, 0.1f);
+            }
+            yield return new WaitForFixedUpdate();
         }
 
-        if (calculatedCars.Count > 0)
-        {
-            trafficDensity = density / calculatedCars.Count;
-            UIManager.Instance.trafficDensity.fillAmount = Mathf.Lerp(UIManager.Instance.trafficDensity.fillAmount, trafficDensity, 0.1f);
-        }
     }
    
 }

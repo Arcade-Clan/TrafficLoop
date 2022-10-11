@@ -159,7 +159,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.ArcadeClan.Template
     Standalone: com.ArcadeClan.TrafficLoop
-    iPhone: com.ArcadeClan.Template
+    iPhone: com.ArcadeClan.TrafficLoop
   buildNumber:
     Standalone: 0
     iPhone: 1

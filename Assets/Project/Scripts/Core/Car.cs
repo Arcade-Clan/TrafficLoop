@@ -1,31 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityExtensions;
 
 public class Car : MonoBehaviour
 {
+
+    public int carIndex = 1;
     public float place;
     public float currentSpeed = 1;
-    Path path;
-    public Transform rayPoint;
-    Vector3 wheelRotation;
-    public int carIndex = 1;
     public TrafficLight trafficLight;
+    public Transform rayPoint;
     public CarModel[] cars;
+    Path path;
+    Vector3 wheelRotation;
+    float rayPointDistance;
+    public int priority;
 
-    public void UpgradeCar()
-    {
-        cars[carIndex].Hide();
-        carIndex += 1;
-        cars[carIndex].Show();
-    }
     
     void Start()
     {
+        priority = Random.Range(0, 1000);
         rayPointDistance = Vector3.Distance(transform.position, rayPoint.position);
-        StartCoroutine("ForwardCarTimer");
     }
     
     public void MoveCar(Path newPath)
@@ -34,15 +33,18 @@ public class Car : MonoBehaviour
         StartCoroutine("MoveRoutine");
     }
 
-    [HideInInspector]
-    public Car forwardCar;
+    [FormerlySerializedAs("forwardCar")] [HideInInspector]
+    public Car colliderCar;
     
     IEnumerator MoveRoutine()
     {
         while (true)
         {
-            forwardCar = CheckRay();
-            if (forwardCar)
+            colliderCar = CheckRay();
+            if (colliderCar && (path.transform.position == colliderCar.path.transform.position ||
+                                path.path.wps.Last() == colliderCar.path.path.wps.Last()))
+                currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
+            if (colliderCar && priority < colliderCar.priority)
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             else if (trafficLight)
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
@@ -69,7 +71,7 @@ public class Car : MonoBehaviour
 
    
 
-    float rayPointDistance;
+
     
     Car CheckRay()
     {
@@ -78,15 +80,10 @@ public class Car : MonoBehaviour
         {
             Vector3 startPosition = path.tween.PathGetPoint((place + ray * (a - 1) / 10f) / path.pathLength);
             Vector3 endPosition = path.tween.PathGetPoint((place + ray * a / 10f) / path.pathLength);
-            Physics.SphereCast(startPosition+Vector3.up, 0.25f, endPosition - startPosition, out RaycastHit hit, ray/10f, LayerMask.GetMask("Car"));
+            Physics.SphereCast(startPosition+Vector3.up, 0.5f, endPosition - startPosition, out RaycastHit hit, ray/10f, LayerMask.GetMask("Car"));
             
             if (hit.transform)
             {
-                for (int b = 0; b < ignoredCars.Count; b++)
-                {
-                   // if (ignoredCars[b] && hit.transform == ignoredCars[b].transform)
-                   //     return null;
-                }
                 Debug.DrawRay(startPosition + Vector3.up, endPosition - startPosition, Color.red);
                 return hit.transform.GetComponent<Car>();
             }
@@ -107,26 +104,7 @@ public class Car : MonoBehaviour
         cars[carIndex].wheels[1].transform.localEulerAngles = new Vector3(wheelRotation.x, -angle*2, wheelRotation.z);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(newPosition - transform.position), 0.25f);
     }
-
-
-    public List<Car> ignoredCars;
-
-    public IEnumerator ForwardCarTimer()
-    {
-        while (true)
-        {
-            if (!forwardCar || forwardCar.path == path)
-                yield return null;
-            yield return new WaitForSeconds(1f);
-            if (forwardCar && forwardCar.path != path)
-            {
-                if (!ignoredCars.Contains(forwardCar))
-                    ignoredCars.Add(forwardCar);
-            }
-        }
-
-    }
-
+    
     void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<TrafficLight>())
@@ -138,6 +116,13 @@ public class Car : MonoBehaviour
     {
         if (other.GetComponent<TrafficLight>())
             trafficLight = null;
+    }
+
+    public void UpgradeCar()
+    {
+        cars[carIndex].Hide();
+        carIndex += 1;
+        cars[carIndex].Show();
     }
     
 }

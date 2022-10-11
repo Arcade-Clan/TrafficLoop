@@ -354,7 +354,7 @@ public class GameManager : MonoSingleton<GameManager>
             float density = 0;
             for (int a = 0; a < calculatedCars.Count; a++)
             {
-                if (calculatedCars[a].forwardCar)
+                if (calculatedCars[a].colliderCar)
                     density += 1;
             }
 

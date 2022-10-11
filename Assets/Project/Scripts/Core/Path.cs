@@ -13,8 +13,7 @@ public class Path : MonoBehaviour
     public float pathLength;
     [HideInInspector]
     public Tween tween;
-    
-    
+
     void Start()
     {
         tween = path.GetTween();

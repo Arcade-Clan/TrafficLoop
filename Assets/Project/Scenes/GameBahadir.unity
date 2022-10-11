@@ -5632,7 +5632,7 @@ MonoBehaviour:
   simulationSpeed: 1
   speedUpTimer: 0.5
   speedUpMultiplier: 2
-  rayDistance: 3
+  rayDistance: 4
   trafficDensity: 0
   stopCarCreationOnTrafficDensity: 0.5
   trafficController: {fileID: 0}

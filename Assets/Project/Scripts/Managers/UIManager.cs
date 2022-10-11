@@ -106,7 +106,7 @@ public class UIManager : MonoSingleton<UIManager>
          else
          {
             float cost = GameManager.Instance.upgrades[a].Cost(a);
-            upgrades[a].levelText.text = "LEVEL " + (GameManager.Instance.upgrades[a].upgradeLevel + 1);
+            //upgrades[a].levelText.text = "LEVEL " + (GameManager.Instance.upgrades[a].upgradeLevel + 1);
             upgrades[a].goldText.text = "" + cost;
             upgrades[a].coverImage.gameObject.SetActive(cost >= GameManager.Instance.gold);
             upgrades[a].coverImage.transform.parent.GetComponent<Button>().enabled =

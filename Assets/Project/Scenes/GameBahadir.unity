@@ -389,14 +389,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 139372434}
-  - component: {fileID: 139372435}
   m_Layer: 0
   m_Name: Level0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &139372434
 Transform:
   m_ObjectHideFlags: 0
@@ -414,19 +413,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &139372435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139372433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: def3dc823a33c4a7b9b2cea415b205cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sections: []
 --- !u!1001 &158036003
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -568,6 +554,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gate (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375436, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f05ced2eca0e4c20aa32b866652168f, type: 3}
@@ -977,6 +968,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gate (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375436, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f05ced2eca0e4c20aa32b866652168f, type: 3}
@@ -1597,7 +1593,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &483346583
 Transform:
   m_ObjectHideFlags: 0
@@ -2271,6 +2267,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375436, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f05ced2eca0e4c20aa32b866652168f, type: 3}
 --- !u!1001 &752706456
@@ -2482,7 +2483,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940d556b4c76b4f07a2b43821b3fce7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levels: []
+  levels:
+  - {fileID: -1660179246798472432, guid: ed65ee2dd2e6549b09e741dfbb2ec89b, type: 3}
+  - {fileID: -1660179246798472432, guid: ed65ee2dd2e6549b09e741dfbb2ec89b, type: 3}
   levelIndexes: 0000000000000000
   level: {fileID: 0}
 --- !u!1001 &827085461
@@ -2867,6 +2870,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375436, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f05ced2eca0e4c20aa32b866652168f, type: 3}
 --- !u!1 &969958494
@@ -2884,7 +2892,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &969958495
 Transform:
   m_ObjectHideFlags: 0
@@ -3482,6 +3490,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375436, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f05ced2eca0e4c20aa32b866652168f, type: 3}
 --- !u!1001 &1125434630
@@ -3631,10 +3644,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrafficLight (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3275701557654068875, guid: 50761cbce387d7d459f1b382acd55a53,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4746484350168288076, guid: 50761cbce387d7d459f1b382acd55a53,
         type: 3}
       propertyPath: m_Center.x
       value: -1.225
+      objectReference: {fileID: 0}
+    - target: {fileID: 4746484350168288076, guid: 50761cbce387d7d459f1b382acd55a53,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6071096053524565353, guid: 50761cbce387d7d459f1b382acd55a53,
         type: 3}
@@ -3962,6 +3985,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gate (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375436, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f05ced2eca0e4c20aa32b866652168f, type: 3}
@@ -4513,6 +4541,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375436, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f05ced2eca0e4c20aa32b866652168f, type: 3}
 --- !u!1001 &1429896779
@@ -4581,6 +4614,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gate
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375436, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f05ced2eca0e4c20aa32b866652168f, type: 3}
@@ -5293,7 +5331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1636677323
 Transform:
   m_ObjectHideFlags: 0
@@ -6232,7 +6270,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1952460695
 Transform:
   m_ObjectHideFlags: 0
@@ -6508,6 +6546,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrafficLight
       objectReference: {fileID: 0}
+    - target: {fileID: 3275701557654068875, guid: 50761cbce387d7d459f1b382acd55a53,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50761cbce387d7d459f1b382acd55a53, type: 3}
 --- !u!1001 &6231647502159214437
@@ -6522,6 +6565,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1897629319}
+    - target: {fileID: 1982145769761335774, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -133.7002
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982145770222039649, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -133.7002
+      objectReference: {fileID: 0}
     - target: {fileID: 5011611659847267057, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

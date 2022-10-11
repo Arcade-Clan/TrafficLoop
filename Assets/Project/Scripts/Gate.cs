@@ -22,7 +22,6 @@ public class Gate : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        GameManager.Instance.IncreaseMoney(other.transform.parent.GetComponent<Car>(), transform.position + Vector3.up);
         DOTween.Kill(model);
         model.DOLocalRotate(new Vector3(0, 90, 0), closeTime).SetEase(gateCloseEase);
     }

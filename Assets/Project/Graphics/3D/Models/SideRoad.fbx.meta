@@ -2,13 +2,21 @@ fileFormatVersion: 2
 guid: aa4683ac9b1ab6a49a56b1e8ab272c4d
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 1827226128182048838
+    second: Take 001
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mtl_SideRoad
     second: {fileID: 2100000, guid: f4e062874d6ec14459279ac97cfb17c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl_SideRoadLine
+    second: {fileID: 2100000, guid: 9e1bcf218d1eb4043839dea358b2af00, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

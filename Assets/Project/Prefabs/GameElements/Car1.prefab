@@ -89,10 +89,14 @@ MonoBehaviour:
   - {fileID: 7100649273599755181}
   - {fileID: 7100649274318449787}
   carIndex: 0
+  trafficLight: {fileID: 0}
+  cars:
+  - {fileID: 7099690171894248057}
+  - {fileID: 5227624530186660470}
+  - {fileID: 5227624530360830981}
+  - {fileID: 5227624529789078411}
   forwardCar: {fileID: 0}
   ignoredCars: []
-  collidedCars: []
-  trafficLight: {fileID: 0}
 --- !u!54 &5796438164445229631
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
-
+using UnityExtensions;
 
 public class Car : MonoBehaviour
 {
@@ -14,6 +14,14 @@ public class Car : MonoBehaviour
     Vector3 wheelRotation;
     public int carIndex = 1;
     public TrafficLight trafficLight;
+    public GameObject[] cars;
+
+    public void UpgradeCar()
+    {
+        cars[carIndex].Hide();
+        carIndex += 1;
+        cars[carIndex].Show();
+    }
     
     void Start()
     {
@@ -51,9 +59,9 @@ public class Car : MonoBehaviour
             if (place>=path.pathLength)
             {
                 GameManager.Instance.cars[carIndex].cars.Remove(this);
-                    UIManager.Instance.UpdateEconomyUI();
-                    Destroy(gameObject);
-                    yield break;
+                UIManager.Instance.UpdateEconomyUI();
+                Destroy(gameObject);
+                yield break;
             }
 
             yield return new WaitForFixedUpdate();
@@ -71,7 +79,7 @@ public class Car : MonoBehaviour
         {
             Vector3 startPosition = path.tween.PathGetPoint((place + ray * (a - 1) / 10f) / path.pathLength);
             Vector3 endPosition = path.tween.PathGetPoint((place + ray * a / 10f) / path.pathLength);
-            Physics.SphereCast(startPosition+Vector3.up, 0.5f, endPosition - startPosition, out RaycastHit hit, ray/10f, LayerMask.GetMask("Car"));
+            Physics.SphereCast(startPosition+Vector3.up, 0.25f, endPosition - startPosition, out RaycastHit hit, ray/10f, LayerMask.GetMask("Car"));
             
             if (hit.transform)
             {

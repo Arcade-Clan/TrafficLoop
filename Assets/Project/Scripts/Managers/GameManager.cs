@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityExtensions;
@@ -276,13 +278,52 @@ public class GameManager : MonoSingleton<GameManager>
         merge.mergeLevel += 1;
         PlayerPrefs.SetInt(merge.mergeName, merge.mergeLevel);
         CalculateMerge();
-        UIManager.Instance.UpdateEconomyUI();
         MergeCars();
     }
 
     void MergeCars()
     {
-        
+        int carIndex = 0;
+        for (int a = 0; a < cars.Length - 1; a++)
+        {
+            if (cars[a].cars.Count >= 3)
+            {
+                carIndex = a;
+                break;
+            }
+        }
+        Car[] closestCars = cars[carIndex].cars.OrderBy(p => Vector3.Distance(p.transform.position,Vector3.zero)).ToArray();
+        StartCoroutine(MergeCarsRoutine(carIndex,closestCars));
+
+    }
+
+    IEnumerator MergeCarsRoutine(int carIndex, Car[] closestCars)
+    {
+        cars[closestCars[0].carIndex].cars.Remove(closestCars[0]);
+        cars[closestCars[1].carIndex].cars.Remove(closestCars[1]);
+        cars[closestCars[2].carIndex].cars.Remove(closestCars[2]);
+        UIManager.Instance.UpdateEconomyUI();
+        closestCars[1].StopAllCoroutines();
+        closestCars[2].StopAllCoroutines();
+        closestCars[1].GetComponentInChildren<Collider>().enabled = false;
+        closestCars[2].GetComponentInChildren<Collider>().enabled = false;
+        closestCars[1].transform.SetParent(closestCars[0].transform);
+        closestCars[2].transform.SetParent(closestCars[0].transform);
+        closestCars[1].transform.DOLocalRotate(Vector3.zero, 0.5f);
+        closestCars[2].transform.DOLocalRotate(Vector3.zero, 0.5f);
+        closestCars[1].transform.DOLocalMoveX(0, 0.5f);
+        closestCars[1].transform.DOLocalMoveZ(0, 0.5f);
+        closestCars[2].transform.DOLocalMoveX(0, 0.5f);
+        closestCars[2].transform.DOLocalMoveZ(0, 0.5f);
+        closestCars[1].transform.DOLocalMoveY(3, 0.25f).SetEase(Ease.OutSine);
+        yield return closestCars[2].transform.DOLocalMoveY(10, 0.25f).SetEase(Ease.OutSine).WaitForCompletion();
+        closestCars[1].transform.DOLocalMoveY(0, 0.25f).SetEase(Ease.InSine);
+        yield return closestCars[2].transform.DOLocalMoveY(0, 0.25f).SetEase(Ease.InSine).WaitForCompletion();
+        Destroy(closestCars[1].gameObject);
+        Destroy(closestCars[2].gameObject);
+        closestCars[0].UpgradeCar();
+        cars[closestCars[0].carIndex].cars.Add(closestCars[0]);
+        UIManager.Instance.UpdateEconomyUI();
     }
     
     public bool CanMerge()

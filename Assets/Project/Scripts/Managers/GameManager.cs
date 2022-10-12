@@ -81,9 +81,8 @@ public class GameManager : MonoSingleton<GameManager>
         Application.targetFrameRate = 60;
         SetObjects();
         GetSaves();
-        LevelManager.Instance.CreateLevel();
         CalculateMerge();
-        StartCoroutine("GetStatsRoutine");
+
     }
 
 
@@ -122,6 +121,8 @@ public class GameManager : MonoSingleton<GameManager>
     
     void Start()
     {
+        LevelManager.Instance.CreateLevel();
+        StartCoroutine("GetStatsRoutine");
         StartGame();
     }
 

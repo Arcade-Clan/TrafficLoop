@@ -13,16 +13,10 @@ public class TrafficController : MonoBehaviour
     public Path[] paths;
     public TrafficLight[] trafficLights;
 
-    
-    void Start()
-    {
-        
-        paths = FindObjectsOfType<Path>();
-    }
-    
     IEnumerator StartTrafficRoutine()
     {
         yield return null;
+        paths = FindObjectsOfType<Path>();
         StartCoroutine("CreateCarRoutine");
         StartCoroutine("GreenlightPathRoutine");
     }

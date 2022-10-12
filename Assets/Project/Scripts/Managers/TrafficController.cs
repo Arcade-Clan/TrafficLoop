@@ -27,8 +27,9 @@ public class TrafficController : MonoBehaviour
         StartCoroutine("GreenlightPathRoutine");
     }
 
-    public void RecalculateTrafficLights()
+    public void RecalculateTrafficElements()
     {
+        paths = FindObjectsOfType<Path>();
         StopCoroutine("GreenlightPathRoutine");
         StartCoroutine("GreenlightPathRoutine");
     }

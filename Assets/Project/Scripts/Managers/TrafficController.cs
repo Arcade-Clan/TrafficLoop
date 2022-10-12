@@ -16,7 +16,7 @@ public class TrafficController : MonoBehaviour
     
     void Start()
     {
-        trafficLights = FindObjectsOfType<TrafficLight>();
+        
         paths = FindObjectsOfType<Path>();
     }
     
@@ -24,14 +24,16 @@ public class TrafficController : MonoBehaviour
     {
         yield return null;
         StartCoroutine("CreateCarRoutine");
-       
-            StartCoroutine("GreenlightPathRoutine");
+        StartCoroutine("GreenlightPathRoutine");
     }
 
+    
+    
     IEnumerator GreenlightPathRoutine()
     {
         int trafficIndex = 0;
         float timer = 0;
+        trafficLights = FindObjectsOfType<TrafficLight>();
         while (true)
         {
             bool checkForLights = false;

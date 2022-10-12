@@ -16,13 +16,14 @@ public class Car : MonoBehaviour
     public TrafficLight trafficLight;
     public Transform rayPoint;
     public CarModel[] cars;
-    Path path;
+    public Path path;
     Vector3 wheelRotation;
     float rayPointDistance;
-
+    public float minSpeed;
 
     void Start()
     {
+        minSpeed = Random.Range(0, 0.01f);
         rayPointDistance = Vector3.Distance(transform.position, rayPoint.position);
     }
     
@@ -31,9 +32,8 @@ public class Car : MonoBehaviour
         path = newPath;
         StartCoroutine("MoveRoutine");
     }
-
-    [FormerlySerializedAs("forwardCar")] [HideInInspector]
-    public Car colliderCar;
+    
+    [FormerlySerializedAs("colliderCar")] public Car collidedCar;
     
     IEnumerator MoveRoutine()
     {
@@ -41,22 +41,21 @@ public class Car : MonoBehaviour
         TextMeshPro text = GetComponentInChildren<TextMeshPro>();
         while (true)
         {
-            colliderCar = CheckRay();
-            if (colliderCar && (Vector3.Distance(path.transform.position, colliderCar.path.transform.position) <0.1f || Vector3.Distance(path.path.wps.Last(), colliderCar.path.path.wps.Last())<0.1f))
+            collidedCar = CheckRay();
+            if (collidedCar && (Vector3.Distance(path.transform.position, collidedCar.path.transform.position) <0.1f || Vector3.Distance(path.path.wps.Last(), collidedCar.path.path.wps.Last())<0.1f))
             {
                 text.text = "Same Path";
-                currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
+                currentSpeed = Mathf.Lerp(currentSpeed, minSpeed, GameManager.Instance.slowStrength);
             }
-
-            if (colliderCar && currentSpeed < colliderCar.currentSpeed)
+            else if (collidedCar && currentSpeed < collidedCar.currentSpeed)
             {
                 text.text = "Different Speed";
-                currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
+                currentSpeed = Mathf.Lerp(currentSpeed, minSpeed, GameManager.Instance.slowStrength);
             }
             else if (trafficLight)
             {
                 text.text = "Light";
-                currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
+                currentSpeed = Mathf.Lerp(currentSpeed, minSpeed, GameManager.Instance.slowStrength);
             }
             else
             {
@@ -92,12 +91,12 @@ public class Car : MonoBehaviour
         {
             Vector3 startPosition = path.tween.PathGetPoint((place + ray * (a - 1) / 10f) / path.pathLength);
             Vector3 endPosition = path.tween.PathGetPoint((place + ray * a / 10f) / path.pathLength);
-            Physics.SphereCast(startPosition+Vector3.up, 0.5f, endPosition - startPosition, out RaycastHit hit, ray/10f, LayerMask.GetMask("Car"));
+            Physics.SphereCast(startPosition+Vector3.up, 0.33f, endPosition - startPosition, out RaycastHit hit, ray/10f, LayerMask.GetMask("Car"));
             
             if (hit.transform)
             {
                 Debug.DrawRay(startPosition + Vector3.up, endPosition - startPosition, Color.red);
-                return hit.transform.GetComponent<Car>();
+                return hit.transform.GetComponentInParent<Car>();
             }
             Debug.DrawRay(startPosition + Vector3.up, endPosition - startPosition, Color.green);
         }

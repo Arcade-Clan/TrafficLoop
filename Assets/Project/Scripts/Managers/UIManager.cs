@@ -75,7 +75,7 @@ public class UIManager : MonoSingleton<UIManager>
       float density = 0;
       for (int a = 0; a < cars.Count; a++)
       {
-         if (cars[a].colliderCar)
+         if (cars[a].collidedCar)
             density += 1;
       }
       if(cars.Count>0)

@@ -18925,23 +18925,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sections:
-  - elements:
+  - cam: {fileID: 8165020043079384629}
+    elements:
     - {fileID: 126022735109766621}
-  - elements:
+  - cam: {fileID: 2378963580403372797}
+    elements:
     - {fileID: 8368874422573055135}
-  - elements:
+  - cam: {fileID: 947250489361115553}
+    elements:
     - {fileID: 8240782042395875767}
-  - elements:
+  - cam: {fileID: 3486345022135464127}
+    elements:
     - {fileID: 3668458252019046864}
-  - elements:
+  - cam: {fileID: 8356598898674424838}
+    elements:
     - {fileID: 1429327730240110740}
-  - elements:
+  - cam: {fileID: 4513892204701792451}
+    elements:
     - {fileID: 8103701924879651355}
-  - elements:
+  - cam: {fileID: 8698160035587977585}
+    elements:
     - {fileID: 8653754026747915886}
-  - elements:
+  - cam: {fileID: 6790788535589121559}
+    elements:
     - {fileID: 5187575950148512211}
-  - elements:
+  - cam: {fileID: 7359017237089924302}
+    elements:
     - {fileID: 2795829475702214669}
 --- !u!1 &8165020044690427894
 GameObject:

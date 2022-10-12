@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5013791, g: 0.8732138, b: 0.90936494, a: 1}
+  m_IndirectSpecularColor: {r: 0.5013789, g: 0.8732138, b: 0.90936494, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6285,16 +6285,16 @@ MonoBehaviour:
   - upgradeName: Car Amount
     upgradeLevel: 0
     maxLevel: -1
-    baseValue: 40
+    baseValue: 50
     increment: 20
     expoRatio: 0.25
-    startValue: 10
-    incrementValue: 1
+    startValue: 30
+    incrementValue: 5
   - upgradeName: Size
     upgradeLevel: 0
-    maxLevel: 10
-    baseValue: 200
-    increment: 125
+    maxLevel: 8
+    baseValue: 50
+    increment: 250
     expoRatio: 1.5
     startValue: 0
     incrementValue: 1
@@ -6303,7 +6303,7 @@ MonoBehaviour:
     maxLevel: -1
     baseValue: 80
     increment: 60
-    expoRatio: 30
+    expoRatio: 15
     startValue: 5
     incrementValue: 5
   cars:

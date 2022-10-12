@@ -27,7 +27,11 @@ public class TrafficController : MonoBehaviour
         StartCoroutine("GreenlightPathRoutine");
     }
 
-    
+    public void RecalculateTrafficLights()
+    {
+        StopCoroutine("GreenlightPathRoutine");
+        StartCoroutine("GreenlightPathRoutine");
+    }
     
     IEnumerator GreenlightPathRoutine()
     {

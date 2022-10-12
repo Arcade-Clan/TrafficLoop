@@ -74,7 +74,7 @@ public class GameManager : MonoSingleton<GameManager>
         public int Cost() { return Mathf.RoundToInt(baseValue + increment * mergeLevel + mergeLevel * ((mergeLevel + 1) / 2) * expoRatio); }
     }
     public MergeClass merge;
-
+    public GameObject crashSmoke;
 
     void Awake()
     {
@@ -324,6 +324,9 @@ public class GameManager : MonoSingleton<GameManager>
         Destroy(closestCars[2].gameObject);
         closestCars[0].UpgradeCar();
         cars[closestCars[0].carIndex].cars.Add(closestCars[0]);
+        Taptic.Medium();
+        closestCars[0].cars[closestCars[0].carIndex].model.transform.DOScale(1.5f, 0.25f).SetEase(Ease.OutSine).OnComplete(()=>
+            closestCars[0].cars[closestCars[0].carIndex].model.transform.DOScale(1f, 0.25f).SetEase(Ease.InSine));
         UIManager.Instance.UpdateEconomyUI();
     }
     

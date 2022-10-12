@@ -9,6 +9,7 @@ public class Level : MonoBehaviour
    [Serializable]
    public class SectionClass
    {
+      public Transform cam;
       public List<GameObject> elements = new List<GameObject>();
    }
    public SectionClass[] sections;

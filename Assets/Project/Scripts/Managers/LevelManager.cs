@@ -1,3 +1,5 @@
+using DG.Tweening;
+using UnityEngine;
 using UnityExtensions;
 
 public class LevelManager : MonoSingleton<LevelManager>
@@ -15,7 +17,11 @@ public class LevelManager : MonoSingleton<LevelManager>
         level = Instantiate(levels[levelIndexes[0]]);
         for (int a = 0; a < level.sections[levelIndexes[1]].elements.Count; a++)
                 level.sections[levelIndexes[1]].elements[a].Show();
-        
+        if (level.sections[levelIndexes[1]].cam)
+        {
+            UIManager.Instance.cam.transform.position=level.sections[levelIndexes[1]].cam.position;
+            UIManager.Instance.cam.transform.rotation = level.sections[levelIndexes[1]].cam.rotation;
+        }
     }
 
 
@@ -52,6 +58,12 @@ public class LevelManager : MonoSingleton<LevelManager>
                 level.sections[oldLevelIndexes[1]].elements[a].Hide();
             for (int a = 0; a < level.sections[levelIndexes[1]].elements.Count; a++)
                 level.sections[levelIndexes[1]].elements[a].Show();
+        }
+        GameManager.Instance.trafficController.RecalculateTrafficLights();
+        if(level.sections[levelIndexes[1]].cam)
+        {
+            UIManager.Instance.cam.transform.DOMove(level.sections[levelIndexes[1]].cam.position, 1f).SetEase(Ease.InOutSine);
+            UIManager.Instance.cam.transform.DORotateQuaternion(level.sections[levelIndexes[1]].cam.rotation, 1f).SetEase(Ease.InOutSine);
         }
     }
     

@@ -3661,7 +3661,7 @@ PrefabInstance:
     - target: {fileID: 3275701557654068875, guid: 50761cbce387d7d459f1b382acd55a53,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4746484350168288076, guid: 50761cbce387d7d459f1b382acd55a53,
         type: 3}
@@ -6215,7 +6215,7 @@ MonoBehaviour:
   simulationSpeed: 1
   speedUpTimer: 0.5
   speedUpMultiplier: 2
-  rayDistance: 2
+  rayDistance: 3
   trafficDensity: 0
   stopCarCreationOnTrafficDensity: 0.5
   trafficController: {fileID: 0}
@@ -6269,6 +6269,8 @@ MonoBehaviour:
     baseValue: 200
     increment: 125
     expoRatio: 1.5
+  crashSmoke: {fileID: 3480892824555974408, guid: 0d2af3b1df29c42be916e1330bfc92be,
+    type: 3}
 --- !u!1 &1952460694
 GameObject:
   m_ObjectHideFlags: 0
@@ -6563,7 +6565,7 @@ PrefabInstance:
     - target: {fileID: 3275701557654068875, guid: 50761cbce387d7d459f1b382acd55a53,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50761cbce387d7d459f1b382acd55a53, type: 3}

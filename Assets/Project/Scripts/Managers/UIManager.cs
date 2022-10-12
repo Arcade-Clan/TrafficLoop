@@ -19,7 +19,8 @@ public class UIManager : MonoSingleton<UIManager>
    public Image trafficDensity;
    public TextMeshProUGUI counterText;
    Canvas canvas;
-   Camera cam;
+   [HideInInspector]
+   public Camera cam;
 
    [Serializable]
    public class UpgradeClass
@@ -43,7 +44,7 @@ public class UIManager : MonoSingleton<UIManager>
 
    
 
-   void Start()
+   void Awake()
    {
       cam = FindObjectOfType<Camera>();
       canvas = FindObjectOfType<Canvas>();

@@ -27,4 +27,15 @@ public class TrafficLight : MonoBehaviour
          trafficCollider.center = new Vector3(trafficCollider.center.x, 0.5f, trafficCollider.center.z);
       }
    }
+
+   void OnTriggerEnter(Collider other)
+   {
+      other.transform.parent.GetComponent<Car>().trafficLight = this;
+   }
+
+   void OnTriggerExit(Collider other)
+   {
+      other.transform.parent.GetComponent<Car>().trafficLight = null;
+   }
+   
 }

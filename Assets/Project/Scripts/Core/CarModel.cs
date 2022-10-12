@@ -6,4 +6,6 @@ public class CarModel : MonoBehaviour
 {
 
     public Transform[] wheels;
+    public Transform model;
+
 }

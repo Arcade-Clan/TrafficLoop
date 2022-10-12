@@ -19,7 +19,8 @@ public class Car : MonoBehaviour
     public Path path;
     Vector3 wheelRotation;
     float rayPointDistance;
-
+    public Car collidedCar;
+    
     public int priority;
     
     void Start()
@@ -34,8 +35,7 @@ public class Car : MonoBehaviour
         path = newPath;
         StartCoroutine("MoveRoutine");
     }
-    
-    [FormerlySerializedAs("colliderCar")] public Car collidedCar;
+
     
     IEnumerator MoveRoutine()
     {

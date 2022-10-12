@@ -29,7 +29,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7239391517126853800}
-  m_RootOrder: 6
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4407874873595532840
 PrefabInstance:
@@ -38,6 +38,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 407933679440309736, guid: 60c811a1db7d64ee28e6c674e957d038,
+        type: 3}
+      propertyPath: wheels.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 407933679440309736, guid: 60c811a1db7d64ee28e6c674e957d038,
+        type: 3}
+      propertyPath: wheels.Array.data[2]
+      value: 
+      objectReference: {fileID: 7239391522799645956}
+    - target: {fileID: 407933679440309736, guid: 60c811a1db7d64ee28e6c674e957d038,
+        type: 3}
+      propertyPath: wheels.Array.data[3]
+      value: 
+      objectReference: {fileID: 7239391515005178782}
+    - target: {fileID: 407933679440309736, guid: 60c811a1db7d64ee28e6c674e957d038,
+        type: 3}
+      propertyPath: wheels.Array.data[4]
+      value: 
+      objectReference: {fileID: 7239391515005178782}
     - target: {fileID: 6413993878992611246, guid: 60c811a1db7d64ee28e6c674e957d038,
         type: 3}
       propertyPath: m_Enabled

@@ -144,6 +144,11 @@ public class GameManager : MonoSingleton<GameManager>
         StopCoroutine("SpeedUpCoolDown");
         simulationSpeed = speedUpMultiplier * speedUp;
         Time.timeScale = simulationSpeed;
+        for (int a = 0; a < cars.Length; a++)
+        {
+            for (int b = 0; b < cars[a].cars.Count; b++)
+                cars[a].cars[b].trail.Show();
+        }
         StartCoroutine("SpeedUpCoolDown");
     }
 
@@ -151,6 +156,11 @@ public class GameManager : MonoSingleton<GameManager>
     {
         yield return new WaitForSeconds(speedUpTimer);
         simulationSpeed = speedUp;
+        for (int a = 0; a < cars.Length; a++)
+        {
+            for (int b = 0; b < cars[a].cars.Count; b++)
+                cars[a].cars[b].trail.Hide();
+        }
     }
 
     public IEnumerator SpeedUpRoutine()

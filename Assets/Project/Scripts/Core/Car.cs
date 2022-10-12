@@ -20,7 +20,7 @@ public class Car : MonoBehaviour
     Vector3 wheelRotation;
     float rayPointDistance;
     public Car collidedCar;
-    
+    public GameObject trail;
     public int priority;
     
     void Start()

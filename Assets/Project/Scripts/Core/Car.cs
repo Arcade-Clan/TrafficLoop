@@ -19,11 +19,13 @@ public class Car : MonoBehaviour
     public Path path;
     Vector3 wheelRotation;
     float rayPointDistance;
-    public float minSpeed;
 
+    public int priority;
+    
     void Start()
     {
-        minSpeed = Random.Range(0, 0.01f);
+        priority = Random.Range(0, 100);
+        
         rayPointDistance = Vector3.Distance(transform.position, rayPoint.position);
     }
     
@@ -42,20 +44,20 @@ public class Car : MonoBehaviour
         while (true)
         {
             collidedCar = CheckRay();
-            if (collidedCar && (Vector3.Distance(path.transform.position, collidedCar.path.transform.position) <0.1f))
+            if (collidedCar && Vector3.Distance(path.transform.position, collidedCar.path.transform.position) <0.1f)
             {
                 text.text = "Same Path\n"+collidedCar.gameObject.name;
-                currentSpeed = Mathf.Lerp(currentSpeed, minSpeed, GameManager.Instance.slowStrength);
+                currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             }
-            else if (collidedCar && currentSpeed < collidedCar.currentSpeed)
+            else if (collidedCar && priority < collidedCar.priority)
             {
                 text.text = "Different Speed\n" + collidedCar.gameObject.name;
-                currentSpeed = Mathf.Lerp(currentSpeed, minSpeed, GameManager.Instance.slowStrength);
+                currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             }
             else if (trafficLight)
             {
                 text.text = "Light";
-                currentSpeed = Mathf.Lerp(currentSpeed, minSpeed, GameManager.Instance.slowStrength);
+                currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             }
             else
             {

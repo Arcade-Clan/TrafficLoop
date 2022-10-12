@@ -11653,7 +11653,7 @@ MonoBehaviour:
   - {fileID: 1473851102291620151}
   - {fileID: 5180477875305218939}
   path: {fileID: 0}
-  minSpeed: 0
+  priority: 0
   collidedCar: {fileID: 0}
 --- !u!54 &5796438164445229631
 Rigidbody:
@@ -11848,8 +11848,8 @@ GameObject:
   - component: {fileID: 7100649272676436143}
   - component: {fileID: 7129649351995371471}
   - component: {fileID: 7121617617901458835}
-  - component: {fileID: 2977713146499230140}
   - component: {fileID: 1599956443687598966}
+  - component: {fileID: 8856232080390428161}
   m_Layer: 7
   m_Name: Car_1B
   m_TagString: Untagged
@@ -11924,19 +11924,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2977713146499230140
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7099690171894248057}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.4188876, y: 1.7320929, z: 3.6385565}
-  m_Center: {x: 0, y: 0.98376465, z: -0.038914025}
 --- !u!114 &1599956443687598966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11955,6 +11942,20 @@ MonoBehaviour:
   - {fileID: 7100649273599755181}
   - {fileID: 7100649274318449787}
   model: {fileID: 8960419459165776766}
+--- !u!136 &8856232080390428161
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7099690171894248057}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.732093
+  m_Height: 6.5
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.98376465, z: -0.038914025}
 --- !u!1 &7099690172127725513
 GameObject:
   m_ObjectHideFlags: 0

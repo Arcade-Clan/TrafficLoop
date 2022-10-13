@@ -35,7 +35,6 @@ public class GameManager : MonoSingleton<GameManager>
     {
         public string upgradeName;
         public int upgradeLevel;
-        public int maxLevel = -1;
         public float baseValue;
         public float increment;
         public float expoRatio;
@@ -48,7 +47,13 @@ public class GameManager : MonoSingleton<GameManager>
             return Mathf.RoundToInt(baseValue + increment * upgradeLevel * expoRatio);
         }
         public float Value() { return startValue + incrementValue * upgradeLevel; }
-        public bool Max() { return maxLevel == upgradeLevel; }
+
+        public bool Max(int value)
+        {
+            if (value == 1)
+                return upgradeLevel == Instance.cars.Length;
+            return false;
+        }
     }
     public UpgradeClass[] upgrades;
 

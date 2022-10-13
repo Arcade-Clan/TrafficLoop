@@ -102,7 +102,7 @@ public class GameManager : MonoSingleton<GameManager>
         SetObjects();
         GetSaves();
         LevelManager.Instance.CreateLevel();
-        CalculateMerge();
+        CalculateCarDistribution();
         UIManager.Instance.UpdateEconomyUI();
         StartCoroutine("GetStatsRoutine");
         StartGame();
@@ -124,7 +124,7 @@ public class GameManager : MonoSingleton<GameManager>
         merge.mergeLevel = PlayerPrefs.GetInt(merge.mergeName);
     }
 
-    void CalculateMerge()
+    void CalculateCarDistribution()
     {
         cars[0].carLevel = Mathf.RoundToInt(upgrades[0].Value());
         for (int a = 1; a < cars.Length; a++)
@@ -190,6 +190,7 @@ public class GameManager : MonoSingleton<GameManager>
         UIManager.Instance.goldText.text = "" + gold;
         upgrades[0].upgradeLevel += 1;
         PlayerPrefs.SetInt(upgrades[0].upgradeName, upgrades[0].upgradeLevel);
+        CalculateCarDistribution();
         UIManager.Instance.UpdateEconomyUI();
     }
 
@@ -229,7 +230,7 @@ public class GameManager : MonoSingleton<GameManager>
         UIManager.Instance.goldText.text = "" + gold;
         merge.mergeLevel += 1;
         PlayerPrefs.SetInt(merge.mergeName, merge.mergeLevel);
-        CalculateMerge();
+        CalculateCarDistribution();
         MergeCars();
     }
 
@@ -251,7 +252,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     IEnumerator MergeCarsRoutine(Car[] closestCars)
     {
-        CalculateMerge();
+        CalculateCarDistribution();
         cars[closestCars[0].carIndex].cars.Remove(closestCars[0]);
         cars[closestCars[1].carIndex].cars.Remove(closestCars[1]);
         cars[closestCars[2].carIndex].cars.Remove(closestCars[2]);
@@ -321,9 +322,19 @@ public class GameManager : MonoSingleton<GameManager>
             }
             yield return new WaitForFixedUpdate();
         }
-
     }
-   
+
+    public int TotalCarCount()
+    {
+        int carCount = 0;
+        for (int a = 0; a < cars.Length; a++)
+        {
+            carCount += cars[a].carLevel;
+        }
+
+        return carCount;
+    }
+    
 #region SpeedUp
 
     public void SpeedUp()

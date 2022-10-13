@@ -67,7 +67,7 @@ public class UIManager : MonoSingleton<UIManager>
          cars.AddRange(GameManager.Instance.cars[a].cars);
       }
       carAmount.text = "" + cars.Count;
-      carAmountPerMinute.text = "" + GameManager.Instance.upgrades[0].Value();
+      carAmountPerMinute.text = "" + GameManager.Instance.TotalCarCount();
       incomePerMinute.text = "" + GameManager.Instance.upgrades[0].Value() * GameManager.Instance.upgrades[2].Value();
       float density = 0;
       for (int a = 0; a < cars.Count; a++)

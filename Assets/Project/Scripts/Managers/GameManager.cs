@@ -278,8 +278,9 @@ public class GameManager : MonoSingleton<GameManager>
         closestCars[0].UpgradeCar();
         cars[closestCars[0].carIndex].cars.Add(closestCars[0]);
         Taptic.Medium();
-        closestCars[0].cars[closestCars[0].carIndex].transform.DOScale(1.5f, 0.25f).SetEase(Ease.OutSine).OnComplete(()=>
-            closestCars[0].cars[closestCars[0].carIndex].transform.DOScale(1f, 0.25f).SetEase(Ease.InSine));
+        float carScale = closestCars[0].cars[closestCars[0].carIndex].transform.localScale.x;
+        closestCars[0].cars[closestCars[0].carIndex].transform.DOScale(carScale*2, 0.25f).SetEase(Ease.OutSine).OnComplete(()=>
+            closestCars[0].cars[closestCars[0].carIndex].transform.DOScale(carScale, 0.25f).SetEase(Ease.InSine));
         UIManager.Instance.UpdateEconomyUI();
     }
     

@@ -100,7 +100,7 @@ public class UIManager : MonoSingleton<UIManager>
    {
       for (int a = 0; a < upgrades.Length; a++)
       {
-         if (GameManager.Instance.upgrades[a].Max())
+         if (GameManager.Instance.upgrades[a].Max(a))
          {
             upgrades[a].upgradePanel.Hide();
          }

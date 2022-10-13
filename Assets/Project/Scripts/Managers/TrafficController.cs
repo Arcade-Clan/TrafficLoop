@@ -12,7 +12,9 @@ public class TrafficController : MonoBehaviour
 
     public Path[] paths;
     public TrafficLight[] trafficLights;
-
+    public List<Path> loopingPaths;
+    
+    
     IEnumerator StartTrafficRoutine()
     {
         yield return null;
@@ -73,7 +75,7 @@ public class TrafficController : MonoBehaviour
         while (true)
         {
             CreateCar();
-            yield return new WaitForSeconds(60f/ GameManager.Instance.upgrades[0].Value());
+            yield return new WaitForSeconds(60f / GameManager.Instance.upgrades[0].Value());
             while (GameManager.Instance.stopCarCreationOnTrafficDensity < GameManager.Instance.trafficDensity)
                 yield return null;
         }
@@ -81,24 +83,46 @@ public class TrafficController : MonoBehaviour
 
     void CreateCar()
     {
+ 
+        
+        
+        
         int percentage = Random.Range(0, 101);
         int increment = 0;
-        int randomIndex = 0;
+        int randomCarChanceIndex = 0;
         for (int a = 0; a < GameManager.Instance.cars.Length; a++)
         {
             if (percentage >= increment && percentage <= increment + GameManager.Instance.cars[a].carLevel)
             {
-                randomIndex = a;
+                randomCarChanceIndex = a;
                 break;
             }
             increment += GameManager.Instance.cars[a].carLevel;
         }
-        Path randomPath = paths.GetRandom();
-        Vector3 newPosition = randomPath.tween.PathGetPoint(0);
-        Car newCar = Instantiate(GameManager.Instance.cars[randomIndex].carPrefab, newPosition,
-            Quaternion.LookRotation(randomPath.tween.PathGetPoint(0.01f) - newPosition));
-        GameManager.Instance.cars[randomIndex].cars.Add(newCar);
-        newCar.MoveCar(randomPath);
+        //
+        if (loopingPaths.Count == 0)
+            loopingPaths = new List<Path>(paths);
+        
+        Path selectedPath = null;
+        int counter = 100;
+        do
+        {
+            int randomPathIndex = Random.Range(0, loopingPaths.Count);
+            if (!Physics.CheckSphere(loopingPaths[randomPathIndex].tween.PathGetPoint(0), 1, LayerMask.GetMask("Car")))
+                selectedPath = loopingPaths[randomPathIndex];
+            counter += 1;
+        }
+        while (!selectedPath && counter < 100);
+
+        if (!selectedPath)
+            return;
+        loopingPaths.Remove(selectedPath);
+        Vector3 newPosition = selectedPath.tween.PathGetPoint(0);
+        //
+        Car newCar = Instantiate(GameManager.Instance.cars[randomCarChanceIndex].carPrefab, newPosition,
+            Quaternion.LookRotation(selectedPath.tween.PathGetPoint(0.01f) - newPosition));
+        GameManager.Instance.cars[randomCarChanceIndex].cars.Add(newCar);
+        newCar.MoveCar(selectedPath);
         UIManager.Instance.UpdateEconomyUI();
     }
 }

@@ -6284,7 +6284,6 @@ MonoBehaviour:
   upgrades:
   - upgradeName: Car Amount
     upgradeLevel: 0
-    maxLevel: -1
     baseValue: 50
     increment: 20
     expoRatio: 0.25
@@ -6292,7 +6291,6 @@ MonoBehaviour:
     incrementValue: 5
   - upgradeName: Size
     upgradeLevel: 0
-    maxLevel: 8
     baseValue: 50
     increment: 250
     expoRatio: 1.5
@@ -6300,7 +6298,6 @@ MonoBehaviour:
     incrementValue: 1
   - upgradeName: Income
     upgradeLevel: 0
-    maxLevel: -1
     baseValue: 80
     increment: 60
     expoRatio: 15
@@ -6317,13 +6314,13 @@ MonoBehaviour:
     carPrefab: {fileID: 8311895967091944074, guid: 60c811a1db7d64ee28e6c674e957d038,
       type: 3}
     carLevel: 0
-    carValue: 5
+    carValue: 3
     cars: []
   - carName: Car3
     carPrefab: {fileID: 5652619583543868578, guid: c50478a533d444a98a3c5e68bcad2550,
       type: 3}
     carLevel: 0
-    carValue: 15
+    carValue: 9
     cars: []
   merge:
     mergeName: Merge

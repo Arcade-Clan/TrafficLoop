@@ -11,7 +11,6 @@ public class UIManager : MonoSingleton<UIManager>
 {
   
    public List<GameObject> panels;
-   public List<TextMeshProUGUI> texts;
    public TextMeshProUGUI goldText;
    public TextMeshProUGUI carAmount;
    public TextMeshProUGUI carAmountPerMinute;
@@ -24,7 +23,6 @@ public class UIManager : MonoSingleton<UIManager>
    public class UpgradeClass
    {
       public TextMeshProUGUI goldText;
-      public TextMeshProUGUI levelText;
       public GameObject upgradePanel;
       public Image coverImage;
    }
@@ -38,16 +36,7 @@ public class UIManager : MonoSingleton<UIManager>
       public Image coverImage;
    }
    public MergeClass merge;
-
-
    
-
-   void Awake()
-   {
-      texts[0].text = "LEVEL " + (PlayerPrefs.GetInt("Level") + 1);
-      texts[1].text = "LEVEL " + (PlayerPrefs.GetInt("Level") + 1) + " COMPLETED";
-      texts[2].text = "LEVEL " + (PlayerPrefs.GetInt("Level") + 1) + " FAILED";
-   }
    
    public void NextButton()
    {
@@ -68,7 +57,8 @@ public class UIManager : MonoSingleton<UIManager>
       }
       carAmount.text = "" + cars.Count;
       carAmountPerMinute.text = "" + GameManager.Instance.TotalCarCount();
-      incomePerMinute.text = "" + GameManager.Instance.upgrades[0].Value() * GameManager.Instance.upgrades[2].Value();
+      
+      incomePerMinute.text = "$" + CalculateIncome()+" / SEC";
       float density = 0;
       for (int a = 0; a < cars.Count; a++)
       {
@@ -79,8 +69,18 @@ public class UIManager : MonoSingleton<UIManager>
          trafficDensity.fillAmount = Mathf.Lerp(trafficDensity.fillAmount, density / cars.Count,0.1f);
    }
 
-   
-   
+
+   int CalculateIncome()
+   {
+      float income = 0;
+      
+      for (int a = 0; a < GameManager.Instance.cars.Length; a++)
+      {
+         income += GameManager.Instance.cars[a].carLevel * GameManager.Instance.cars[a].carValue * GameManager.Instance.upgrades[2].Value();
+      }
+
+      return Mathf.RoundToInt(income);
+   }
    
    public void CreateText(int value, Vector3 position)
    {

@@ -12891,6 +12891,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paths: []
   trafficLights: []
+  loopingPaths: []
 --- !u!4 &276310389
 Transform:
   m_ObjectHideFlags: 0
@@ -79765,7 +79766,6 @@ MonoBehaviour:
   upgrades:
   - upgradeName: Car Amount
     upgradeLevel: 0
-    maxLevel: -1
     baseValue: 40
     increment: 20
     expoRatio: 0.25
@@ -79773,7 +79773,6 @@ MonoBehaviour:
     incrementValue: 1
   - upgradeName: Size
     upgradeLevel: 0
-    maxLevel: 10
     baseValue: 200
     increment: 125
     expoRatio: 1.5
@@ -79781,7 +79780,6 @@ MonoBehaviour:
     incrementValue: 1
   - upgradeName: Income
     upgradeLevel: 0
-    maxLevel: -1
     baseValue: 80
     increment: 60
     expoRatio: 30
@@ -80766,8 +80764,8 @@ Camera:
   m_GameObject: {fileID: 2035921145}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.7877358, g: 0.91836417, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

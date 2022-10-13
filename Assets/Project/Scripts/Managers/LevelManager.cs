@@ -20,8 +20,8 @@ public class LevelManager : MonoSingleton<LevelManager>
         if (level.sections[levelIndexes[1]].cam)
         {
             level.sections[levelIndexes[1]].cam.Hide();
-            UIManager.Instance.cam.transform.position=level.sections[levelIndexes[1]].cam.position;
-            UIManager.Instance.cam.transform.rotation = level.sections[levelIndexes[1]].cam.rotation;
+            GameManager.Instance.cam.transform.position=level.sections[levelIndexes[1]].cam.position;
+            GameManager.Instance.cam.transform.rotation = level.sections[levelIndexes[1]].cam.rotation;
         }
     }
 
@@ -64,8 +64,8 @@ public class LevelManager : MonoSingleton<LevelManager>
         if(level.sections[levelIndexes[1]].cam)
         {
             level.sections[levelIndexes[1]].cam.Hide();
-            UIManager.Instance.cam.transform.DOMove(level.sections[levelIndexes[1]].cam.position, 1f).SetEase(Ease.InOutSine);
-            UIManager.Instance.cam.transform.DORotateQuaternion(level.sections[levelIndexes[1]].cam.rotation, 1f).SetEase(Ease.InOutSine);
+            GameManager.Instance.cam.transform.DOMove(level.sections[levelIndexes[1]].cam.position, 1f).SetEase(Ease.InOutSine);
+            GameManager.Instance.cam.transform.DORotateQuaternion(level.sections[levelIndexes[1]].cam.rotation, 1f).SetEase(Ease.InOutSine);
         }
     }
     

@@ -18,9 +18,7 @@ public class UIManager : MonoSingleton<UIManager>
    public TextMeshProUGUI incomePerMinute;
    public Image trafficDensity;
    public TextMeshProUGUI counterText;
-   Canvas canvas;
-   [HideInInspector]
-   public Camera cam;
+
 
    [Serializable]
    public class UpgradeClass
@@ -46,8 +44,6 @@ public class UIManager : MonoSingleton<UIManager>
 
    void Awake()
    {
-      cam = FindObjectOfType<Camera>();
-      canvas = FindObjectOfType<Canvas>();
       texts[0].text = "LEVEL " + (PlayerPrefs.GetInt("Level") + 1);
       texts[1].text = "LEVEL " + (PlayerPrefs.GetInt("Level") + 1) + " COMPLETED";
       texts[2].text = "LEVEL " + (PlayerPrefs.GetInt("Level") + 1) + " FAILED";
@@ -90,9 +86,10 @@ public class UIManager : MonoSingleton<UIManager>
    {
       TextMeshProUGUI newText = Instantiate(counterText);
       newText.text = "+" + value;
-      newText.transform.SetParent(canvas.transform);
+      newText.transform.SetParent(GameManager.Instance.canvas.transform);
       newText.transform.SetAsFirstSibling();
-      newText.GetComponent<RectTransform>().anchoredPosition =RectTransformUtility.WorldToScreenPoint(cam, position) / canvas.transform.localScale.x;
+      newText.GetComponent<RectTransform>().anchoredPosition =RectTransformUtility.WorldToScreenPoint(GameManager.Instance.cam, position) /
+                                                              GameManager.Instance.canvas.transform.localScale.x;
    }
 
 
@@ -109,7 +106,7 @@ public class UIManager : MonoSingleton<UIManager>
             float cost = GameManager.Instance.upgrades[a].Cost(a);
             //upgrades[a].levelText.text = "LEVEL " + (GameManager.Instance.upgrades[a].upgradeLevel + 1);
             upgrades[a].goldText.text = "" + cost;
-            upgrades[a].coverImage.gameObject.SetActive(cost >= GameManager.Instance.gold);
+            upgrades[a].coverImage.gameObject.SetActive(cost > GameManager.Instance.gold);
             upgrades[a].coverImage.transform.parent.GetComponent<Button>().enabled =
                cost < GameManager.Instance.gold;
          }

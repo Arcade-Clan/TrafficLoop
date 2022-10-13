@@ -5,6 +5,7 @@ using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityExtensions;
 
 public class GameManager : MonoSingleton<GameManager>
@@ -15,21 +16,19 @@ public class GameManager : MonoSingleton<GameManager>
     public float slowStrength = 0.1f;
     public float rotationSlowDownStrength = 5;
     public float carSpeed;
-    [ReadOnly]
-    public float simulationSpeed =1;
+    [ReadOnly] public float simulationSpeed = 1;
     float speedUp = 1;
     public float speedUpTimer = 0.5f;
     public float speedUpMultiplier = 2f;
     public float rayDistance = 2;
 
-    [ReadOnly]
-    public float trafficDensity;
+    [ReadOnly] public float trafficDensity;
 
     public float stopCarCreationOnTrafficDensity = 0.5f;
-    
-    Camera cam;
-    [HideInInspector]
-    public TrafficController trafficController;
+    [HideInInspector] public Canvas canvas;
+    [HideInInspector] public Camera cam;
+    [HideInInspector] public TrafficController trafficController;
+
     [Serializable]
     public class UpgradeClass
     {
@@ -40,12 +39,14 @@ public class GameManager : MonoSingleton<GameManager>
         public float expoRatio;
         public float startValue;
         public float incrementValue;
+
         public int Cost(int value)
         {
             if (value == 0)
                 return Mathf.RoundToInt(baseValue + increment * upgradeLevel + upgradeLevel * ((upgradeLevel + 1) / 2) * expoRatio);
             return Mathf.RoundToInt(baseValue + increment * upgradeLevel * expoRatio);
         }
+
         public float Value() { return startValue + incrementValue * upgradeLevel; }
 
         public bool Max(int value)
@@ -54,7 +55,9 @@ public class GameManager : MonoSingleton<GameManager>
                 return upgradeLevel == LevelManager.Instance.level.sections.Length;
             return false;
         }
+
     }
+
     public UpgradeClass[] upgrades;
 
     [Serializable]
@@ -62,10 +65,12 @@ public class GameManager : MonoSingleton<GameManager>
     {
         public string carName;
         public Car carPrefab;
+        [ReadOnly]
         public int carLevel;
         public int carValue;
-        public List<Car> cars =new List<Car>();
+        public List<Car> cars = new List<Car>();
     }
+
     public CarClass[] cars;
 
     [Serializable]
@@ -76,23 +81,37 @@ public class GameManager : MonoSingleton<GameManager>
         public float baseValue;
         public float increment;
         public float expoRatio;
-        public int Cost() { return Mathf.RoundToInt(baseValue + increment * mergeLevel + mergeLevel * ((mergeLevel + 1) / 2) * expoRatio); }
+
+        public int Cost()
+        {
+            return Mathf.RoundToInt(baseValue + increment * mergeLevel + mergeLevel * ((mergeLevel + 1) / 2) * expoRatio);
+        }
     }
+
     public MergeClass merge;
     public GameObject crashSmoke;
-
+    public List<int> carProductionIndex = new List<int>();
+    
     void Awake()
     {
         Application.targetFrameRate = 60;
-        SetObjects();
-        GetSaves();
-        CalculateMerge();
-
     }
 
-
+    void Start()
+    {
+        SetObjects();
+        GetSaves();
+        LevelManager.Instance.CreateLevel();
+        CalculateMerge();
+        UIManager.Instance.UpdateEconomyUI();
+        StartCoroutine("GetStatsRoutine");
+        StartGame();
+    }
+    
     void SetObjects()
     {
+        cam = FindObjectOfType<Camera>();
+        canvas = FindObjectOfType<Canvas>();
         trafficController = FindObjectOfType<TrafficController>();
     }
 
@@ -103,33 +122,34 @@ public class GameManager : MonoSingleton<GameManager>
         for (int a = 0; a < upgrades.Length; a++)
             upgrades[a].upgradeLevel = PlayerPrefs.GetInt(upgrades[a].upgradeName);
         merge.mergeLevel = PlayerPrefs.GetInt(merge.mergeName);
-        UIManager.Instance.UpdateEconomyUI();
     }
 
     void CalculateMerge()
     {
-        cars[0].carLevel = 100;
-
+        cars[0].carLevel = Mathf.RoundToInt(upgrades[0].Value());
         for (int a = 1; a < cars.Length; a++)
-        {
             cars[a].carLevel = 0;
-        }
-        int carIndex = 0;
-        for (int b = 0; b < merge.mergeLevel; b++)
+        int mergeLevel = merge.mergeLevel;
+        for (int a = 0; a < cars.Length - 1; a++)
         {
-            cars[carIndex].carLevel -= 1;
-            cars[carIndex+1].carLevel += 1;
-            if (cars[carIndex].carLevel <= 0)
-                carIndex += 1;
+            while (mergeLevel > 0 && cars[a].carLevel >= 3)
+            {
+                cars[a].carLevel -= 3;
+                cars[a + 1].carLevel += 1;
+                mergeLevel -= 1;
+            }
         }
+        
+        carProductionIndex.Clear();
+        for (int a = 0; a < cars.Length; a++)
+        {
+            for (int b = 0; b < cars[a].carLevel; b++)
+                carProductionIndex.Add(a);
+        }
+        carProductionIndex.Shuffle();
     }
     
-    void Start()
-    {
-        LevelManager.Instance.CreateLevel();
-        StartCoroutine("GetStatsRoutine");
-        StartGame();
-    }
+
 
     public void StartGame()
     {
@@ -142,92 +162,7 @@ public class GameManager : MonoSingleton<GameManager>
         trafficController.StartCoroutine("StartTrafficRoutine");
     }
 
-#region SpeedUp
 
-    public void SpeedUp()
-    {
-        Taptic.Light();
-        StopCoroutine("SpeedUpCoolDown");
-        simulationSpeed = speedUpMultiplier * speedUp;
-        Time.timeScale = simulationSpeed;
-        for (int a = 0; a < cars.Length; a++)
-        {
-            for (int b = 0; b < cars[a].cars.Count; b++)
-                cars[a].cars[b].trail.Show();
-        }
-        StartCoroutine("SpeedUpCoolDown");
-    }
-
-    IEnumerator SpeedUpCoolDown()
-    {
-        yield return new WaitForSeconds(speedUpTimer);
-        simulationSpeed = speedUp;
-        for (int a = 0; a < cars.Length; a++)
-        {
-            for (int b = 0; b < cars[a].cars.Count; b++)
-                cars[a].cars[b].trail.Hide();
-        }
-    }
-
-    public IEnumerator SpeedUpRoutine()
-    {
-        while (true)
-        {
-            Time.timeScale = Mathf.Lerp(Time.timeScale, simulationSpeed, 0.05f);
-            yield return null;
-        }
-    }
-    
-#endregion
-
-#region HelperUpdate
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.M)||Input.GetMouseButtonDown(1))
-        {
-            gold += 1000;
-            PlayerPrefs.SetInt("Gold", gold);
-            UIManager.Instance.goldText.text = "" + gold;
-            UIManager.Instance.UpdateEconomyUI();
-        }
-
-        if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(3))
-        {
-            PlayerPrefs.DeleteAll();
-            Application.LoadLevel(0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetMouseButtonDown(2))
-            simulationSpeed = 10;
-        else if (Input.GetKeyUp(KeyCode.S) || Input.GetMouseButtonUp(2))
-            simulationSpeed = 1;
-    }
-
-#endregion
-
-#region Sounds
-
-    /*
-      [Serializable]
-      public class SoundClass
-      {
-  
-          public AudioClip sound;
-          [Range(0f, 1f)] public float volume = 1;
-  
-      }
-  
-      public SoundClass[] sounds;
-  
-      public void PlaySound(int value)
-      {
-          if (sounds.Length > 0)
-              GetComponent<AudioSource>().PlayOneShot(sounds[value].sound, sounds[value].volume);
-      }
-      */  
-
-#endregion
     
     public void Win()
     {
@@ -316,6 +251,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     IEnumerator MergeCarsRoutine(Car[] closestCars)
     {
+        CalculateMerge();
         cars[closestCars[0].carIndex].cars.Remove(closestCars[0]);
         cars[closestCars[1].carIndex].cars.Remove(closestCars[1]);
         cars[closestCars[2].carIndex].cars.Remove(closestCars[2]);
@@ -388,4 +324,91 @@ public class GameManager : MonoSingleton<GameManager>
 
     }
    
+#region SpeedUp
+
+    public void SpeedUp()
+    {
+        Taptic.Light();
+        StopCoroutine("SpeedUpCoolDown");
+        simulationSpeed = speedUpMultiplier * speedUp;
+        Time.timeScale = simulationSpeed;
+        for (int a = 0; a < cars.Length; a++)
+        {
+            for (int b = 0; b < cars[a].cars.Count; b++)
+                cars[a].cars[b].trail.Show();
+        }
+        StartCoroutine("SpeedUpCoolDown");
+    }
+
+    IEnumerator SpeedUpCoolDown()
+    {
+        yield return new WaitForSeconds(speedUpTimer);
+        simulationSpeed = speedUp;
+        for (int a = 0; a < cars.Length; a++)
+        {
+            for (int b = 0; b < cars[a].cars.Count; b++)
+                cars[a].cars[b].trail.Hide();
+        }
+    }
+
+    public IEnumerator SpeedUpRoutine()
+    {
+        while (true)
+        {
+            Time.timeScale = Mathf.Lerp(Time.timeScale, simulationSpeed, 0.05f);
+            yield return null;
+        }
+    }
+    
+#endregion
+
+#region HelperUpdate
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M)||Input.GetMouseButtonDown(1))
+        {
+            gold += 1000;
+            PlayerPrefs.SetInt("Gold", gold);
+            UIManager.Instance.goldText.text = "" + gold;
+            UIManager.Instance.UpdateEconomyUI();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(3))
+        {
+            PlayerPrefs.DeleteAll();
+            Application.LoadLevel(0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetMouseButtonDown(2))
+            simulationSpeed = 10;
+        else if (Input.GetKeyUp(KeyCode.S) || Input.GetMouseButtonUp(2))
+            simulationSpeed = 1;
+    }
+
+#endregion
+
+#region Sounds
+
+    /*
+      [Serializable]
+      public class SoundClass
+      {
+  
+          public AudioClip sound;
+          [Range(0f, 1f)] public float volume = 1;
+  
+      }
+  
+      public SoundClass[] sounds;
+  
+      public void PlaySound(int value)
+      {
+          if (sounds.Length > 0)
+              GetComponent<AudioSource>().PlayOneShot(sounds[value].sound, sounds[value].volume);
+      }
+      */  
+
+#endregion
+    
 }

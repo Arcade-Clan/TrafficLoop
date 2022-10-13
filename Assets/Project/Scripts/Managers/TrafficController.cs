@@ -81,25 +81,11 @@ public class TrafficController : MonoBehaviour
         }
     }
 
+    int carCounter = 0;
+    
     void CreateCar()
     {
- 
-        
-        
-        
-        int percentage = Random.Range(0, 101);
-        int increment = 0;
-        int randomCarChanceIndex = 0;
-        for (int a = 0; a < GameManager.Instance.cars.Length; a++)
-        {
-            if (percentage >= increment && percentage <= increment + GameManager.Instance.cars[a].carLevel)
-            {
-                randomCarChanceIndex = a;
-                break;
-            }
-            increment += GameManager.Instance.cars[a].carLevel;
-        }
-        //
+
         if (loopingPaths.Count == 0)
             loopingPaths = new List<Path>(paths);
         
@@ -119,9 +105,11 @@ public class TrafficController : MonoBehaviour
         loopingPaths.Remove(selectedPath);
         Vector3 newPosition = selectedPath.tween.PathGetPoint(0);
         //
-        Car newCar = Instantiate(GameManager.Instance.cars[randomCarChanceIndex].carPrefab, newPosition,
+        carCounter = (carCounter + 1) % GameManager.Instance.carProductionIndex.Count;
+        int carIndex = GameManager.Instance.carProductionIndex[carCounter];
+        Car newCar = Instantiate(GameManager.Instance.cars[carIndex].carPrefab, newPosition,
             Quaternion.LookRotation(selectedPath.tween.PathGetPoint(0.01f) - newPosition));
-        GameManager.Instance.cars[randomCarChanceIndex].cars.Add(newCar);
+        GameManager.Instance.cars[carIndex].cars.Add(newCar);
         newCar.MoveCar(selectedPath);
         UIManager.Instance.UpdateEconomyUI();
     }

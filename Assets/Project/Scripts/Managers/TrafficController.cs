@@ -107,10 +107,10 @@ public class TrafficController : MonoBehaviour
         //
         carCounter = (carCounter + 1) % GameManager.Instance.carProductionIndex.Count;
         int carIndex = GameManager.Instance.carProductionIndex[carCounter];
-        Car newCar = Instantiate(GameManager.Instance.cars[carIndex].carPrefab, newPosition,
+        Car newCar = Instantiate(GameManager.Instance.carPrefab, newPosition,
             Quaternion.LookRotation(selectedPath.tween.PathGetPoint(0.01f) - newPosition));
         GameManager.Instance.cars[carIndex].cars.Add(newCar);
-        newCar.MoveCar(selectedPath);
+        newCar.MoveCar(carIndex,selectedPath);
         UIManager.Instance.UpdateEconomyUI();
     }
 }

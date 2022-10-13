@@ -64,7 +64,6 @@ public class GameManager : MonoSingleton<GameManager>
     public class CarClass
     {
         public string carName;
-        public Car carPrefab;
         [ReadOnly]
         public int carLevel;
         public int carValue;
@@ -91,6 +90,7 @@ public class GameManager : MonoSingleton<GameManager>
     public MergeClass merge;
     public GameObject crashSmoke;
     public List<int> carProductionIndex = new List<int>();
+    public Car carPrefab;
     
     void Awake()
     {
@@ -278,8 +278,8 @@ public class GameManager : MonoSingleton<GameManager>
         closestCars[0].UpgradeCar();
         cars[closestCars[0].carIndex].cars.Add(closestCars[0]);
         Taptic.Medium();
-        closestCars[0].cars[closestCars[0].carIndex].model.transform.DOScale(1.5f, 0.25f).SetEase(Ease.OutSine).OnComplete(()=>
-            closestCars[0].cars[closestCars[0].carIndex].model.transform.DOScale(1f, 0.25f).SetEase(Ease.InSine));
+        closestCars[0].cars[closestCars[0].carIndex].transform.DOScale(1.5f, 0.25f).SetEase(Ease.OutSine).OnComplete(()=>
+            closestCars[0].cars[closestCars[0].carIndex].transform.DOScale(1f, 0.25f).SetEase(Ease.InSine));
         UIManager.Instance.UpdateEconomyUI();
     }
     
@@ -346,7 +346,7 @@ public class GameManager : MonoSingleton<GameManager>
         for (int a = 0; a < cars.Length; a++)
         {
             for (int b = 0; b < cars[a].cars.Count; b++)
-                cars[a].cars[b].trail.Show();
+                cars[a].cars[b].cars[cars[a].cars[b].carIndex].trail.Show();
         }
         StartCoroutine("SpeedUpCoolDown");
     }
@@ -358,7 +358,7 @@ public class GameManager : MonoSingleton<GameManager>
         for (int a = 0; a < cars.Length; a++)
         {
             for (int b = 0; b < cars[a].cars.Count; b++)
-                cars[a].cars[b].trail.Hide();
+                cars[a].cars[b].cars[cars[a].cars[b].carIndex].trail.Hide();
         }
     }
 

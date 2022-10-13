@@ -18,20 +18,24 @@ public class Car : MonoBehaviour
     public CarModel[] cars;
     public Path path;
     Vector3 wheelRotation;
-    float rayPointDistance;
+    //float rayPointDistance;
     public Car collidedCar;
-    public GameObject trail;
     public int priority;
+    
+    
     
     void Start()
     {
         priority = Random.Range(0, 100);
         
-        rayPointDistance = Vector3.Distance(transform.position, rayPoint.position);
+        //rayPointDistance = Vector3.Distance(transform.position, rayPoint.position);
     }
     
-    public void MoveCar(Path newPath)
+    public void MoveCar(int newCarIndex,Path newPath)
     {
+        carIndex = newCarIndex;
+        for (int a = 0; a < cars.Length; a++)
+            cars[a].gameObject.SetActive(carIndex == a);
         path = newPath;
         StartCoroutine("MoveRoutine");
     }

@@ -1041,6 +1041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paths: []
   trafficLights: []
+  loopingPaths: []
 --- !u!4 &276310389
 Transform:
   m_ObjectHideFlags: 0
@@ -6280,6 +6281,8 @@ MonoBehaviour:
   rayDistance: 3
   trafficDensity: 0
   stopCarCreationOnTrafficDensity: 0.5
+  canvas: {fileID: 0}
+  cam: {fileID: 0}
   trafficController: {fileID: 0}
   upgrades:
   - upgradeName: Car Amount
@@ -6305,22 +6308,44 @@ MonoBehaviour:
     incrementValue: 5
   cars:
   - carName: Car1
-    carPrefab: {fileID: 7098982642445039189, guid: 6e9056bfba70245f6abcd061075e2a8a,
-      type: 3}
     carLevel: 100
     carValue: 1
     cars: []
   - carName: Car2
-    carPrefab: {fileID: 8311895967091944074, guid: 60c811a1db7d64ee28e6c674e957d038,
-      type: 3}
     carLevel: 0
     carValue: 3
     cars: []
   - carName: Car3
-    carPrefab: {fileID: 5652619583543868578, guid: c50478a533d444a98a3c5e68bcad2550,
-      type: 3}
     carLevel: 0
     carValue: 9
+    cars: []
+  - carName: Car4
+    carLevel: 0
+    carValue: 0
+    cars: []
+  - carName: Car5
+    carLevel: 0
+    carValue: 0
+    cars: []
+  - carName: Car6
+    carLevel: 0
+    carValue: 0
+    cars: []
+  - carName: Car7
+    carLevel: 0
+    carValue: 0
+    cars: []
+  - carName: Car8
+    carLevel: 0
+    carValue: 0
+    cars: []
+  - carName: Car9
+    carLevel: 0
+    carValue: 0
+    cars: []
+  - carName: Car10
+    carLevel: 0
+    carValue: 0
     cars: []
   merge:
     mergeName: Merge
@@ -6329,6 +6354,9 @@ MonoBehaviour:
     increment: 125
     expoRatio: 1.5
   crashSmoke: {fileID: 3480892824555974408, guid: 0d2af3b1df29c42be916e1330bfc92be,
+    type: 3}
+  carProductionIndex: 
+  carPrefab: {fileID: 8828391772419353904, guid: db1a5b5697ae349b09deb1d33ec1ef17,
     type: 3}
 --- !u!1 &1952460694
 GameObject:
@@ -6647,11 +6675,91 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1301498265627362311, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301498265627362311, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301498265627362311, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1301498265627362311, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1720970304180032552, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1897629319}
+    - target: {fileID: 1982145768267123009, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982145768267123009, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982145768267123009, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982145768267123009, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982145768389213652, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982145768389213652, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982145768389213652, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982145768389213652, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982145769894618544, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982145769894618544, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982145769894618544, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982145769894618544, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5011611659847267057, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

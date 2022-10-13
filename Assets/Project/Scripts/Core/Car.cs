@@ -26,7 +26,7 @@ public class Car : MonoBehaviour
     
     void Start()
     {
-        priority = Random.Range(0, 100);
+        priority = Random.Range(-int.MaxValue, int.MaxValue);
         
         //rayPointDistance = Vector3.Distance(transform.position, rayPoint.position);
     }

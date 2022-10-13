@@ -52,7 +52,7 @@ public class GameManager : MonoSingleton<GameManager>
         public bool Max(int value)
         {
             if (value == 1)
-                return upgradeLevel == LevelManager.Instance.level.sections.Length;
+                return upgradeLevel == LevelManager.Instance.level.sections.Length-1;
             return false;
         }
 

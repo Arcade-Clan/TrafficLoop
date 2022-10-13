@@ -16,7 +16,7 @@ public class UIManager : MonoSingleton<UIManager>
    public TextMeshProUGUI carAmountPerMinute;
    public TextMeshProUGUI incomePerMinute;
    public Image trafficDensity;
-   public TextMeshProUGUI counterText;
+   public GameObject counterText;
 
 
    [Serializable]
@@ -84,9 +84,8 @@ public class UIManager : MonoSingleton<UIManager>
    
    public void CreateText(int value, Vector3 position)
    {
-      TextMeshProUGUI newText = Instantiate(counterText);
-      newText.text = "+" + value;
-      newText.transform.SetParent(GameManager.Instance.canvas.transform);
+      GameObject newText = Instantiate(counterText, GameManager.Instance.canvas.transform, true);
+      newText.GetComponentInChildren<TextMeshProUGUI>().text = "+" + value;
       newText.transform.SetAsFirstSibling();
       newText.GetComponent<RectTransform>().anchoredPosition =RectTransformUtility.WorldToScreenPoint(GameManager.Instance.cam, position) /
                                                               GameManager.Instance.canvas.transform.localScale.x;

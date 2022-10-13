@@ -12,18 +12,19 @@ public class Counter : MonoBehaviour
     void Update()
     {
         if(Input.GetMouseButtonDown(1))
-            ProcessCounter(Random.Range(10000000,99999999));
+            ProcessCounter(Random.Range(0,999999.99f));
     }
 
     
     public void ProcessCounter(float value)
     {
-        int count = Mathf.RoundToInt(value);
+        int count = Mathf.RoundToInt(value*100);
         print(count);
         for (int a = 0; a < counters.Length; a++)
         {
-            DOTween.Kill(counters[a]);
             int newCount = Mathf.FloorToInt((count / Mathf.Pow(10f, a))% 10);
+            DOTween.Kill(counters[a]);
+            counters[a].DOLocalRotateQuaternion(Quaternion.Euler(0,newCount*36,0), 1f ).SetEase(Ease.OutSine);
             print(newCount);
         }
     }

@@ -4762,7 +4762,7 @@ MonoBehaviour:
   carAmountPerMinute: {fileID: 1759720001250254426}
   incomePerMinute: {fileID: 5125147871028620214}
   trafficDensity: {fileID: 694673509}
-  counterText: {fileID: 5498535327799098591, guid: 6f6d8b7657c2b44b48edc6f9dbd22dc7,
+  counterText: {fileID: 1611805061546153250, guid: 05e26ac8aa081447894fa6a2fab2c4b7,
     type: 3}
   upgrades:
   - goldText: {fileID: 1982145769499954550}

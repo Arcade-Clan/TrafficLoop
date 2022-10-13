@@ -51,7 +51,7 @@ public class GameManager : MonoSingleton<GameManager>
         public bool Max(int value)
         {
             if (value == 1)
-                return upgradeLevel == Instance.cars.Length;
+                return upgradeLevel == LevelManager.Instance.level.sections.Length;
             return false;
         }
     }

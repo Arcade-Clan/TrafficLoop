@@ -191,6 +191,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300026, guid: 8da5f2e05a5504e6a92c1529545b62e8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 246afcdb909e51d45ace847e362d5cc0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8da5f2e05a5504e6a92c1529545b62e8, type: 3}
 --- !u!4 &61999550 stripped
@@ -3242,6 +3246,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375436, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f05ced2eca0e4c20aa32b866652168f, type: 3}
 --- !u!1 &969958494
@@ -4047,6 +4056,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrafficLight (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3275701557654068875, guid: 50761cbce387d7d459f1b382acd55a53,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4746484350168288076, guid: 50761cbce387d7d459f1b382acd55a53,
         type: 3}
       propertyPath: m_Center.x
@@ -4453,6 +4467,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gate (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375436, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f05ced2eca0e4c20aa32b866652168f, type: 3}
@@ -5079,6 +5098,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375436, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f05ced2eca0e4c20aa32b866652168f, type: 3}
 --- !u!1001 &1429896779
@@ -5147,6 +5171,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gate
+      objectReference: {fileID: 0}
+    - target: {fileID: 8326037909054375436, guid: 5f05ced2eca0e4c20aa32b866652168f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f05ced2eca0e4c20aa32b866652168f, type: 3}
@@ -7512,6 +7541,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TrafficLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 3275701557654068875, guid: 50761cbce387d7d459f1b382acd55a53,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50761cbce387d7d459f1b382acd55a53, type: 3}

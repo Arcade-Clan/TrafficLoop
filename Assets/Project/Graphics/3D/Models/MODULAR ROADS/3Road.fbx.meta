@@ -15,7 +15,22 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Mtl_3Road
+    second: {fileID: 2100000, guid: 0da5c050efc7d23469cfceedb17944f0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl_Road
+    second: {fileID: 2100000, guid: 26c381287e1d7674eb522a6c9bc9df8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Mtl_SideROadLine
+    second: {fileID: 2100000, guid: 9e1bcf218d1eb4043839dea358b2af00, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl_SideRoadLine
     second: {fileID: 2100000, guid: 9e1bcf218d1eb4043839dea358b2af00, type: 2}
   materials:
     materialImportMode: 2

@@ -2,13 +2,21 @@ fileFormatVersion: 2
 guid: 4e6a984d5bdbb4f63ada74f99657b8c0
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 1827226128182048838
+    second: Take 001
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: ASPHALT_
     second: {fileID: 2100000, guid: 09048ab9bc4314da6a8cd553b3bd4c37, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl_SideROadLine
+    second: {fileID: 2100000, guid: 9e1bcf218d1eb4043839dea358b2af00, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

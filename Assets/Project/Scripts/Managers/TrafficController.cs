@@ -75,7 +75,7 @@ public class TrafficController : MonoBehaviour
         while (true)
         {
             CreateCar();
-            yield return new WaitForSeconds(60f / GameManager.Instance.TotalCarCount());
+            yield return new WaitForSeconds(GameManager.Instance.baseSecondCreation / GameManager.Instance.TotalCarCount());
             while (GameManager.Instance.stopCarCreationOnTrafficDensity < GameManager.Instance.trafficDensity)
                 yield return null;
         }

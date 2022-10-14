@@ -6289,8 +6289,8 @@ MonoBehaviour:
     baseValue: 50
     increment: 20
     expoRatio: 0.25
-    startValue: 30
-    incrementValue: 5
+    startValue: 20
+    incrementValue: 2
   - upgradeName: Size
     upgradeLevel: 0
     baseValue: 50

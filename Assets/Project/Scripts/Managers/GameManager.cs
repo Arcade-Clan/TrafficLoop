@@ -14,7 +14,7 @@ public class GameManager : MonoSingleton<GameManager>
     public int gold;
 
     public float slowStrength = 0.1f;
-    public float rotationSlowDownStrength = 5;
+    //public float rotationSlowDownStrength = 5;
     public float carSpeed;
     [ReadOnly] public float simulationSpeed = 1;
     float speedUp = 1;
@@ -29,6 +29,8 @@ public class GameManager : MonoSingleton<GameManager>
     [HideInInspector] public Camera cam;
     [HideInInspector] public TrafficController trafficController;
 
+    public float baseSecondCreation = 60;
+    
     [Serializable]
     public class UpgradeClass
     {

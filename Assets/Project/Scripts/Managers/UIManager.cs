@@ -56,9 +56,9 @@ public class UIManager : MonoSingleton<UIManager>
          cars.AddRange(GameManager.Instance.cars[a].cars);
       }
       carAmount.text = "" + cars.Count;
-      carAmountPerMinute.text = "" + GameManager.Instance.TotalCarCount();
+      carAmountPerMinute.text = "" + Mathf.RoundToInt(GameManager.Instance.baseSecondCreation / GameManager.Instance.TotalCarCount());
       
-      incomePerMinute.text = "$" + CalculateIncome()+" / S";
+      incomePerMinute.text = "$" + CalculateIncome()+"/M";
       float density = 0;
       for (int a = 0; a < cars.Count; a++)
       {
@@ -76,7 +76,8 @@ public class UIManager : MonoSingleton<UIManager>
       
       for (int a = 0; a < GameManager.Instance.cars.Length; a++)
       {
-         income += GameManager.Instance.cars[a].carLevel * GameManager.Instance.cars[a].carValue * GameManager.Instance.upgrades[2].Value();
+         income += GameManager.Instance.cars[a].carLevel * GameManager.Instance.cars[a].carValue * GameManager.Instance.upgrades[2].Value() *
+            60 /GameManager.Instance.baseSecondCreation;
       }
 
       return Mathf.RoundToInt(income);

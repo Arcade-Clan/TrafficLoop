@@ -2,7 +2,10 @@ fileFormatVersion: 2
 guid: 268e79b6d99374b19bf00a5118c68986
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 1827226128182048838
+    second: Take 001
   externalObjects:
   - first:
       type: UnityEngine:Material
@@ -14,6 +17,26 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: CONCRETE WALL
     second: {fileID: 2100000, guid: 9d027676866ae4ebe9409485f8b1775b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl_Bridge
+    second: {fileID: 2100000, guid: 787f2ca44868d5c4592f6fa990b47f62, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl_Bridge2
+    second: {fileID: 2100000, guid: a06b5419ad0220a4ca3e22e353cb6480, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl_SideRoad
+    second: {fileID: 2100000, guid: f4e062874d6ec14459279ac97cfb17c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl_SideRoadLine
+    second: {fileID: 2100000, guid: 9e1bcf218d1eb4043839dea358b2af00, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

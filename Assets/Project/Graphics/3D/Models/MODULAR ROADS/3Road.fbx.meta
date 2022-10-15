@@ -20,6 +20,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Mtl_Bridge2
+    second: {fileID: 2100000, guid: a06b5419ad0220a4ca3e22e353cb6480, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Mtl_Road
     second: {fileID: 2100000, guid: 26c381287e1d7674eb522a6c9bc9df8a, type: 2}
   - first:

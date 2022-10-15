@@ -2,13 +2,46 @@ fileFormatVersion: 2
 guid: ab17fb183a6834f76ab96bc53cead059
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: 1827226128182048838
+    second: Take 001
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: ASPHALT_
     second: {fileID: 2100000, guid: 09048ab9bc4314da6a8cd553b3bd4c37, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl_90Turn
+    second: {fileID: 2100000, guid: 9bc075c83875ca540a11aca8acae932c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl_90Turn2
+    second: {fileID: 2100000, guid: 93acaaf237d50674ab28816c4ce79c70, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl_Bridge2
+    second: {fileID: 2100000, guid: a06b5419ad0220a4ca3e22e353cb6480, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl_SideROadLine
+    second: {fileID: 2100000, guid: 9e1bcf218d1eb4043839dea358b2af00, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl_SideRoad
+    second: {fileID: 2100000, guid: f4e062874d6ec14459279ac97cfb17c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mtl_SideRoadLine
+    second: {fileID: 2100000, guid: 9e1bcf218d1eb4043839dea358b2af00, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

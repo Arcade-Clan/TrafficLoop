@@ -1,22 +1,14 @@
 fileFormatVersion: 2
-guid: 4e6a984d5bdbb4f63ada74f99657b8c0
+guid: 86b5547b3f615734abd8334cc9a63340
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable:
-  - first:
-      74: 1827226128182048838
-    second: Take 001
+  internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: ASPHALT_
-    second: {fileID: 2100000, guid: 09048ab9bc4314da6a8cd553b3bd4c37, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Mtl_3Road
-    second: {fileID: 2100000, guid: 0da5c050efc7d23469cfceedb17944f0, type: 2}
+      name: Mtl_90Turn2
+    second: {fileID: 2100000, guid: 93acaaf237d50674ab28816c4ce79c70, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -25,13 +17,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Mtl_Road
-    second: {fileID: 2100000, guid: 3a2a89d01e883124eb5e8f9d99f82cb8, type: 2}
+      name: Mtl_SideROadLine
+    second: {fileID: 2100000, guid: 9e1bcf218d1eb4043839dea358b2af00, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Mtl_SideROadLine
-    second: {fileID: 2100000, guid: 9e1bcf218d1eb4043839dea358b2af00, type: 2}
+      name: Mtl_SideRoad
+    second: {fileID: 2100000, guid: f4e062874d6ec14459279ac97cfb17c7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

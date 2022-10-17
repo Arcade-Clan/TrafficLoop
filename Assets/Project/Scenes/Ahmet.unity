@@ -765,14 +765,14 @@ MonoBehaviour:
   - upgradeName: Size
     upgradeLevel: 0
     baseValue: 50
-    increment: 200
-    expoRatio: 2
+    increment: 500
+    expoRatio: 3
     startValue: 0
     incrementValue: 1
   - upgradeName: Income
     upgradeLevel: 0
-    baseValue: 20
-    increment: 100
+    baseValue: 15
+    increment: 150
     expoRatio: 3
     startValue: 1
     incrementValue: 2
@@ -787,35 +787,35 @@ MonoBehaviour:
     cars: []
   - carName: Car3
     carLevel: 0
-    carValue: 25
+    carValue: 20
     cars: []
   - carName: Car4
     carLevel: 0
-    carValue: 100
+    carValue: 55
     cars: []
   - carName: Car5
     carLevel: 0
-    carValue: 400
+    carValue: 175
     cars: []
   - carName: Car6
     carLevel: 0
-    carValue: 1500
+    carValue: 750
     cars: []
   - carName: Car7
     carLevel: 0
-    carValue: 5000
+    carValue: 2750
     cars: []
   - carName: Car8
     carLevel: 0
-    carValue: 20000
+    carValue: 9000
     cars: []
   - carName: Car9
     carLevel: 0
-    carValue: 100000
+    carValue: 30000
     cars: []
   - carName: Car10
     carLevel: 0
-    carValue: 500000
+    carValue: 100000
     cars: []
   merge:
     mergeName: Merge

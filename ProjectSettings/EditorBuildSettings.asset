@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Project/Scenes/GameBahadir.unity
-    guid: 8f623caa3066f445d8adb62b64fe1a5a
+    path: Assets/Project/Scenes/Ahmet.unity
+    guid: 59a69bb4eb78a3d498e7865c6325641b
   m_configObjects: {}

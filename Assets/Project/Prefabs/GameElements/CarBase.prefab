@@ -546,7 +546,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.314875
+  m_Radius: 1.7
   m_Height: 8.08
   m_Direction: 2
   m_Center: {x: 0, y: 1, z: 0}
@@ -715,7 +715,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.314875
+  m_Radius: 1.7
   m_Height: 8.08
   m_Direction: 2
   m_Center: {x: 0, y: 1, z: 0}
@@ -1171,7 +1171,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.314875
+  m_Radius: 1.7
   m_Height: 8.08
   m_Direction: 2
   m_Center: {x: 0, y: 1, z: 0}
@@ -2019,7 +2019,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.314875
+  m_Radius: 1.7
   m_Height: 8.08
   m_Direction: 2
   m_Center: {x: 0, y: 1, z: 0}
@@ -2848,7 +2848,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.314875
+  m_Radius: 1.7
   m_Height: 8.08
   m_Direction: 2
   m_Center: {x: 0, y: 1, z: 0}
@@ -2987,7 +2987,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.314875
+  m_Radius: 1.7
   m_Height: 8.08
   m_Direction: 2
   m_Center: {x: 0, y: 1, z: 0}
@@ -3274,7 +3274,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.314875
+  m_Radius: 1.7
   m_Height: 8.08
   m_Direction: 2
   m_Center: {x: 0, y: 1, z: 0}
@@ -4049,7 +4049,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.314875
+  m_Radius: 1.7
   m_Height: 8.08
   m_Direction: 2
   m_Center: {x: 0, y: 1, z: 0}
@@ -4246,7 +4246,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.314875
+  m_Radius: 1.7
   m_Height: 8.08
   m_Direction: 2
   m_Center: {x: 0, y: 1, z: 0}
@@ -4550,7 +4550,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.314875
+  m_Radius: 1.7
   m_Height: 8.08
   m_Direction: 2
   m_Center: {x: 0, y: 1, z: 0}

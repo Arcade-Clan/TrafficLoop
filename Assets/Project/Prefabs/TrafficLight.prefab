@@ -382,8 +382,8 @@ MonoBehaviour:
   - {fileID: 7058588465285286936}
   - {fileID: 6087937489855502633}
   trafficCollider: {fileID: 4746484350168288076}
-  timer: 10
-  trafficIndex: 0
+  timer: 4
+  trafficIndex: 1
 --- !u!65 &4746484350168288076
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -395,8 +395,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5191, y: 2, z: 0.5000001}
-  m_Center: {x: -2.7431357, y: 0.5, z: -1.9999999}
+  m_Size: {x: 1.2390963, y: 2, z: 0.5}
+  m_Center: {x: -1.7496467, y: 0.5, z: -2}
 --- !u!1 &3647891894950119148
 GameObject:
   m_ObjectHideFlags: 0

@@ -6272,7 +6272,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gold: 0
   slowStrength: 0.2
-  rotationSlowDownStrength: 2
   carSpeed: 6
   simulationSpeed: 1
   speedUpTimer: 0.5
@@ -6283,6 +6282,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   cam: {fileID: 0}
   trafficController: {fileID: 0}
+  baseSecondCreation: 60
   upgrades:
   - upgradeName: Car Amount
     upgradeLevel: 0
@@ -6764,6 +6764,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1897629319}
+    - target: {fileID: 5125147871028620214, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_text
+      value: $30.0 / m
+      objectReference: {fileID: 0}
     - target: {fileID: 5791503732254426950, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

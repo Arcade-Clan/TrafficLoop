@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5494813, g: 0.90877265, b: 0.8706339, a: 1}
+  m_IndirectSpecularColor: {r: 0.54948133, g: 0.9087725, b: 0.8706339, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -598,7 +598,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gold: 0
   slowStrength: 0.2
-  carSpeed: 7
+  carSpeed: 6
   simulationSpeed: 1
   speedUpTimer: 0.5
   speedUpMultiplier: 2
@@ -608,27 +608,27 @@ MonoBehaviour:
   canvas: {fileID: 0}
   cam: {fileID: 0}
   trafficController: {fileID: 0}
-  baseSecondCreation: 10
+  baseSecondCreation: 15
   upgrades:
   - upgradeName: Car Amount
     upgradeLevel: 0
     baseValue: 5
     increment: 5
-    expoRatio: 2
+    expoRatio: 3
     startValue: 3
     incrementValue: 1
   - upgradeName: Size
     upgradeLevel: 0
     baseValue: 50
     increment: 500
-    expoRatio: 3
+    expoRatio: 5
     startValue: 0
     incrementValue: 1
   - upgradeName: Income
     upgradeLevel: 0
     baseValue: 15
     increment: 150
-    expoRatio: 3
+    expoRatio: 5
     startValue: 1
     incrementValue: 2
   cars:
@@ -646,23 +646,23 @@ MonoBehaviour:
     cars: []
   - carName: Car4
     carLevel: 0
-    carValue: 55
+    carValue: 75
     cars: []
   - carName: Car5
     carLevel: 0
-    carValue: 175
+    carValue: 250
     cars: []
   - carName: Car6
     carLevel: 0
-    carValue: 750
+    carValue: 1000
     cars: []
   - carName: Car7
     carLevel: 0
-    carValue: 2750
+    carValue: 4000
     cars: []
   - carName: Car8
     carLevel: 0
-    carValue: 9000
+    carValue: 8000
     cars: []
   - carName: Car9
     carLevel: 0
@@ -677,7 +677,7 @@ MonoBehaviour:
     mergeLevel: 0
     baseValue: 25
     increment: 50
-    expoRatio: 2
+    expoRatio: 3
   crashSmoke: {fileID: 3480892824555974408, guid: 0d2af3b1df29c42be916e1330bfc92be,
     type: 3}
   carProductionIndex: 

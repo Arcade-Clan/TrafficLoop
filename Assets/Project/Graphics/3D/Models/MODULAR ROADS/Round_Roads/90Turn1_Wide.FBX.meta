@@ -10,8 +10,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: 01 - Default
+    second: {fileID: 2100000, guid: 9a32b87fc0e9c214e8821d17005d14ce, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Mtl_90Turn
-    second: {fileID: 2100000, guid: 9bc075c83875ca540a11aca8acae932c, type: 2}
+    second: {fileID: 2100000, guid: 9a32b87fc0e9c214e8821d17005d14ce, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -31,7 +36,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mtl_SideRoad
-    second: {fileID: 2100000, guid: 24f99f52f8226874aa32fdacd771f0c7, type: 2}
+    second: {fileID: 2100000, guid: f4e062874d6ec14459279ac97cfb17c7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

@@ -9,8 +9,7 @@ using UnityExtensions;
 
 public class UIManager : MonoSingleton<UIManager>
 {
-  
-   public List<GameObject> panels;
+   
    public TextMeshProUGUI goldText;
    public TextMeshProUGUI carAmount;
    public TextMeshProUGUI carAmountPerMinute;
@@ -36,7 +35,35 @@ public class UIManager : MonoSingleton<UIManager>
       public Image coverImage;
    }
    public MergeClass merge;
+
+   public int tutorialProgression;
+   public GameObject[] tutorialHands;
+
+
+   void Start()
+   {
+      tutorialProgression = PlayerPrefs.GetInt("TutorialProgression");
+   }
    
+   public void TriggerTutorialProgression(int index)
+   {
+      if (tutorialProgression != index)
+         return;
+      print(index);
+      tutorialHands[index].Show();
+   }
+   
+   
+   public void IncreaseTutorialProgression(int index)
+   {
+      if (tutorialProgression != index)
+         return;
+      tutorialProgression++;
+      PlayerPrefs.SetInt("TutorialProgression", tutorialProgression);
+      tutorialHands[index].Hide();
+      if(index==0)
+         TriggerTutorialProgression(1);
+   }
    
    public void NextButton()
    {
@@ -103,11 +130,21 @@ public class UIManager : MonoSingleton<UIManager>
          }
          else
          {
+
             float cost = GameManager.Instance.upgrades[a].Cost(a);
             //upgrades[a].levelText.text = "LEVEL " + (GameManager.Instance.upgrades[a].upgradeLevel + 1);
             upgrades[a].goldText.text = "$" + cost;
             upgrades[a].coverImage.gameObject.SetActive(cost > GameManager.Instance.gold);
             upgrades[a].coverImage.transform.parent.GetComponent<Button>().enabled = cost <= GameManager.Instance.gold;
+            if (cost <= GameManager.Instance.gold)
+            {
+               if (a == 0)
+                  TriggerTutorialProgression(0);
+               else if (a == 2)
+                  TriggerTutorialProgression(2);
+               else if (a == 1)
+                  TriggerTutorialProgression(4);
+            }
          }
       }
 
@@ -121,7 +158,9 @@ public class UIManager : MonoSingleton<UIManager>
          float cost = GameManager.Instance.merge.Cost();
          merge.goldText.text = "" + cost;
          merge.coverImage.gameObject.SetActive(cost >= GameManager.Instance.gold);
-         merge.coverImage.transform.parent.GetComponent<Button>().enabled = cost < GameManager.Instance.gold;
+         merge.coverImage.transform.parent.GetComponent<Button>().enabled = cost <= GameManager.Instance.gold;
+         if (cost <= GameManager.Instance.gold)
+            TriggerTutorialProgression(3);
       }
    }
 }

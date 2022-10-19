@@ -157,8 +157,8 @@ public class GameManager : MonoSingleton<GameManager>
     {
         StartCoroutine("SpeedUpRoutine");
         //Analytics.Instance.SendLevelStart((PlayerPrefs.GetInt("Level") + 1));
-        UIManager.Instance.panels[3].Show();
-        UIManager.Instance.panels[4].Hide();
+        //UIManager.Instance.panels[3].Show();
+        //UIManager.Instance.panels[4].Hide();
         Destroy(FindObjectOfType<InputPanel>().GetComponent<EventTrigger>());
         InputPanel.Instance.OnPointerDownEvent.AddListener(SpeedUp);
         trafficController.StartCoroutine("StartTrafficRoutine");
@@ -169,7 +169,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void Win()
     {
         //Analytics.Instance.SendLevelComplete((PlayerPrefs.GetInt("Level") + 1));
-        UIManager.Instance.panels[1].Show();
+        //UIManager.Instance.panels[1].Show();
         PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
     }
 
@@ -186,6 +186,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void IncreaseCarCount()
     {
         //PlaySound(1);
+        UIManager.Instance.IncreaseTutorialProgression(0);
         Taptic.Medium();
         gold -= upgrades[0].Cost(0);
         PlayerPrefs.SetInt("Gold", gold);
@@ -194,11 +195,13 @@ public class GameManager : MonoSingleton<GameManager>
         PlayerPrefs.SetInt(upgrades[0].upgradeName, upgrades[0].upgradeLevel);
         CalculateCarDistribution();
         UIManager.Instance.UpdateEconomyUI();
+
     }
 
     public void IncreaseSize()
     {
         //PlaySound(1);
+        UIManager.Instance.IncreaseTutorialProgression(4);
         Taptic.Medium();
         gold -= upgrades[1].Cost(1);
         PlayerPrefs.SetInt("Gold", gold);
@@ -207,12 +210,14 @@ public class GameManager : MonoSingleton<GameManager>
         PlayerPrefs.SetInt(upgrades[1].upgradeName, upgrades[1].upgradeLevel);
         LevelManager.Instance.SwitchLevel();
         UIManager.Instance.UpdateEconomyUI();
+        
         //ChangeRoads();
     }
 
     public void IncreaseIncome()
     {
         //PlaySound(1);
+        UIManager.Instance.IncreaseTutorialProgression(2);
         Taptic.Medium();
         gold -= upgrades[2].Cost(2);
         PlayerPrefs.SetInt("Gold", gold);
@@ -226,6 +231,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void Merge()
     {
         //PlaySound(1);
+        UIManager.Instance.IncreaseTutorialProgression(3);
         Taptic.Medium();
         gold -= merge.Cost();
         PlayerPrefs.SetInt("Gold", gold);
@@ -342,6 +348,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void SpeedUp()
     {
+        UIManager.Instance.IncreaseTutorialProgression(1);
         Taptic.Light();
         StopCoroutine("SpeedUpCoolDown");
         simulationSpeed = speedUpMultiplier * speedUp;

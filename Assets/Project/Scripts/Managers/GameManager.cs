@@ -380,24 +380,27 @@ public class GameManager : MonoSingleton<GameManager>
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M)||Input.GetMouseButtonDown(1))
+        if(Application.isEditor)
         {
-            gold += 1000;
-            PlayerPrefs.SetInt("Gold", gold);
-            UIManager.Instance.goldText.text = "" + gold;
-            UIManager.Instance.UpdateEconomyUI();
-        }
+            if (Input.GetKeyDown(KeyCode.M) || Input.GetMouseButtonDown(1))
+            {
+                gold += 1000;
+                PlayerPrefs.SetInt("Gold", gold);
+                UIManager.Instance.goldText.text = "" + gold;
+                UIManager.Instance.UpdateEconomyUI();
+            }
 
-        if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(3))
-        {
-            PlayerPrefs.DeleteAll();
-            Application.LoadLevel(0);
-        }
+            if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(3))
+            {
+                PlayerPrefs.DeleteAll();
+                Application.LoadLevel(0);
+            }
 
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetMouseButtonDown(2))
-            simulationSpeed = 10;
-        else if (Input.GetKeyUp(KeyCode.S) || Input.GetMouseButtonUp(2))
-            simulationSpeed = 1;
+            if (Input.GetKeyDown(KeyCode.S) || Input.GetMouseButtonDown(2))
+                simulationSpeed = 10;
+            else if (Input.GetKeyUp(KeyCode.S) || Input.GetMouseButtonUp(2))
+                simulationSpeed = 1;
+        }
     }
 
 #endregion

@@ -58,7 +58,7 @@ public class UIManager : MonoSingleton<UIManager>
       carAmount.text = "" + cars.Count;
       carAmountPerMinute.text = "" + Mathf.RoundToInt(GameManager.Instance.baseSecondCreation / GameManager.Instance.TotalCarCount());
       
-      incomePerMinute.text = "$" + CalculateIncome()+"/M";
+      incomePerMinute.text = "$" + CalculateIncome()* GameManager.Instance.simulationSpeed +"/M";
       float density = 0;
       for (int a = 0; a < cars.Count; a++)
       {
@@ -105,10 +105,9 @@ public class UIManager : MonoSingleton<UIManager>
          {
             float cost = GameManager.Instance.upgrades[a].Cost(a);
             //upgrades[a].levelText.text = "LEVEL " + (GameManager.Instance.upgrades[a].upgradeLevel + 1);
-            upgrades[a].goldText.text = "" + cost;
+            upgrades[a].goldText.text = "$" + cost;
             upgrades[a].coverImage.gameObject.SetActive(cost > GameManager.Instance.gold);
-            upgrades[a].coverImage.transform.parent.GetComponent<Button>().enabled =
-               cost < GameManager.Instance.gold;
+            upgrades[a].coverImage.transform.parent.GetComponent<Button>().enabled = cost <= GameManager.Instance.gold;
          }
       }
 

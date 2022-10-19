@@ -21,8 +21,8 @@ public class Car : MonoBehaviour
     //float rayPointDistance;
     public Car collidedCar;
     public int priority;
-    
-    
+    public int openValue;
+    public float waitForEmoji = 2;
     
     void Start()
     {
@@ -50,27 +50,32 @@ public class Car : MonoBehaviour
             collidedCar = CheckRay();
             if (collidedCar && (Vector3.Distance(path.transform.position, collidedCar.path.transform.position) <1f))
             {
+                StopCoroutine("EmojiTrigger");
                 text.text = "Same Path\n"+collidedCar.gameObject.name;
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             }
-            else if (collidedCar && !collidedCar.collidedCar)
+            else if (collidedCar && priority < collidedCar.priority)
             {
+                
+                StartCoroutine("EmojiTrigger");
                 text.text = "Different Speed\n" + collidedCar.gameObject.name;
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             }
             else if (trafficLight)
             {
+                StopCoroutine("EmojiTrigger");
                 text.text = "Light";
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             }
             else
             {
+                StopCoroutine("EmojiTrigger");
                 text.text = "Go";
                 currentSpeed = Mathf.Lerp(currentSpeed, speed, GameManager.Instance.startMoveStrength);
             }
             Vector3 rotation = path.tween.PathGetPoint((place + currentSpeed / 60) / path.pathLength);
-            
-            place += currentSpeed  / 60;
+            float angle = Vector3.Angle((rotation - transform.position).normalized, transform.forward);
+            place += currentSpeed * (1 - angle / 28f) / 60;
             Vector3 newPosition = path.tween.PathGetPoint(place / path.pathLength);
             Rotate(newPosition);
             transform.position = newPosition;
@@ -93,28 +98,21 @@ public class Car : MonoBehaviour
     Car CheckRay()
     {
         float ray = GameManager.Instance.rayDistance;
-        for (int a = 1; a <= 10; a++)
+
+        for (int a = 0; a <= 10; a++)
         {
-            Vector3 startPosition = path.tween.PathGetPoint((place + ray * (a - 1) / 10f) / path.pathLength);
-            Vector3 endPosition = path.tween.PathGetPoint((place + ray * a / 10f) / path.pathLength);
-            Physics.Raycast(startPosition+Vector3.up, endPosition - startPosition + Vector3.up, out RaycastHit hit, ray/10f, LayerMask.GetMask("Car"));
-            
-            if (hit.transform)
+
+            Vector3 position = path.tween.PathGetPoint((place + ray * a / 10f) / path.pathLength);
+            RaycastHit[] hits = Physics.SphereCastAll(position + Vector3.up*5f,1f, -Vector3.up, 5, LayerMask.GetMask("Car"));
+            for (int b = 0; b < hits.Length; b++)
             {
-                Debug.DrawLine(startPosition + Vector3.up, endPosition + Vector3.up, Color.red);
-                if(hit.transform.GetComponentInParent<Car>() != this)
-                    return hit.transform.GetComponentInParent<Car>();
-            }
-            Debug.DrawLine(startPosition + Vector3.up, endPosition + Vector3.up, Color.green);
-            Physics.Raycast(endPosition + Vector3.up*5f, endPosition, out RaycastHit hit2, 5, LayerMask.GetMask("Car"));
-            if (hit2.transform)
-            {
-                Debug.DrawLine(endPosition + Vector3.up * 5f, endPosition, Color.red);
-                if (hit.transform.GetComponentInParent<Car>() != this)
-                    return hit2.transform.GetComponentInParent<Car>();
+                Debug.DrawLine(position + Vector3.up * 5f, position, Color.red);
+                if (hits[b].transform.GetComponentInParent<Car>() != this)
+                    return hits[b].transform.GetComponentInParent<Car>();
             }
 
-            Debug.DrawLine(endPosition + Vector3.up * 5f, endPosition, Color.green);
+            openValue = a;
+            Debug.DrawLine(position + Vector3.up * 5f, position, Color.green);
         }
         return null;
     }
@@ -140,7 +138,14 @@ public class Car : MonoBehaviour
             //Instantiate(GameManager.Instance.crashSmoke,
             //Vector3.Lerp(transform.position, otherCar.transform.position, 0.5f), Quaternion.identity);
     }
-    
+
+    public IEnumerator EmojiTrigger()
+    {
+        yield return new WaitForSeconds(waitForEmoji);
+        Emoji emoji = GetComponentInChildren<Emoji>(true);
+        emoji.Show();
+        emoji.transform.LookAt(GameManager.Instance.cam.transform);
+    }
 
     public void UpgradeCar()
     {

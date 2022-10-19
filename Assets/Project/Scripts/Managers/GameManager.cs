@@ -14,6 +14,8 @@ public class GameManager : MonoSingleton<GameManager>
     public int gold;
 
     public float slowStrength = 0.1f;
+
+    public float startMoveStrength = 0.05f;
     //public float rotationSlowDownStrength = 5;
     public float carSpeed;
     [ReadOnly] public float simulationSpeed = 1;
@@ -41,12 +43,12 @@ public class GameManager : MonoSingleton<GameManager>
         public float expoRatio;
         public float startValue;
         public float incrementValue;
-
+        public float[] upgradeValues;
         public int Cost(int value)
         {
             if (value == 0)
                 return Mathf.RoundToInt(baseValue + increment * upgradeLevel + upgradeLevel * ((upgradeLevel + 1) / 2) * expoRatio);
-            return Mathf.RoundToInt(baseValue + increment * upgradeLevel * expoRatio);
+            return Mathf.RoundToInt(upgradeValues[upgradeLevel]);
         }
 
         public float Value() { return startValue + incrementValue * upgradeLevel; }

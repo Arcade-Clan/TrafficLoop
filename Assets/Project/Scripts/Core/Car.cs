@@ -53,7 +53,7 @@ public class Car : MonoBehaviour
                 text.text = "Same Path\n"+collidedCar.gameObject.name;
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             }
-            else if (collidedCar && priority < collidedCar.priority)
+            else if (collidedCar && !collidedCar.collidedCar)
             {
                 text.text = "Different Speed\n" + collidedCar.gameObject.name;
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
@@ -66,11 +66,11 @@ public class Car : MonoBehaviour
             else
             {
                 text.text = "Go";
-                currentSpeed = Mathf.Lerp(currentSpeed, speed, GameManager.Instance.slowStrength);
+                currentSpeed = Mathf.Lerp(currentSpeed, speed, GameManager.Instance.startMoveStrength);
             }
             Vector3 rotation = path.tween.PathGetPoint((place + currentSpeed / 60) / path.pathLength);
-            float angle = Vector3.Angle((rotation - transform.position).normalized, transform.forward);
-            place += currentSpeed * (1 - angle / 28f) / 60;
+            
+            place += currentSpeed  / 60;
             Vector3 newPosition = path.tween.PathGetPoint(place / path.pathLength);
             Rotate(newPosition);
             transform.position = newPosition;
@@ -97,14 +97,24 @@ public class Car : MonoBehaviour
         {
             Vector3 startPosition = path.tween.PathGetPoint((place + ray * (a - 1) / 10f) / path.pathLength);
             Vector3 endPosition = path.tween.PathGetPoint((place + ray * a / 10f) / path.pathLength);
-            Physics.SphereCast(startPosition+Vector3.up, 0.5f, endPosition - startPosition, out RaycastHit hit, ray/10f, LayerMask.GetMask("Car"));
+            Physics.Raycast(startPosition+Vector3.up, endPosition - startPosition + Vector3.up, out RaycastHit hit, ray/10f, LayerMask.GetMask("Car"));
             
             if (hit.transform)
             {
-                Debug.DrawRay(startPosition + Vector3.up, endPosition - startPosition, Color.red);
-                return hit.transform.GetComponentInParent<Car>();
+                Debug.DrawLine(startPosition + Vector3.up, endPosition + Vector3.up, Color.red);
+                if(hit.transform.GetComponentInParent<Car>() != this)
+                    return hit.transform.GetComponentInParent<Car>();
             }
-            Debug.DrawRay(startPosition + Vector3.up, endPosition - startPosition, Color.green);
+            Debug.DrawLine(startPosition + Vector3.up, endPosition + Vector3.up, Color.green);
+            Physics.Raycast(endPosition + Vector3.up*5f, endPosition, out RaycastHit hit2, 5, LayerMask.GetMask("Car"));
+            if (hit2.transform)
+            {
+                Debug.DrawLine(endPosition + Vector3.up * 5f, endPosition, Color.red);
+                if (hit.transform.GetComponentInParent<Car>() != this)
+                    return hit2.transform.GetComponentInParent<Car>();
+            }
+
+            Debug.DrawLine(endPosition + Vector3.up * 5f, endPosition, Color.green);
         }
         return null;
     }

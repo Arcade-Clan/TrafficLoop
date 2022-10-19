@@ -11,10 +11,10 @@ public class LevelManager : MonoSingleton<LevelManager>
     
     public void CreateLevel()
     {
-        if (FindObjectOfType<Level>())
-            return;
         levelIndexes = GetLevelIndexes();
-        level = Instantiate(levels[levelIndexes[0]]);
+        level = FindObjectOfType<Level>();
+        if(!level)
+            level = Instantiate(levels[levelIndexes[0]]);
         for (int a = 0; a < level.sections[levelIndexes[1]].elements.Count; a++)
                 level.sections[levelIndexes[1]].elements[a].Show();
         if (level.sections[levelIndexes[1]].cam)

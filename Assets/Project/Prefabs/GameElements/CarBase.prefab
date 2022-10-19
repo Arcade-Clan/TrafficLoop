@@ -1504,7 +1504,9 @@ MonoBehaviour:
   - {fileID: 7509316811325340497}
   path: {fileID: 0}
   collidedCar: {fileID: 0}
-  waitForEmoji: 2
+  priority: 0
+  openValue: 0
+  waitForEmoji: 3
 --- !u!54 &5219968147369929050
 Rigidbody:
   m_ObjectHideFlags: 0

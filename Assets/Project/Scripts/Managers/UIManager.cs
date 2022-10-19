@@ -155,7 +155,7 @@ public class UIManager : MonoSingleton<UIManager>
       {
          merge.upgradePanel.Show();
          float cost = GameManager.Instance.merge.Cost();
-         merge.goldText.text = "" + cost;
+         merge.goldText.text = "$" + cost;
          merge.coverImage.gameObject.SetActive(cost >= GameManager.Instance.gold);
          merge.coverImage.transform.parent.GetComponent<Button>().enabled = cost <= GameManager.Instance.gold;
          if (cost <= GameManager.Instance.gold)

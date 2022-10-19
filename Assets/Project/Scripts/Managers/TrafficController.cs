@@ -87,18 +87,20 @@ public class TrafficController : MonoBehaviour
     {
 
         if (loopingPaths.Count == 0)
+        {
             loopingPaths = new List<Path>(paths);
-        
+            loopingPaths.Shuffle();
+        }
         Path selectedPath = null;
-        int counter = 100;
+        int pathIndex = 0;
         do
         {
-            int randomPathIndex = Random.Range(0, loopingPaths.Count);
-            if (!Physics.CheckSphere(loopingPaths[randomPathIndex].tween.PathGetPoint(0), 1, LayerMask.GetMask("Car")))
-                selectedPath = loopingPaths[randomPathIndex];
-            counter += 1;
+           
+            if (!Physics.CheckSphere(loopingPaths[pathIndex].tween.PathGetPoint(0), 5, LayerMask.GetMask("Car")))
+                selectedPath = loopingPaths[pathIndex];
+            pathIndex ++;
         }
-        while (!selectedPath && counter < 100);
+        while (!selectedPath && pathIndex<loopingPaths.Count);
 
         if (!selectedPath)
             return;

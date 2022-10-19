@@ -756,9 +756,10 @@ MonoBehaviour:
     - 8250
     - 9000
     - 10500
-    - 150000
-    - 300000
-    - 3000000
+    - 20000
+    - 30000
+    - 40000
+    - 1000000
   - upgradeName: Income
     upgradeLevel: 0
     baseValue: 15

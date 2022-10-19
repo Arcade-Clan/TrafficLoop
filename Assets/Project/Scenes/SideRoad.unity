@@ -4418,7 +4418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &930887166
 Transform:
   m_ObjectHideFlags: 0
@@ -4826,6 +4826,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: e256531833911437cbf17a231c2497bd, type: 3}
       propertyPath: m_Name
       value: Level2_Car
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e256531833911437cbf17a231c2497bd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e256531833911437cbf17a231c2497bd, type: 3}
       propertyPath: m_RootOrder
@@ -8908,6 +8912,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level10_Car
       objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: a1376ee7329e94f1b8899a2fcc99f035, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: a1376ee7329e94f1b8899a2fcc99f035, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -9414,6 +9422,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gold: 0
   slowStrength: 0.2
+  startMoveStrength: 0.05
   carSpeed: 6
   simulationSpeed: 1
   speedUpTimer: 0.5
@@ -9433,6 +9442,7 @@ MonoBehaviour:
     expoRatio: 0.25
     startValue: 10
     incrementValue: 1
+    upgradeValues: []
   - upgradeName: Size
     upgradeLevel: 0
     baseValue: 200
@@ -9440,6 +9450,7 @@ MonoBehaviour:
     expoRatio: 1.5
     startValue: 0
     incrementValue: 1
+    upgradeValues: []
   - upgradeName: Income
     upgradeLevel: 0
     baseValue: 80
@@ -9447,6 +9458,7 @@ MonoBehaviour:
     expoRatio: 30
     startValue: 5
     incrementValue: 5
+    upgradeValues: []
   cars:
   - carName: Car1
     carLevel: 100
@@ -10152,6 +10164,75 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3037082552679585201}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5758769811594839937
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6503527967696222176, guid: 3e6181bfa2843e0459ee4f0acc7283df,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6503527967696222176, guid: 3e6181bfa2843e0459ee4f0acc7283df,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 26.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6503527967696222176, guid: 3e6181bfa2843e0459ee4f0acc7283df,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -175.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6503527967696222176, guid: 3e6181bfa2843e0459ee4f0acc7283df,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 73.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6503527967696222176, guid: 3e6181bfa2843e0459ee4f0acc7283df,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6503527967696222176, guid: 3e6181bfa2843e0459ee4f0acc7283df,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6503527967696222176, guid: 3e6181bfa2843e0459ee4f0acc7283df,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6503527967696222176, guid: 3e6181bfa2843e0459ee4f0acc7283df,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6503527967696222176, guid: 3e6181bfa2843e0459ee4f0acc7283df,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6503527967696222176, guid: 3e6181bfa2843e0459ee4f0acc7283df,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6503527967696222176, guid: 3e6181bfa2843e0459ee4f0acc7283df,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7290053280799362919, guid: 3e6181bfa2843e0459ee4f0acc7283df,
+        type: 3}
+      propertyPath: m_Name
+      value: BigCircleRoad
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3e6181bfa2843e0459ee4f0acc7283df, type: 3}
 --- !u!1001 &6194738560335931512
 PrefabInstance:
   m_ObjectHideFlags: 0

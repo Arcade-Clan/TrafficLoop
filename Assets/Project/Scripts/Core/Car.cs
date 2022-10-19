@@ -20,13 +20,13 @@ public class Car : MonoBehaviour
     Vector3 wheelRotation;
     //float rayPointDistance;
     public Car collidedCar;
-    public int priority;
-    public int openValue;
+    //public int priority;
+    //public int openValue;
     public float waitForEmoji = 2;
     
     void Start()
     {
-        priority = Random.Range(-int.MaxValue, int.MaxValue);
+        //priority = Random.Range(-int.MaxValue, int.MaxValue);
         
         //rayPointDistance = Vector3.Distance(transform.position, rayPoint.position);
     }
@@ -48,28 +48,29 @@ public class Car : MonoBehaviour
         while (true)
         {
             collidedCar = CheckRay();
-            if (collidedCar && (Vector3.Distance(path.transform.position, collidedCar.path.transform.position) <1f))
+            if (collidedCar && place < collidedCar.place && 
+                (Vector3.Distance(path.transform.position, collidedCar.path.transform.position) <1f || 
+                 Vector3.Distance(path.path.wps.Last(), collidedCar.path.path.wps.Last()) < 1f))
             {
-                StopCoroutine("EmojiTrigger");
+                EnableEmoji(false);
                 text.text = "Same Path\n"+collidedCar.gameObject.name;
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             }
-            else if (collidedCar && priority < collidedCar.priority)
+            else if (collidedCar && (!collidedCar.collidedCar || !collidedCar.collidedCar.collidedCar))
             {
-                
-                StartCoroutine("EmojiTrigger");
+                EnableEmoji(true);
                 text.text = "Different Speed\n" + collidedCar.gameObject.name;
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             }
             else if (trafficLight)
             {
-                StopCoroutine("EmojiTrigger");
+                EnableEmoji(false);
                 text.text = "Light";
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             }
             else
             {
-                StopCoroutine("EmojiTrigger");
+                EnableEmoji(false);
                 text.text = "Go";
                 currentSpeed = Mathf.Lerp(currentSpeed, speed, GameManager.Instance.startMoveStrength);
             }
@@ -103,7 +104,7 @@ public class Car : MonoBehaviour
         {
 
             Vector3 position = path.tween.PathGetPoint((place + ray * a / 10f) / path.pathLength);
-            RaycastHit[] hits = Physics.SphereCastAll(position + Vector3.up*5f,1f, -Vector3.up, 5, LayerMask.GetMask("Car"));
+            RaycastHit[] hits = Physics.SphereCastAll(position + Vector3.up*5f,0.75f, -Vector3.up, 5, LayerMask.GetMask("Car"));
             for (int b = 0; b < hits.Length; b++)
             {
                 Debug.DrawLine(position + Vector3.up * 5f, position, Color.red);
@@ -111,7 +112,7 @@ public class Car : MonoBehaviour
                     return hits[b].transform.GetComponentInParent<Car>();
             }
 
-            openValue = a;
+            //openValue = a;
             Debug.DrawLine(position + Vector3.up * 5f, position, Color.green);
         }
         return null;
@@ -129,16 +130,24 @@ public class Car : MonoBehaviour
         cars[carIndex].wheels[1].transform.localEulerAngles = new Vector3(wheelRotation.x, -angle*2, wheelRotation.z);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(newPosition - transform.position), 0.25f);
     }
-    
-    void OnTriggerEnter(Collider other)
-    {
-        //Car otherCar = other.transform.GetComponentInParent<Car>();
-        
-        //if (otherCar)
-            //Instantiate(GameManager.Instance.crashSmoke,
-            //Vector3.Lerp(transform.position, otherCar.transform.position, 0.5f), Quaternion.identity);
-    }
 
+    void EnableEmoji(bool value)
+    {
+        if (value)
+        {
+            if (emojiOn)
+                return;
+            emojiOn = true;
+            StartCoroutine("EmojiTrigger");
+        }
+        else
+        {
+            emojiOn = false;
+            StopCoroutine("EmojiTrigger");
+        }
+    }
+    
+    bool emojiOn;
     public IEnumerator EmojiTrigger()
     {
         yield return new WaitForSeconds(waitForEmoji);

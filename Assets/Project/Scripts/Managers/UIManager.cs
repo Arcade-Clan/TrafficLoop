@@ -49,7 +49,6 @@ public class UIManager : MonoSingleton<UIManager>
    {
       if (tutorialProgression != index)
          return;
-      print(index);
       tutorialHands[index].Show();
    }
    

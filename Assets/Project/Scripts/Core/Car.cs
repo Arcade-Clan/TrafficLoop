@@ -48,7 +48,7 @@ public class Car : MonoBehaviour
         while (true)
         {
             collidedCar = CheckRay();
-            if (collidedCar && Vector3.Distance(path.transform.position, collidedCar.path.transform.position) <0.1f)
+            if (collidedCar && (Vector3.Distance(path.transform.position, collidedCar.path.transform.position) <1f))
             {
                 text.text = "Same Path\n"+collidedCar.gameObject.name;
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);

@@ -124,18 +124,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &1099999456 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: -1660179246798472432, guid: ed65ee2dd2e6549b09e741dfbb2ec89b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1745486558}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: def3dc823a33c4a7b9b2cea415b205cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1194791338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -356,7 +344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
-  - {fileID: 1099999456}
+  - {fileID: -1660179246798472432, guid: ed65ee2dd2e6549b09e741dfbb2ec89b, type: 3}
   levelIndexes: 0000000000000000
   level: {fileID: 0}
 --- !u!1 &1431274416
@@ -441,7 +429,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 0.5
@@ -745,10 +733,10 @@ MonoBehaviour:
   - upgradeName: Car Amount
     upgradeLevel: 0
     baseValue: 5
-    increment: 5
-    expoRatio: 1
+    increment: 2
+    expoRatio: 1.5
     startValue: 3
-    incrementValue: 1
+    incrementValue: 2
     upgradeValues: []
   - upgradeName: Size
     upgradeLevel: 0
@@ -758,34 +746,45 @@ MonoBehaviour:
     startValue: 0
     incrementValue: 1
     upgradeValues:
-    - 10
-    - 20
-    - 30
-    - 40
     - 50
-    - 60
-    - 70
-    - 80
-    - 90
-    - 100
+    - 150
+    - 600
+    - 1500
+    - 2250
+    - 3000
+    - 3500
+    - 8250
+    - 9000
+    - 10500
+    - 150000
+    - 300000
+    - 3000000
   - upgradeName: Income
     upgradeLevel: 0
     baseValue: 15
     increment: 300
-    expoRatio: 2
+    expoRatio: 4
     startValue: 1
     incrementValue: 1
     upgradeValues:
-    - 10
-    - 20
-    - 30
-    - 40
-    - 50
-    - 60
-    - 70
-    - 80
-    - 90
-    - 100
+    - 15
+    - 75
+    - 150
+    - 300
+    - 500
+    - 750
+    - 1000
+    - 1500
+    - 2000
+    - 2500
+    - 3000
+    - 4000
+    - 5000
+    - 7500
+    - 10000
+    - 50000
+    - 100000
+    - 150000
   cars:
   - carName: Car1
     carLevel: 100
@@ -831,8 +830,8 @@ MonoBehaviour:
     mergeName: Merge
     mergeLevel: 0
     baseValue: 25
-    increment: 50
-    expoRatio: 5
+    increment: 25
+    expoRatio: 3
   crashSmoke: {fileID: 3480892824555974408, guid: 0d2af3b1df29c42be916e1330bfc92be,
     type: 3}
   carProductionIndex: 

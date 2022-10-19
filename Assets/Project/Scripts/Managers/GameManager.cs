@@ -188,6 +188,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void IncreaseCarCount()
     {
         //PlaySound(1);
+        Analytics.Instance.SendCarBought();
         UIManager.Instance.IncreaseTutorialProgression(0);
         Taptic.Medium();
         gold -= upgrades[0].Cost(0);
@@ -203,6 +204,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void IncreaseSize()
     {
         //PlaySound(1);
+        Analytics.Instance.SendSizeUp();
         UIManager.Instance.IncreaseTutorialProgression(4);
         Taptic.Medium();
         gold -= upgrades[1].Cost(1);
@@ -219,6 +221,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void IncreaseIncome()
     {
         //PlaySound(1);
+        Analytics.Instance.SendIncomeClicked();
         UIManager.Instance.IncreaseTutorialProgression(2);
         Taptic.Medium();
         gold -= upgrades[2].Cost(2);
@@ -238,7 +241,9 @@ public class GameManager : MonoSingleton<GameManager>
         gold -= merge.Cost();
         PlayerPrefs.SetInt("Gold", gold);
         UIManager.Instance.goldText.text = "" + gold;
+
         merge.mergeLevel += 1;
+        Analytics.Instance.SendMergeLevel(merge.mergeLevel);
         PlayerPrefs.SetInt(merge.mergeName, merge.mergeLevel);
         CalculateCarDistribution();
         MergeCars();
@@ -350,6 +355,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void SpeedUp()
     {
+        Analytics.Instance.SendSpeedUp();
         UIManager.Instance.IncreaseTutorialProgression(1);
         Taptic.Light();
         StopCoroutine("SpeedUpCoolDown");

@@ -40,7 +40,7 @@ public class UIManager : MonoSingleton<UIManager>
    public GameObject[] tutorialHands;
 
 
-   void Start()
+   void Awake()
    {
       tutorialProgression = PlayerPrefs.GetInt("TutorialProgression");
    }

@@ -8,17 +8,30 @@ using UnityExtensions;
 
 public class Analytics : MonoSingleton<Analytics>
 {
-
-
-    public void SendLevelStart(int level)
+    
+    public void SendCarBought()
     {
-        Elephant.LevelStarted(level);
-
+        Elephant.Event("BuyCarCount", 1);
     }
 
-    public void SendLevelComplete(string level, int score, bool levelComplete = true)
+    public void SendMergeLevel(int level)
     {
+        Elephant.Event("MergeLevel", level);
+    }
 
+    public void SendSizeUp()
+    {
+        Elephant.Event("SizeUpCount", 1);
+    }
+    
+    public void SendIncomeClicked()
+    {
+        Elephant.Event("IncomeClicked", 1);
+    }
+
+    public void SendSpeedUp()
+    {
+        Elephant.Event("SpeedUpClicked", 1);
     }
 
 }

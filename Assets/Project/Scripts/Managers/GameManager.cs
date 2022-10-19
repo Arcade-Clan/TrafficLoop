@@ -385,6 +385,11 @@ public class GameManager : MonoSingleton<GameManager>
     
 #endregion
 
+    public void SolveTraffic()
+    {
+        Application.LoadLevel(1);
+    }
+    
 #region HelperUpdate
 
     void Update()

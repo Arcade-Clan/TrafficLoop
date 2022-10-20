@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.54948133, g: 0.9087725, b: 0.8706339, a: 1}
+  m_IndirectSpecularColor: {r: 0.5494813, g: 0.90877265, b: 0.8706339, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -212,6 +212,12 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1873127961}
+    - target: {fileID: 669932304, guid: 2b299400713d7c8409b221abfe170205, type: 3}
+      propertyPath: m_text
+      value: 'Solve
+
+        TraffIc'
+      objectReference: {fileID: 0}
     - target: {fileID: 791530471991348663, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_IsActive
@@ -1010,13 +1016,13 @@ MonoBehaviour:
   gold: 0
   slowStrength: 1
   startMoveStrength: 0.025
-  carSpeed: 6
+  carSpeed: 8
   simulationSpeed: 1
   speedUpTimer: 0.5
   speedUpMultiplier: 2
   rayDistance: 4
   trafficDensity: 0
-  stopCarCreationOnTrafficDensity: 0.5
+  stopCarCreationOnTrafficDensity: 0.75
   canvas: {fileID: 0}
   cam: {fileID: 0}
   trafficController: {fileID: 0}
@@ -1026,7 +1032,7 @@ MonoBehaviour:
     upgradeLevel: 0
     baseValue: 5
     increment: 1
-    expoRatio: 0.3
+    expoRatio: 0.15
     startValue: 5
     incrementValue: 3
     upgradeValues: []
@@ -1044,13 +1050,13 @@ MonoBehaviour:
     - 3000
     - 4500
     - 9000
-    - 12500
-    - 15000
-    - 17500
-    - 20000
-    - 50000
-    - 80000
-    - 125000
+    - 25000
+    - 30000
+    - 35000
+    - 40000
+    - 150000
+    - 240000
+    - 375000
     - 1000000
   - upgradeName: Income
     upgradeLevel: 0

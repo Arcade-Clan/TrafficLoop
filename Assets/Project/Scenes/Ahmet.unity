@@ -131,21 +131,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2637454933714279921, guid: ed65ee2dd2e6549b09e741dfbb2ec89b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2795829475702214669, guid: ed65ee2dd2e6549b09e741dfbb2ec89b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5187575950148512211, guid: ed65ee2dd2e6549b09e741dfbb2ec89b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8165020044108635252, guid: ed65ee2dd2e6549b09e741dfbb2ec89b,
         type: 3}
       propertyPath: m_RootOrder
@@ -205,16 +190,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Level0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8653754026747915886, guid: ed65ee2dd2e6549b09e741dfbb2ec89b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8813330541612093951, guid: ed65ee2dd2e6549b09e741dfbb2ec89b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed65ee2dd2e6549b09e741dfbb2ec89b, type: 3}
@@ -333,6 +308,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982145768435039941, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1982145768435039941, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1982145769894618544, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
@@ -518,6 +503,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6519744099050329126, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8045780469752215632, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
@@ -956,15 +946,15 @@ MonoBehaviour:
     incrementValue: 1
     upgradeValues:
     - 25
-    - 150
-    - 600
-    - 3000
-    - 4500
-    - 9000
-    - 12500
-    - 15000
-    - 17500
-    - 20000
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
+    - 1
     - 50000
     - 80000
     - 125000
@@ -1073,7 +1063,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1873127959}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}

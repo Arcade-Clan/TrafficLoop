@@ -131,11 +131,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5651880011782116684, guid: ed65ee2dd2e6549b09e741dfbb2ec89b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8165020044108635252, guid: ed65ee2dd2e6549b09e741dfbb2ec89b,
         type: 3}
       propertyPath: m_RootOrder
@@ -951,18 +946,18 @@ MonoBehaviour:
     incrementValue: 1
     upgradeValues:
     - 25
-    - 1
-    - 1
-    - 1
-    - 1
-    - 1
-    - 1
-    - 1
-    - 1
-    - 1
+    - 100
+    - 250
+    - 500
+    - 1000
+    - 2500
+    - 5000
+    - 7500
+    - 10000
+    - 15000
+    - 25000
     - 50000
-    - 80000
-    - 125000
+    - 100000
     - 1000000
   - upgradeName: Income
     upgradeLevel: 0

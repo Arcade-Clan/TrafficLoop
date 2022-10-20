@@ -32,7 +32,7 @@ public class TrafficController : MonoBehaviour
                 if (!GameManager.Instance.cars[a].cars[b].path.gameObject.activeInHierarchy)
                 {
                     GameManager.Instance.cars[a].cars[b].GetComponentInChildren<Collider>().enabled = false;
-                    GameManager.Instance.cars[a].cars[b].transform.DOScale(0,3f).SetEase(Ease.Linear);
+                    //GameManager.Instance.cars[a].cars[b].transform.DOScale(0,3f).SetEase(Ease.Linear);
                 }
             }
         }

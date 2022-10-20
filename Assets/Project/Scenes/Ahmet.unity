@@ -1078,6 +1078,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1873127960}
   - component: {fileID: 1873127961}
+  - component: {fileID: 1873127962}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1235,3 +1236,15 @@ MonoBehaviour:
   carProductionIndex: 
   carPrefab: {fileID: 8828391772419353904, guid: db1a5b5697ae349b09deb1d33ec1ef17,
     type: 3}
+--- !u!114 &1873127962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873127959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32bacf8906c5f4af293505dbf34de298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

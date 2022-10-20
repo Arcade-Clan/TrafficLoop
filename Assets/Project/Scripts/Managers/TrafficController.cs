@@ -25,6 +25,17 @@ public class TrafficController : MonoBehaviour
 
     public void RecalculateTrafficElements()
     {
+        for (int a = 0; a < GameManager.Instance.cars.Length; a++)
+        {
+            for (int b = 0; b < GameManager.Instance.cars[a].cars.Count; b++)
+            {
+                if (!GameManager.Instance.cars[a].cars[b].path.gameObject.activeInHierarchy)
+                {
+                    GameManager.Instance.cars[a].cars[b].GetComponentInChildren<Collider>().enabled = false;
+                    GameManager.Instance.cars[a].cars[b].transform.DOScale(0,3f).SetEase(Ease.Linear);
+                }
+            }
+        }
         paths = FindObjectsOfType<Path>();
         StopCoroutine("GreenlightPathRoutine");
         StartCoroutine("GreenlightPathRoutine");
@@ -106,7 +117,7 @@ public class TrafficController : MonoBehaviour
             return;
         loopingPaths.Remove(selectedPath);
         Vector3 newPosition = selectedPath.tween.PathGetPoint(0);
-        //
+        
         carCounter = (carCounter + 1) % GameManager.Instance.carProductionIndex.Count;
         int carIndex = GameManager.Instance.carProductionIndex[carCounter];
         Car newCar = Instantiate(GameManager.Instance.carPrefab, newPosition,

@@ -38,7 +38,7 @@ public class UIManager : MonoSingleton<UIManager>
 
    public int tutorialProgression;
    public GameObject[] tutorialHands;
-
+   public bool tutorialInProgress;
 
    void Awake()
    {
@@ -49,19 +49,24 @@ public class UIManager : MonoSingleton<UIManager>
    {
       if (tutorialProgression != index)
          return;
+      tutorialInProgress = true;
       tutorialHands[index].Show();
    }
    
    
-   public void IncreaseTutorialProgression(int index)
+   public bool IncreaseTutorialProgression(int index)
    {
+      if (tutorialProgression > 4)
+         return true;
       if (tutorialProgression != index)
-         return;
+         return false;
       tutorialProgression++;
       PlayerPrefs.SetInt("TutorialProgression", tutorialProgression);
       tutorialHands[index].Hide();
+      tutorialInProgress = false;
       if(index==0)
          TriggerTutorialProgression(1);
+      return true;
    }
    
    public void NextButton()

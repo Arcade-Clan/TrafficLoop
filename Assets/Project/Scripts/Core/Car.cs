@@ -18,18 +18,12 @@ public class Car : MonoBehaviour
     public CarModel[] cars;
     public Path path;
     Vector3 wheelRotation;
-    //float rayPointDistance;
     public Car collidedCar;
-    //public int priority;
-    //public int openValue;
     public float waitForEmoji = 2;
+    public List<Car> ignoredCars;
+    public Car lastCar;
+    public float ignoreCarWaiter = 5;
     
-    void Start()
-    {
-        //priority = Random.Range(-int.MaxValue, int.MaxValue);
-        
-        //rayPointDistance = Vector3.Distance(transform.position, rayPoint.position);
-    }
     
     public void MoveCar(int newCarIndex,Path newPath)
     {
@@ -48,6 +42,7 @@ public class Car : MonoBehaviour
         while (true)
         {
             collidedCar = CheckRay();
+            CheckLastCar(collidedCar);
             if (collidedCar && place < collidedCar.place && 
                 (Vector3.Distance(path.transform.position, collidedCar.path.transform.position) <1f || 
                  Vector3.Distance(path.path.wps.Last(), collidedCar.path.path.wps.Last()) < 1f))
@@ -92,8 +87,22 @@ public class Car : MonoBehaviour
         }
     }
 
-   
+    float timer;
 
+    void CheckLastCar(Car newCar)
+    {
+        if (lastCar == newCar)
+        {
+            timer += Time.fixedDeltaTime;
+            if(timer>ignoreCarWaiter)
+                ignoredCars.Add(lastCar);
+        }
+        else
+        {
+            timer = 0;
+            lastCar = newCar;
+        }
+    }
 
     
     Car CheckRay()
@@ -108,8 +117,14 @@ public class Car : MonoBehaviour
             for (int b = 0; b < hits.Length; b++)
             {
                 Debug.DrawLine(position + Vector3.up * 5f, position, Color.red);
-                if (hits[b].transform.GetComponentInParent<Car>() != this)
-                    return hits[b].transform.GetComponentInParent<Car>();
+                Car checkingCar = hits[b].transform.GetComponentInParent<Car>();
+                if (!checkingCar)
+                    continue;
+                if (checkingCar == this)
+                    continue;
+                if (ignoredCars.Contains(checkingCar))
+                    continue;
+                return hits[b].transform.GetComponentInParent<Car>();
             }
 
             //openValue = a;

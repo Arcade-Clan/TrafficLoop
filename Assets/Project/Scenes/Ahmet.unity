@@ -584,6 +584,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1873127961}
+    - target: {fileID: 1902807986107952939, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1982145769637533612, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_IsActive
@@ -633,6 +638,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -262.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3902766554741375565, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4931083858653183896, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
@@ -719,6 +729,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1873127961}
+    - target: {fileID: 8582752449241025574, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8720719254360708687, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b299400713d7c8409b221abfe170205, type: 3}
 --- !u!224 &1194791339 stripped
@@ -1154,7 +1174,7 @@ MonoBehaviour:
     startValue: 0
     incrementValue: 1
     upgradeValues:
-    - 50
+    - 25
     - 150
     - 600
     - 1500

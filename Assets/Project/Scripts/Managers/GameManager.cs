@@ -106,7 +106,7 @@ public class GameManager : MonoSingleton<GameManager>
         SetObjects();
         GetSaves();
         LevelManager.Instance.CreateLevel();
-        CalculateCarDistribution();
+        CreateProductionIndex();
         UIManager.Instance.UpdateEconomyUI();
         StartCoroutine("GetStatsRoutine");
         StartGame();
@@ -126,24 +126,13 @@ public class GameManager : MonoSingleton<GameManager>
         for (int a = 0; a < upgrades.Length; a++)
             upgrades[a].upgradeLevel = PlayerPrefs.GetInt(upgrades[a].upgradeName);
         merge.mergeLevel = PlayerPrefs.GetInt(merge.mergeName);
+        cars[0].carLevel = PlayerPrefs.GetInt(cars[0].carName, Mathf.RoundToInt(upgrades[0].Value()));
+        for (int a = 1; a < cars.Length; a++)
+            cars[a].carLevel = PlayerPrefs.GetInt(cars[a].carName);
     }
 
-    void CalculateCarDistribution()
+    void CreateProductionIndex()
     {
-        cars[0].carLevel = Mathf.RoundToInt(upgrades[0].Value());
-        for (int a = 1; a < cars.Length; a++)
-            cars[a].carLevel = 0;
-        int mergeLevel = merge.mergeLevel;
-        for (int a = 0; a < cars.Length - 1; a++)
-        {
-            while (mergeLevel > 0 && cars[a].carLevel >= 3)
-            {
-                cars[a].carLevel -= 3;
-                cars[a + 1].carLevel += 1;
-                mergeLevel -= 1;
-            }
-        }
-        
         carProductionIndex.Clear();
         for (int a = 0; a < cars.Length; a++)
         {
@@ -177,6 +166,8 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void IncreaseMoney(Car car,Vector3 position)
     {
+        if (UIManager.Instance.tutorialInProgress)
+            return;
         int value = cars[car.carIndex].carValue * (int)upgrades[2].Value();
         gold += Mathf.RoundToInt(value);
         PlayerPrefs.SetInt("Gold", gold);
@@ -188,15 +179,18 @@ public class GameManager : MonoSingleton<GameManager>
     public void IncreaseCarCount()
     {
         //PlaySound(1);
+        if (!UIManager.Instance.IncreaseTutorialProgression(0))
+            return;
         Analytics.Instance.SendCarBought();
-        UIManager.Instance.IncreaseTutorialProgression(0);
         Taptic.Medium();
         gold -= upgrades[0].Cost(0);
         PlayerPrefs.SetInt("Gold", gold);
         UIManager.Instance.goldText.text = "" + gold;
         upgrades[0].upgradeLevel += 1;
         PlayerPrefs.SetInt(upgrades[0].upgradeName, upgrades[0].upgradeLevel);
-        CalculateCarDistribution();
+        cars[0].carLevel += 1; 
+        PlayerPrefs.SetInt(cars[0].carName, cars[0].carLevel);
+        CreateProductionIndex();
         UIManager.Instance.UpdateEconomyUI();
 
     }
@@ -204,8 +198,9 @@ public class GameManager : MonoSingleton<GameManager>
     public void IncreaseSize()
     {
         //PlaySound(1);
+        if (!UIManager.Instance.IncreaseTutorialProgression(4))
+            return;
         Analytics.Instance.SendSizeUp();
-        UIManager.Instance.IncreaseTutorialProgression(4);
         Taptic.Medium();
         gold -= upgrades[1].Cost(1);
         PlayerPrefs.SetInt("Gold", gold);
@@ -221,8 +216,10 @@ public class GameManager : MonoSingleton<GameManager>
     public void IncreaseIncome()
     {
         //PlaySound(1);
+
+        if (!UIManager.Instance.IncreaseTutorialProgression(2))
+            return;
         Analytics.Instance.SendIncomeClicked();
-        UIManager.Instance.IncreaseTutorialProgression(2);
         Taptic.Medium();
         gold -= upgrades[2].Cost(2);
         PlayerPrefs.SetInt("Gold", gold);
@@ -236,7 +233,8 @@ public class GameManager : MonoSingleton<GameManager>
     public void Merge()
     {
         //PlaySound(1);
-        UIManager.Instance.IncreaseTutorialProgression(3);
+        if (!UIManager.Instance.IncreaseTutorialProgression(3))
+            return;
         Taptic.Medium();
         gold -= merge.Cost();
         PlayerPrefs.SetInt("Gold", gold);
@@ -245,7 +243,6 @@ public class GameManager : MonoSingleton<GameManager>
         merge.mergeLevel += 1;
         Analytics.Instance.SendMergeLevel(merge.mergeLevel);
         PlayerPrefs.SetInt(merge.mergeName, merge.mergeLevel);
-        CalculateCarDistribution();
         MergeCars();
     }
 
@@ -261,13 +258,17 @@ public class GameManager : MonoSingleton<GameManager>
             }
         }
         Car[] closestCars = cars[carIndex].cars.OrderBy(p => Vector3.Distance(p.transform.position,Vector3.zero)).ToArray();
+        cars[carIndex].carLevel -= 3;
+        cars[carIndex+1].carLevel += 1;
+        PlayerPrefs.SetInt(cars[carIndex].carName, cars[carIndex].carLevel);
+        PlayerPrefs.SetInt(cars[carIndex+1].carName, cars[carIndex+1].carLevel);
+        CreateProductionIndex();
         StartCoroutine(MergeCarsRoutine(closestCars));
-
     }
 
     IEnumerator MergeCarsRoutine(Car[] closestCars)
     {
-        CalculateCarDistribution();
+        
         cars[closestCars[0].carIndex].cars.Remove(closestCars[0]);
         cars[closestCars[1].carIndex].cars.Remove(closestCars[1]);
         cars[closestCars[2].carIndex].cars.Remove(closestCars[2]);
@@ -317,8 +318,6 @@ public class GameManager : MonoSingleton<GameManager>
             List<Car> calculatedCars = new();
             for (int a = 0; a < cars.Length; a++)
                 calculatedCars.AddRange(cars[a].cars);
-
-
             UIManager.Instance.carAmount.text = "" + calculatedCars.Count;
             UIManager.Instance.carAmountPerMinute.text = "" + upgrades[0].Value();
             UIManager.Instance.incomePerMinute.text = "" + upgrades[0].Value() * upgrades[2].Value();
@@ -355,8 +354,8 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void SpeedUp()
     {
-        Analytics.Instance.SendSpeedUp();
         UIManager.Instance.IncreaseTutorialProgression(1);
+        Analytics.Instance.SendSpeedUp();
         Taptic.Light();
         StopCoroutine("SpeedUpCoolDown");
         simulationSpeed = speedUpMultiplier * speedUp;
@@ -364,7 +363,8 @@ public class GameManager : MonoSingleton<GameManager>
         for (int a = 0; a < cars.Length; a++)
         {
             for (int b = 0; b < cars[a].cars.Count; b++)
-                cars[a].cars[b].cars[cars[a].cars[b].carIndex].trail.Show();
+                cars[a].cars[b].cars[cars[a].cars[b].carIndex].trail.
+                    GetComponentsInChildren<TrailRenderer>().ForEach(t => t.time = 2);
         }
         StartCoroutine("SpeedUpCoolDown");
     }
@@ -376,7 +376,8 @@ public class GameManager : MonoSingleton<GameManager>
         for (int a = 0; a < cars.Length; a++)
         {
             for (int b = 0; b < cars[a].cars.Count; b++)
-                cars[a].cars[b].cars[cars[a].cars[b].carIndex].trail.Hide();
+                cars[a].cars[b].cars[cars[a].cars[b].carIndex].trail.
+                    GetComponentsInChildren<TrailRenderer>().ForEach(t => t.time = 0.5f);
         }
     }
 
@@ -413,7 +414,7 @@ public class GameManager : MonoSingleton<GameManager>
             if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(3))
             {
                 PlayerPrefs.DeleteAll();
-                Application.LoadLevel(0);
+                Application.LoadLevel(1);
             }
 
             if (Input.GetKeyDown(KeyCode.S) || Input.GetMouseButtonDown(2))

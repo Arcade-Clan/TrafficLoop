@@ -139,7 +139,7 @@ public class GameManager : MonoSingleton<GameManager>
             for (int b = 0; b < cars[a].carLevel; b++)
                 carProductionIndex.Add(a);
         }
-        if(carProductionIndex.Count > 100)
+        if(carProductionIndex.Count > 30)
             carProductionIndex.Add(10);
         carProductionIndex.Shuffle();
     }

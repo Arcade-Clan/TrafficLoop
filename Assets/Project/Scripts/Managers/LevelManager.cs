@@ -60,7 +60,8 @@ public class LevelManager : MonoSingleton<LevelManager>
             for (int a = 0; a < level.sections[levelIndexes[1]].elements.Count; a++)
                 level.sections[levelIndexes[1]].elements[a].Show();
         }
-        GameManager.Instance.trafficController.StartCoroutine("RecalculateTrafficElements");
+        GameManager.Instance.trafficController.loopingPaths.Clear();
+        GameManager.Instance.trafficController.RecalculateTrafficElements();
         if(level.sections[levelIndexes[1]].cam)
         {
             level.sections[levelIndexes[1]].cam.Hide();

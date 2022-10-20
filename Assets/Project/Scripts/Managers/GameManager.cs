@@ -436,7 +436,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         if(Application.isEditor)
         {
-            if (Input.GetKeyDown(KeyCode.M) || Input.GetMouseButtonDown(1))
+            if (Input.GetKey(KeyCode.M) || Input.GetMouseButton(1))
             {
                 gold += 1000;
                 PlayerPrefs.SetInt("Gold", gold);

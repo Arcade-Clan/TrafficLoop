@@ -23,7 +23,7 @@ public class TrafficController : MonoBehaviour
         StartCoroutine("GreenlightPathRoutine");
     }
 
-    public IEnumerator RecalculateTrafficElements()
+    public void RecalculateTrafficElements()
     {
         for (int a = 0; a < GameManager.Instance.cars.Length; a++)
         {
@@ -32,14 +32,14 @@ public class TrafficController : MonoBehaviour
                 if (!GameManager.Instance.cars[a].cars[b].path.gameObject.activeInHierarchy)
                 {
                     GameManager.Instance.cars[a].cars[b].GetComponentInChildren<Collider>().enabled = false;
+                    GameManager.Instance.cars[a].cars[b].transform.DOScale(0, 10f).SetEase(Ease.Linear);
                     GameManager.Instance.cars[a].cars[b].collidedCar = null;
                     GameManager.Instance.cars[a].cars[b].trafficLight = null;
-                    //GameManager.Instance.cars[a].cars[b].transform.DOScale(0,3f).SetEase(Ease.Linear);
+                   
                 }
             }
         }
-
-        yield return null;
+        
         paths = FindObjectsOfType<Path>();
         StopCoroutine("GreenlightPathRoutine");
         StartCoroutine("GreenlightPathRoutine");

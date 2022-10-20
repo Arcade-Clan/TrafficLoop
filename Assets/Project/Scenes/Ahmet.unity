@@ -1255,6 +1255,10 @@ MonoBehaviour:
     carLevel: 0
     carValue: 100000
     cars: []
+  - carName: Car11
+    carLevel: 0
+    carValue: 30
+    cars: []
   merge:
     mergeName: Merge
     mergeLevel: 0

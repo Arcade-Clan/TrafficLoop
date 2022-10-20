@@ -7957,7 +7957,6 @@ MonoBehaviour:
   place: 0
   currentSpeed: 0
   trafficLight: {fileID: 0}
-  rayPoint: {fileID: 0}
   cars:
   - {fileID: 2680778456039768653}
   - {fileID: 1461922273262570669}
@@ -7972,10 +7971,10 @@ MonoBehaviour:
   - {fileID: 5540177835156235695}
   path: {fileID: 0}
   collidedCar: {fileID: 0}
-  waitForEmoji: 3
   ignoredCars: []
   lastCar: {fileID: 0}
-  ignoreCarWaiter: 5
+  ignoreCarWaiter: 3
+  priority: 0
 --- !u!54 &5219968147369929050
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using UnityExtensions;
 
 public class GameManager : MonoSingleton<GameManager>
@@ -202,6 +203,10 @@ public class GameManager : MonoSingleton<GameManager>
         if (!UIManager.Instance.IncreaseTutorialProgression(0))
             return;
         PlaySound(0);
+        UIManager.Instance.upgrades[0].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.4f, 0.2f)
+            .SetEase(Ease.OutSine).OnComplete(() =>
+                UIManager.Instance.upgrades[0].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.15f, 0.2f)
+                    .SetEase(Ease.InSine));
         Analytics.Instance.SendCarBought();
         Taptic.Medium();
         gold -= upgrades[0].Cost(0);
@@ -219,9 +224,13 @@ public class GameManager : MonoSingleton<GameManager>
     public void IncreaseSize()
     {
         //PlaySound(1);
-        PlaySound(0);
         if (!UIManager.Instance.IncreaseTutorialProgression(4))
             return;
+        PlaySound(0);
+        UIManager.Instance.upgrades[1].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.4f, 0.2f)
+            .SetEase(Ease.OutSine).OnComplete(() =>
+                UIManager.Instance.upgrades[1].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.15f, 0.2f)
+                    .SetEase(Ease.InSine));
         Analytics.Instance.SendSizeUp();
         Taptic.Medium();
         gold -= upgrades[1].Cost(1);
@@ -231,16 +240,17 @@ public class GameManager : MonoSingleton<GameManager>
         PlayerPrefs.SetInt(upgrades[1].upgradeName, upgrades[1].upgradeLevel);
         LevelManager.Instance.SwitchLevel();
         UIManager.Instance.UpdateEconomyUI();
-        
-        //ChangeRoads();
     }
 
     public void IncreaseIncome()
     {
-        //PlaySound(1);
-        PlaySound(0);
         if (!UIManager.Instance.IncreaseTutorialProgression(2))
             return;
+        PlaySound(0);
+        UIManager.Instance.upgrades[2].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.4f, 0.2f)
+            .SetEase(Ease.OutSine).OnComplete(() =>
+                UIManager.Instance.upgrades[2].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.15f, 0.2f)
+                    .SetEase(Ease.InSine));
         Analytics.Instance.SendIncomeClicked();
         Taptic.Medium();
         gold -= upgrades[2].Cost(2);
@@ -254,10 +264,10 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void Merge()
     {
-        //PlaySound(1);
-        PlaySound(0);
+
         if (!UIManager.Instance.IncreaseTutorialProgression(3))
             return;
+        PlaySound(0);
         Taptic.Medium();
         gold -= merge.Cost();
         PlayerPrefs.SetInt("Gold", gold);

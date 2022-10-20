@@ -131,6 +131,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5651880011782116684, guid: ed65ee2dd2e6549b09e741dfbb2ec89b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8165020044108635252, guid: ed65ee2dd2e6549b09e741dfbb2ec89b,
         type: 3}
       propertyPath: m_RootOrder
@@ -914,16 +919,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c67bfd4159084d79811a291b375a2c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 0
+  gold: 999999
   slowStrength: 1
   startMoveStrength: 0.025
-  carSpeed: 6
+  carSpeed: 9
   simulationSpeed: 1
   speedUpTimer: 0.5
   speedUpMultiplier: 2
   rayDistance: 4
   trafficDensity: 0
-  stopCarCreationOnTrafficDensity: 0.5
+  stopCarCreationOnTrafficDensity: 1
   canvas: {fileID: 0}
   cam: {fileID: 0}
   trafficController: {fileID: 0}

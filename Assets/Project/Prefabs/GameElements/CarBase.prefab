@@ -7973,7 +7973,7 @@ MonoBehaviour:
   collidedCar: {fileID: 0}
   ignoredCars: []
   lastCar: {fileID: 0}
-  ignoreCarWaiter: 3
+  ignoreCarWaiter: 0.5
   priority: 0
 --- !u!54 &5219968147369929050
 Rigidbody:

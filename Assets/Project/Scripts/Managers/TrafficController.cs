@@ -23,7 +23,7 @@ public class TrafficController : MonoBehaviour
         StartCoroutine("GreenlightPathRoutine");
     }
 
-    public void RecalculateTrafficElements()
+    public IEnumerator RecalculateTrafficElements()
     {
         for (int a = 0; a < GameManager.Instance.cars.Length; a++)
         {
@@ -38,6 +38,8 @@ public class TrafficController : MonoBehaviour
                 }
             }
         }
+
+        yield return null;
         paths = FindObjectsOfType<Path>();
         StopCoroutine("GreenlightPathRoutine");
         StartCoroutine("GreenlightPathRoutine");

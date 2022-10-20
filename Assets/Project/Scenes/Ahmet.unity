@@ -1134,7 +1134,7 @@ MonoBehaviour:
     mergeLevel: 0
     baseValue: 25
     increment: 25
-    expoRatio: 2.5
+    expoRatio: 1.5
   crashSmoke: {fileID: 3480892824555974408, guid: 0d2af3b1df29c42be916e1330bfc92be,
     type: 3}
   carProductionIndex: 

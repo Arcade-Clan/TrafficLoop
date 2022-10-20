@@ -14,16 +14,19 @@ public class Car : MonoBehaviour
     public float place;
     public float currentSpeed = 1;
     public TrafficLight trafficLight;
-    public Transform rayPoint;
     public CarModel[] cars;
     public Path path;
     Vector3 wheelRotation;
     public Car collidedCar;
-    public float waitForEmoji = 2;
     public List<Car> ignoredCars;
     public Car lastCar;
     public float ignoreCarWaiter = 5;
-    
+    public int priority;
+
+    void Awake()
+    {
+        priority = Random.Range(-int.MaxValue, int.MaxValue);
+    }
     
     public void MoveCar(int newCarIndex,Path newPath)
     {
@@ -42,30 +45,27 @@ public class Car : MonoBehaviour
         while (true)
         {
             collidedCar = CheckRay();
-            CheckLastCar(collidedCar);
-            if (collidedCar && place < collidedCar.place && 
+            
+            if (collidedCar && place < collidedCar.place &&  
                 (Vector3.Distance(path.transform.position, collidedCar.path.transform.position) <1f || 
                  Vector3.Distance(path.path.wps.Last(), collidedCar.path.path.wps.Last()) < 1f))
             {
-                EnableEmoji(false);
                 text.text = "Same Path\n"+collidedCar.gameObject.name;
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             }
-            else if (collidedCar && (!collidedCar.collidedCar || !collidedCar.collidedCar.collidedCar))
+            else if (collidedCar && (!collidedCar.collidedCar || !collidedCar.collidedCar.collidedCar||priority<collidedCar.priority))
             {
-                EnableEmoji(true);
-                text.text = "Different Speed\n" + collidedCar.gameObject.name;
+                CheckLastCar(collidedCar);
+                text.text = "Crash\n" + collidedCar.gameObject.name;
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             }
             else if (trafficLight)
             {
-                EnableEmoji(false);
                 text.text = "Light";
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
             }
             else
             {
-                EnableEmoji(false);
                 text.text = "Go";
                 currentSpeed = Mathf.Lerp(currentSpeed, speed, GameManager.Instance.startMoveStrength);
             }
@@ -95,7 +95,10 @@ public class Car : MonoBehaviour
         {
             timer += Time.fixedDeltaTime;
             if(timer>ignoreCarWaiter)
+            {
                 ignoredCars.Add(lastCar);
+                EmojiTrigger();
+            }
         }
         else
         {
@@ -113,7 +116,8 @@ public class Car : MonoBehaviour
         {
 
             Vector3 position = path.tween.PathGetPoint((place + ray * a / 10f) / path.pathLength);
-            RaycastHit[] hits = Physics.SphereCastAll(position + Vector3.up*5f,0.75f, -Vector3.up, 5, LayerMask.GetMask("Car"));
+            
+            Collider[] hits = Physics.OverlapSphere(position, 0.75f,LayerMask.GetMask("Car"));
             for (int b = 0; b < hits.Length; b++)
             {
                 Debug.DrawLine(position + Vector3.up * 5f, position, Color.red);
@@ -146,26 +150,8 @@ public class Car : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(newPosition - transform.position), 0.25f);
     }
 
-    void EnableEmoji(bool value)
+    public void EmojiTrigger()
     {
-        if (value)
-        {
-            if (emojiOn)
-                return;
-            emojiOn = true;
-            StartCoroutine("EmojiTrigger");
-        }
-        else
-        {
-            emojiOn = false;
-            StopCoroutine("EmojiTrigger");
-        }
-    }
-    
-    bool emojiOn;
-    public IEnumerator EmojiTrigger()
-    {
-        yield return new WaitForSeconds(waitForEmoji);
         Emoji emoji = GetComponentInChildren<Emoji>(true);
         emoji.Show();
         emoji.transform.LookAt(GameManager.Instance.cam.transform);

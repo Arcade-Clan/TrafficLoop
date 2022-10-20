@@ -284,7 +284,7 @@ public class GameManager : MonoSingleton<GameManager>
         int carIndex = 0;
         for (int a = 0; a < cars.Length - 1; a++)
         {
-            if (cars[a].cars.Count >= 3)
+            if (cars[a].carLevel >= 3 && cars[a].cars.Count >= 3)
             {
                 carIndex = a;
                 break;
@@ -337,7 +337,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         for (int a = 0; a < cars.Length-1; a++)
         {
-            if (cars[a].cars.Count >= 3)
+            if (cars[a].carLevel>=3 &&cars[a].cars.Count >= 3)
                 return true;
         }
 

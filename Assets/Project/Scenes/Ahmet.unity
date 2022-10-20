@@ -1163,7 +1163,7 @@ MonoBehaviour:
     baseValue: 5
     increment: 2
     expoRatio: 1.5
-    startValue: 3
+    startValue: 5
     incrementValue: 2
     upgradeValues: []
   - upgradeName: Size

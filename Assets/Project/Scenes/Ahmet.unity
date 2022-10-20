@@ -689,7 +689,7 @@ MonoBehaviour:
   simulationSpeed: 1
   speedUpTimer: 0.5
   speedUpMultiplier: 2
-  rayDistance: 5
+  rayDistance: 4
   trafficDensity: 0
   stopCarCreationOnTrafficDensity: 0.5
   canvas: {fileID: 0}
@@ -701,7 +701,7 @@ MonoBehaviour:
     upgradeLevel: 0
     baseValue: 5
     increment: 1
-    expoRatio: 1.5
+    expoRatio: 0.3
     startValue: 5
     incrementValue: 3
     upgradeValues: []
@@ -737,12 +737,12 @@ MonoBehaviour:
     upgradeValues:
     - 15
     - 75
-    - 300
-    - 600
-    - 1000
-    - 1500
-    - 2000
-    - 3000
+    - 500
+    - 750
+    - 1250
+    - 1750
+    - 2500
+    - 3500
     - 4000
     - 5000
     - 6000
@@ -803,7 +803,7 @@ MonoBehaviour:
     mergeLevel: 0
     baseValue: 25
     increment: 25
-    expoRatio: 3
+    expoRatio: 2.5
   crashSmoke: {fileID: 3480892824555974408, guid: 0d2af3b1df29c42be916e1330bfc92be,
     type: 3}
   carProductionIndex: 

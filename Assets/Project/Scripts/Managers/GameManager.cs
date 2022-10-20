@@ -95,6 +95,24 @@ public class GameManager : MonoSingleton<GameManager>
     public GameObject crashSmoke;
     public List<int> carProductionIndex = new List<int>();
     public Car carPrefab;
+
+
+    [Serializable]
+    public class SoundClass
+    {
+
+        public AudioClip sound;
+        [Range(0f, 1f)] public float volume = 1;
+
+    }
+
+    public SoundClass[] sounds;
+
+    public void PlaySound(int value)
+    {
+        if (sounds.Length > 0)
+            GetComponent<AudioSource>().PlayOneShot(sounds[value].sound, sounds[value].volume);
+    }
     
     void Awake()
     {
@@ -183,6 +201,7 @@ public class GameManager : MonoSingleton<GameManager>
         //PlaySound(1);
         if (!UIManager.Instance.IncreaseTutorialProgression(0))
             return;
+        PlaySound(0);
         Analytics.Instance.SendCarBought();
         Taptic.Medium();
         gold -= upgrades[0].Cost(0);
@@ -200,6 +219,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void IncreaseSize()
     {
         //PlaySound(1);
+        PlaySound(0);
         if (!UIManager.Instance.IncreaseTutorialProgression(4))
             return;
         Analytics.Instance.SendSizeUp();
@@ -218,7 +238,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void IncreaseIncome()
     {
         //PlaySound(1);
-
+        PlaySound(0);
         if (!UIManager.Instance.IncreaseTutorialProgression(2))
             return;
         Analytics.Instance.SendIncomeClicked();
@@ -235,6 +255,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void Merge()
     {
         //PlaySound(1);
+        PlaySound(0);
         if (!UIManager.Instance.IncreaseTutorialProgression(3))
             return;
         Taptic.Medium();

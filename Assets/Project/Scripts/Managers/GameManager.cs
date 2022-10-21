@@ -96,7 +96,7 @@ public class GameManager : MonoSingleton<GameManager>
     public GameObject crashSmoke;
     public List<int> carProductionIndex = new List<int>();
     public Car carPrefab;
-
+    public int fireTruckComesAfterAmount = 10;
 
     [Serializable]
     public class SoundClass
@@ -109,6 +109,8 @@ public class GameManager : MonoSingleton<GameManager>
 
     public SoundClass[] sounds;
 
+
+    
     public void PlaySound(int value)
     {
         if (sounds.Length > 0)
@@ -158,7 +160,7 @@ public class GameManager : MonoSingleton<GameManager>
             for (int b = 0; b < cars[a].carLevel; b++)
                 carProductionIndex.Add(a);
         }
-        if(carProductionIndex.Count > 30)
+        if(carProductionIndex.Count > fireTruckComesAfterAmount)
             carProductionIndex.Add(10);
         carProductionIndex.Shuffle();
     }

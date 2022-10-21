@@ -89,7 +89,8 @@ public class TrafficController : MonoBehaviour
     {
         while (true)
         {
-            CreateCar();
+            carCounter = (carCounter + 1) % GameManager.Instance.carProductionIndex.Count;
+            CreateCar(GameManager.Instance.carProductionIndex[carCounter]);
             yield return new WaitForSeconds(GameManager.Instance.baseSecondCreation / GameManager.Instance.TotalCarCount());
             while (GameManager.Instance.stopCarCreationOnTrafficDensity < GameManager.Instance.trafficDensity)
                 yield return null;
@@ -97,8 +98,22 @@ public class TrafficController : MonoBehaviour
     }
 
     int carCounter = 0;
+
+
+    void Update()
+    {
+        for (int a = 0; a <10 ; a++)
+        {
+            if (Input.GetKeyDown(""+a))
+                CreateCar(a);
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+            CreateCar(10);
+    }
     
-    void CreateCar()
+    
+    void CreateCar(int index)
     {
 
         if (loopingPaths.Count == 0)
@@ -122,12 +137,10 @@ public class TrafficController : MonoBehaviour
         loopingPaths.Remove(selectedPath);
         Vector3 newPosition = selectedPath.tween.PathGetPoint(0);
         
-        carCounter = (carCounter + 1) % GameManager.Instance.carProductionIndex.Count;
-        int carIndex = GameManager.Instance.carProductionIndex[carCounter];
         Car newCar = Instantiate(GameManager.Instance.carPrefab, newPosition,
             Quaternion.LookRotation(selectedPath.tween.PathGetPoint(0.01f) - newPosition));
-        GameManager.Instance.cars[carIndex].cars.Add(newCar);
-        newCar.MoveCar(carIndex,selectedPath);
+        GameManager.Instance.cars[index].cars.Add(newCar);
+        newCar.MoveCar(index,selectedPath);
         UIManager.Instance.UpdateEconomyUI();
     }
 }

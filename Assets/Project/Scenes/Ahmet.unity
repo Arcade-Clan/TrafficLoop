@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5494813, g: 0.90877265, b: 0.8706339, a: 1}
+  m_IndirectSpecularColor: {r: 0.54948133, g: 0.9087725, b: 0.8706339, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1033,7 +1033,7 @@ MonoBehaviour:
     baseValue: 5
     increment: 1
     expoRatio: 0.15
-    startValue: 5
+    startValue: 6
     incrementValue: 3
     upgradeValues: []
   - upgradeName: Size
@@ -1044,7 +1044,7 @@ MonoBehaviour:
     startValue: 0
     incrementValue: 1
     upgradeValues:
-    - 25
+    - 5
     - 150
     - 600
     - 3000
@@ -1066,7 +1066,7 @@ MonoBehaviour:
     startValue: 1
     incrementValue: 1
     upgradeValues:
-    - 15
+    - 5
     - 75
     - 500
     - 1000
@@ -1132,7 +1132,7 @@ MonoBehaviour:
   merge:
     mergeName: Merge
     mergeLevel: 0
-    baseValue: 25
+    baseValue: 5
     increment: 25
     expoRatio: 1.5
   crashSmoke: {fileID: 3480892824555974408, guid: 0d2af3b1df29c42be916e1330bfc92be,

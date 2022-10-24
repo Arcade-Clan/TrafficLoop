@@ -212,7 +212,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &199869827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,7 +322,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &332728422
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1193,7 +1193,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1750737651
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1349,20 +1349,20 @@ MonoBehaviour:
     startValue: 0
     incrementValue: 1
     upgradeValues:
-    - 5
+    - 25
     - 150
-    - 600
-    - 3000
-    - 4500
+    - 1800
     - 9000
-    - 25000
-    - 30000
-    - 35000
-    - 40000
+    - 13500
+    - 27000
+    - 75000
+    - 90000
+    - 125000
     - 150000
-    - 240000
-    - 375000
+    - 750000
     - 1000000
+    - 3000000
+    - 9999999
   - upgradeName: Income
     upgradeLevel: 0
     baseValue: 15
@@ -1373,22 +1373,39 @@ MonoBehaviour:
     upgradeValues:
     - 5
     - 75
-    - 500
-    - 1000
-    - 2000
-    - 6000
-    - 12000
-    - 18000
-    - 25000
-    - 35000
-    - 40000
-    - 55000
-    - 75000
-    - 100000
-    - 150000
-    - 50000
-    - 100000
-    - 150000
+    - 1500
+    - 4500
+    - 13500
+    - 27000
+    - 54000
+    - 162000
+    - 324000
+    - 648000
+    - 750000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 1000000
+    - 0
   cars:
   - carName: Car1
     carLevel: 100
@@ -1396,35 +1413,35 @@ MonoBehaviour:
     cars: []
   - carName: Car2
     carLevel: 0
-    carValue: 5
+    carValue: 4
     cars: []
   - carName: Car3
     carLevel: 0
-    carValue: 20
+    carValue: 15
     cars: []
   - carName: Car4
     carLevel: 0
-    carValue: 75
+    carValue: 50
     cars: []
   - carName: Car5
     carLevel: 0
-    carValue: 250
+    carValue: 175
     cars: []
   - carName: Car6
     carLevel: 0
-    carValue: 1000
+    carValue: 600
     cars: []
   - carName: Car7
     carLevel: 0
-    carValue: 4000
+    carValue: 2000
     cars: []
   - carName: Car8
     carLevel: 0
-    carValue: 8000
+    carValue: 7500
     cars: []
   - carName: Car9
     carLevel: 0
-    carValue: 30000
+    carValue: 25000
     cars: []
   - carName: Car10
     carLevel: 0
@@ -1432,14 +1449,14 @@ MonoBehaviour:
     cars: []
   - carName: Car11
     carLevel: 0
-    carValue: 30
+    carValue: 100
     cars: []
   merge:
     mergeName: Merge
     mergeLevel: 0
     baseValue: 5
-    increment: 25
-    expoRatio: 1.5
+    increment: 3
+    expoRatio: 1
   crashSmoke: {fileID: 3480892824555974408, guid: 0d2af3b1df29c42be916e1330bfc92be,
     type: 3}
   carProductionIndex: 

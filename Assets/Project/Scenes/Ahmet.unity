@@ -1349,7 +1349,7 @@ MonoBehaviour:
     startValue: 0
     incrementValue: 1
     upgradeValues:
-    - 25
+    - 5
     - 150
     - 1800
     - 9000

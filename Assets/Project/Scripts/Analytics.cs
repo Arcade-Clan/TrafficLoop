@@ -22,6 +22,7 @@ public class Analytics : MonoSingleton<Analytics>
     public void SendSizeUp()
     {
         Elephant.Event("SizeUpCount", 1);
+        Elephant.LevelCompleted(GameManager.Instance.upgrades[1].upgradeLevel);
     }
     
     public void SendIncomeClicked()

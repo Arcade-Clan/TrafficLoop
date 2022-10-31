@@ -126,7 +126,7 @@ public class TrafficController : MonoBehaviour
         do
         {
            
-            if (!Physics.CheckSphere(loopingPaths[pathIndex].tween.PathGetPoint(0), 5, LayerMask.GetMask("Car")))
+            if (!Physics.CheckSphere(loopingPaths[pathIndex].tween.PathGetPoint(0), 0, LayerMask.GetMask("Car")))
                 selectedPath = loopingPaths[pathIndex];
             pathIndex ++;
         }

@@ -69,7 +69,7 @@ public class GameManager : MonoSingleton<GameManager>
     public class CarClass
     {
         public string carName;
-        [ReadOnly]
+        //[ReadOnly]
         public int carLevel;
         public int carValue;
         public List<Car> cars = new List<Car>();

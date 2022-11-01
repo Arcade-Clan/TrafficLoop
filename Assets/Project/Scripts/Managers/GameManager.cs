@@ -108,7 +108,7 @@ public class GameManager : MonoSingleton<GameManager>
     }
 
     public SoundClass[] sounds;
-
+    public bool carErase = false;
 
     
     public void PlaySound(int value)

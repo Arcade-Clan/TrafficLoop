@@ -31,11 +31,14 @@ public class TrafficController : MonoBehaviour
             {
                 if (!GameManager.Instance.cars[a].cars[b].path.gameObject.activeInHierarchy)
                 {
-                    GameManager.Instance.cars[a].cars[b].GetComponentInChildren<Collider>().enabled = false;
-                    GameManager.Instance.cars[a].cars[b].transform.DOScale(0, 10f).SetEase(Ease.Linear);
-                    GameManager.Instance.cars[a].cars[b].collidedCar = null;
+                    if (GameManager.Instance.carErase)
+                    {
+                        GameManager.Instance.cars[a].cars[b].GetComponentInChildren<Collider>().enabled = false;
+                        GameManager.Instance.cars[a].cars[b].transform.DOScale(0, 10f).SetEase(Ease.Linear);
+                        GameManager.Instance.cars[a].cars[b].collidedCar = null;
+                    }
+
                     GameManager.Instance.cars[a].cars[b].trafficLight = null;
-                   
                 }
             }
         }

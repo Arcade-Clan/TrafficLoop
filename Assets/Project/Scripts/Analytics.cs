@@ -8,7 +8,15 @@ using UnityExtensions;
 
 public class Analytics : MonoSingleton<Analytics>
 {
+    public float multiplier = 1;
+    void Start()
+    {
+        multiplier = RemoteConfig.GetInstance().GetFloat("Economy", 1);
+    }
     
+
+    
+        
     public void SendCarBought()
     {
         print(RemoteConfig.GetInstance().GetInt("Economy"));

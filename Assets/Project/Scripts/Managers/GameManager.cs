@@ -49,6 +49,8 @@ public class GameManager : MonoSingleton<GameManager>
         {
             if (value == 0)
                 return Mathf.RoundToInt(baseValue + increment * upgradeLevel + upgradeLevel * ((upgradeLevel + 1) / 2) * expoRatio);
+            if(value==1)
+                return Mathf.RoundToInt(upgradeValues[upgradeLevel]*Analytics.Instance.multiplier);
             return Mathf.RoundToInt(upgradeValues[upgradeLevel]);
         }
 

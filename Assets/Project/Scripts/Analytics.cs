@@ -11,6 +11,7 @@ public class Analytics : MonoSingleton<Analytics>
     
     public void SendCarBought()
     {
+        print(RemoteConfig.GetInstance().GetInt("Economy"));
         Elephant.Event("BuyCarCount", 1);
     }
 

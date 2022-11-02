@@ -28,15 +28,28 @@ public class Car : MonoBehaviour
         priority = Random.Range(-int.MaxValue, int.MaxValue);
     }
     
-    public void MoveCar(int newCarIndex,Path newPath)
+    public void MoveCar(int newCarIndex,Path newPath,float position,bool withAnimation)
     {
+        
         carIndex = newCarIndex;
         for (int a = 0; a < cars.Length; a++)
             cars[a].gameObject.SetActive(carIndex == a);
         path = newPath;
+        place = position * path.pathLength;
         StartCoroutine("MoveRoutine");
+        if (withAnimation)
+            Appear();
     }
 
+    void Appear()
+    {
+        CarModel model = cars[carIndex];
+        model.transform.localPosition+=Vector3.up*7;
+        float scale = model.transform.localScale.x;
+        model.transform.localScale = Vector3.zero;
+        model.transform.DOScale(scale,1.5f).SetEase(Ease.OutElastic);
+        model.transform.DOLocalMoveY(0, 1).SetEase(Ease.OutBounce);
+    }
     
     IEnumerator MoveRoutine()
     {

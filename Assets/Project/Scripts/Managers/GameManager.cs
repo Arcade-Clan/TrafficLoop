@@ -215,12 +215,12 @@ public class GameManager : MonoSingleton<GameManager>
         PlayerPrefs.SetInt("Gold", gold);
         UIManager.Instance.goldText.text = "" + gold;
         upgrades[0].upgradeLevel += 1;
+		trafficController.AddCar();
         PlayerPrefs.SetInt(upgrades[0].upgradeName, upgrades[0].upgradeLevel);
         cars[0].carLevel += 1; 
         PlayerPrefs.SetInt(cars[0].carName, cars[0].carLevel);
         CreateProductionIndex();
         UIManager.Instance.UpdateEconomyUI();
-
     }
 
     public void IncreaseSize()
@@ -314,16 +314,16 @@ public class GameManager : MonoSingleton<GameManager>
         closestCars[2].GetComponentInChildren<Collider>().enabled = false;
         closestCars[1].transform.SetParent(closestCars[0].transform);
         closestCars[2].transform.SetParent(closestCars[0].transform);
-        closestCars[1].transform.DOLocalRotate(Vector3.zero, 0.5f);
-        closestCars[2].transform.DOLocalRotate(Vector3.zero, 0.5f);
-        closestCars[1].transform.DOLocalMoveX(0, 0.5f);
-        closestCars[1].transform.DOLocalMoveZ(0, 0.5f);
-        closestCars[2].transform.DOLocalMoveX(0, 0.5f);
-        closestCars[2].transform.DOLocalMoveZ(0, 0.5f);
-        closestCars[1].transform.DOLocalMoveY(3, 0.25f).SetEase(Ease.OutSine);
-        yield return closestCars[2].transform.DOLocalMoveY(10, 0.25f).SetEase(Ease.OutSine).WaitForCompletion();
-        closestCars[1].transform.DOLocalMoveY(0, 0.25f).SetEase(Ease.InSine);
-        yield return closestCars[2].transform.DOLocalMoveY(0, 0.25f).SetEase(Ease.InSine).WaitForCompletion();
+        closestCars[1].transform.DOLocalRotate(Vector3.zero, 0.66f);
+        closestCars[2].transform.DOLocalRotate(Vector3.zero, 0.66f);
+        closestCars[1].transform.DOLocalMoveX(0, 0.66f);
+        closestCars[1].transform.DOLocalMoveZ(0, 0.66f);
+        closestCars[2].transform.DOLocalMoveX(0, 0.66f);
+        closestCars[2].transform.DOLocalMoveZ(0, 0.66f);
+        closestCars[1].transform.DOLocalMoveY(7, 0.33f).SetEase(Ease.OutSine);
+        yield return closestCars[2].transform.DOLocalMoveY(7, 0.33f).SetEase(Ease.OutSine).WaitForCompletion();
+        closestCars[1].transform.DOLocalMoveY(0, 0.33f).SetEase(Ease.InSine);
+        yield return closestCars[2].transform.DOLocalMoveY(0, 0.33f).SetEase(Ease.InSine).WaitForCompletion();
         Destroy(closestCars[1].gameObject);
         Destroy(closestCars[2].gameObject);
         closestCars[0].UpgradeCar();
@@ -367,8 +367,7 @@ public class GameManager : MonoSingleton<GameManager>
             if (calculatedCars.Count > 0)
             {
                 trafficDensity = density / calculatedCars.Count;
-                UIManager.Instance.trafficDensity.fillAmount =
-                    Mathf.Lerp(UIManager.Instance.trafficDensity.fillAmount, trafficDensity, 0.1f);
+                UIManager.Instance.trafficDensity.fillAmount = Mathf.Lerp(UIManager.Instance.trafficDensity.fillAmount, trafficDensity, 0.1f);
             }
             yield return new WaitForFixedUpdate();
         }

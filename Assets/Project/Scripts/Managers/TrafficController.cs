@@ -23,6 +23,36 @@ public class TrafficController : MonoBehaviour
         StartCoroutine("GreenlightPathRoutine");
     }
 
+    public void AddCar()
+    {
+
+            List<Path> randomPaths = new List<Path>(paths);
+            randomPaths.Shuffle();
+
+            for (int a = 0; a < randomPaths.Count; a++)
+            {
+
+                for (int b = 0; b < 10; b++)
+                {
+                    float randomPosition = Random.Range(0.25f, 0.75f);
+
+                if (!Physics.CheckSphere(randomPaths[a].tween.PathGetPoint(randomPosition), 4,
+                        LayerMask.GetMask("Car")))
+                {
+                    Vector3 newPosition = randomPaths[a].tween.PathGetPoint(randomPosition);
+                    Car newCar = Instantiate(GameManager.Instance.carPrefab, newPosition, Quaternion.LookRotation(randomPaths[a].tween.PathGetPoint(randomPosition+0.01f) - newPosition));
+                    GameManager.Instance.cars[0].cars.Add(newCar);
+                    newCar.MoveCar(0,randomPaths[a],randomPosition,true);
+                    return;
+                }
+                }
+            }
+
+
+
+        
+    }
+    
     public void RecalculateTrafficElements()
     {
         for (int a = 0; a < GameManager.Instance.cars.Length; a++)
@@ -140,7 +170,7 @@ public class TrafficController : MonoBehaviour
         Car newCar = Instantiate(GameManager.Instance.carPrefab, newPosition,
             Quaternion.LookRotation(selectedPath.tween.PathGetPoint(0.01f) - newPosition));
         GameManager.Instance.cars[index].cars.Add(newCar);
-        newCar.MoveCar(index,selectedPath);
+        newCar.MoveCar(index,selectedPath,0,false);
         UIManager.Instance.UpdateEconomyUI();
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +49,7 @@ public class GameManager : MonoSingleton<GameManager>
         {
             if (value == 0)
                 return Mathf.RoundToInt(baseValue + increment * upgradeLevel + upgradeLevel * ((upgradeLevel + 1) / 2) * expoRatio);
-            if(value==1)
+            if(value==1&&(upgradeLevel>0 && upgradeLevel<5))
                 return Mathf.RoundToInt(upgradeValues[upgradeLevel]*Analytics.Instance.multiplier);
             return Mathf.RoundToInt(upgradeValues[upgradeLevel]);
         }
@@ -144,7 +144,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void GetSaves()
     {
-        gold = PlayerPrefs.GetInt("Gold");
+        gold = PlayerPrefs.GetInt("Gold",3);
         UIManager.Instance.goldText.text = "" + gold;
         for (int a = 0; a < upgrades.Length; a++)
             upgrades[a].upgradeLevel = PlayerPrefs.GetInt(upgrades[a].upgradeName);

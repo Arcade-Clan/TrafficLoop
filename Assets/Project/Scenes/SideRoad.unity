@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.50137913, g: 0.8732139, b: 0.909365, a: 1}
+  m_IndirectSpecularColor: {r: 0.5013791, g: 0.8732138, b: 0.90936494, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9481,6 +9481,7 @@ MonoBehaviour:
   crashSmoke: {fileID: 0}
   carProductionIndex: 
   carPrefab: {fileID: 0}
+  sounds: []
 --- !u!1 &1952460694
 GameObject:
   m_ObjectHideFlags: 0

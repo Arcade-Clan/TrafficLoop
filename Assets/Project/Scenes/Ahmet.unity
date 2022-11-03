@@ -1425,7 +1425,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   cam: {fileID: 0}
   trafficController: {fileID: 0}
-  baseSecondCreation: 15
+  baseSecondCreation: 10
   upgrades:
   - upgradeName: Car Amount
     upgradeLevel: 0

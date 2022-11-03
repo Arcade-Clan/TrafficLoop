@@ -1415,7 +1415,7 @@ MonoBehaviour:
   gold: 0
   slowStrength: 1
   startMoveStrength: 0.025
-  carSpeed: 8
+  carSpeed: 12
   simulationSpeed: 1
   speedUpTimer: 0.5
   speedUpMultiplier: 2

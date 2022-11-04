@@ -133,6 +133,7 @@ public class UIManager : MonoSingleton<UIManager>
 
    public void UpdateEconomyUI()
    {
+      float cost;
       for (int a = 0; a < upgrades.Length; a++)
       {
          if (GameManager.Instance.upgrades[a].Max(a))
@@ -142,9 +143,9 @@ public class UIManager : MonoSingleton<UIManager>
          else
          {
 
-            float cost = GameManager.Instance.upgrades[a].Cost(a);
+            cost = GameManager.Instance.upgrades[a].Cost(a);
             //upgrades[a].levelText.text = "LEVEL " + (GameManager.Instance.upgrades[a].upgradeLevel + 1);
-            upgrades[a].goldText.text = "$" + cost;
+            upgrades[a].goldText.text = "$" + PriceFormatting(cost);
             upgrades[a].coverImage.gameObject.SetActive(cost > GameManager.Instance.gold);
             upgrades[a].coverImage.transform.parent.GetComponent<Button>().enabled = cost <= GameManager.Instance.gold;
             if (cost <= GameManager.Instance.gold)
@@ -159,26 +160,40 @@ public class UIManager : MonoSingleton<UIManager>
          }
       }
 
-      if (!GameManager.Instance.CanMerge())
+
+         
+      merge.upgradePanel.Show();
+      cost = GameManager.Instance.merge.Cost();
+      merge.goldText.text = "$" + PriceFormatting(cost);
+      if (cost > GameManager.Instance.gold || !GameManager.Instance.CanMerge())
       {
-         merge.upgradePanel.Hide();
+         merge.coverImage.gameObject.SetActive(true);
+         merge.coverImage.transform.parent.GetComponent<Button>().enabled = false;
       }
       else
       {
-         merge.upgradePanel.Show();
-         float cost = GameManager.Instance.merge.Cost();
-         merge.goldText.text = "$" + cost;
-         merge.coverImage.gameObject.SetActive(cost >= GameManager.Instance.gold);
-         merge.coverImage.transform.parent.GetComponent<Button>().enabled = cost <= GameManager.Instance.gold;
-         if (cost <= GameManager.Instance.gold)
-            TriggerTutorialProgression(3);
+         merge.coverImage.gameObject.SetActive(false);
+         merge.coverImage.transform.parent.GetComponent<Button>().enabled = true;
       }
+
+      if (cost <= GameManager.Instance.gold)
+         TriggerTutorialProgression(3);
+      
    }
 
    public void UpdateGold()
    {
       PlayerPrefs.SetInt("Gold",GameManager.Instance.gold);
-      goldText.text = string.Format("{0:N0}", GameManager.Instance.gold);
+      goldText.text = PriceFormatting(GameManager.Instance.gold);
    }
 
+
+   public string PriceFormatting(float value)
+   {
+      if (value >= 1000000)
+         return string.Format("{0:N2}", value / 1000000f)+"M";
+      else if (value >= 1000)
+         return string.Format("{0:N2}", value / 1000f)+"K";
+      return "" + value;
+   }
 }

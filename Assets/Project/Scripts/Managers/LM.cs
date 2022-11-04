@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityExtensions;
 
-public class LevelManager : MonoSingleton<LevelManager>
+public class LM : MonoSingleton<LM>
 {
 
     public Level[] levels;
@@ -20,8 +20,8 @@ public class LevelManager : MonoSingleton<LevelManager>
         if (level.sections[levelIndexes[1]].cam)
         {
             level.sections[levelIndexes[1]].cam.Hide();
-            GameManager.Instance.cam.transform.position=level.sections[levelIndexes[1]].cam.position;
-            GameManager.Instance.cam.transform.rotation = level.sections[levelIndexes[1]].cam.rotation;
+            GM.Instance.cam.transform.position=level.sections[levelIndexes[1]].cam.position;
+            GM.Instance.cam.transform.rotation = level.sections[levelIndexes[1]].cam.rotation;
         }
     }
 
@@ -33,7 +33,7 @@ public class LevelManager : MonoSingleton<LevelManager>
         {
             for (int b = 0; b < levels[a].sections.Length; b++)
             {
-                if (GameManager.Instance.upgrades[1].upgradeLevel == sectionIndex)
+                if (GM.Instance.upgrades[1].upgradeLevel == sectionIndex)
                     return new []{a, b};
                 sectionIndex += 1;
             }
@@ -60,12 +60,12 @@ public class LevelManager : MonoSingleton<LevelManager>
             for (int a = 0; a < level.sections[levelIndexes[1]].elements.Count; a++)
                 level.sections[levelIndexes[1]].elements[a].Show();
         }
-        GameManager.Instance.trafficController.RecalculateTrafficElements();
+        GM.Instance.trafficController.RecalculateTrafficElements();
         if(level.sections[levelIndexes[1]].cam)
         {
             level.sections[levelIndexes[1]].cam.Hide();
-            GameManager.Instance.cam.transform.DOMove(level.sections[levelIndexes[1]].cam.position, 1f).SetEase(Ease.InOutSine);
-            GameManager.Instance.cam.transform.DORotateQuaternion(level.sections[levelIndexes[1]].cam.rotation, 1f).SetEase(Ease.InOutSine);
+            GM.Instance.cam.transform.DOMove(level.sections[levelIndexes[1]].cam.position, 1f).SetEase(Ease.InOutSine);
+            GM.Instance.cam.transform.DORotateQuaternion(level.sections[levelIndexes[1]].cam.rotation, 1f).SetEase(Ease.InOutSine);
         }
     }
     

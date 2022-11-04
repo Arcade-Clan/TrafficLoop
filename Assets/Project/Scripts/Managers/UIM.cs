@@ -1,13 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityExtensions;
 
-public class UIManager : MonoSingleton<UIManager>
+public class UIM : MonoSingleton<UIM>
 {
 
    public TextMeshProUGUI goldText;
@@ -42,9 +41,20 @@ public class UIManager : MonoSingleton<UIManager>
    public GameObject[] tutorialHands;
    public bool tutorialInProgress;
 
+   [Header("AdButtons")] 
+   public GameObject add3CarButton;
+   public GameObject speedUpButton;
+   public GameObject addIncomeButton;
+   public TMP_Text addIncomeText;
+   
    void Awake()
    {
       tutorialProgression = PlayerPrefs.GetInt("TutorialProgression");
+   }
+
+   private void Start()
+   {
+      oldGold = GM.Instance.gold;
    }
 
    public void TriggerTutorialProgression(int index)
@@ -70,30 +80,20 @@ public class UIManager : MonoSingleton<UIManager>
          TriggerTutorialProgression(1);
       return true;
    }
-
-   public void NextButton()
-   {
-      PlayerPrefs.SetInt("Gold", 0);
-      PlayerPrefs.SetInt(GameManager.Instance.upgrades[0].upgradeName, 0);
-      PlayerPrefs.SetInt(GameManager.Instance.upgrades[1].upgradeName, 0);
-      PlayerPrefs.SetInt(GameManager.Instance.upgrades[2].upgradeName, 0);
-      PlayerPrefs.SetInt(GameManager.Instance.merge.mergeName, 0);
-      SceneManager.LoadScene(1);
-   }
-
+   
    void Update()
    {
       List<Car> cars = new();
-      for (int a = 0; a < GameManager.Instance.cars.Length; a++)
+      for (int a = 0; a < GM.Instance.cars.Length; a++)
       {
-         cars.AddRange(GameManager.Instance.cars[a].cars);
+         cars.AddRange(GM.Instance.cars[a].cars);
       }
 
       carAmount.text = "" + cars.Count;
       carAmountPerMinute.text =
-         "" + Mathf.RoundToInt(GameManager.Instance.baseSecondCreation / GameManager.Instance.TotalCarCount());
+         "" + Mathf.RoundToInt(GM.Instance.baseSecondCreation / AM.Instance.TotalCarCount());
 
-      incomePerMinute.text = "$" + CalculateIncome() * GameManager.Instance.simulationSpeed + "/M";
+      incomePerMinute.text = "$" + CalculateIncome() * GM.Instance.simulationSpeed + "/M";
       float density = 0;
       for (int a = 0; a < cars.Count; a++)
       {
@@ -110,11 +110,11 @@ public class UIManager : MonoSingleton<UIManager>
    {
       float income = 0;
 
-      for (int a = 0; a < GameManager.Instance.cars.Length; a++)
+      for (int a = 0; a < GM.Instance.cars.Length; a++)
       {
-         income += GameManager.Instance.cars[a].carLevel * GameManager.Instance.cars[a].carValue *
-            GameManager.Instance.upgrades[2].Value() *
-            60 / GameManager.Instance.baseSecondCreation;
+         income += GM.Instance.cars[a].carLevel * GM.Instance.cars[a].carValue *
+            GM.Instance.upgrades[2].Value() *
+            60 / GM.Instance.baseSecondCreation;
       }
 
       return Mathf.RoundToInt(income);
@@ -122,12 +122,12 @@ public class UIManager : MonoSingleton<UIManager>
 
    public void CreateText(int value, Vector3 position)
    {
-      GameObject newText = Instantiate(counterText, GameManager.Instance.canvas.transform, true);
+      GameObject newText = Instantiate(counterText, GM.Instance.canvas.transform, true);
       newText.GetComponentInChildren<TextMeshProUGUI>().text = "+" + value;
       newText.transform.SetAsFirstSibling();
       newText.GetComponent<RectTransform>().anchoredPosition =
-         RectTransformUtility.WorldToScreenPoint(GameManager.Instance.cam, position) /
-         GameManager.Instance.canvas.transform.localScale.x;
+         RectTransformUtility.WorldToScreenPoint(GM.Instance.cam, position) /
+         GM.Instance.canvas.transform.localScale.x;
    }
 
 
@@ -136,19 +136,19 @@ public class UIManager : MonoSingleton<UIManager>
       float cost;
       for (int a = 0; a < upgrades.Length; a++)
       {
-         if (GameManager.Instance.upgrades[a].Max(a))
+         if (GM.Instance.upgrades[a].Max(a))
          {
             upgrades[a].upgradePanel.Hide();
          }
          else
          {
 
-            cost = GameManager.Instance.upgrades[a].Cost(a);
+            cost = GM.Instance.upgrades[a].Cost(a);
             //upgrades[a].levelText.text = "LEVEL " + (GameManager.Instance.upgrades[a].upgradeLevel + 1);
             upgrades[a].goldText.text = "$" + PriceFormatting(cost);
-            upgrades[a].coverImage.gameObject.SetActive(cost > GameManager.Instance.gold);
-            upgrades[a].coverImage.transform.parent.GetComponent<Button>().enabled = cost <= GameManager.Instance.gold;
-            if (cost <= GameManager.Instance.gold)
+            upgrades[a].coverImage.gameObject.SetActive(cost > GM.Instance.gold);
+            upgrades[a].coverImage.transform.parent.GetComponent<Button>().enabled = cost <= GM.Instance.gold;
+            if (cost <= GM.Instance.gold)
             {
                if (a == 0)
                   TriggerTutorialProgression(0);
@@ -163,9 +163,9 @@ public class UIManager : MonoSingleton<UIManager>
 
          
       merge.upgradePanel.Show();
-      cost = GameManager.Instance.merge.Cost();
+      cost = GM.Instance.merge.Cost();
       merge.goldText.text = "$" + PriceFormatting(cost);
-      if (cost > GameManager.Instance.gold || !GameManager.Instance.CanMerge())
+      if (cost > GM.Instance.gold || !AM.Instance.CanMerge())
       {
          merge.coverImage.gameObject.SetActive(true);
          merge.coverImage.transform.parent.GetComponent<Button>().enabled = false;
@@ -176,17 +176,24 @@ public class UIManager : MonoSingleton<UIManager>
          merge.coverImage.transform.parent.GetComponent<Button>().enabled = true;
       }
 
-      if (cost <= GameManager.Instance.gold)
+      if (cost <= GM.Instance.gold)
          TriggerTutorialProgression(3);
       
    }
 
+   private int oldGold;
    public void UpdateGold()
    {
-      PlayerPrefs.SetInt("Gold",GameManager.Instance.gold);
-      goldText.text = PriceFormatting(GameManager.Instance.gold);
+      PlayerPrefs.SetInt("Gold",GM.Instance.gold);
+      DOVirtual.Int(oldGold, GM.Instance.gold,0.5f,UpdateGoldText);
+      oldGold = GM.Instance.gold;
+      goldText.DOScale(1.2f, 0.25f).OnComplete(()=>goldText.DOScale(1f, 0.25f).SetDelay(0.5f));
    }
 
+   void UpdateGoldText(int value)
+   {
+      goldText.text = PriceFormatting(value);
+   }
 
    public string PriceFormatting(float value)
    {

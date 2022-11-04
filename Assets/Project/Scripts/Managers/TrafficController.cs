@@ -35,12 +35,12 @@ public class TrafficController : MonoBehaviour
                 {
                     float randomPosition = Random.Range(0.25f, 0.75f);
 
-                if (!Physics.CheckSphere(randomPaths[a].tween.PathGetPoint(randomPosition), 4,
+                if (!Physics.CheckSphere(randomPaths[a].tween.PathGetPoint(randomPosition), 4, 
                         LayerMask.GetMask("Car")))
                 {
                     Vector3 newPosition = randomPaths[a].tween.PathGetPoint(randomPosition);
-                    Car newCar = Instantiate(GameManager.Instance.carPrefab, newPosition, Quaternion.LookRotation(randomPaths[a].tween.PathGetPoint(randomPosition+0.01f) - newPosition));
-                    GameManager.Instance.cars[0].cars.Add(newCar);
+                    Car newCar = Instantiate(GM.Instance.carPrefab, newPosition, Quaternion.LookRotation(randomPaths[a].tween.PathGetPoint(randomPosition+0.01f) - newPosition));
+                    GM.Instance.cars[0].cars.Add(newCar);
                     newCar.MoveCar(0,randomPaths[a],randomPosition,true);
                     return;
                 }
@@ -54,16 +54,16 @@ public class TrafficController : MonoBehaviour
     
     public void RecalculateTrafficElements()
     {
-        for (int a = 0; a < GameManager.Instance.cars.Length; a++)
+        for (int a = 0; a < GM.Instance.cars.Length; a++)
         {
-            for (int b = 0; b < GameManager.Instance.cars[a].cars.Count; b++)
+            for (int b = 0; b < GM.Instance.cars[a].cars.Count; b++)
             {
-                if (!GameManager.Instance.cars[a].cars[b].path.gameObject.activeInHierarchy)
+                if (!GM.Instance.cars[a].cars[b].path.gameObject.activeInHierarchy)
                 {
-                    GameManager.Instance.cars[a].cars[b].GetComponentInChildren<Collider>().enabled = false;
-                    GameManager.Instance.cars[a].cars[b].transform.DOScale(0, 10f).SetEase(Ease.Linear);
-                    GameManager.Instance.cars[a].cars[b].collidedCar = null;
-                    GameManager.Instance.cars[a].cars[b].trafficLight = null;
+                    GM.Instance.cars[a].cars[b].GetComponentInChildren<Collider>().enabled = false;
+                    GM.Instance.cars[a].cars[b].transform.DOScale(0, 10f).SetEase(Ease.Linear);
+                    GM.Instance.cars[a].cars[b].collidedCar = null;
+                    GM.Instance.cars[a].cars[b].trafficLight = null;
                    
                 }
             }
@@ -118,10 +118,10 @@ public class TrafficController : MonoBehaviour
     {
         while (true)
         {
-            carCounter = (carCounter + 1) % GameManager.Instance.carProductionIndex.Count;
-            CreateCar(GameManager.Instance.carProductionIndex[carCounter]);
-            yield return new WaitForSeconds(GameManager.Instance.baseSecondCreation/GameManager.Instance.baseSecondCreationSpeedUp / GameManager.Instance.TotalCarCount());
-            while (GameManager.Instance.stopCarCreationOnTrafficDensity < GameManager.Instance.trafficDensity)
+            carCounter = (carCounter + 1) % AM.Instance.carProductionIndex.Count;
+            CreateCar(AM.Instance.carProductionIndex[carCounter]);
+            yield return new WaitForSeconds(GM.Instance.baseSecondCreation/GM.Instance.baseSecondCreationSpeedUp / AM.Instance.TotalCarCount());
+            while (GM.Instance.stopCarCreationOnTrafficDensity < GM.Instance.trafficDensity)
                 yield return null;
         }
     }
@@ -157,10 +157,10 @@ public class TrafficController : MonoBehaviour
             return;
         Vector3 newPosition = selectedPath.tween.PathGetPoint(0);
         
-        Car newCar = Instantiate(GameManager.Instance.carPrefab, newPosition,
+        Car newCar = Instantiate(GM.Instance.carPrefab, newPosition,
             Quaternion.LookRotation(selectedPath.tween.PathGetPoint(0.01f) - newPosition));
-        GameManager.Instance.cars[index].cars.Add(newCar);
+        GM.Instance.cars[index].cars.Add(newCar);
         newCar.MoveCar(index,selectedPath,0,false);
-        UIManager.Instance.UpdateEconomyUI();
+        UIM.Instance.UpdateEconomyUI();
     }
 }

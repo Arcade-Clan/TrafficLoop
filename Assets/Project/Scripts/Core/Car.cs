@@ -53,7 +53,7 @@ public class Car : MonoBehaviour
     
     IEnumerator MoveRoutine()
     {
-        float speed  = Random.Range(0.9f, 1.1f) * GameManager.Instance.carSpeed;
+        float speed  = Random.Range(0.9f, 1.1f) * GM.Instance.carSpeed;
         TextMeshPro text = GetComponentInChildren<TextMeshPro>();
         while (true)
         {
@@ -64,23 +64,23 @@ public class Car : MonoBehaviour
                  Vector3.Distance(path.path.wps.Last(), collidedCar.path.path.wps.Last()) < 1f))
             {
                 text.text = "Same Path\n"+collidedCar.gameObject.name;
-                currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
+                currentSpeed = Mathf.Lerp(currentSpeed, 0, GM.Instance.slowStrength);
             }
             else if (collidedCar && (!collidedCar.collidedCar || !collidedCar.collidedCar.collidedCar||priority<collidedCar.priority))
             {
                 CheckLastCar(collidedCar);
                 text.text = "Crash\n" + collidedCar.gameObject.name;
-                currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
+                currentSpeed = Mathf.Lerp(currentSpeed, 0, GM.Instance.slowStrength);
             }
             else if (trafficLight)
             {
                 text.text = "Light";
-                currentSpeed = Mathf.Lerp(currentSpeed, 0, GameManager.Instance.slowStrength);
+                currentSpeed = Mathf.Lerp(currentSpeed, 0, GM.Instance.slowStrength);
             }
             else
             {
                 text.text = "Go";
-                currentSpeed = Mathf.Lerp(currentSpeed, speed, GameManager.Instance.startMoveStrength);
+                currentSpeed = Mathf.Lerp(currentSpeed, speed, GM.Instance.startMoveStrength);
             }
             Vector3 rotation = path.tween.PathGetPoint((place + currentSpeed / 60) / path.pathLength);
             float angle = Vector3.Angle((rotation - transform.position).normalized, transform.forward);
@@ -90,8 +90,8 @@ public class Car : MonoBehaviour
             transform.position = newPosition;
             if (place>=path.pathLength)
             {
-                GameManager.Instance.cars[carIndex].cars.Remove(this);
-                UIManager.Instance.UpdateEconomyUI();
+                GM.Instance.cars[carIndex].cars.Remove(this);
+                UIM.Instance.UpdateEconomyUI();
                 Destroy(gameObject);
                 yield break;
             }
@@ -123,7 +123,7 @@ public class Car : MonoBehaviour
     
     Car CheckRay()
     {
-        float ray = GameManager.Instance.rayDistance;
+        float ray = GM.Instance.rayDistance;
 
         for (int a = 0; a <= 10; a++)
         {
@@ -167,7 +167,7 @@ public class Car : MonoBehaviour
     {
         Emoji emoji = GetComponentInChildren<Emoji>(true);
         emoji.Show();
-        emoji.transform.LookAt(GameManager.Instance.cam.transform);
+        emoji.transform.LookAt(GM.Instance.cam.transform);
     }
 
     public void UpgradeCar()

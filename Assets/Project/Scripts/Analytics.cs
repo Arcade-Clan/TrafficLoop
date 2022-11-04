@@ -19,7 +19,6 @@ public class Analytics : MonoSingleton<Analytics>
         
     public void SendCarBought()
     {
-        print(RemoteConfig.GetInstance().GetInt("Economy"));
         Elephant.Event("BuyCarCount", 1);
     }
 
@@ -31,7 +30,7 @@ public class Analytics : MonoSingleton<Analytics>
     public void SendSizeUp()
     {
         Elephant.Event("SizeUpCount", 1);
-        Elephant.LevelCompleted(GameManager.Instance.upgrades[1].upgradeLevel);
+        Elephant.LevelCompleted(GM.Instance.upgrades[1].upgradeLevel);
     }
     
     public void SendIncomeClicked()

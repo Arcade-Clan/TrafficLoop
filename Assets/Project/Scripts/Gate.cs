@@ -15,7 +15,7 @@ public class Gate : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
-        GameManager.Instance.IncreaseMoney(other.transform.parent.GetComponent<Car>(),transform.position+Vector3.up);
+        GM.Instance.IncreaseMoney(other.transform.parent.GetComponent<Car>(),transform.position+Vector3.up);
         DOTween.Kill(model);
         model.DOLocalRotate(new Vector3(0,180,0), openTime).SetEase(gateOpenEase);
     }

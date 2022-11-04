@@ -12,9 +12,8 @@ public class TrafficController : MonoBehaviour
 
     public Path[] paths;
     public TrafficLight[] trafficLights;
-    public List<Path> loopingPaths;
-    
-    
+
+
     IEnumerator StartTrafficRoutine()
     {
         yield return null;
@@ -121,7 +120,7 @@ public class TrafficController : MonoBehaviour
         {
             carCounter = (carCounter + 1) % GameManager.Instance.carProductionIndex.Count;
             CreateCar(GameManager.Instance.carProductionIndex[carCounter]);
-            yield return new WaitForSeconds(GameManager.Instance.baseSecondCreation / GameManager.Instance.TotalCarCount());
+            yield return new WaitForSeconds(GameManager.Instance.baseSecondCreation/GameManager.Instance.baseSecondCreationSpeedUp / GameManager.Instance.TotalCarCount());
             while (GameManager.Instance.stopCarCreationOnTrafficDensity < GameManager.Instance.trafficDensity)
                 yield return null;
         }
@@ -145,26 +144,17 @@ public class TrafficController : MonoBehaviour
     
     void CreateCar(int index)
     {
-
-        if (loopingPaths.Count == 0)
-        {
-            loopingPaths = new List<Path>(paths);
-            loopingPaths.Shuffle();
-        }
         Path selectedPath = null;
-        int pathIndex = 0;
-        do
+        List<Path> loopingPaths = new List<Path>(paths);
+        loopingPaths.Shuffle();
+        for (int a = 0; a < loopingPaths.Count; a++)
         {
-           
-            if (!Physics.CheckSphere(loopingPaths[pathIndex].tween.PathGetPoint(0), 5, LayerMask.GetMask("Car")))
-                selectedPath = loopingPaths[pathIndex];
-            pathIndex ++;
+            if (Physics.CheckSphere(loopingPaths[a].tween.PathGetPoint(0), 2.5f, LayerMask.GetMask("Car")))
+                continue;
+            selectedPath = loopingPaths[a];  
         }
-        while (!selectedPath && pathIndex<loopingPaths.Count);
-
         if (!selectedPath)
             return;
-        loopingPaths.Remove(selectedPath);
         Vector3 newPosition = selectedPath.tween.PathGetPoint(0);
         
         Car newCar = Instantiate(GameManager.Instance.carPrefab, newPosition,

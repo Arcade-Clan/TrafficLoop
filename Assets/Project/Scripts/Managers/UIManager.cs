@@ -9,7 +9,7 @@ using UnityExtensions;
 
 public class UIManager : MonoSingleton<UIManager>
 {
-   
+
    public TextMeshProUGUI goldText;
    public TextMeshProUGUI carAmount;
    public TextMeshProUGUI carAmountPerMinute;
@@ -25,6 +25,7 @@ public class UIManager : MonoSingleton<UIManager>
       public GameObject upgradePanel;
       public Image coverImage;
    }
+
    public UpgradeClass[] upgrades;
 
    [Serializable]
@@ -34,6 +35,7 @@ public class UIManager : MonoSingleton<UIManager>
       public GameObject upgradePanel;
       public Image coverImage;
    }
+
    public MergeClass merge;
 
    public int tutorialProgression;
@@ -44,7 +46,7 @@ public class UIManager : MonoSingleton<UIManager>
    {
       tutorialProgression = PlayerPrefs.GetInt("TutorialProgression");
    }
-   
+
    public void TriggerTutorialProgression(int index)
    {
       if (tutorialProgression != index)
@@ -52,8 +54,8 @@ public class UIManager : MonoSingleton<UIManager>
       tutorialInProgress = true;
       tutorialHands[index].Show();
    }
-   
-   
+
+
    public bool IncreaseTutorialProgression(int index)
    {
       if (tutorialProgression > 4)
@@ -64,11 +66,11 @@ public class UIManager : MonoSingleton<UIManager>
       PlayerPrefs.SetInt("TutorialProgression", tutorialProgression);
       tutorialHands[index].Hide();
       tutorialInProgress = false;
-      if(index==0)
+      if (index == 0)
          TriggerTutorialProgression(1);
       return true;
    }
-   
+
    public void NextButton()
    {
       PlayerPrefs.SetInt("Gold", 0);
@@ -81,46 +83,51 @@ public class UIManager : MonoSingleton<UIManager>
 
    void Update()
    {
-      List<Car> cars = new ();
+      List<Car> cars = new();
       for (int a = 0; a < GameManager.Instance.cars.Length; a++)
       {
          cars.AddRange(GameManager.Instance.cars[a].cars);
       }
+
       carAmount.text = "" + cars.Count;
-      carAmountPerMinute.text = "" + Mathf.RoundToInt(GameManager.Instance.baseSecondCreation / GameManager.Instance.TotalCarCount());
-      
-      incomePerMinute.text = "$" + CalculateIncome()* GameManager.Instance.simulationSpeed +"/M";
+      carAmountPerMinute.text =
+         "" + Mathf.RoundToInt(GameManager.Instance.baseSecondCreation / GameManager.Instance.TotalCarCount());
+
+      incomePerMinute.text = "$" + CalculateIncome() * GameManager.Instance.simulationSpeed + "/M";
       float density = 0;
       for (int a = 0; a < cars.Count; a++)
       {
          if (cars[a].collidedCar)
             density += 1;
       }
-      if(cars.Count>0)
-         trafficDensity.fillAmount = Mathf.Lerp(trafficDensity.fillAmount, density / cars.Count,0.1f);
+
+      if (cars.Count > 0)
+         trafficDensity.fillAmount = Mathf.Lerp(trafficDensity.fillAmount, density / cars.Count, 0.1f);
    }
 
 
    int CalculateIncome()
    {
       float income = 0;
-      
+
       for (int a = 0; a < GameManager.Instance.cars.Length; a++)
       {
-         income += GameManager.Instance.cars[a].carLevel * GameManager.Instance.cars[a].carValue * GameManager.Instance.upgrades[2].Value() *
-            60 /GameManager.Instance.baseSecondCreation;
+         income += GameManager.Instance.cars[a].carLevel * GameManager.Instance.cars[a].carValue *
+            GameManager.Instance.upgrades[2].Value() *
+            60 / GameManager.Instance.baseSecondCreation;
       }
 
       return Mathf.RoundToInt(income);
    }
-   
+
    public void CreateText(int value, Vector3 position)
    {
       GameObject newText = Instantiate(counterText, GameManager.Instance.canvas.transform, true);
       newText.GetComponentInChildren<TextMeshProUGUI>().text = "+" + value;
       newText.transform.SetAsFirstSibling();
-      newText.GetComponent<RectTransform>().anchoredPosition =RectTransformUtility.WorldToScreenPoint(GameManager.Instance.cam, position) /
-                                                              GameManager.Instance.canvas.transform.localScale.x;
+      newText.GetComponent<RectTransform>().anchoredPosition =
+         RectTransformUtility.WorldToScreenPoint(GameManager.Instance.cam, position) /
+         GameManager.Instance.canvas.transform.localScale.x;
    }
 
 
@@ -167,4 +174,11 @@ public class UIManager : MonoSingleton<UIManager>
             TriggerTutorialProgression(3);
       }
    }
+
+   public void UpdateGold()
+   {
+      PlayerPrefs.SetInt("Gold",GameManager.Instance.gold);
+      goldText.text = string.Format("{0:N0}", GameManager.Instance.gold);
+   }
+
 }

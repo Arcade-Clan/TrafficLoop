@@ -1078,7 +1078,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paths: []
   trafficLights: []
-  loopingPaths: []
 --- !u!1 &1446661161
 GameObject:
   m_ObjectHideFlags: 0
@@ -1417,8 +1416,10 @@ MonoBehaviour:
   startMoveStrength: 0.025
   carSpeed: 12
   simulationSpeed: 1
+  baseSecondCreationSpeedUp: 2
+  baseSecondCreationSpeedUpMultiplier: 2
   speedUpTimer: 0.5
-  speedUpMultiplier: 2
+  speedUpMultiplier: 4
   rayDistance: 4
   trafficDensity: 0
   stopCarCreationOnTrafficDensity: 0.75

@@ -84,7 +84,7 @@ public class GM : MonoSingleton<GM>
     }
 
     public CarClass[] cars;
-
+    public CarClass[] specialCars;
     [Serializable]
     public class MergeClass
     {
@@ -134,9 +134,9 @@ public class GM : MonoSingleton<GM>
     void Start()
     {
         LM.Instance.CreateLevel();
-        AM.Instance.CreateProductionIndex();
+        PM.Instance.CreateProductionIndex();
         UIM.Instance.UpdateEconomyUI();
-        AM.Instance.StartCoroutine("GetStatsRoutine");
+        PM.Instance.StartCoroutine("GetStatsRoutine");
         StartGame();
     }
     
@@ -165,9 +165,9 @@ public class GM : MonoSingleton<GM>
 
     public void StartGame()
     {
-        AM.Instance.StartCoroutine("TimeCalculationRoutine");
+        PM.Instance.StartCoroutine("TimeCalculationRoutine");
         Destroy(FindObjectOfType<InputPanel>().GetComponent<EventTrigger>());
-        InputPanel.Instance.OnPointerDownEvent.AddListener(AM.Instance.SpeedUp);
+        InputPanel.Instance.OnPointerDownEvent.AddListener(PM.Instance.SpeedUp);
         trafficController.StartCoroutine("StartTrafficRoutine");
     }
     

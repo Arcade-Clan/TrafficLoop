@@ -5,7 +5,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityExtensions;
-public class AM : MonoSingleton<AM>
+public class PM : MonoSingleton<PM>
 {
     
     [HideInInspector]
@@ -100,16 +100,16 @@ public class AM : MonoSingleton<AM>
         if (!UIM.Instance.IncreaseTutorialProgression(0))
             return;
         GM.Instance.PlaySound(0);
-        UIM.Instance.upgrades[0].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.4f, 0.2f)
+        UIM.Instance.upgrades[0].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.25f, 0.2f)
             .SetEase(Ease.OutSine).OnComplete(() =>
-                UIM.Instance.upgrades[0].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.15f, 0.2f)
+                UIM.Instance.upgrades[0].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1f, 0.2f)
                     .SetEase(Ease.InSine));
         Analytics.Instance.SendCarBought();
         Taptic.Medium();
         GM.Instance.gold -= GM.Instance.upgrades[0].Cost(0);
         UIM.Instance.UpdateGold();
         GM.Instance.upgrades[0].upgradeLevel += 1;
-        GM.Instance.trafficController.AddCar(0);
+        GM.Instance.trafficController.AddCar(AdsM.Instance.upgradeAllCarLevel);
         PlayerPrefs.SetInt(GM.Instance.upgrades[0].upgradeName, GM.Instance.upgrades[0].upgradeLevel);
         GM.Instance.cars[0].carLevel += 1; 
         PlayerPrefs.SetInt(GM.Instance.cars[0].carName, GM.Instance.cars[0].carLevel);
@@ -123,9 +123,9 @@ public class AM : MonoSingleton<AM>
         if (!UIM.Instance.IncreaseTutorialProgression(4))
             return;
         GM.Instance.PlaySound(0);
-        UIM.Instance.upgrades[1].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.4f, 0.2f)
+        UIM.Instance.upgrades[1].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.25f, 0.2f)
             .SetEase(Ease.OutSine).OnComplete(() =>
-                UIM.Instance.upgrades[1].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.15f, 0.2f)
+                UIM.Instance.upgrades[1].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1f, 0.2f)
                     .SetEase(Ease.InSine));
         Analytics.Instance.SendSizeUp();
         Taptic.Medium();
@@ -142,9 +142,9 @@ public class AM : MonoSingleton<AM>
         if (!UIM.Instance.IncreaseTutorialProgression(2))
             return;
         GM.Instance.PlaySound(0);
-        UIM.Instance.upgrades[2].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.4f, 0.2f)
+        UIM.Instance.upgrades[2].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.25f, 0.2f)
             .SetEase(Ease.OutSine).OnComplete(() =>
-                UIM.Instance.upgrades[2].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.15f, 0.2f)
+                UIM.Instance.upgrades[2].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1f, 0.2f)
                     .SetEase(Ease.InSine));
         Analytics.Instance.SendIncomeClicked();
         Taptic.Medium();
@@ -218,17 +218,9 @@ public class AM : MonoSingleton<AM>
         Destroy(closestCars[1].gameObject);
         Destroy(closestCars[2].gameObject);
         closestCars[0].UpgradeCar();
+        closestCars[0].StartCoroutine("MoveRoutine");
         GM.Instance.cars[closestCars[0].carIndex].cars.Add(closestCars[0]);
         Taptic.Medium();
-        float carScale = closestCars[0].cars[closestCars[0].carIndex].transform.localScale.x;
-        closestCars[0].cars[closestCars[0].carIndex].transform.DOScale(carScale * 2, 0.25f).SetEase(Ease.OutSine)
-            .OnComplete(
-                () =>
-                {
-                    closestCars[0].StartCoroutine("MoveRoutine");
-                    closestCars[0].cars[closestCars[0].carIndex].transform.DOScale(carScale, 0.25f).SetEase(Ease.InSine);
-                });
-
         UIM.Instance.UpdateEconomyUI();
     }
     

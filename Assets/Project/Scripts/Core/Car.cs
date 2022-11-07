@@ -22,7 +22,7 @@ public class Car : MonoBehaviour
     public Car lastCar;
     public float ignoreCarWaiter = 5;
     public int priority;
-
+    public bool specialCar;
     void Awake()
     {
         priority = Random.Range(-int.MaxValue, int.MaxValue);
@@ -173,6 +173,26 @@ public class Car : MonoBehaviour
         cars[carIndex].Hide();
         carIndex += 1;
         cars[carIndex].Show();
+        ScaleCar();
     }
     
+    void ScaleCar()
+    {
+        float carScale = transform.localScale.x;
+        transform.DOScale(carScale * 2, 0.25f).SetEase(Ease.OutSine)
+            .OnComplete(
+                () =>
+                {
+                    transform.DOScale(carScale, 0.25f).SetEase(Ease.InSine);
+                });
+    }
+
+    public void AllCarUpgrade()
+    {
+        if (carIndex == cars.Length - 2)
+            return;
+        GM.Instance.cars[carIndex].cars.Remove(this);
+        UpgradeCar();
+        GM.Instance.cars[carIndex].cars.Add(this);
+    }
 }

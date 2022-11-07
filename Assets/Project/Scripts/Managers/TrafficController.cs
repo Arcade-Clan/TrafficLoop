@@ -118,9 +118,9 @@ public class TrafficController : MonoBehaviour
     {
         while (true)
         {
-            carCounter = (carCounter + 1) % AM.Instance.carProductionIndex.Count;
-            CreateCar(AM.Instance.carProductionIndex[carCounter]);
-            yield return new WaitForSeconds(GM.Instance.baseSecondCreation/GM.Instance.baseSecondCreationSpeedUp / AM.Instance.TotalCarCount());
+            carCounter = (carCounter + 1) % PM.Instance.carProductionIndex.Count;
+            CreateCar(PM.Instance.carProductionIndex[carCounter]+AdsM.Instance.upgradeAllCarLevel);
+            yield return new WaitForSeconds(GM.Instance.baseSecondCreation/GM.Instance.baseSecondCreationSpeedUp / PM.Instance.TotalCarCount());
             while (GM.Instance.stopCarCreationOnTrafficDensity < GM.Instance.trafficDensity)
                 yield return null;
         }

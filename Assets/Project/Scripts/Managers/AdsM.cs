@@ -10,6 +10,8 @@ public class AdsM : MonoSingleton<AdsM>
     [ReadOnly] public float speedOfferSpeedUp = 1;
     [ReadOnly] public float autoTapSpeedUp = 1;
     public int autoTapTimer = 60;
+    public int upgradeAllCarTimer = 15;
+    [ReadOnly] public int upgradeAllCarLevel = 0;
     void Start()
     {
         UIM.Instance.addIncomeText.text = "" + Mathf.RoundToInt(GM.Instance.upgrades[1].Value() / 2f);
@@ -17,7 +19,7 @@ public class AdsM : MonoSingleton<AdsM>
     
     public void Add3Car()
     {
-        AM.Instance.StartCoroutine("Add3CarRoutine");
+        PM.Instance.StartCoroutine("Add3CarRoutine");
     }
 
     public void AddNewCar()
@@ -80,5 +82,29 @@ public class AdsM : MonoSingleton<AdsM>
         }
         autoTapSpeedUp = 1;
         UIM.Instance.autoTapButton.Show();
+    }
+    
+    public void UpgradeAllCars()
+    {
+        StartCoroutine("UpgradeAllCarsRoutine");
+    }
+    
+    IEnumerator UpgradeAllCarsRoutine()
+    {
+        for (int a = GM.Instance.cars.Length - 1; a >= 0; a--)
+        {
+            for (int b = 0; b < GM.Instance.cars[a].cars.Count; b++)
+                GM.Instance.cars[a].cars[b].AllCarUpgrade();
+        }
+        UIM.Instance.upgradeAllCarButton.Hide();
+        upgradeAllCarLevel = 1;
+        float timer = Time.realtimeSinceStartup;
+        while (timer + upgradeAllCarTimer > Time.realtimeSinceStartup)
+        {
+            UIM.Instance.upgradeAllCarFiller.fillAmount = 1 - (Time.realtimeSinceStartup - timer) / upgradeAllCarTimer;
+            yield return null;
+        }
+        upgradeAllCarLevel = 0;
+        UIM.Instance.upgradeAllCarButton.Show();
     }
 }

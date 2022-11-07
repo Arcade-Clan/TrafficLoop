@@ -50,6 +50,8 @@ public class UIM : MonoSingleton<UIM>
    public GameObject addNewCarButton;
    public GameObject autoTapButton;
    public Image autoTapFiller;
+   public GameObject upgradeAllCarButton;
+   public Image upgradeAllCarFiller;
    void Awake()
    {
       tutorialProgression = PlayerPrefs.GetInt("TutorialProgression");
@@ -94,7 +96,7 @@ public class UIM : MonoSingleton<UIM>
 
       carAmount.text = "" + cars.Count;
       carAmountPerMinute.text =
-         "" + Mathf.RoundToInt(GM.Instance.baseSecondCreation / AM.Instance.TotalCarCount());
+         "" + Mathf.RoundToInt(GM.Instance.baseSecondCreation / PM.Instance.TotalCarCount());
 
       incomePerMinute.text = "$" + CalculateIncome() * GM.Instance.simulationSpeed + "/M";
       float density = 0;
@@ -168,7 +170,7 @@ public class UIM : MonoSingleton<UIM>
       merge.upgradePanel.Show();
       cost = GM.Instance.merge.Cost();
       merge.goldText.text = "$" + PriceFormatting(cost);
-      if (cost > GM.Instance.gold || !AM.Instance.CanMerge())
+      if (cost > GM.Instance.gold || !PM.Instance.CanMerge())
       {
          merge.coverImage.gameObject.SetActive(true);
          merge.coverImage.transform.parent.GetComponent<Button>().enabled = false;

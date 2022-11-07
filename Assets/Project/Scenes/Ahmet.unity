@@ -558,6 +558,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1663817246}
+    - target: {fileID: 917606534, guid: 2b299400713d7c8409b221abfe170205, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: UpgradeAllCars
+      objectReference: {fileID: 0}
     - target: {fileID: 960161494, guid: 2b299400713d7c8409b221abfe170205, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1346,10 +1350,7 @@ MonoBehaviour:
     carLevel: 0
     carValue: 100000
     cars: []
-  - carName: Car11
-    carLevel: 0
-    carValue: 100
-    cars: []
+  specialCars: []
   merge:
     mergeName: Merge
     mergeLevel: 0

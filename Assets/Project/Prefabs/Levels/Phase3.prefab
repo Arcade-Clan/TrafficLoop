@@ -497,11 +497,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 253359959878972894}
   pathLength: 0
-  trafficLight: {fileID: 0}
-  lightTimer: 5
-  canPass: 0
-  trafficIndex: 0
-  stopPosition: 10
 --- !u!1 &1071129319025961232
 GameObject:
   m_ObjectHideFlags: 0
@@ -841,11 +836,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 1789902008404144551}
   pathLength: 0
-  trafficLight: {fileID: 0}
-  lightTimer: 5
-  canPass: 0
-  trafficIndex: 0
-  stopPosition: 10
 --- !u!1 &2722573651852558837
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,11 +1512,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 6048019214259574106}
   pathLength: 0
-  trafficLight: {fileID: 0}
-  lightTimer: 5
-  canPass: 0
-  trafficIndex: 0
-  stopPosition: 10
 --- !u!1 &3260375195869472303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1771,11 +1756,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 154827442791594090}
   pathLength: 0
-  trafficLight: {fileID: 0}
-  lightTimer: 5
-  canPass: 0
-  trafficIndex: 0
-  stopPosition: 10
 --- !u!1 &3733506016065180334
 GameObject:
   m_ObjectHideFlags: 0
@@ -2354,11 +2334,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 3755887470254194638}
   pathLength: 0
-  trafficLight: {fileID: 0}
-  lightTimer: 5
-  canPass: 0
-  trafficIndex: 0
-  stopPosition: 10
 --- !u!1 &6584453762800608057
 GameObject:
   m_ObjectHideFlags: 0
@@ -2937,11 +2912,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 5769669201396131201}
   pathLength: 0
-  trafficLight: {fileID: 0}
-  lightTimer: 5
-  canPass: 0
-  trafficIndex: 0
-  stopPosition: 10
 --- !u!1 &6625158869853744202
 GameObject:
   m_ObjectHideFlags: 0
@@ -3784,11 +3754,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 8797698593901399572}
   pathLength: 0
-  trafficLight: {fileID: 0}
-  lightTimer: 5
-  canPass: 0
-  trafficIndex: 0
-  stopPosition: 10
 --- !u!1 &8294294048510503038
 GameObject:
   m_ObjectHideFlags: 0
@@ -4229,11 +4194,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 4679028771038787227}
   pathLength: 0
-  trafficLight: {fileID: 0}
-  lightTimer: 5
-  canPass: 0
-  trafficIndex: 0
-  stopPosition: 10
 --- !u!1 &8448083860922915696
 GameObject:
   m_ObjectHideFlags: 0
@@ -4685,11 +4645,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 5562607174269361475}
   pathLength: 0
-  trafficLight: {fileID: 0}
-  lightTimer: 5
-  canPass: 0
-  trafficIndex: 0
-  stopPosition: 10
 --- !u!1 &8751634050560755406
 GameObject:
   m_ObjectHideFlags: 0
@@ -5061,11 +5016,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 8751634050560755407}
   pathLength: 0
-  trafficLight: {fileID: 0}
-  lightTimer: 5
-  canPass: 0
-  trafficIndex: 0
-  stopPosition: 10
 --- !u!1 &8751634050866459799
 GameObject:
   m_ObjectHideFlags: 0
@@ -5247,7 +5197,7 @@ Transform:
   - {fileID: 1341256443615657665}
   - {fileID: 1341256443991525711}
   - {fileID: 1341256444602797151}
-  - {fileID: 5043440396366773221}
+  - {fileID: 5770474855647444210}
   - {fileID: 5819884594303834530}
   - {fileID: 5996650589429747895}
   - {fileID: 6352879745696260029}
@@ -5342,6 +5292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def3dc823a33c4a7b9b2cea415b205cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sections: []
 --- !u!1 &8751634052366218921
 GameObject:
   m_ObjectHideFlags: 0
@@ -6111,6 +6062,51 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1762424132158197785, guid: 9fbd1d18c7d1e4999b94e4ef62f13940,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762424132158197785, guid: 9fbd1d18c7d1e4999b94e4ef62f13940,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762424132158197785, guid: 9fbd1d18c7d1e4999b94e4ef62f13940,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0000004172325
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762424132158197785, guid: 9fbd1d18c7d1e4999b94e4ef62f13940,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -9.02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762424132158197785, guid: 9fbd1d18c7d1e4999b94e4ef62f13940,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.30795392
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762424132158197785, guid: 9fbd1d18c7d1e4999b94e4ef62f13940,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762424132158197785, guid: 9fbd1d18c7d1e4999b94e4ef62f13940,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9514013
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762424132158197785, guid: 9fbd1d18c7d1e4999b94e4ef62f13940,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1762424132158197785, guid: 9fbd1d18c7d1e4999b94e4ef62f13940,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 144.128
+      objectReference: {fileID: 0}
     - target: {fileID: 4498288467794974024, guid: 9fbd1d18c7d1e4999b94e4ef62f13940,
         type: 3}
       propertyPath: m_Name
@@ -6118,9 +6114,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fbd1d18c7d1e4999b94e4ef62f13940, type: 3}
---- !u!4 &5043440396366773221 stripped
+--- !u!4 &5770474855647444210 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 980761582254823182, guid: 9fbd1d18c7d1e4999b94e4ef62f13940,
+  m_CorrespondingSourceObject: {fileID: 1762424132158197785, guid: 9fbd1d18c7d1e4999b94e4ef62f13940,
     type: 3}
   m_PrefabInstance: {fileID: 5215655622886681835}
   m_PrefabAsset: {fileID: 0}

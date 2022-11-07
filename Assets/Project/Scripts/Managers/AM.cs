@@ -57,40 +57,40 @@ public class AM : MonoSingleton<AM>
         Analytics.Instance.SendSpeedUp();
         Taptic.Light();
         StopCoroutine("SpeedUpCoolDown");
-        GM.Instance.simulationSpeed = GM.Instance.speedUpMultiplier * GM.Instance.speedUp;
+        GM.Instance.tapSpeed = GM.Instance.tapSpeedUpMultiplier;
         GM.Instance.baseSecondCreationSpeedUp = GM.Instance.baseSecondCreationSpeedUpMultiplier;
-        Time.timeScale = GM.Instance.simulationSpeed;
-        for (int a = 0; a < GM.Instance.cars.Length; a++)
-        {
-            for (int b = 0; b < GM.Instance.cars[a].cars.Count; b++)
-                GM.Instance.cars[a].cars[b].cars[GM.Instance.cars[a].cars[b].carIndex].trail.
-                    GetComponentsInChildren<TrailRenderer>().ForEach(t => t.time = 2);
-        }
         StartCoroutine("SpeedUpCoolDown");
     }
 
     IEnumerator SpeedUpCoolDown()
     {
-        yield return new WaitForSeconds(GM.Instance.speedUpTimer);
-        GM.Instance.simulationSpeed = GM.Instance.speedUp;
+        yield return new WaitForSeconds(GM.Instance.tapSpeedUpTimer);
+        GM.Instance.tapSpeed = 1;
         GM.Instance.baseSecondCreationSpeedUp = 1;
+    }
+
+
+    
+    
+    public IEnumerator TimeCalculationRoutine()
+    {
+        while (true)
+        {
+            GM.Instance.simulationSpeed = GM.Instance.tapSpeed * AdsM.Instance.speedOfferSpeedUp * AdsM.Instance.autoTapSpeedUp;
+            Time.timeScale = Mathf.Lerp(Time.timeScale, GM.Instance.simulationSpeed, 0.2f);
+            ProcessTrails();
+            yield return null;
+        }
+    }
+    void ProcessTrails()
+    {
         for (int a = 0; a < GM.Instance.cars.Length; a++)
         {
             for (int b = 0; b < GM.Instance.cars[a].cars.Count; b++)
                 GM.Instance.cars[a].cars[b].cars[GM.Instance.cars[a].cars[b].carIndex].trail.
-                    GetComponentsInChildren<TrailRenderer>().ForEach(t => t.time = 0.5f);
-        }
+                    GetComponentsInChildren<TrailRenderer>().ForEach(t => t.time = GM.Instance.simulationSpeed * 0.5f);
+        } 
     }
-
-    public IEnumerator SpeedUpRoutine()
-    {
-        while (true)
-        {
-            Time.timeScale = Mathf.Lerp(Time.timeScale, GM.Instance.simulationSpeed*AdsM.Instance.speedUp, 0.05f);
-            yield return null;
-        }
-    }
-    
 #endregion
 
 
@@ -109,7 +109,7 @@ public class AM : MonoSingleton<AM>
         GM.Instance.gold -= GM.Instance.upgrades[0].Cost(0);
         UIM.Instance.UpdateGold();
         GM.Instance.upgrades[0].upgradeLevel += 1;
-        GM.Instance.trafficController.AddCar();
+        GM.Instance.trafficController.AddCar(0);
         PlayerPrefs.SetInt(GM.Instance.upgrades[0].upgradeName, GM.Instance.upgrades[0].upgradeLevel);
         GM.Instance.cars[0].carLevel += 1; 
         PlayerPrefs.SetInt(GM.Instance.cars[0].carName, GM.Instance.cars[0].carLevel);
@@ -177,14 +177,14 @@ public class AM : MonoSingleton<AM>
         int carIndex = 0;
         for (int a = 0; a < GM.Instance.cars.Length - 1; a++)
         {
-            if (GM.Instance.cars[a].carLevel >= 3 && GM.Instance.cars[a].cars.Count >= 3)
+            if (GM.Instance.cars[a].cars.Count >= 3)
             {
                 carIndex = a;
                 break;
             }
         }
         Car[] closestCars = GM.Instance.cars[carIndex].cars.OrderBy(p => Vector3.Distance(p.transform.position,Vector3.zero)).ToArray();
-        GM.Instance.cars[carIndex].carLevel -= 3;
+        GM.Instance.cars[carIndex].carLevel = Mathf.Max(GM.Instance.cars[carIndex].carLevel-3,0);
         GM.Instance.cars[carIndex+1].carLevel += 1;
         PlayerPrefs.SetInt(GM.Instance.cars[carIndex].carName, GM.Instance.cars[carIndex].carLevel);
         PlayerPrefs.SetInt(GM.Instance.cars[carIndex+1].carName, GM.Instance.cars[carIndex+1].carLevel);
@@ -236,7 +236,7 @@ public class AM : MonoSingleton<AM>
     {
         for (int a = 0; a < GM.Instance.cars.Length-1; a++)
         {
-            if (GM.Instance.cars[a].carLevel>=3 &&GM.Instance.cars[a].cars.Count >= 3)
+            if (GM.Instance.cars[a].cars.Count >= 3)
                 return true;
         }
 

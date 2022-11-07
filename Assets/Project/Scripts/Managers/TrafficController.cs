@@ -22,7 +22,7 @@ public class TrafficController : MonoBehaviour
         StartCoroutine("GreenlightPathRoutine");
     }
 
-    public void AddCar()
+    public void AddCar(int index)
     {
 
             List<Path> randomPaths = new List<Path>(paths);
@@ -33,15 +33,15 @@ public class TrafficController : MonoBehaviour
 
                 for (int b = 0; b < 10; b++)
                 {
-                    float randomPosition = Random.Range(0.25f, 0.75f);
+                    float randomPosition = Random.Range(0.2f, 0.8f);
 
-                if (!Physics.CheckSphere(randomPaths[a].tween.PathGetPoint(randomPosition), 4, 
+                if (!Physics.SphereCast(randomPaths[a].tween.PathGetPoint(randomPosition)+Vector3.up*15, 3,Vector3.down, out RaycastHit hit, 20,
                         LayerMask.GetMask("Car")))
                 {
                     Vector3 newPosition = randomPaths[a].tween.PathGetPoint(randomPosition);
                     Car newCar = Instantiate(GM.Instance.carPrefab, newPosition, Quaternion.LookRotation(randomPaths[a].tween.PathGetPoint(randomPosition+0.01f) - newPosition));
-                    GM.Instance.cars[0].cars.Add(newCar);
-                    newCar.MoveCar(0,randomPaths[a],randomPosition,true);
+                    GM.Instance.cars[index].cars.Add(newCar);
+                    newCar.MoveCar(index,randomPaths[a],randomPosition,true);
                     return;
                 }
                 }

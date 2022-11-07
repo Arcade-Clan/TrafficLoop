@@ -165,9 +165,7 @@ public class Car : MonoBehaviour
 
     public void EmojiTrigger()
     {
-        Emoji emoji = GetComponentInChildren<Emoji>(true);
-        emoji.Show();
-        emoji.transform.LookAt(GM.Instance.cam.transform);
+        GetComponentInChildren<Emoji>(true).Show();
     }
 
     public void UpgradeCar()

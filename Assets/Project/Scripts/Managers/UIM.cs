@@ -44,9 +44,12 @@ public class UIM : MonoSingleton<UIM>
    [Header("AdButtons")] 
    public GameObject add3CarButton;
    public GameObject speedUpButton;
+   public Image speedUpFiller;
    public GameObject addIncomeButton;
    public TMP_Text addIncomeText;
-   
+   public GameObject addNewCarButton;
+   public GameObject autoTapButton;
+   public Image autoTapFiller;
    void Awake()
    {
       tutorialProgression = PlayerPrefs.GetInt("TutorialProgression");

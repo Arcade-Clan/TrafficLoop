@@ -13,28 +13,33 @@ public class GM : MonoSingleton<GM>
 {
 
     public int gold;
-
+    [Header("Car Details")]
     public float slowStrength = 0.1f;
-
     public float startMoveStrength = 0.05f;
-    //public float rotationSlowDownStrength = 5;
+    public float rayDistance = 2;
+    public Car carPrefab;
+
+    [Header("Time Details")]
     public float carSpeed;
     [ReadOnly] public float simulationSpeed = 1;
-    [ReadOnly] public float speedUp = 1;
+    public float tapSpeedUpTimer = 0.5f;
+    public float tapSpeedUpMultiplier = 2f;
+    [HideInInspector]
+    public float tapSpeed = 1f;
+    
+    [Header("Traffic Details")]
+    public float baseSecondCreation = 60;
     [ReadOnly] public float baseSecondCreationSpeedUp = 2;
     public float baseSecondCreationSpeedUpMultiplier = 2;
-    public float speedUpTimer = 0.5f;
-    public float speedUpMultiplier = 2f;
-    public float rayDistance = 2;
-
     [ReadOnly] public float trafficDensity;
-
     public float stopCarCreationOnTrafficDensity = 0.5f;
+    public int fireTruckComesAfterAmount = 10;
+    [HideInInspector] public TrafficController trafficController;
     [HideInInspector] public Canvas canvas;
     [HideInInspector] public Camera cam;
-    [HideInInspector] public TrafficController trafficController;
 
-    public float baseSecondCreation = 60;
+
+
     
     [Serializable]
     public class UpgradeClass
@@ -96,10 +101,9 @@ public class GM : MonoSingleton<GM>
     }
 
     public MergeClass merge;
-    public GameObject crashSmoke;
+    //public GameObject crashSmoke;
     
-    public Car carPrefab;
-    public int fireTruckComesAfterAmount = 10;
+   
 
     [Serializable]
     public class SoundClass
@@ -161,7 +165,7 @@ public class GM : MonoSingleton<GM>
 
     public void StartGame()
     {
-        AM.Instance.StartCoroutine("SpeedUpRoutine");
+        AM.Instance.StartCoroutine("TimeCalculationRoutine");
         Destroy(FindObjectOfType<InputPanel>().GetComponent<EventTrigger>());
         InputPanel.Instance.OnPointerDownEvent.AddListener(AM.Instance.SpeedUp);
         trafficController.StartCoroutine("StartTrafficRoutine");

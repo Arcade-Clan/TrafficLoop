@@ -95,7 +95,6 @@ public class PM : MonoSingleton<PM>
 
     public void IncreaseCarCount()
     {
-        //PlaySound(1);
         if (!UIM.Instance.IncreaseTutorialProgression(0))
             return;
         GM.Instance.PlaySound(0);
@@ -112,9 +111,23 @@ public class PM : MonoSingleton<PM>
         UIM.Instance.UpdateEconomyUI();
     }
 
+    public void Increase3Car()
+    {
+        if (!UIM.Instance.IncreaseTutorialProgression(0))
+            return;
+        GM.Instance.PlaySound(0);
+        //Analytics.Instance.SendCarBought();
+        Taptic.Medium();
+        GM.Instance.trafficController.AddCar(AdsM.Instance.upgradeAllCarLevel);
+        PlayerPrefs.SetInt(GM.Instance.upgrades[0].upgradeName, GM.Instance.upgrades[0].upgradeLevel);
+        GM.Instance.cars[0].carLevel += 1; 
+        PlayerPrefs.SetInt(GM.Instance.cars[0].carName, GM.Instance.cars[0].carLevel);
+        CreateProductionIndex();
+        UIM.Instance.UpdateEconomyUI();
+    }
+    
     public void IncreaseSize()
     {
-        //PlaySound(1);
         if (!UIM.Instance.IncreaseTutorialProgression(4))
             return;
         GM.Instance.PlaySound(0);
@@ -236,7 +249,7 @@ public class PM : MonoSingleton<PM>
     {
         for (int a = 0; a < 3; a++)
         {
-            IncreaseCarCount();
+            Increase3Car();
             yield return new WaitForSeconds(0.5f);
         }
     }

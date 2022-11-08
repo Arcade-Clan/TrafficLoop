@@ -14,7 +14,7 @@ public class AdsM : MonoSingleton<AdsM>
     [ReadOnly] public int upgradeAllCarLevel = 0;
     void Start()
     {
-        UIM.Instance.addIncomeText.text = "" + Mathf.RoundToInt(GM.Instance.upgrades[1].Value() / 2f);
+        UIM.Instance.addIncomeText.text = "" + Mathf.RoundToInt(GM.Instance.merge.Cost() * 2f);
     }
     
     public void Add3Car()
@@ -32,7 +32,6 @@ public class AdsM : MonoSingleton<AdsM>
             carIndex = a;
             break;
         }
-        print(carIndex);
         GM.Instance.trafficController.AddCar(carIndex);
     }
     
@@ -59,7 +58,7 @@ public class AdsM : MonoSingleton<AdsM>
 
     public void AddIncome()
     {
-        GM.Instance.gold += Mathf.RoundToInt(GM.Instance.upgrades[1].Value() / 2f);
+        GM.Instance.gold += Mathf.RoundToInt(GM.Instance.merge.Cost() * 2f);
         UIM.Instance.UpdateGold();
         UIM.Instance.UpdateEconomyUI();
     }
@@ -93,7 +92,7 @@ public class AdsM : MonoSingleton<AdsM>
     {
         for (int a = GM.Instance.cars.Length - 1; a >= 0; a--)
         {
-            for (int b = 0; b < GM.Instance.cars[a].cars.Count; b++)
+            for (int b = GM.Instance.cars[a].cars.Count - 1; b >= 0; b--)
                 GM.Instance.cars[a].cars[b].AllCarUpgrade();
         }
         UIM.Instance.upgradeAllCarButton.Hide();
@@ -107,4 +106,12 @@ public class AdsM : MonoSingleton<AdsM>
         upgradeAllCarLevel = 0;
         UIM.Instance.upgradeAllCarButton.Show();
     }
+
+
+    public void FeverCar()
+    {
+        GM.Instance.trafficController.CreateCar(11);
+    }
+    
+    
 }

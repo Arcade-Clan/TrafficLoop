@@ -59,6 +59,8 @@ public class UIM : MonoSingleton<UIM>
 
    private void Start()
    {
+      if (!GM.Instance.tutorialOn)
+         PlayerPrefs.SetInt("TutorialProgression",100);
       oldGold = GM.Instance.gold;
    }
 
@@ -148,7 +150,7 @@ public class UIM : MonoSingleton<UIM>
          else
          {
 
-            cost = GM.Instance.upgrades[a].Cost(a);
+            cost = GM.Instance.upgrades[a].Cost();
             //upgrades[a].levelText.text = "LEVEL " + (GameManager.Instance.upgrades[a].upgradeLevel + 1);
             upgrades[a].goldText.text = "$" + PriceFormatting(cost);
             upgrades[a].coverImage.gameObject.SetActive(cost > GM.Instance.gold);

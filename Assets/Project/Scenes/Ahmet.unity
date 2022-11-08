@@ -393,6 +393,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -1.517, y: 2.455, z: -11.217}
+--- !u!114 &233602978 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 233602978, guid: 2b299400713d7c8409b221abfe170205,
+    type: 3}
+  m_PrefabInstance: {fileID: 1194791338}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &332728421
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,7 +546,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590668dec2519ef49b332bb199974a8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carProductionIndex: 
+--- !u!1 &917606532 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 917606532, guid: 2b299400713d7c8409b221abfe170205,
+    type: 3}
+  m_PrefabInstance: {fileID: 1194791338}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1194791338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -566,6 +583,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1663817246}
+    - target: {fileID: 1060680058, guid: 2b299400713d7c8409b221abfe170205, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1060680060, guid: 2b299400713d7c8409b221abfe170205, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -575,6 +596,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1663817246}
+    - target: {fileID: 1312459020569477017, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: upgradeAllCarButton
+      value: 
+      objectReference: {fileID: 917606532}
+    - target: {fileID: 1312459020569477017, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: upgradeAllCarFiller
+      value: 
+      objectReference: {fileID: 233602978}
     - target: {fileID: 1720970304180032552, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -829,6 +860,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paths: []
   trafficLights: []
+  carProductionIndex: 
 --- !u!1 &1446661161
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,11 +1011,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd438b753b990a439e1b62c8fc6e00f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedUpMultiplier: 3
-  speedUpTimer: 15
+  speedUpMultiplier: 2
+  speedUpTimer: 30
   speedOfferSpeedUp: 1
   autoTapSpeedUp: 1
-  autoTapTimer: 60
+  autoTapTimer: 30
+  upgradeAllCarTimer: 30
+  upgradeAllCarLevel: 0
 --- !u!1 &1691768418
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,22 +1246,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: 0
-  slowStrength: 1
-  startMoveStrength: 0.025
+  slowStrength: 0.1
+  startMoveStrength: 0.1
   rayDistance: 4
   carPrefab: {fileID: 8828391772419353904, guid: db1a5b5697ae349b09deb1d33ec1ef17,
     type: 3}
+  specialCarPrefab: {fileID: 0}
+  feverCarPrefab: {fileID: 0}
   carSpeed: 12
   simulationSpeed: 1
   tapSpeedUpTimer: 0.5
   tapSpeedUpMultiplier: 2
+  ignoreCarWaiter: 3
   tapSpeed: 1
   baseSecondCreation: 10
   baseSecondCreationSpeedUp: 2
   baseSecondCreationSpeedUpMultiplier: 2
   trafficDensity: 0
   stopCarCreationOnTrafficDensity: 0.75
-  fireTruckComesAfterAmount: 10
+  specialCarRandomChance: 0.01
   trafficController: {fileID: 0}
   canvas: {fileID: 0}
   cam: {fileID: 0}
@@ -1313,44 +1350,63 @@ MonoBehaviour:
   - carName: Car1
     carLevel: 100
     carValue: 1
+    specialCar: 0
     cars: []
   - carName: Car2
     carLevel: 0
     carValue: 4
+    specialCar: 0
     cars: []
   - carName: Car3
     carLevel: 0
     carValue: 15
+    specialCar: 0
     cars: []
   - carName: Car4
     carLevel: 0
     carValue: 50
+    specialCar: 0
     cars: []
   - carName: Car5
     carLevel: 0
     carValue: 175
+    specialCar: 0
     cars: []
   - carName: Car6
     carLevel: 0
     carValue: 600
+    specialCar: 0
     cars: []
   - carName: Car7
     carLevel: 0
     carValue: 2000
+    specialCar: 0
     cars: []
   - carName: Car8
     carLevel: 0
     carValue: 7500
+    specialCar: 0
     cars: []
   - carName: Car9
     carLevel: 0
     carValue: 25000
+    specialCar: 0
     cars: []
   - carName: Car10
     carLevel: 0
     carValue: 100000
+    specialCar: 0
     cars: []
-  specialCars: []
+  - carName: SpecialCar1
+    carLevel: 0
+    carValue: 1
+    specialCar: 1
+    cars: []
+  - carName: SpecialCar2
+    carLevel: 0
+    carValue: 1
+    specialCar: 1
+    cars: []
   merge:
     mergeName: Merge
     mergeLevel: 0
@@ -1360,6 +1416,7 @@ MonoBehaviour:
   sounds:
   - sound: {fileID: 8300000, guid: 7d366bb0b188584458dc63627c3b1137, type: 3}
     volume: 0.5
+  tutorialOn: 0
 --- !u!114 &1873127962
 MonoBehaviour:
   m_ObjectHideFlags: 0

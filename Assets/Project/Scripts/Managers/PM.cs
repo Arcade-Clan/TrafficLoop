@@ -8,8 +8,7 @@ using UnityExtensions;
 public class PM : MonoSingleton<PM>
 {
     
-    [HideInInspector]
-    public List<int> carProductionIndex = new List<int>();
+    
     
    public IEnumerator GetStatsRoutine()
     {
@@ -58,25 +57,24 @@ public class PM : MonoSingleton<PM>
         Taptic.Light();
         StopCoroutine("SpeedUpCoolDown");
         GM.Instance.tapSpeed = GM.Instance.tapSpeedUpMultiplier;
-        GM.Instance.baseSecondCreationSpeedUp = GM.Instance.baseSecondCreationSpeedUpMultiplier;
         StartCoroutine("SpeedUpCoolDown");
     }
 
     IEnumerator SpeedUpCoolDown()
     {
-        yield return new WaitForSeconds(GM.Instance.tapSpeedUpTimer);
+        yield return new WaitForSecondsRealtime(GM.Instance.tapSpeedUpTimer);
         GM.Instance.tapSpeed = 1;
-        GM.Instance.baseSecondCreationSpeedUp = 1;
     }
-
-
-    
     
     public IEnumerator TimeCalculationRoutine()
     {
         while (true)
         {
-            GM.Instance.simulationSpeed = GM.Instance.tapSpeed * AdsM.Instance.speedOfferSpeedUp * AdsM.Instance.autoTapSpeedUp;
+            if(Mathf.Max(GM.Instance.tapSpeed, AdsM.Instance.autoTapSpeedUp)>1)
+                GM.Instance.baseSecondCreationSpeedUp = GM.Instance.baseSecondCreationSpeedUpMultiplier;
+            else
+                GM.Instance.baseSecondCreationSpeedUp = 1;
+            GM.Instance.simulationSpeed = Mathf.Max(GM.Instance.tapSpeed, AdsM.Instance.autoTapSpeedUp) * AdsM.Instance.speedOfferSpeedUp;
             Time.timeScale = Mathf.Lerp(Time.timeScale, GM.Instance.simulationSpeed, 0.2f);
             ProcessTrails();
             yield return null;
@@ -96,40 +94,45 @@ public class PM : MonoSingleton<PM>
 
     public void IncreaseCarCount()
     {
-        //PlaySound(1);
         if (!UIM.Instance.IncreaseTutorialProgression(0))
             return;
         GM.Instance.PlaySound(0);
-        UIM.Instance.upgrades[0].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.25f, 0.2f)
-            .SetEase(Ease.OutSine).OnComplete(() =>
-                UIM.Instance.upgrades[0].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1f, 0.2f)
-                    .SetEase(Ease.InSine));
         Analytics.Instance.SendCarBought();
         Taptic.Medium();
-        GM.Instance.gold -= GM.Instance.upgrades[0].Cost(0);
+        GM.Instance.gold -= GM.Instance.upgrades[0].Cost();
         UIM.Instance.UpdateGold();
         GM.Instance.upgrades[0].upgradeLevel += 1;
         GM.Instance.trafficController.AddCar(AdsM.Instance.upgradeAllCarLevel);
         PlayerPrefs.SetInt(GM.Instance.upgrades[0].upgradeName, GM.Instance.upgrades[0].upgradeLevel);
         GM.Instance.cars[0].carLevel += 1; 
         PlayerPrefs.SetInt(GM.Instance.cars[0].carName, GM.Instance.cars[0].carLevel);
-        CreateProductionIndex();
+        GM.Instance.trafficController.ProcessProductionIndex();
         UIM.Instance.UpdateEconomyUI();
     }
 
+    public void Increase3Car()
+    {
+        if (!UIM.Instance.IncreaseTutorialProgression(0))
+            return;
+        GM.Instance.PlaySound(0);
+        //Analytics.Instance.SendCarBought();
+        Taptic.Medium();
+        GM.Instance.trafficController.AddCar(AdsM.Instance.upgradeAllCarLevel);
+        PlayerPrefs.SetInt(GM.Instance.upgrades[0].upgradeName, GM.Instance.upgrades[0].upgradeLevel);
+        GM.Instance.cars[0].carLevel += 1; 
+        PlayerPrefs.SetInt(GM.Instance.cars[0].carName, GM.Instance.cars[0].carLevel);
+        GM.Instance.trafficController.ProcessProductionIndex();
+        UIM.Instance.UpdateEconomyUI();
+    }
+    
     public void IncreaseSize()
     {
-        //PlaySound(1);
         if (!UIM.Instance.IncreaseTutorialProgression(4))
             return;
         GM.Instance.PlaySound(0);
-        UIM.Instance.upgrades[1].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.25f, 0.2f)
-            .SetEase(Ease.OutSine).OnComplete(() =>
-                UIM.Instance.upgrades[1].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1f, 0.2f)
-                    .SetEase(Ease.InSine));
         Analytics.Instance.SendSizeUp();
         Taptic.Medium();
-        GM.Instance.gold -= GM.Instance.upgrades[1].Cost(1);
+        GM.Instance.gold -= GM.Instance.upgrades[1].Cost();
         UIM.Instance.UpdateGold();
         GM.Instance.upgrades[1].upgradeLevel += 1;
         PlayerPrefs.SetInt(GM.Instance.upgrades[1].upgradeName, GM.Instance.upgrades[1].upgradeLevel);
@@ -142,13 +145,9 @@ public class PM : MonoSingleton<PM>
         if (!UIM.Instance.IncreaseTutorialProgression(2))
             return;
         GM.Instance.PlaySound(0);
-        UIM.Instance.upgrades[2].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1.25f, 0.2f)
-            .SetEase(Ease.OutSine).OnComplete(() =>
-                UIM.Instance.upgrades[2].coverImage.transform.parent.GetComponent<Button>().transform.DOScale(1f, 0.2f)
-                    .SetEase(Ease.InSine));
         Analytics.Instance.SendIncomeClicked();
         Taptic.Medium();
-        GM.Instance.gold -= GM.Instance.upgrades[2].Cost(2);
+        GM.Instance.gold -= GM.Instance.upgrades[2].Cost();
         UIM.Instance.UpdateGold();
         GM.Instance.upgrades[2].upgradeLevel += 1;
         PlayerPrefs.SetInt(GM.Instance.upgrades[2].upgradeName, GM.Instance.upgrades[2].upgradeLevel);
@@ -165,7 +164,6 @@ public class PM : MonoSingleton<PM>
         Taptic.Medium();
         GM.Instance.gold -= GM.Instance.merge.Cost();
         UIM.Instance.UpdateGold();
-
         GM.Instance.merge.mergeLevel += 1;
         Analytics.Instance.SendMergeLevel(GM.Instance.merge.mergeLevel);
         PlayerPrefs.SetInt(GM.Instance.merge.mergeName, GM.Instance.merge.mergeLevel);
@@ -177,7 +175,7 @@ public class PM : MonoSingleton<PM>
         int carIndex = 0;
         for (int a = 0; a < GM.Instance.cars.Length - 1; a++)
         {
-            if (GM.Instance.cars[a].cars.Count >= 3)
+            if (GM.Instance.cars[a].cars.Count >= 3&&!GM.Instance.cars[a].specialCar)
             {
                 carIndex = a;
                 break;
@@ -188,38 +186,36 @@ public class PM : MonoSingleton<PM>
         GM.Instance.cars[carIndex+1].carLevel += 1;
         PlayerPrefs.SetInt(GM.Instance.cars[carIndex].carName, GM.Instance.cars[carIndex].carLevel);
         PlayerPrefs.SetInt(GM.Instance.cars[carIndex+1].carName, GM.Instance.cars[carIndex+1].carLevel);
-        CreateProductionIndex();
+        GM.Instance.trafficController.ProcessProductionIndex();
         StartCoroutine(MergeCarsRoutine(closestCars));
     }
 
-    IEnumerator MergeCarsRoutine(Car[] closestCars)
+    IEnumerator MergeCarsRoutine(Car[] cars)
     {
-        closestCars[0].StopCoroutine("MoveRoutine");
-        GM.Instance.cars[closestCars[0].carIndex].cars.Remove(closestCars[0]);
-        GM.Instance.cars[closestCars[1].carIndex].cars.Remove(closestCars[1]);
-        GM.Instance.cars[closestCars[2].carIndex].cars.Remove(closestCars[2]);
+        cars[0].StopCoroutine("MoveRoutine");
+        GM.Instance.cars[cars[0].carIndex].cars.Remove(cars[0]);
+        GM.Instance.cars[cars[1].carIndex].cars.Remove(cars[1]);
+        GM.Instance.cars[cars[2].carIndex].cars.Remove(cars[2]);
         UIM.Instance.UpdateEconomyUI();
-        closestCars[1].StopAllCoroutines();
-        closestCars[2].StopAllCoroutines();
-        closestCars[1].GetComponentInChildren<Collider>().enabled = false;
-        closestCars[2].GetComponentInChildren<Collider>().enabled = false;
-        closestCars[1].transform.SetParent(closestCars[0].transform);
-        closestCars[2].transform.SetParent(closestCars[0].transform);
-        closestCars[1].transform.DOLocalRotate(Vector3.zero, 0.66f);
-        closestCars[2].transform.DOLocalRotate(Vector3.zero, 0.66f);
-        closestCars[1].transform.DOLocalMoveX(0, 0.66f);
-        closestCars[1].transform.DOLocalMoveZ(0, 0.66f);
-        closestCars[2].transform.DOLocalMoveX(0, 0.66f);
-        closestCars[2].transform.DOLocalMoveZ(0, 0.66f);
-        closestCars[1].transform.DOLocalMoveY(7, 0.33f).SetEase(Ease.OutSine);
-        yield return closestCars[2].transform.DOLocalMoveY(7, 0.33f).SetEase(Ease.OutSine).WaitForCompletion();
-        closestCars[1].transform.DOLocalMoveY(0, 0.33f).SetEase(Ease.InSine);
-        yield return closestCars[2].transform.DOLocalMoveY(0, 0.33f).SetEase(Ease.InSine).WaitForCompletion();
-        Destroy(closestCars[1].gameObject);
-        Destroy(closestCars[2].gameObject);
-        closestCars[0].UpgradeCar();
-        closestCars[0].StartCoroutine("MoveRoutine");
-        GM.Instance.cars[closestCars[0].carIndex].cars.Add(closestCars[0]);
+        for (int a = 1; a < 3; a++)
+        {
+            cars[a].StopAllCoroutines();
+            cars[a].GetComponentInChildren<Collider>().enabled = false;
+            cars[a].transform.SetParent(cars[0].transform);
+            cars[a].transform.DOLocalRotate(Vector3.zero, 0.66f);
+            cars[a].transform.DOLocalMoveX(0, 0.66f);
+            cars[a].transform.DOLocalMoveZ(0, 0.66f);
+            cars[a].transform.DOLocalMoveY(7, 0.33f).SetEase(Ease.OutSine);
+        }
+        yield return new WaitForSeconds(0.33f);
+
+        cars[1].transform.DOLocalMoveY(0, 0.33f).SetEase(Ease.InSine);
+        yield return cars[2].transform.DOLocalMoveY(0, 0.33f).SetEase(Ease.InSine).WaitForCompletion();
+        Destroy(cars[1].gameObject);
+        Destroy(cars[2].gameObject);
+        cars[0].UpgradeCar();
+        cars[0].StartCoroutine("MoveRoutine");
+        GM.Instance.cars[cars[0].carIndex].cars.Add(cars[0]);
         Taptic.Medium();
         UIM.Instance.UpdateEconomyUI();
     }
@@ -228,33 +224,19 @@ public class PM : MonoSingleton<PM>
     {
         for (int a = 0; a < GM.Instance.cars.Length-1; a++)
         {
-            if (GM.Instance.cars[a].cars.Count >= 3)
+            if (GM.Instance.cars[a].cars.Count >= 3 && !GM.Instance.cars[a].specialCar)
                 return true;
         }
 
         return false;
     }
     
-    public void CreateProductionIndex()
-    {
-        carProductionIndex.Clear();
-        for (int a = 0; a < GM.Instance.cars.Length; a++)
-        {
-            for (int b = 0; b < GM.Instance.cars[a].carLevel; b++)
-                carProductionIndex.Add(a);
-        }
-        if(carProductionIndex.Count > GM.Instance.fireTruckComesAfterAmount)
-            carProductionIndex.Add(10);
-        carProductionIndex.Shuffle();
-    }
-
     public IEnumerator Add3CarRoutine()
     {
         for (int a = 0; a < 3; a++)
         {
-            IncreaseCarCount();
+            Increase3Car();
             yield return new WaitForSeconds(0.5f);
         }
-
     }
 }

@@ -20,7 +20,6 @@ public class Car : MonoBehaviour
     public Car collidedCar;
     public List<Car> ignoredCars;
     public Car lastCar;
-    public float ignoreCarWaiter = 5;
     public int priority;
     public bool specialCar;
     void Awake()
@@ -54,6 +53,7 @@ public class Car : MonoBehaviour
     IEnumerator MoveRoutine()
     {
         float speed  = Random.Range(0.9f, 1.1f) * GM.Instance.carSpeed;
+        currentSpeed = speed;
         TextMeshPro text = GetComponentInChildren<TextMeshPro>();
         while (true)
         {
@@ -107,7 +107,7 @@ public class Car : MonoBehaviour
         if (lastCar == newCar)
         {
             timer += Time.fixedDeltaTime;
-            if(timer>ignoreCarWaiter)
+            if(timer>GM.Instance.ignoreCarWaiter)
             {
                 ignoredCars.Add(lastCar);
                 EmojiTrigger();
@@ -189,7 +189,7 @@ public class Car : MonoBehaviour
 
     public void AllCarUpgrade()
     {
-        if (carIndex == cars.Length - 2)
+        if (carIndex >= 10)
             return;
         GM.Instance.cars[carIndex].cars.Remove(this);
         UpgradeCar();

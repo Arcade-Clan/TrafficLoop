@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0328a4071ff2e2d40bd3e478942fb1fd
+guid: 1e0a038d5da2def4fa1167f833e048b4
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
@@ -9,11 +9,6 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Mtl_SideRoad
     second: {fileID: 2100000, guid: dea451070df18224ead14ae7d04f9dab, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Mtl_SideRoad2
-    second: {fileID: 2100000, guid: 9e1bcf218d1eb4043839dea358b2af00, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

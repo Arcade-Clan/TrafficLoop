@@ -32,7 +32,6 @@ public class AdsM : MonoSingleton<AdsM>
             carIndex = a;
             break;
         }
-        print(carIndex);
         GM.Instance.trafficController.AddCar(carIndex);
     }
     

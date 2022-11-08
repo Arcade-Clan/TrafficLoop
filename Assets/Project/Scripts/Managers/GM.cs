@@ -25,7 +25,8 @@ public class GM : MonoSingleton<GM>
     public float carSpeed;
     [ReadOnly] public float simulationSpeed = 1;
     public float tapSpeedUpTimer = 0.5f;
-    public float tapSpeedUpMultiplier = 2f;
+    public float tapSpeedUpMultiplier = 2f;    
+    public float ignoreCarWaiter = 3;
     [HideInInspector]
     public float tapSpeed = 1f;
     
@@ -132,7 +133,7 @@ public class GM : MonoSingleton<GM>
         SetObjects();
         GetSaves();
         LM.Instance.CreateLevel();
-        PM.Instance.CreateProductionIndex();
+        trafficController.ProcessProductionIndex();
         UIM.Instance.UpdateEconomyUI();
     }
     

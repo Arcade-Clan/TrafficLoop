@@ -8,8 +8,7 @@ using UnityExtensions;
 public class PM : MonoSingleton<PM>
 {
     
-    [HideInInspector]
-    public List<int> carProductionIndex = new List<int>();
+    
     
    public IEnumerator GetStatsRoutine()
     {
@@ -107,7 +106,7 @@ public class PM : MonoSingleton<PM>
         PlayerPrefs.SetInt(GM.Instance.upgrades[0].upgradeName, GM.Instance.upgrades[0].upgradeLevel);
         GM.Instance.cars[0].carLevel += 1; 
         PlayerPrefs.SetInt(GM.Instance.cars[0].carName, GM.Instance.cars[0].carLevel);
-        CreateProductionIndex();
+        GM.Instance.trafficController.ProcessProductionIndex();
         UIM.Instance.UpdateEconomyUI();
     }
 
@@ -122,7 +121,7 @@ public class PM : MonoSingleton<PM>
         PlayerPrefs.SetInt(GM.Instance.upgrades[0].upgradeName, GM.Instance.upgrades[0].upgradeLevel);
         GM.Instance.cars[0].carLevel += 1; 
         PlayerPrefs.SetInt(GM.Instance.cars[0].carName, GM.Instance.cars[0].carLevel);
-        CreateProductionIndex();
+        GM.Instance.trafficController.ProcessProductionIndex();
         UIM.Instance.UpdateEconomyUI();
     }
     
@@ -187,7 +186,7 @@ public class PM : MonoSingleton<PM>
         GM.Instance.cars[carIndex+1].carLevel += 1;
         PlayerPrefs.SetInt(GM.Instance.cars[carIndex].carName, GM.Instance.cars[carIndex].carLevel);
         PlayerPrefs.SetInt(GM.Instance.cars[carIndex+1].carName, GM.Instance.cars[carIndex+1].carLevel);
-        CreateProductionIndex();
+        GM.Instance.trafficController.ProcessProductionIndex();
         StartCoroutine(MergeCarsRoutine(closestCars));
     }
 
@@ -232,19 +231,6 @@ public class PM : MonoSingleton<PM>
         return false;
     }
     
-    public void CreateProductionIndex()
-    {
-        carProductionIndex.Clear();
-        for (int a = 0; a < GM.Instance.cars.Length; a++)
-        {
-            for (int b = 0; b < GM.Instance.cars[a].carLevel; b++)
-                carProductionIndex.Add(a);
-        }
-        if(carProductionIndex.Count * GM.Instance.specialCarRandomChance > Random.Range(0f,1f))
-            carProductionIndex.Add(Random.Range(10,12));
-        carProductionIndex.Shuffle();
-    }
-
     public IEnumerator Add3CarRoutine()
     {
         for (int a = 0; a < 3; a++)

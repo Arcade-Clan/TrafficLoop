@@ -546,7 +546,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590668dec2519ef49b332bb199974a8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carProductionIndex: 
 --- !u!1 &917606532 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 917606532, guid: 2b299400713d7c8409b221abfe170205,
@@ -584,6 +583,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1663817246}
+    - target: {fileID: 1060680058, guid: 2b299400713d7c8409b221abfe170205, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1060680060, guid: 2b299400713d7c8409b221abfe170205, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -857,6 +860,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paths: []
   trafficLights: []
+  carProductionIndex: 
 --- !u!1 &1446661161
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,8 +1246,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gold: 0
-  slowStrength: 1
-  startMoveStrength: 0.025
+  slowStrength: 0.1
+  startMoveStrength: 0.1
   rayDistance: 4
   carPrefab: {fileID: 8828391772419353904, guid: db1a5b5697ae349b09deb1d33ec1ef17,
     type: 3}
@@ -1253,6 +1257,7 @@ MonoBehaviour:
   simulationSpeed: 1
   tapSpeedUpTimer: 0.5
   tapSpeedUpMultiplier: 2
+  ignoreCarWaiter: 3
   tapSpeed: 1
   baseSecondCreation: 10
   baseSecondCreationSpeedUp: 2
@@ -1392,12 +1397,12 @@ MonoBehaviour:
     carValue: 100000
     specialCar: 0
     cars: []
-  - carName: SpeacialCar1
+  - carName: SpecialCar1
     carLevel: 0
     carValue: 1
     specialCar: 1
     cars: []
-  - carName: SpeacialCar2
+  - carName: SpecialCar2
     carLevel: 0
     carValue: 1
     specialCar: 1

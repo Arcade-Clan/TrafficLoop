@@ -114,6 +114,7 @@ public class TrafficController : MonoBehaviour
         }
     }
     
+    int carCounter = 0;
     IEnumerator CreateCarRoutine()
     {
         while (true)
@@ -125,24 +126,8 @@ public class TrafficController : MonoBehaviour
                 yield return null;
         }
     }
-
-    int carCounter = 0;
-
-
-    void Update()
-    {
-        for (int a = 0; a <10 ; a++)
-        {
-            if (Input.GetKeyDown(""+a))
-                CreateCar(a);
-        }
-
-        if (Input.GetKeyDown(KeyCode.T))
-            CreateCar(10);
-    }
     
-    
-    void CreateCar(int index)
+    public void CreateCar(int index)
     {
         Path selectedPath = null;
         List<Path> loopingPaths = new List<Path>(paths);
@@ -162,5 +147,17 @@ public class TrafficController : MonoBehaviour
         GM.Instance.cars[index].cars.Add(newCar);
         newCar.MoveCar(index,selectedPath,0,false);
         UIM.Instance.UpdateEconomyUI();
+    }
+    
+    void Update()
+    {
+        for (int a = 0; a <10 ; a++)
+        {
+            if (Input.GetKeyDown(""+a))
+                CreateCar(a);
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+            CreateCar(10);
     }
 }

@@ -148,7 +148,7 @@ namespace ElephantSDK
         {
             if (ElephantCore.Instance == null)
             {
-                Debug.LogWarning("Elephant SDK isn't working correctly, make sure you put Elephant prefab into your first scene..");
+                //Debug.LogWarning("Elephant SDK isn't working correctly, make sure you put Elephant prefab into your first scene..");
                 return;
             }
 

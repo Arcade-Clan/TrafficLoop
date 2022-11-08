@@ -39,7 +39,7 @@ namespace ElephantSdkManager
 
             if (request.isHttpError || request.isNetworkError || !string.IsNullOrWhiteSpace(request.error))
             {
-                Debug.LogError("Couldn't finish opening request!");
+                //Debug.LogError("Couldn't finish opening request!");
                 return "";
             }
 

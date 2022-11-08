@@ -18,6 +18,8 @@ public class GM : MonoSingleton<GM>
     public float startMoveStrength = 0.05f;
     public float rayDistance = 2;
     public Car carPrefab;
+    public Car specialCarPrefab;
+    public Car feverCarPrefab;
 
     [Header("Time Details")]
     public float carSpeed;
@@ -33,7 +35,7 @@ public class GM : MonoSingleton<GM>
     public float baseSecondCreationSpeedUpMultiplier = 2;
     [ReadOnly] public float trafficDensity;
     public float stopCarCreationOnTrafficDensity = 0.5f;
-    public int fireTruckComesAfterAmount = 10;
+    [FormerlySerializedAs("fireTruckComesAfterAmount")] public float specialCarRandomChance = 0.1f;
     [HideInInspector] public TrafficController trafficController;
     [HideInInspector] public Canvas canvas;
     [HideInInspector] public Camera cam;
@@ -52,11 +54,11 @@ public class GM : MonoSingleton<GM>
         public float startValue;
         public float incrementValue;
         public float[] upgradeValues;
-        public int Cost(int value)
+        public int Cost()
         {
-            if (value == 0)
+            if (upgradeName == "Car Amount")
                 return Mathf.RoundToInt(baseValue + increment * upgradeLevel + upgradeLevel * ((upgradeLevel + 1) / 2) * expoRatio);
-            if(value==1&&(upgradeLevel>0 && upgradeLevel<5))
+            if(upgradeName == "Size" && upgradeLevel is > 0 and < 5)
                 return Mathf.RoundToInt(upgradeValues[upgradeLevel]*Analytics.Instance.multiplier);
             return Mathf.RoundToInt(upgradeValues[upgradeLevel]);
         }
@@ -80,11 +82,11 @@ public class GM : MonoSingleton<GM>
         public string carName;
         public int carLevel;
         public int carValue;
+        public bool specialCar;
         public List<Car> cars = new List<Car>();
     }
 
     public CarClass[] cars;
-    public CarClass[] specialCars;
     [Serializable]
     public class MergeClass
     {
@@ -116,7 +118,7 @@ public class GM : MonoSingleton<GM>
 
     public SoundClass[] sounds;
 
-
+    public bool tutorialOn = true;
     
     public void PlaySound(int value)
     {
@@ -129,15 +131,9 @@ public class GM : MonoSingleton<GM>
         Application.targetFrameRate = 60;
         SetObjects();
         GetSaves();
-    }
-
-    void Start()
-    {
         LM.Instance.CreateLevel();
         PM.Instance.CreateProductionIndex();
         UIM.Instance.UpdateEconomyUI();
-        PM.Instance.StartCoroutine("GetStatsRoutine");
-        StartGame();
     }
     
     void SetObjects()
@@ -158,13 +154,15 @@ public class GM : MonoSingleton<GM>
         for (int a = 1; a < cars.Length; a++)
             cars[a].carLevel = PlayerPrefs.GetInt(cars[a].carName);
     }
-
-   
     
-
-
-    public void StartGame()
+    void Start()
     {
+        StartGame();
+    }
+    
+    public void StartGame()
+    { 
+        PM.Instance.StartCoroutine("GetStatsRoutine");
         PM.Instance.StartCoroutine("TimeCalculationRoutine");
         Destroy(FindObjectOfType<InputPanel>().GetComponent<EventTrigger>());
         InputPanel.Instance.OnPointerDownEvent.AddListener(PM.Instance.SpeedUp);
@@ -208,7 +206,10 @@ public void IncreaseMoney(Car car,Vector3 position)
 {
     if (UIM.Instance.tutorialInProgress)
         return;
+    
     int value = cars[car.carIndex].carValue * (int)upgrades[2].Value();
+    if(cars[car.carIndex].specialCar)
+        value = cars[car.carIndex].carValue * merge.Cost();
     gold += Mathf.RoundToInt(value);
     UIM.Instance.UpdateGold();
     UIM.Instance.CreateText(value, position);

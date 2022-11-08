@@ -189,7 +189,7 @@ public class Car : MonoBehaviour
 
     public void AllCarUpgrade()
     {
-        if (carIndex == cars.Length - 2)
+        if (carIndex >= 10)
             return;
         GM.Instance.cars[carIndex].cars.Remove(this);
         UpgradeCar();

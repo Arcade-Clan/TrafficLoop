@@ -1,117 +1,240 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using RollicGames.Advertisements;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityExtensions;
 public class AdsM : MonoSingleton<AdsM>
 {
-    public int speedUpMultiplier;
-    public int speedUpTimer;
-    [ReadOnly] public float speedOfferSpeedUp = 1;
-    [ReadOnly] public float autoTapSpeedUp = 1;
-    public int autoTapTimer = 60;
-    public int upgradeAllCarTimer = 15;
-    [ReadOnly] public int upgradeAllCarLevel = 0;
-    void Start()
+    
+    [Serializable]
+    public class AdButtonsClass
     {
-        UIM.Instance.addIncomeText.text = "" + Mathf.RoundToInt(GM.Instance.merge.Cost() * 2f);
+        public GameObject buttonObject;
+        public GameObject adImage;
+        public TextMeshProUGUI text;
+        public TextMeshProUGUI timer;
+        public float timerValue;
+        public float multiplierValue;
+    }
+    public AdButtonsClass[] adDetails;
+    public TMP_Text noAdsText;
+    
+    
+#if UNITY_IOS
+    private string _appKey = "1728094ad";
+#elif UNITY_ANDROID || UNITY_EDITOR
+    private string _appKey = "172814145";
+#endif
+
+    public bool adReady = false;
+    public Action currentRewarded;
+    
+    void Awake() 
+    {
+        RLAdvertisementManager.Instance.init(_appKey);
+        RLAdvertisementManager.Instance.rewardedAdResultCallback = RewardedAdResultCallback;
+        RLAdvertisementManager.OnRollicAdsSdkInitializedEvent += OnSdkInit;
+        RLAdvertisementManager.OnRollicAdsAdFailedEvent += OnBannerFailed;
     }
     
-    public void Add3Car()
+    void OnSdkInit() 
+    {
+        RLAdvertisementManager.Instance.loadBanner();
+        StartCoroutine("InterRoutine");
+    }
+
+    IEnumerator InterRoutine()
+    {
+        if (!PlayerPrefs.HasKey("FirstInter"))
+        {
+            yield return new WaitForSecondsRealtime(120);
+            PlayerPrefs.SetInt("FirstInter", 1);
+        }
+        else
+            yield return new WaitForSecondsRealtime(90);
+
+        while (true)
+        {
+            while (!RLAdvertisementManager.Instance.isInterstitialReady())
+                yield return null;
+            Analytics.Instance.InterstitialShown();
+            RLAdvertisementManager.Instance.showInterstitial();
+            yield return new WaitForSecondsRealtime(90);
+        }
+    }
+    
+    void OnBannerFailed(string errorMessage) {
+        // You can log the errorMessage and identify why banner is not showing
+    }
+    
+    bool RewardedCanBeShown()
+    {
+        if (currentRewarded != null)
+            return false;
+        if (Application.isEditor)
+            return adReady;
+        if(RLAdvertisementManager.Instance.isRewardedVideoAvailable())
+            return true;
+        return false;
+    }
+    
+    void RewardedAdResultCallback(RLRewardedAdResult result)
+    {
+        switch (result)
+        {
+            case RLRewardedAdResult.Finished:
+            {
+                Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
+                currentRewarded();
+                currentRewarded = null;
+                StopCoroutine("InterRoutine");
+                StartCoroutine("InterRoutine");
+                break;
+            }
+            case RLRewardedAdResult.Skipped:
+            {
+                currentRewarded = null;
+                break;
+            }
+            case RLRewardedAdResult.Failed:
+                break;
+            default:
+                break;
+        }
+    }
+    
+    public void Add3CarButton()
+    {        Analytics.Instance.RewardedTapped("Add3Car");
+        if (!RewardedCanBeShown())
+            NoAds();
+        else
+        {
+            currentRewarded = Add3Car;
+            Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
+            RLAdvertisementManager.Instance.showRewardedVideo();
+        }
+    }
+    void Add3Car()
     {
         PM.Instance.StartCoroutine("Add3CarRoutine");
     }
 
-    public void AddNewCar()
-    {
-        int carIndex = 0;
-        for (int a = GM.Instance.cars.Length - 2; a >= 0; a--)
+    
+    public void AddLastCarButton()
+    {        Analytics.Instance.RewardedTapped("AddLastCar");
+        if (!RewardedCanBeShown())
+            NoAds();
+        else
         {
-            if (GM.Instance.cars[a].carLevel <= 0)
-                continue;
-            carIndex = a;
-            break;
+            currentRewarded = AddLastCar;
+            Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
+            RLAdvertisementManager.Instance.showRewardedVideo();
         }
-        GM.Instance.trafficController.AddCar(carIndex);
+    }
+    void AddLastCar()
+    {
+        PM.Instance.AddLastCar();
     }
     
-    public void SpeedUp()
-    {
-        StartCoroutine("SpeedUpRoutine");
-    }
-
-    IEnumerator SpeedUpRoutine()
-    {
-        UIM.Instance.speedUpButton.Hide();
-        speedOfferSpeedUp = speedUpMultiplier;
-        float timer = Time.realtimeSinceStartup;
-        while (timer + speedUpTimer > Time.realtimeSinceStartup)
+    
+    public void SpeedUpButton()
+    {        Analytics.Instance.RewardedTapped("SpeedUp");
+        if (!RewardedCanBeShown())
+            NoAds();
+        else
         {
-            UIM.Instance.speedUpFiller.fillAmount = 1 - (Time.realtimeSinceStartup - timer) / speedUpTimer;
-            yield return null;
+            currentRewarded = SpeedUp;
+            Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
+            RLAdvertisementManager.Instance.showRewardedVideo();
         }
-        
-
-        speedOfferSpeedUp = 1;
-        UIM.Instance.speedUpButton.Show();
     }
-
-    public void AddIncome()
+    void SpeedUp()
     {
-        GM.Instance.gold += Mathf.RoundToInt(GM.Instance.merge.Cost() * 2f);
-        UIM.Instance.UpdateGold();
-        UIM.Instance.UpdateEconomyUI();
-    }
-
-    public void AutoTap()
-    {
-        StartCoroutine("AutoTapRoutine");
+        PM.Instance.StartCoroutine("SpeedUpRoutine");
     }
     
-
-    IEnumerator AutoTapRoutine()
-    {
-        UIM.Instance.autoTapButton.Hide();
-        autoTapSpeedUp = GM.Instance.tapSpeedUpMultiplier;
-        float timer = Time.realtimeSinceStartup;
-        while (timer + autoTapTimer > Time.realtimeSinceStartup)
-        {
-            UIM.Instance.autoTapFiller.fillAmount = 1 - (Time.realtimeSinceStartup - timer) / autoTapTimer;
-            yield return null;
-        }
-        autoTapSpeedUp = 1;
-        UIM.Instance.autoTapButton.Show();
-    }
     
-    public void UpgradeAllCars()
-    {
-        StartCoroutine("UpgradeAllCarsRoutine");
+    public void AddIncomeButton()
+    {        Analytics.Instance.RewardedTapped("AddIncome");
+        if (!RewardedCanBeShown())
+            NoAds();
+        else
+        {
+            currentRewarded = AddIncome;
+            Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
+            RLAdvertisementManager.Instance.showRewardedVideo();
+        }
     }
-    
-    IEnumerator UpgradeAllCarsRoutine()
+    void AddIncome()
     {
-        for (int a = GM.Instance.cars.Length - 1; a >= 0; a--)
-        {
-            for (int b = GM.Instance.cars[a].cars.Count - 1; b >= 0; b--)
-                GM.Instance.cars[a].cars[b].AllCarUpgrade();
-        }
-        UIM.Instance.upgradeAllCarButton.Hide();
-        upgradeAllCarLevel = 1;
-        float timer = Time.realtimeSinceStartup;
-        while (timer + upgradeAllCarTimer > Time.realtimeSinceStartup)
-        {
-            UIM.Instance.upgradeAllCarFiller.fillAmount = 1 - (Time.realtimeSinceStartup - timer) / upgradeAllCarTimer;
-            yield return null;
-        }
-        upgradeAllCarLevel = 0;
-        UIM.Instance.upgradeAllCarButton.Show();
+        PM.Instance.StartCoroutine("AddIncomeRoutine");
     }
 
-
-    public void FeverCar()
-    {
-        GM.Instance.trafficController.CreateCar(11);
+    
+    public void AutoTapButton()
+    {        Analytics.Instance.RewardedTapped("AutoTapButton");
+        if (!RewardedCanBeShown())
+            NoAds();
+        else
+        {
+            currentRewarded = AutoTapButton;
+            Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
+            RLAdvertisementManager.Instance.showRewardedVideo();
+        }
     }
     
+    void AutoTap()
+    {
+        PM.Instance.StartCoroutine("AutoTapRoutine");
+    }
+    
+    
+    public void EvolveCarsButton()
+    {        Analytics.Instance.RewardedTapped("UpgradeAllCars");
+        if (!RewardedCanBeShown())
+            NoAds();
+        else
+        {
+            currentRewarded = EvolveCars;
+            Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
+            RLAdvertisementManager.Instance.showRewardedVideo();
+        }
+    }
+    
+    void EvolveCars()
+    {
+        PM.Instance.StartCoroutine("EvolveCarsRoutine");
+    }
+    
+    
+    public void FeverCarButton()
+    {
+        Analytics.Instance.RewardedTapped("FeverCar");
+        if (!RewardedCanBeShown())
+            NoAds();
+        else
+        {
+            currentRewarded = FeverCar;
+            Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
+            RLAdvertisementManager.Instance.showRewardedVideo();
+        }
+    }
+    void FeverCar()
+    {
+        PM.Instance.FeverCar();
+    }
+
+    void NoAds()
+    {
+        DOTween.Kill(noAdsText);
+        noAdsText.enabled = true;
+        noAdsText.alpha = 1;
+        noAdsText.DOFade(0, 0.5f).SetDelay(0.5f).OnComplete(()=>noAdsText.enabled=false);
+        Debug.Log("No Ads");
+    }
     
 }

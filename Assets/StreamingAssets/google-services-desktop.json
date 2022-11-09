@@ -1,0 +1,36 @@
+{
+  "project_info": {
+    "project_number": "86640704367",
+    "project_id": "traffic-loop",
+    "storage_bucket": "traffic-loop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86640704367:ios:3654bed03f830d9863069a",
+        "android_client_info": {
+          "package_name": "com.ArcadeClan.TrafficLoop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86640704367-ai343s7k1l686q4q42m99gf5gm46hvsm.apps.googleusercontent.com"
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTgycT7s654V7MsSMICPsMlbVM-pcJxJk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 0
+        },
+        "appinvite_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

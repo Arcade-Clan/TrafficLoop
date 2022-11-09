@@ -13,10 +13,27 @@ public class Analytics : MonoSingleton<Analytics>
     {
         multiplier = RemoteConfig.GetInstance().GetFloat("Economy", 1);
     }
-    
 
+    public void InterstitialShown()
+    {
+        Elephant.Event("interstitial_shown",1);
+    }
     
-        
+    public void EarnedMoney(int value)
+    {
+        Elephant.Transaction("money",0,0,value,"Gate");
+    }
+    
+    public void RewardedImpression(string value)
+    {
+        Elephant.Event("rw_successful",0,Params.New().Set("activity_name", value));
+    }
+    
+    public void RewardedTapped(string value)
+    {
+        Elephant.Event("rw_tapped",0,Params.New().Set("activity_name", value));
+    }
+
     public void SendCarBought()
     {
         Elephant.Event("BuyCarCount", 1);

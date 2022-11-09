@@ -176,8 +176,7 @@ public class GM : MonoSingleton<GM>
     }
     
 #region HelperUpdate
-
-    void Update()
+void Update()
     {
         if(Application.isEditor)
         {
@@ -207,10 +206,11 @@ public void IncreaseMoney(Car car,Vector3 position)
 {
     if (UIM.Instance.tutorialInProgress)
         return;
-    
-    int value = cars[car.carIndex].carValue * (int)upgrades[2].Value();
+
+    int value = cars[car.carIndex].carValue * Mathf.RoundToInt(AdsM.Instance.adDetails[3].multiplierValue);
     if(cars[car.carIndex].specialCar)
-        value = cars[car.carIndex].carValue * merge.Cost();
+        value = cars[car.carIndex].carValue * merge.Cost() * Mathf.RoundToInt(AdsM.Instance.adDetails[3].multiplierValue);
+    Analytics.Instance.EarnedMoney(value);
     gold += Mathf.RoundToInt(value);
     UIM.Instance.UpdateGold();
     UIM.Instance.CreateText(value, position);

@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Plugins/Elephant/elephant_scene.unity
+    path: Assets/Elephant/elephant_scene.unity
     guid: 47a686e3b898646ae802a7832a649176
   - enabled: 1
     path: Assets/Project/Scenes/Ahmet.unity

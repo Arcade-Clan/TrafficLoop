@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 public class TrafficController : MonoBehaviour
 {
 
-    public Path[] paths;
+    public Road[] paths;
     public TrafficLight[] trafficLights;
     [HideInInspector]
     public List<int> carProductionIndex = new List<int>();
@@ -32,7 +32,7 @@ public class TrafficController : MonoBehaviour
     public IEnumerator StartTrafficRoutine()
     {
         yield return null;
-        paths = FindObjectsOfType<Path>();
+        paths = FindObjectsOfType<Road>();
         StartCoroutine("CreateCarRoutine");
         StartCoroutine("GreenlightPathRoutine");
     }
@@ -41,7 +41,7 @@ public class TrafficController : MonoBehaviour
     
     public void AddCar(int index)
     {
-        List<Path> randomPaths = new List<Path>(paths);
+        List<Road> randomPaths = new List<Road>(paths);
         randomPaths.Shuffle();
 
         for (int c = 3; c >= 0; c--)
@@ -71,7 +71,7 @@ public class TrafficController : MonoBehaviour
         {
             for (int b = 0; b < GM.Instance.cars[a].cars.Count; b++)
             {
-                if (!GM.Instance.cars[a].cars[b].path.gameObject.activeInHierarchy)
+                if (!GM.Instance.cars[a].cars[b].road.gameObject.activeInHierarchy)
                 {
                     GM.Instance.cars[a].cars[b].GetComponentInChildren<Collider>().enabled = false;
                     GM.Instance.cars[a].cars[b].transform.DOScale(0, 10f).SetEase(Ease.Linear);
@@ -82,7 +82,7 @@ public class TrafficController : MonoBehaviour
             }
         }
         
-        paths = FindObjectsOfType<Path>();
+        paths = FindObjectsOfType<Road>();
         StopCoroutine("GreenlightPathRoutine");
         StartCoroutine("GreenlightPathRoutine");
     }
@@ -132,7 +132,7 @@ public class TrafficController : MonoBehaviour
         while (true)
         {
             
-            CreateCar(carProductionIndex.First()+AdsM.Instance.upgradeAllCarLevel);
+            CreateCar(carProductionIndex.First()+Mathf.RoundToInt(AdsM.Instance.adDetails[4].multiplierValue));
             yield return new WaitForSeconds(GM.Instance.baseSecondCreation/GM.Instance.baseSecondCreationSpeedUp / PM.Instance.TotalCarCount());
             while (GM.Instance.stopCarCreationOnTrafficDensity < GM.Instance.trafficDensity)
                 yield return null;
@@ -144,23 +144,23 @@ public class TrafficController : MonoBehaviour
         carProductionIndex.RemoveAt(0);
         if (carProductionIndex.Count == 0)
             ProcessProductionIndex();
-        Path selectedPath = null;
-        List<Path> loopingPaths = new List<Path>(paths);
+        Road selectedRoad = null;
+        List<Road> loopingPaths = new List<Road>(paths);
         loopingPaths.Shuffle();
         for (int a = 0; a < loopingPaths.Count; a++)
         {
             if (Physics.CheckSphere(loopingPaths[a].tween.PathGetPoint(0), 2.5f, LayerMask.GetMask("Car")))
                 continue;
-            selectedPath = loopingPaths[a];  
+            selectedRoad = loopingPaths[a];  
         }
-        if (!selectedPath)
+        if (!selectedRoad)
             return;
-        Vector3 newPosition = selectedPath.tween.PathGetPoint(0);
+        Vector3 newPosition = selectedRoad.tween.PathGetPoint(0);
         
         Car newCar = Instantiate(GM.Instance.carPrefab, newPosition,
-            Quaternion.LookRotation(selectedPath.tween.PathGetPoint(0.01f) - newPosition));
+            Quaternion.LookRotation(selectedRoad.tween.PathGetPoint(0.01f) - newPosition));
         GM.Instance.cars[index].cars.Add(newCar);
-        newCar.MoveCar(index,selectedPath,0,false);
+        newCar.MoveCar(index,selectedRoad,0,false);
         UIM.Instance.UpdateEconomyUI();
     }
     

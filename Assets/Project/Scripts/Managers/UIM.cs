@@ -40,18 +40,8 @@ public class UIM : MonoSingleton<UIM>
    public int tutorialProgression;
    public GameObject[] tutorialHands;
    public bool tutorialInProgress;
-
-   [Header("AdButtons")] 
-   public GameObject add3CarButton;
-   public GameObject speedUpButton;
-   public Image speedUpFiller;
-   public GameObject addIncomeButton;
-   public TMP_Text addIncomeText;
-   public GameObject addNewCarButton;
-   public GameObject autoTapButton;
-   public Image autoTapFiller;
-   public GameObject upgradeAllCarButton;
-   public Image upgradeAllCarFiller;
+   
+   
    void Awake()
    {
       tutorialProgression = PlayerPrefs.GetInt("TutorialProgression");
@@ -119,9 +109,7 @@ public class UIM : MonoSingleton<UIM>
 
       for (int a = 0; a < GM.Instance.cars.Length; a++)
       {
-         income += GM.Instance.cars[a].carLevel * GM.Instance.cars[a].carValue *
-            GM.Instance.upgrades[2].Value() *
-            60 / GM.Instance.baseSecondCreation;
+         income += GM.Instance.cars[a].carLevel * GM.Instance.cars[a].carValue * AdsM.Instance.adDetails[3].multiplierValue * 60f / GM.Instance.baseSecondCreation;
       }
 
       return Mathf.RoundToInt(income);

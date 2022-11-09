@@ -8,21 +8,31 @@ public class LM : MonoSingleton<LM>
     public Level[] levels;
     public int[] levelIndexes = {0, 0};
     public Level level;
-    
+    public Gate[] gates;
     public void CreateLevel()
     {
         levelIndexes = GetLevelIndexes();
-        level = FindObjectOfType<Level>();
-        if(!level)
-            level = Instantiate(levels[levelIndexes[0]]);
+        gates = level.GetComponentsInChildren<Gate>(true);
         for (int a = 0; a < level.sections[levelIndexes[1]].elements.Count; a++)
                 level.sections[levelIndexes[1]].elements[a].Show();
         if (level.sections[levelIndexes[1]].cam)
         {
             level.sections[levelIndexes[1]].cam.Hide();
-            GM.Instance.cam.transform.position=level.sections[levelIndexes[1]].cam.position;
+            GM.Instance.cam.transform.position = level.sections[levelIndexes[1]].cam.position;
             GM.Instance.cam.transform.rotation = level.sections[levelIndexes[1]].cam.rotation;
         }
+        UpdateGates();
+    }
+
+    public void UpdateGates()
+    {
+        for (int a = 0; a < gates.Length; a++)
+        {
+            if(GM.Instance.upgrades[2].upgradeLevel>=a)
+                gates[a].Show();
+            else
+                gates[a].Hide();
+        }  
     }
 
 

@@ -23,7 +23,7 @@ public class LM : MonoSingleton<LM>
         }
         UpdateGates();
     }
-
+    
     public void UpdateGates()
     {
         for (int a = 0; a < gates.Length; a++)

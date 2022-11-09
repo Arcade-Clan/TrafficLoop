@@ -7,10 +7,7 @@ using UnityEngine.UI;
 using UnityExtensions;
 public class PM : MonoSingleton<PM>
 {
-    
-    
-    
-   public IEnumerator GetStatsRoutine()
+    public IEnumerator GetStatsRoutine()
     {
         while(true)
         {
@@ -113,7 +110,8 @@ public class PM : MonoSingleton<PM>
         GM.Instance.trafficController.AddCar(Mathf.RoundToInt(AdsM.Instance.adDetails[4].multiplierValue));
         GM.Instance.cars[0].carLevel += 1; 
         PlayerPrefs.SetInt(GM.Instance.cars[0].carName, GM.Instance.cars[0].carLevel);
-        Upgrade(0);
+        GM.Instance.PlaySound(0);
+        UIM.Instance.UpdateEconomyUI(); 
         GM.Instance.trafficController.ProcessProductionIndex();
     }
 
@@ -227,17 +225,66 @@ public class PM : MonoSingleton<PM>
 
 
     #region AdProcesses
-
-    public IEnumerator Add3CarRoutine()
+    
+    public IEnumerator FeverCarRoutine()
     {
-        for (int a = 0; a < 3; a++)
+        GM.Instance.trafficController.CreateCar(11);
+        AdsM.Instance.adDetails[0].multiplierValue = 1;
+        GM.Instance.trafficController.ProcessProductionIndex();
+        UIM.Instance.UpdateEconomyUI();
+        yield return WaitForAddRoutine(0);
+        AdsM.Instance.adDetails[0].multiplierValue = -1;
+        UIM.Instance.UpdateEconomyUI();
+    }
+    public IEnumerator AutoTapRoutine()
+    {
+        AdsM.Instance.adDetails[1].multiplierValue = 2;
+        yield return WaitForAddRoutine(1);
+        AdsM.Instance.adDetails[1].multiplierValue = 1;
+    }
+    public IEnumerator SpeedUpRoutine()
+    {
+        AdsM.Instance.adDetails[2].multiplierValue = 2;
+        yield return WaitForAddRoutine(2);
+        AdsM.Instance.adDetails[2].multiplierValue = 1;
+    }
+    public IEnumerator AddIncomeRoutine()
+    {
+        AdsM.Instance.adDetails[3].multiplierValue = 2;
+        UIM.Instance.UpdateEconomyUI();
+        yield return WaitForAddRoutine(3);
+        AdsM.Instance.adDetails[3].multiplierValue = 1;
+        UIM.Instance.UpdateEconomyUI();
+    }
+    public IEnumerator EvolveCarsRoutine()
+    {
+        for (int a = GM.Instance.cars.Length - 1; a >= 0; a--)
         {
-            Increase3Car();
-            yield return new WaitForSeconds(0.5f);
+            for (int b = GM.Instance.cars[a].cars.Count - 1; b >= 0; b--)
+                GM.Instance.cars[a].cars[b].AllCarUpgrade();
         }
+        AdsM.Instance.adDetails[4].multiplierValue = 1;
+        yield return WaitForAddRoutine(4);
+        AdsM.Instance.adDetails[4].multiplierValue = 0;
     }
 
-
+    IEnumerator WaitForAddRoutine(int index)
+    {
+        AdsM.Instance.adDetails[index].buttonObject.enabled=false;
+        AdsM.Instance.adDetails[index].text.Hide();
+        AdsM.Instance.adDetails[index].timer.Show();
+        AdsM.Instance.adDetails[index].rayImage.Show();
+        float timer = Time.realtimeSinceStartup;
+        while (timer + AdsM.Instance.adDetails[index].timerValue > Time.realtimeSinceStartup)
+        {
+            AdsM.Instance.adDetails[index].timer.text = "" + string.Format("{0:N1}", (AdsM.Instance.adDetails[4].timerValue - (Time.realtimeSinceStartup - timer)));
+            yield return null;
+        }
+        AdsM.Instance.adDetails[index].text.Show();
+        AdsM.Instance.adDetails[index].timer.Hide();
+        AdsM.Instance.adDetails[index].rayImage.Hide();
+        AdsM.Instance.adDetails[index].buttonObject.enabled=true;
+    }
     public void AddLastCar()
     {
         int carIndex = 0;
@@ -248,78 +295,20 @@ public class PM : MonoSingleton<PM>
             carIndex = a;
             break;
         }
+        GM.Instance.cars[carIndex].carLevel += 1; 
+        PlayerPrefs.SetInt(GM.Instance.cars[carIndex].carName, GM.Instance.cars[carIndex].carLevel);
         GM.Instance.trafficController.AddCar(carIndex);
-    }
-    
-    public IEnumerator SpeedUpRoutine()
-    {
-        AdsM.Instance.adDetails[2].buttonObject.Hide();
-        AdsM.Instance.adDetails[2].multiplierValue = 2;
-        float timer = Time.realtimeSinceStartup;
-        while (timer + AdsM.Instance.adDetails[2].timerValue > Time.realtimeSinceStartup)
-        {
-            AdsM.Instance.adDetails[2].timer.text = "" + (AdsM.Instance.adDetails[2].timerValue - (Time.realtimeSinceStartup - timer));
-            yield return null;
-        }
-        
-
-        AdsM.Instance.adDetails[2].multiplierValue = 1;
-        AdsM.Instance.adDetails[2].buttonObject.Show();
-    }
-    
-    public IEnumerator AutoTapRoutine()
-    {
-        AdsM.Instance.adDetails[1].buttonObject.Hide();
-        AdsM.Instance.adDetails[1].multiplierValue = 2;
-        float timer = Time.realtimeSinceStartup;
-        while (timer + AdsM.Instance.adDetails[1].timerValue > Time.realtimeSinceStartup)
-        {
-            AdsM.Instance.adDetails[1].timer.text = "" + (AdsM.Instance.adDetails[1].timerValue - (Time.realtimeSinceStartup - timer));
-            yield return null;
-        }
-        AdsM.Instance.adDetails[1].multiplierValue = 1;
-        AdsM.Instance.adDetails[1].buttonObject.Show();
-    }
-    
-    public IEnumerator EvolveCarsRoutine()
-    {
-        for (int a = GM.Instance.cars.Length - 1; a >= 0; a--)
-        {
-            for (int b = GM.Instance.cars[a].cars.Count - 1; b >= 0; b--)
-                GM.Instance.cars[a].cars[b].AllCarUpgrade();
-        }
-        AdsM.Instance.adDetails[4].buttonObject.Hide();
-        AdsM.Instance.adDetails[4].multiplierValue = 1;
-        float timer = Time.realtimeSinceStartup;
-        while (timer + AdsM.Instance.adDetails[4].timerValue > Time.realtimeSinceStartup)
-        {
-            AdsM.Instance.adDetails[4].timer.text = "" + (AdsM.Instance.adDetails[4].timerValue - (Time.realtimeSinceStartup - timer));
-            yield return null;
-        }
-        AdsM.Instance.adDetails[4].multiplierValue = 0;
-        AdsM.Instance.adDetails[4].buttonObject.Show();
-    }
-
-    public IEnumerator AddIncomeRoutine()
-    {
-        AdsM.Instance.adDetails[3].buttonObject.Hide();
-        AdsM.Instance.adDetails[3].multiplierValue = 2;
+        GM.Instance.PlaySound(0);
+        GM.Instance.trafficController.ProcessProductionIndex();
         UIM.Instance.UpdateEconomyUI();
-        float timer = Time.realtimeSinceStartup;
-        while (timer + AdsM.Instance.adDetails[3].timerValue > Time.realtimeSinceStartup)
-        {
-            AdsM.Instance.adDetails[3].timer.text = "" + (AdsM.Instance.adDetails[3].timerValue - (Time.realtimeSinceStartup - timer));
-            yield return null;
-        }
-        AdsM.Instance.adDetails[3].multiplierValue = 1;
-        UIM.Instance.UpdateEconomyUI();
-        AdsM.Instance.adDetails[3].buttonObject.Show();
     }
-    
-
-    public void FeverCar()
+    public IEnumerator Add3CarRoutine()
     {
-        GM.Instance.trafficController.CreateCar(11);
+        for (int a = 0; a < 3; a++)
+        {
+            Increase3Car();
+            yield return new WaitForSeconds(0.5f);
+        }
     }
     
     #endregion

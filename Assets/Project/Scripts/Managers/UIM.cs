@@ -44,13 +44,13 @@ public class UIM : MonoSingleton<UIM>
    
    void Awake()
    {
+      if (!GM.Instance.tutorialOn)
+         PlayerPrefs.SetInt("TutorialProgression",100);
       tutorialProgression = PlayerPrefs.GetInt("TutorialProgression");
    }
 
    private void Start()
    {
-      if (!GM.Instance.tutorialOn)
-         PlayerPrefs.SetInt("TutorialProgression",100);
       oldGold = GM.Instance.gold;
    }
 

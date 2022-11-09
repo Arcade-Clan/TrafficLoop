@@ -139,7 +139,7 @@ public class GM : MonoSingleton<GM>
     
     void SetObjects()
     {
-        cam = FindObjectOfType<Camera>();
+        cam = Camera.main;
         canvas = FindObjectOfType<Canvas>();
         trafficController = FindObjectOfType<TrafficController>();
     }

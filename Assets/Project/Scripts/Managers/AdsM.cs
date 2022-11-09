@@ -6,6 +6,7 @@ using RollicGames.Advertisements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using UnityExtensions;
 public class AdsM : MonoSingleton<AdsM>
 {
@@ -13,8 +14,9 @@ public class AdsM : MonoSingleton<AdsM>
     [Serializable]
     public class AdButtonsClass
     {
-        public GameObject buttonObject;
+        public Button buttonObject;
         public GameObject adImage;
+        public GameObject rayImage;
         public TextMeshProUGUI text;
         public TextMeshProUGUI timer;
         public float timerValue;
@@ -75,8 +77,6 @@ public class AdsM : MonoSingleton<AdsM>
     {
         if (currentRewarded != null)
             return false;
-        if (Application.isEditor)
-            return adReady;
         if(RLAdvertisementManager.Instance.isRewardedVideoAvailable())
             return true;
         return false;
@@ -88,11 +88,7 @@ public class AdsM : MonoSingleton<AdsM>
         {
             case RLRewardedAdResult.Finished:
             {
-                Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
-                currentRewarded();
-                currentRewarded = null;
-                StopCoroutine("InterRoutine");
-                StartCoroutine("InterRoutine");
+                AcceptReward();
                 break;
             }
             case RLRewardedAdResult.Skipped:
@@ -106,17 +102,21 @@ public class AdsM : MonoSingleton<AdsM>
                 break;
         }
     }
+
+    void AcceptReward()
+    {
+        
+        Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
+        currentRewarded();
+        currentRewarded = null;
+        StopCoroutine("InterRoutine");
+        StartCoroutine("InterRoutine");
+    }
     
     public void Add3CarButton()
-    {        Analytics.Instance.RewardedTapped("Add3Car");
-        if (!RewardedCanBeShown())
-            NoAds();
-        else
-        {
-            currentRewarded = Add3Car;
-            Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
-            RLAdvertisementManager.Instance.showRewardedVideo();
-        }
+    {        
+        Analytics.Instance.RewardedTapped("Add3Car");
+        ProcessAds(Add3Car);
     }
     void Add3Car()
     {
@@ -125,15 +125,9 @@ public class AdsM : MonoSingleton<AdsM>
 
     
     public void AddLastCarButton()
-    {        Analytics.Instance.RewardedTapped("AddLastCar");
-        if (!RewardedCanBeShown())
-            NoAds();
-        else
-        {
-            currentRewarded = AddLastCar;
-            Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
-            RLAdvertisementManager.Instance.showRewardedVideo();
-        }
+    {        
+        Analytics.Instance.RewardedTapped("AddLastCar");
+        ProcessAds(AddLastCar);
     }
     void AddLastCar()
     {
@@ -142,15 +136,9 @@ public class AdsM : MonoSingleton<AdsM>
     
     
     public void SpeedUpButton()
-    {        Analytics.Instance.RewardedTapped("SpeedUp");
-        if (!RewardedCanBeShown())
-            NoAds();
-        else
-        {
-            currentRewarded = SpeedUp;
-            Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
-            RLAdvertisementManager.Instance.showRewardedVideo();
-        }
+    {        
+        Analytics.Instance.RewardedTapped("SpeedUp");
+        ProcessAds(SpeedUp);
     }
     void SpeedUp()
     {
@@ -159,15 +147,9 @@ public class AdsM : MonoSingleton<AdsM>
     
     
     public void AddIncomeButton()
-    {        Analytics.Instance.RewardedTapped("AddIncome");
-        if (!RewardedCanBeShown())
-            NoAds();
-        else
-        {
-            currentRewarded = AddIncome;
-            Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
-            RLAdvertisementManager.Instance.showRewardedVideo();
-        }
+    {        
+        Analytics.Instance.RewardedTapped("AddIncome");
+        ProcessAds(AddIncome);
     }
     void AddIncome()
     {
@@ -176,15 +158,9 @@ public class AdsM : MonoSingleton<AdsM>
 
     
     public void AutoTapButton()
-    {        Analytics.Instance.RewardedTapped("AutoTapButton");
-        if (!RewardedCanBeShown())
-            NoAds();
-        else
-        {
-            currentRewarded = AutoTapButton;
-            Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
-            RLAdvertisementManager.Instance.showRewardedVideo();
-        }
+    {        
+        Analytics.Instance.RewardedTapped("AutoTapButton");
+        ProcessAds(AutoTap);
     }
     
     void AutoTap()
@@ -194,17 +170,10 @@ public class AdsM : MonoSingleton<AdsM>
     
     
     public void EvolveCarsButton()
-    {        Analytics.Instance.RewardedTapped("UpgradeAllCars");
-        if (!RewardedCanBeShown())
-            NoAds();
-        else
-        {
-            currentRewarded = EvolveCars;
-            Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
-            RLAdvertisementManager.Instance.showRewardedVideo();
-        }
+    {        
+        Analytics.Instance.RewardedTapped("EvolveCars");
+        ProcessAds(EvolveCars);
     }
-    
     void EvolveCars()
     {
         PM.Instance.StartCoroutine("EvolveCarsRoutine");
@@ -214,20 +183,36 @@ public class AdsM : MonoSingleton<AdsM>
     public void FeverCarButton()
     {
         Analytics.Instance.RewardedTapped("FeverCar");
-        if (!RewardedCanBeShown())
+        ProcessAds(FeverCar);
+    } 
+    void FeverCar()
+    {
+        PM.Instance.StartCoroutine("FeverCarRoutine");
+    }
+
+    public void ProcessAds(Action action)
+    {
+        if (Application.isEditor)
+        {
+            if (adReady)
+            {
+                currentRewarded = action;
+                AcceptReward();
+            }
+            else
+                NoAds();
+        }
+        else if (!RewardedCanBeShown())
             NoAds();
         else
         {
-            currentRewarded = FeverCar;
+            currentRewarded = action;
             Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
             RLAdvertisementManager.Instance.showRewardedVideo();
-        }
+        }  
     }
-    void FeverCar()
-    {
-        PM.Instance.FeverCar();
-    }
-
+    
+    
     void NoAds()
     {
         DOTween.Kill(noAdsText);

@@ -12,7 +12,6 @@ public class TrafficController : MonoBehaviour
 
     public Road[] paths;
     public TrafficLight[] trafficLights;
-    [HideInInspector]
     public List<int> carProductionIndex = new List<int>();
     
     public void ProcessProductionIndex()
@@ -26,6 +25,8 @@ public class TrafficController : MonoBehaviour
         }
         if(carProductionIndex.Count * GM.Instance.specialCarRandomChance > Random.Range(0f,1f))
             carProductionIndex.Add(Random.Range(10,12));
+        if(AdsM.Instance.adDetails[0].multiplierValue>0)
+            carProductionIndex.Add(11);
         carProductionIndex.Shuffle();
     }
 
@@ -131,7 +132,7 @@ public class TrafficController : MonoBehaviour
     {
         while (true)
         {
-            
+            print(carProductionIndex.Count);
             CreateCar(carProductionIndex.First()+Mathf.RoundToInt(AdsM.Instance.adDetails[4].multiplierValue));
             yield return new WaitForSeconds(GM.Instance.baseSecondCreation/GM.Instance.baseSecondCreationSpeedUp / PM.Instance.TotalCarCount());
             while (GM.Instance.stopCarCreationOnTrafficDensity < GM.Instance.trafficDensity)

@@ -19,7 +19,7 @@ public class PM : MonoSingleton<PM>
                 calculatedCars.AddRange(GM.Instance.cars[a].cars);
             UIM.Instance.carAmount.text = "" + calculatedCars.Count;
             UIM.Instance.carAmountPerMinute.text = "" + GM.Instance.upgrades[0].Value();
-            UIM.Instance.incomePerMinute.text = "" + GM.Instance.upgrades[0].Value() * GM.Instance.upgrades[2].Value();
+            UIM.Instance.incomePerMinute.text = "" + GM.Instance.upgrades[0].Value();
 
             float density = 0;
             for (int a = 0; a < calculatedCars.Count; a++)
@@ -70,11 +70,11 @@ public class PM : MonoSingleton<PM>
     {
         while (true)
         {
-            if(Mathf.Max(GM.Instance.tapSpeed, AdsM.Instance.autoTapSpeedUp)>1)
+            if(Mathf.Max(GM.Instance.tapSpeed, AdsM.Instance.adDetails[1].multiplierValue)>1)
                 GM.Instance.baseSecondCreationSpeedUp = GM.Instance.baseSecondCreationSpeedUpMultiplier;
             else
                 GM.Instance.baseSecondCreationSpeedUp = 1;
-            GM.Instance.simulationSpeed = Mathf.Max(GM.Instance.tapSpeed, AdsM.Instance.autoTapSpeedUp) * AdsM.Instance.speedOfferSpeedUp;
+            GM.Instance.simulationSpeed = Mathf.Max(GM.Instance.tapSpeed, AdsM.Instance.adDetails[1].multiplierValue) * AdsM.Instance.adDetails[2].multiplierValue;
             Time.timeScale = Mathf.Lerp(Time.timeScale, GM.Instance.simulationSpeed, 0.2f);
             ProcessTrails();
             yield return null;
@@ -96,63 +96,56 @@ public class PM : MonoSingleton<PM>
     {
         if (!UIM.Instance.IncreaseTutorialProgression(0))
             return;
-        GM.Instance.PlaySound(0);
         Analytics.Instance.SendCarBought();
-        Taptic.Medium();
-        GM.Instance.gold -= GM.Instance.upgrades[0].Cost();
-        UIM.Instance.UpdateGold();
-        GM.Instance.upgrades[0].upgradeLevel += 1;
-        GM.Instance.trafficController.AddCar(AdsM.Instance.upgradeAllCarLevel);
-        PlayerPrefs.SetInt(GM.Instance.upgrades[0].upgradeName, GM.Instance.upgrades[0].upgradeLevel);
+        GM.Instance.trafficController.AddCar(Mathf.RoundToInt(AdsM.Instance.adDetails[4].multiplierValue));
         GM.Instance.cars[0].carLevel += 1; 
         PlayerPrefs.SetInt(GM.Instance.cars[0].carName, GM.Instance.cars[0].carLevel);
+        Upgrade(0);
         GM.Instance.trafficController.ProcessProductionIndex();
-        UIM.Instance.UpdateEconomyUI();
+        
     }
 
     public void Increase3Car()
     {
         if (!UIM.Instance.IncreaseTutorialProgression(0))
             return;
-        GM.Instance.PlaySound(0);
         //Analytics.Instance.SendCarBought();
-        Taptic.Medium();
-        GM.Instance.trafficController.AddCar(AdsM.Instance.upgradeAllCarLevel);
-        PlayerPrefs.SetInt(GM.Instance.upgrades[0].upgradeName, GM.Instance.upgrades[0].upgradeLevel);
+        GM.Instance.trafficController.AddCar(Mathf.RoundToInt(AdsM.Instance.adDetails[4].multiplierValue));
         GM.Instance.cars[0].carLevel += 1; 
         PlayerPrefs.SetInt(GM.Instance.cars[0].carName, GM.Instance.cars[0].carLevel);
+        Upgrade(0);
         GM.Instance.trafficController.ProcessProductionIndex();
-        UIM.Instance.UpdateEconomyUI();
     }
+
+    
     
     public void IncreaseSize()
     {
         if (!UIM.Instance.IncreaseTutorialProgression(4))
             return;
-        GM.Instance.PlaySound(0);
         Analytics.Instance.SendSizeUp();
-        Taptic.Medium();
-        GM.Instance.gold -= GM.Instance.upgrades[1].Cost();
-        UIM.Instance.UpdateGold();
-        GM.Instance.upgrades[1].upgradeLevel += 1;
-        PlayerPrefs.SetInt(GM.Instance.upgrades[1].upgradeName, GM.Instance.upgrades[1].upgradeLevel);
+        Upgrade(1);
         LM.Instance.SwitchLevel();
-        UIM.Instance.UpdateEconomyUI();
     }
 
-    public void IncreaseIncome()
+    public void IncreaseGates()
     {
         if (!UIM.Instance.IncreaseTutorialProgression(2))
             return;
-        GM.Instance.PlaySound(0);
         Analytics.Instance.SendIncomeClicked();
+        Upgrade(2);
+        LM.Instance.UpdateGates();
+    }
+    
+    void Upgrade(int value)
+    {
+        GM.Instance.PlaySound(0);
         Taptic.Medium();
-        GM.Instance.gold -= GM.Instance.upgrades[2].Cost();
+        GM.Instance.gold -= GM.Instance.upgrades[value].Cost();
         UIM.Instance.UpdateGold();
-        GM.Instance.upgrades[2].upgradeLevel += 1;
-        PlayerPrefs.SetInt(GM.Instance.upgrades[2].upgradeName, GM.Instance.upgrades[2].upgradeLevel);
-        UIM.Instance.UpdateEconomyUI();
-
+        GM.Instance.upgrades[value].upgradeLevel += 1;
+        PlayerPrefs.SetInt(GM.Instance.upgrades[value].upgradeName, GM.Instance.upgrades[value].upgradeLevel);
+        UIM.Instance.UpdateEconomyUI(); 
     }
 
     public void Merge()
@@ -165,8 +158,8 @@ public class PM : MonoSingleton<PM>
         GM.Instance.gold -= GM.Instance.merge.Cost();
         UIM.Instance.UpdateGold();
         GM.Instance.merge.mergeLevel += 1;
-        Analytics.Instance.SendMergeLevel(GM.Instance.merge.mergeLevel);
         PlayerPrefs.SetInt(GM.Instance.merge.mergeName, GM.Instance.merge.mergeLevel);
+        Analytics.Instance.SendMergeLevel(GM.Instance.merge.mergeLevel);
         MergeCars();
     }
 
@@ -231,6 +224,10 @@ public class PM : MonoSingleton<PM>
         return false;
     }
     
+
+
+    #region AdProcesses
+
     public IEnumerator Add3CarRoutine()
     {
         for (int a = 0; a < 3; a++)
@@ -239,4 +236,91 @@ public class PM : MonoSingleton<PM>
             yield return new WaitForSeconds(0.5f);
         }
     }
+
+
+    public void AddLastCar()
+    {
+        int carIndex = 0;
+        for (int a = GM.Instance.cars.Length - 2; a >= 0; a--)
+        {
+            if (GM.Instance.cars[a].carLevel <= 0)
+                continue;
+            carIndex = a;
+            break;
+        }
+        GM.Instance.trafficController.AddCar(carIndex);
+    }
+    
+    public IEnumerator SpeedUpRoutine()
+    {
+        AdsM.Instance.adDetails[2].buttonObject.Hide();
+        AdsM.Instance.adDetails[2].multiplierValue = 2;
+        float timer = Time.realtimeSinceStartup;
+        while (timer + AdsM.Instance.adDetails[2].timerValue > Time.realtimeSinceStartup)
+        {
+            AdsM.Instance.adDetails[2].timer.text = "" + (AdsM.Instance.adDetails[2].timerValue - (Time.realtimeSinceStartup - timer));
+            yield return null;
+        }
+        
+
+        AdsM.Instance.adDetails[2].multiplierValue = 1;
+        AdsM.Instance.adDetails[2].buttonObject.Show();
+    }
+    
+    public IEnumerator AutoTapRoutine()
+    {
+        AdsM.Instance.adDetails[1].buttonObject.Hide();
+        AdsM.Instance.adDetails[1].multiplierValue = 2;
+        float timer = Time.realtimeSinceStartup;
+        while (timer + AdsM.Instance.adDetails[1].timerValue > Time.realtimeSinceStartup)
+        {
+            AdsM.Instance.adDetails[1].timer.text = "" + (AdsM.Instance.adDetails[1].timerValue - (Time.realtimeSinceStartup - timer));
+            yield return null;
+        }
+        AdsM.Instance.adDetails[1].multiplierValue = 1;
+        AdsM.Instance.adDetails[1].buttonObject.Show();
+    }
+    
+    public IEnumerator EvolveCarsRoutine()
+    {
+        for (int a = GM.Instance.cars.Length - 1; a >= 0; a--)
+        {
+            for (int b = GM.Instance.cars[a].cars.Count - 1; b >= 0; b--)
+                GM.Instance.cars[a].cars[b].AllCarUpgrade();
+        }
+        AdsM.Instance.adDetails[4].buttonObject.Hide();
+        AdsM.Instance.adDetails[4].multiplierValue = 1;
+        float timer = Time.realtimeSinceStartup;
+        while (timer + AdsM.Instance.adDetails[4].timerValue > Time.realtimeSinceStartup)
+        {
+            AdsM.Instance.adDetails[4].timer.text = "" + (AdsM.Instance.adDetails[4].timerValue - (Time.realtimeSinceStartup - timer));
+            yield return null;
+        }
+        AdsM.Instance.adDetails[4].multiplierValue = 0;
+        AdsM.Instance.adDetails[4].buttonObject.Show();
+    }
+
+    public IEnumerator AddIncomeRoutine()
+    {
+        AdsM.Instance.adDetails[3].buttonObject.Hide();
+        AdsM.Instance.adDetails[3].multiplierValue = 2;
+        UIM.Instance.UpdateEconomyUI();
+        float timer = Time.realtimeSinceStartup;
+        while (timer + AdsM.Instance.adDetails[3].timerValue > Time.realtimeSinceStartup)
+        {
+            AdsM.Instance.adDetails[3].timer.text = "" + (AdsM.Instance.adDetails[3].timerValue - (Time.realtimeSinceStartup - timer));
+            yield return null;
+        }
+        AdsM.Instance.adDetails[3].multiplierValue = 1;
+        UIM.Instance.UpdateEconomyUI();
+        AdsM.Instance.adDetails[3].buttonObject.Show();
+    }
+    
+
+    public void FeverCar()
+    {
+        GM.Instance.trafficController.CreateCar(11);
+    }
+    
+    #endregion
 }

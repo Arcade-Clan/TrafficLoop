@@ -14146,11 +14146,10 @@ MonoBehaviour:
   - {fileID: 7509316811325340497}
   - {fileID: 5540177835156235695}
   - {fileID: 5295807277436345294}
-  path: {fileID: 0}
+  road: {fileID: 0}
   collidedCar: {fileID: 0}
   ignoredCars: []
   lastCar: {fileID: 0}
-  ignoreCarWaiter: 3
   priority: 0
   specialCar: 0
 --- !u!54 &5219968147369929050

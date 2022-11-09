@@ -18,7 +18,7 @@ public class LM : MonoSingleton<LM>
         if (level.sections[levelIndexes[1]].cam)
         {
             level.sections[levelIndexes[1]].cam.Hide();
-            GM.Instance.cam.transform.position=level.sections[levelIndexes[1]].cam.position;
+            GM.Instance.cam.transform.position = level.sections[levelIndexes[1]].cam.position;
             GM.Instance.cam.transform.rotation = level.sections[levelIndexes[1]].cam.rotation;
         }
         UpdateGates();
@@ -28,13 +28,14 @@ public class LM : MonoSingleton<LM>
     {
         for (int a = 0; a < gates.Length; a++)
         {
-            if(a<GM.Instance.upgrades[2].upgradeLevel)
+            if(GM.Instance.upgrades[2].upgradeLevel>=a)
                 gates[a].Show();
             else
                 gates[a].Hide();
-        }
+        }  
     }
-    
+
+
     int[] GetLevelIndexes()
     {
         int sectionIndex = 0;

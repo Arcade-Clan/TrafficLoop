@@ -70,6 +70,7 @@ public class LM : MonoSingleton<LM>
             for (int a = 0; a < level.sections[levelIndexes[1]].elements.Count; a++)
                 level.sections[levelIndexes[1]].elements[a].Show();
         }
+        
         GM.Instance.trafficController.RecalculateTrafficElements();
         if(level.sections[levelIndexes[1]].cam)
         {

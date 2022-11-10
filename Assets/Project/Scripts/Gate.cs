@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Gate : MonoBehaviour
 {
@@ -19,8 +20,8 @@ public class Gate : MonoBehaviour
         Vector3 scale = model.localScale;
         model.localScale = Vector3.zero;
         model.localPosition+=Vector3.up*5;
-        model.DOScale(scale,1.5f).SetEase(Ease.OutElastic);
-        model.DOLocalMoveY(0, 1).SetEase(Ease.OutBounce);
+        model.DOScale(scale,1.5f*Random.Range(0.8f,1.2f)).SetEase(Ease.OutElastic);
+        model.DOLocalMoveY(position.y, 1*Random.Range(0.8f,1.2f)).SetEase(Ease.OutBounce);
     }
 
     void OnTriggerEnter(Collider other)

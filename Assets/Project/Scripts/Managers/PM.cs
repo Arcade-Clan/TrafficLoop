@@ -306,6 +306,7 @@ public class PM : MonoSingleton<PM>
         AdsM.Instance.adDetails[index].buttonObject.enabled=false;
         AdsM.Instance.adDetails[index].text.Hide();
         AdsM.Instance.adDetails[index].timer.Show();
+        AdsM.Instance.adDetails[index].adImage.Hide();
         AdsM.Instance.adDetails[index].rayImage.Show();
         float timer = Time.realtimeSinceStartup;
         while (timer + AdsM.Instance.adDetails[index].timerValue > Time.realtimeSinceStartup)
@@ -315,6 +316,7 @@ public class PM : MonoSingleton<PM>
         }
         AdsM.Instance.adDetails[index].text.Show();
         AdsM.Instance.adDetails[index].timer.Hide();
+        AdsM.Instance.adDetails[index].adImage.Show();
         AdsM.Instance.adDetails[index].rayImage.Hide();
         AdsM.Instance.adDetails[index].buttonObject.enabled=true;
     }
@@ -369,11 +371,17 @@ public static class SizeUpExtension
         if(Options.Instance.vibrationsOn)
         Taptic.Medium();
         button.DOKill();
+        if (button.GetComponent<DOTweenAnimation>())
+            button.GetComponent<DOTweenAnimation>().DOPause();
         button.DOScale(1.2f, 0.25f).SetUpdate(UpdateType.Normal,true).OnComplete(
             ()=>
             {
                 button.localScale = Vector3.one*1.2f;
-                button.DOScale(1f, 0.25f).SetEase(Ease.InSine).SetUpdate(UpdateType.Normal, true);
+                button.DOScale(1f, 0.25f).SetEase(Ease.InSine).SetUpdate(UpdateType.Normal, true).OnComplete(() =>
+                {
+                    if (button.GetComponent<DOTweenAnimation>())
+                        button.GetComponent<DOTweenAnimation>().DOPlay();
+                });
             });
     }  
 }

@@ -16,6 +16,7 @@ public class AdsM : MonoSingleton<AdsM>
     {
         public Button buttonObject;
         public GameObject rayImage;
+        public GameObject adImage;
         public TextMeshProUGUI text;
         public TextMeshProUGUI timer;
         public float timerValue;

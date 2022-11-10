@@ -43,7 +43,7 @@ public class Car : MonoBehaviour
     void Appear()
     {
         CarModel model = cars[carIndex];
-        model.transform.localPosition+=Vector3.up*7;
+        model.transform.localPosition+=Vector3.up*5;
         float scale = model.transform.localScale.x;
         model.transform.localScale = Vector3.zero;
         model.transform.DOScale(scale,1.5f).SetEase(Ease.OutElastic);

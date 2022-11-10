@@ -112,7 +112,7 @@ public class UIM : MonoSingleton<UIM>
       
       for (int a = 0; a < upgrades.Length; a++)
       {
-         if (GM.Instance.upgrades[a].Max(a))
+         if (GM.Instance.upgrades[a].Max(a)|| (a == 2 && !LM.Instance.gates[GM.Instance.upgrades[2].upgradeLevel].gameObject.activeInHierarchy))
             upgrades[a].button.Hide();
          else
             ProcessButtons(a);
@@ -128,7 +128,7 @@ public class UIM : MonoSingleton<UIM>
       float cost = GM.Instance.upgrades[index].Cost();
       upgrades[index].goldText.text = "$" + PriceFormatting(cost);
       bool canBeBought = cost <= GM.Instance.gold;
-      if(index==1)
+      
       if (canBeBought)
       {
          if(upgrades[index].state != "CanBuy")

@@ -12,7 +12,17 @@ public class Gate : MonoBehaviour
     public Ease gateCloseEase = Ease.OutElastic;
     public float openTime = 1;
     public float closeTime = 1;
-    
+
+    private void OnEnable()
+    {
+        Vector3 position = model.localPosition;
+        Vector3 scale = model.localScale;
+        model.localScale = Vector3.zero;
+        model.localPosition+=Vector3.up*5;
+        model.DOScale(scale,1.5f).SetEase(Ease.OutElastic);
+        model.DOLocalMoveY(0, 1).SetEase(Ease.OutBounce);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         GM.Instance.IncreaseMoney(other.transform.parent.GetComponent<Car>(),transform.position+Vector3.up);
@@ -25,5 +35,7 @@ public class Gate : MonoBehaviour
         DOTween.Kill(model);
         model.DOLocalRotate(new Vector3(0, 90, 0), closeTime).SetEase(gateCloseEase);
     }
+    
+    
     
 }

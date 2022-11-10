@@ -3433,7 +3433,7 @@ MonoBehaviour:
   sounds:
   - sound: {fileID: 8300000, guid: 7d366bb0b188584458dc63627c3b1137, type: 3}
     volume: 0.5
-  tutorialOn: 1
+  tutorialOn: 0
 --- !u!114 &1873127962
 MonoBehaviour:
   m_ObjectHideFlags: 0

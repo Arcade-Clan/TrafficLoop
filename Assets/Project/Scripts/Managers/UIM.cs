@@ -128,6 +128,7 @@ public class UIM : MonoSingleton<UIM>
       float cost = GM.Instance.upgrades[index].Cost();
       upgrades[index].goldText.text = "$" + PriceFormatting(cost);
       bool canBeBought = cost <= GM.Instance.gold;
+      if(index==1)
       if (canBeBought)
       {
          if(upgrades[index].state != "CanBuy")

@@ -49,6 +49,7 @@ public class PM : MonoSingleton<PM>
     {
         UIM.Instance.IncreaseTutorialProgression(1);
         Analytics.Instance.SendSpeedUp();
+        if(Options.Instance.vibrationsOn)
         Taptic.Light();
         StopCoroutine("SpeedUpCoolDown");
         GM.Instance.tapSpeed = GM.Instance.tapSpeedUpMultiplier;
@@ -236,6 +237,7 @@ public class PM : MonoSingleton<PM>
         cars[0].UpgradeCar();
         cars[0].StartCoroutine("MoveRoutine");
         GM.Instance.cars[cars[0].carIndex].cars.Add(cars[0]);
+        if(Options.Instance.vibrationsOn)
         Taptic.Medium();
         UIM.Instance.UpdateEconomyUI();
     }
@@ -364,6 +366,7 @@ public static class SizeUpExtension
     public static void SizeUpAnimation(this Transform button)
     {        
         GM.Instance.PlaySound(0);
+        if(Options.Instance.vibrationsOn)
         Taptic.Medium();
         button.DOKill();
         button.DOScale(1.2f, 0.25f).SetUpdate(UpdateType.Normal,true).OnComplete(

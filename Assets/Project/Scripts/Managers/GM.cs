@@ -121,6 +121,8 @@ public class GM : MonoSingleton<GM>
     
     public void PlaySound(int value)
     {
+        if (!Options.Instance.soundsOn)
+            return;
         if (sounds.Length > 0)
             GetComponent<AudioSource>().PlayOneShot(sounds[value].sound, sounds[value].volume);
     }
@@ -213,28 +215,4 @@ public void IncreaseMoney(Car car,Vector3 position)
     UIM.Instance.CreateText(value, position);
     UIM.Instance.UpdateEconomyUI();
 }
-
-#region Sounds
-
-    /*
-      [Serializable]
-      public class SoundClass
-      {
-  
-          public AudioClip sound;
-          [Range(0f, 1f)] public float volume = 1;
-  
-      }
-  
-      public SoundClass[] sounds;
-  
-      public void PlaySound(int value)
-      {
-          if (sounds.Length > 0)
-              GetComponent<AudioSource>().PlayOneShot(sounds[value].sound, sounds[value].volume);
-      }
-      */  
-
-#endregion
-    
 }

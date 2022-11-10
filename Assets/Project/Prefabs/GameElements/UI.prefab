@@ -24549,6 +24549,46 @@ MonoBehaviour:
     - {fileID: 3621279474173096937}
     carAmount: {fileID: 2738457067074581031}
     carValue: {fileID: 8494031081421889809}
+  - carImages:
+    - {fileID: 6071544375552658743}
+    - {fileID: 6608055088367784862}
+    carAmount: {fileID: 6830291106332406078}
+    carValue: {fileID: 3749565398074284833}
+  - carImages:
+    - {fileID: 5212183749952185739}
+    - {fileID: 3111577045276588492}
+    carAmount: {fileID: 1012746885463671085}
+    carValue: {fileID: 8817628234387941986}
+  - carImages:
+    - {fileID: 9134248786174860194}
+    - {fileID: 2811671679423992651}
+    carAmount: {fileID: 2234381326863944424}
+    carValue: {fileID: 6105499966240939539}
+  - carImages:
+    - {fileID: 3251569736594899255}
+    - {fileID: 2109993183092007674}
+    carAmount: {fileID: 8892707355998053464}
+    carValue: {fileID: 947616579365781226}
+  - carImages:
+    - {fileID: 6293665918807570264}
+    - {fileID: 4225706724892151545}
+    carAmount: {fileID: 7756025758667634237}
+    carValue: {fileID: 7750679684154628893}
+  - carImages:
+    - {fileID: 1989646610153414475}
+    - {fileID: 169194424536512656}
+    carAmount: {fileID: 6932610544012256209}
+    carValue: {fileID: 8619913978843929769}
+  - carImages:
+    - {fileID: 8954132976972629297}
+    - {fileID: 8575059335200246868}
+    carAmount: {fileID: 2297039586321353339}
+    carValue: {fileID: 47537604702333370}
+  - carImages:
+    - {fileID: 6884100431310507907}
+    - {fileID: 9085647296995943487}
+    carAmount: {fileID: 6799335734981261026}
+    carValue: {fileID: 5422202452625110273}
 --- !u!1 &6116168712733129720
 GameObject:
   m_ObjectHideFlags: 0

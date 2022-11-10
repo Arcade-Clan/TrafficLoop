@@ -24,7 +24,7 @@ public class TrafficController : MonoBehaviour
             
         }
         if(carProductionIndex.Count * GM.Instance.specialCarRandomChance > Random.Range(0f,1f))
-            carProductionIndex.Add(Random.Range(10,12));
+            carProductionIndex.Add(Random.Range(11,12));
         if(AdsM.Instance.adDetails[0].multiplierValue>0)
             carProductionIndex.Add(11);
         carProductionIndex.Shuffle();
@@ -132,8 +132,11 @@ public class TrafficController : MonoBehaviour
     {
         while (true)
         {
-            print(carProductionIndex.Count);
-            CreateCar(carProductionIndex.First()+Mathf.RoundToInt(AdsM.Instance.adDetails[4].multiplierValue));
+            int index = carProductionIndex.First();
+            if (index >= 9)
+                CreateCar(index);
+            else
+                CreateCar(index+Mathf.RoundToInt(AdsM.Instance.adDetails[4].multiplierValue));
             yield return new WaitForSeconds(GM.Instance.baseSecondCreation/GM.Instance.baseSecondCreationSpeedUp / PM.Instance.TotalCarCount());
             while (GM.Instance.stopCarCreationOnTrafficDensity < GM.Instance.trafficDensity)
                 yield return null;

@@ -52,8 +52,6 @@ public class GM : MonoSingleton<GM>
         public float baseValue;
         public float increment;
         public float expoRatio;
-        public float startValue;
-        public float incrementValue;
         public float[] upgradeValues;
         public int Cost()
         {
@@ -64,7 +62,7 @@ public class GM : MonoSingleton<GM>
             return Mathf.RoundToInt(upgradeValues[upgradeLevel]);
         }
 
-        public float Value() { return startValue + incrementValue * upgradeLevel; }
+
 
         public bool Max(int value)
         {
@@ -151,9 +149,8 @@ public class GM : MonoSingleton<GM>
         for (int a = 0; a < upgrades.Length; a++)
             upgrades[a].upgradeLevel = PlayerPrefs.GetInt(upgrades[a].upgradeName);
         merge.mergeLevel = PlayerPrefs.GetInt(merge.mergeName);
-        cars[0].carLevel = PlayerPrefs.GetInt(cars[0].carName, Mathf.RoundToInt(upgrades[0].Value()));
-        for (int a = 1; a < cars.Length; a++)
-            cars[a].carLevel = PlayerPrefs.GetInt(cars[a].carName);
+        for (int a = 0; a < cars.Length; a++)
+            cars[a].carLevel = PlayerPrefs.GetInt(cars[a].carName, cars[a].carLevel);
     }
     
     void Start()

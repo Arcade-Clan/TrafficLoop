@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityExtensions;
 
@@ -15,32 +17,11 @@ public class UIM : MonoSingleton<UIM>
    public TextMeshProUGUI incomePerMinute;
    public Image trafficDensity;
    public GameObject counterText;
-
-
-   [Serializable]
-   public class UpgradeClass
-   {
-      public TextMeshProUGUI goldText;
-      public GameObject upgradePanel;
-      public Image coverImage;
-   }
-
-   public UpgradeClass[] upgrades;
-
-   [Serializable]
-   public class MergeClass
-   {
-      public TextMeshProUGUI goldText;
-      public GameObject upgradePanel;
-      public Image coverImage;
-   }
-
-   public MergeClass merge;
-
+   public ButtonClass[] upgrades;
+   public ButtonClass merge;
    public int tutorialProgression;
    public GameObject[] tutorialHands;
    public bool tutorialInProgress;
-   
    
    void Awake()
    {
@@ -128,54 +109,94 @@ public class UIM : MonoSingleton<UIM>
 
    public void UpdateEconomyUI()
    {
-      float cost;
+      
       for (int a = 0; a < upgrades.Length; a++)
       {
          if (GM.Instance.upgrades[a].Max(a))
-         {
-            upgrades[a].upgradePanel.Hide();
-         }
+            upgrades[a].button.Hide();
          else
-         {
-
-            cost = GM.Instance.upgrades[a].Cost();
-            //upgrades[a].levelText.text = "LEVEL " + (GameManager.Instance.upgrades[a].upgradeLevel + 1);
-            upgrades[a].goldText.text = "$" + PriceFormatting(cost);
-            upgrades[a].coverImage.gameObject.SetActive(cost > GM.Instance.gold);
-            upgrades[a].coverImage.transform.parent.GetComponent<Button>().enabled = cost <= GM.Instance.gold;
-            if (cost <= GM.Instance.gold)
-            {
-               if (a == 0)
-                  TriggerTutorialProgression(0);
-               else if (a == 2)
-                  TriggerTutorialProgression(2);
-               else if (a == 1)
-                  TriggerTutorialProgression(4);
-            }
-         }
+            ProcessButtons(a);
       }
+      ProcessMerge();
+   }
+   
+   
+   
 
-
-         
-      merge.upgradePanel.Show();
-      cost = GM.Instance.merge.Cost();
-      merge.goldText.text = "$" + PriceFormatting(cost);
-      if (cost > GM.Instance.gold || !PM.Instance.CanMerge())
+   void ProcessButtons(int index)
+   {
+      float cost = GM.Instance.upgrades[index].Cost();
+      upgrades[index].goldText.text = "$" + PriceFormatting(cost);
+      bool canBeBought = cost <= GM.Instance.gold;
+      if (canBeBought)
       {
-         merge.coverImage.gameObject.SetActive(true);
-         merge.coverImage.transform.parent.GetComponent<Button>().enabled = false;
+         if(upgrades[index].state != "CanBuy")
+         {
+            upgrades[index].StopCoroutine("WaitForAdRoutine");
+            upgrades[index].adImage.Hide();
+            upgrades[index].button.interactable = true;
+            upgrades[index].state = "CanBuy";
+         }
       }
       else
       {
-         merge.coverImage.gameObject.SetActive(false);
-         merge.coverImage.transform.parent.GetComponent<Button>().enabled = true;
+         if (upgrades[index].state == "CanBuy")
+         {
+            upgrades[index].adImage.Hide();
+            upgrades[index].button.interactable = false;
+            upgrades[index].state = "NoMoney";
+            upgrades[index].StartCoroutine("WaitForAdRoutine");
+         }
       }
-
-      if (cost <= GM.Instance.gold)
-         TriggerTutorialProgression(3);
       
+      if (canBeBought)
+      {
+         if (index == 0)
+            TriggerTutorialProgression(0);
+         else if (index == 1)
+            TriggerTutorialProgression(4);
+         else if (index == 2)
+            TriggerTutorialProgression(2);
+      }  
    }
-
+   
+   void ProcessMerge()
+   {
+      float cost = GM.Instance.merge.Cost();
+      merge.goldText.text = "$" + PriceFormatting(cost);
+      bool canBeBought = cost <= GM.Instance.gold;
+      if (canBeBought && PM.Instance.CanMerge())
+      {
+         if(merge.state != "CanBuy")
+         {
+            merge.StopCoroutine("WaitForAdRoutine");
+            merge.adImage.Hide();
+            merge.button.interactable = true;
+            merge.state = "CanBuy";
+         }
+      }
+      else
+      {
+         bool canMerge = PM.Instance.CanMerge();
+         if ((merge.state == "CanBuy"||merge.state == "NoMerge") && canMerge)
+         {
+            merge.adImage.Hide();
+            merge.button.interactable = false;
+            merge.state = "NoMoney";
+            merge.StartCoroutine("WaitForAdRoutine");
+         }
+         else if ((merge.state == "CanBuy"||merge.state == "AdButton") && !canMerge)
+         {
+            merge.adImage.Hide();
+            merge.button.interactable = false;
+            merge.state = "NoMerge";
+         }
+      }
+      
+      if (canBeBought)
+         TriggerTutorialProgression(3); 
+   }
+   
    private int oldGold;
    public void UpdateGold()
    {

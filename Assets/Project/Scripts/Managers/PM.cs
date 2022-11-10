@@ -15,9 +15,7 @@ public class PM : MonoSingleton<PM>
             for (int a = 0; a < GM.Instance.cars.Length; a++)
                 calculatedCars.AddRange(GM.Instance.cars[a].cars);
             UIM.Instance.carAmount.text = "" + calculatedCars.Count;
-            UIM.Instance.carAmountPerMinute.text = "" + GM.Instance.upgrades[0].Value();
-            UIM.Instance.incomePerMinute.text = "" + GM.Instance.upgrades[0].Value();
-
+            
             float density = 0;
             for (int a = 0; a < calculatedCars.Count; a++)
             {
@@ -89,6 +87,19 @@ public class PM : MonoSingleton<PM>
 #endregion
 
 
+    public void IncreaseCarCountButton()
+    {
+        UIM.Instance.upgrades[0].button.transform.SizeUpAnimation();
+        if (UIM.Instance.upgrades[0].state == "CanBuy")
+        {
+            GM.Instance.gold -= GM.Instance.upgrades[0].Cost();
+            UIM.Instance.UpdateGold();
+            IncreaseCarCount();
+        }
+        else if (UIM.Instance.upgrades[0].state == "AdButton")
+            AdsM.Instance.Add3CarButton();
+    }
+    
     public void IncreaseCarCount()
     {
         if (!UIM.Instance.IncreaseTutorialProgression(0))
@@ -99,23 +110,21 @@ public class PM : MonoSingleton<PM>
         PlayerPrefs.SetInt(GM.Instance.cars[0].carName, GM.Instance.cars[0].carLevel);
         Upgrade(0);
         GM.Instance.trafficController.ProcessProductionIndex();
-        
-    }
-
-    public void Increase3Car()
-    {
-        if (!UIM.Instance.IncreaseTutorialProgression(0))
-            return;
-        //Analytics.Instance.SendCarBought();
-        GM.Instance.trafficController.AddCar(Mathf.RoundToInt(AdsM.Instance.adDetails[4].multiplierValue));
-        GM.Instance.cars[0].carLevel += 1; 
-        PlayerPrefs.SetInt(GM.Instance.cars[0].carName, GM.Instance.cars[0].carLevel);
-        GM.Instance.PlaySound(0);
-        UIM.Instance.UpdateEconomyUI(); 
-        GM.Instance.trafficController.ProcessProductionIndex();
     }
 
     
+    public void IncreaseSizeButton()
+    {
+        UIM.Instance.upgrades[1].button.transform.SizeUpAnimation();
+        if (UIM.Instance.upgrades[1].state == "CanBuy")
+        {
+            GM.Instance.gold -= GM.Instance.upgrades[1].Cost();
+            UIM.Instance.UpdateGold();
+            IncreaseSize();
+        }
+        else if (UIM.Instance.upgrades[1].state == "AdButton")
+            AdsM.Instance.IncreaseSizeButton();
+    }
     
     public void IncreaseSize()
     {
@@ -125,7 +134,21 @@ public class PM : MonoSingleton<PM>
         Upgrade(1);
         LM.Instance.SwitchLevel();
     }
-
+    
+    
+    public void IncreaseGatesButton()
+    {
+        UIM.Instance.upgrades[2].button.transform.SizeUpAnimation();
+        if(UIM.Instance.upgrades[2].state=="CanBuy")
+        {
+            GM.Instance.gold -= GM.Instance.upgrades[2].Cost();
+            UIM.Instance.UpdateGold();
+            IncreaseGates();
+        }
+        else if (UIM.Instance.upgrades[2].state == "AdButton")
+            AdsM.Instance.IncreaseGatesButton();
+    }
+    
     public void IncreaseGates()
     {
         if (!UIM.Instance.IncreaseTutorialProgression(2))
@@ -137,24 +160,30 @@ public class PM : MonoSingleton<PM>
     
     void Upgrade(int value)
     {
-        GM.Instance.PlaySound(0);
-        Taptic.Medium();
-        GM.Instance.gold -= GM.Instance.upgrades[value].Cost();
-        UIM.Instance.UpdateGold();
         GM.Instance.upgrades[value].upgradeLevel += 1;
         PlayerPrefs.SetInt(GM.Instance.upgrades[value].upgradeName, GM.Instance.upgrades[value].upgradeLevel);
         UIM.Instance.UpdateEconomyUI(); 
     }
 
+    public void MergeButton()
+    {UIM.Instance.merge.button.transform.SizeUpAnimation();
+        if (UIM.Instance.merge.state == "CanBuy")
+        {
+            GM.Instance.gold -= GM.Instance.merge.Cost();
+            UIM.Instance.UpdateGold();
+            Merge();
+        }
+        else if (UIM.Instance.merge.state == "AdButton")
+            AdsM.Instance.MergeButton();
+    }
+    
     public void Merge()
     {
 
         if (!UIM.Instance.IncreaseTutorialProgression(3))
             return;
-        GM.Instance.PlaySound(0);
-        Taptic.Medium();
-        GM.Instance.gold -= GM.Instance.merge.Cost();
-        UIM.Instance.UpdateGold();
+        if (!CanMerge())
+            return;
         GM.Instance.merge.mergeLevel += 1;
         PlayerPrefs.SetInt(GM.Instance.merge.mergeName, GM.Instance.merge.mergeLevel);
         Analytics.Instance.SendMergeLevel(GM.Instance.merge.mergeLevel);
@@ -225,6 +254,8 @@ public class PM : MonoSingleton<PM>
 
 
     #region AdProcesses
+    
+
     
     public IEnumerator FeverCarRoutine()
     {
@@ -306,10 +337,40 @@ public class PM : MonoSingleton<PM>
     {
         for (int a = 0; a < 3; a++)
         {
-            Increase3Car();
+            Add3Car();
             yield return new WaitForSeconds(0.5f);
         }
     }
     
+    public void Add3Car()
+    {
+        if (!UIM.Instance.IncreaseTutorialProgression(0))
+            return;
+        GM.Instance.trafficController.AddCar(Mathf.RoundToInt(AdsM.Instance.adDetails[4].multiplierValue));
+        GM.Instance.cars[0].carLevel += 1; 
+        PlayerPrefs.SetInt(GM.Instance.cars[0].carName, GM.Instance.cars[0].carLevel);
+        GM.Instance.PlaySound(0);
+        GM.Instance.trafficController.ProcessProductionIndex();
+        UIM.Instance.UpdateEconomyUI();
+    }
+    
     #endregion
+
+
+
+}
+public static class SizeUpExtension
+{
+    public static void SizeUpAnimation(this Transform button)
+    {        
+        GM.Instance.PlaySound(0);
+        Taptic.Medium();
+        button.DOKill();
+        button.DOScale(1.2f, 0.25f).SetUpdate(UpdateType.Normal,true).OnComplete(
+            ()=>
+            {
+                button.localScale = Vector3.one*1.2f;
+                button.DOScale(1f, 0.25f).SetEase(Ease.InSine).SetUpdate(UpdateType.Normal, true);
+            });
+    }  
 }

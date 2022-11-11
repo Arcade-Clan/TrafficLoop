@@ -9123,6 +9123,7 @@ MonoBehaviour:
   button: {fileID: 5011611659847267057}
   adImage: {fileID: 1008809427}
   state: CanBuy
+  adsEnabled: 0
 --- !u!1 &1982145768389213655
 GameObject:
   m_ObjectHideFlags: 0
@@ -9279,6 +9280,7 @@ MonoBehaviour:
   button: {fileID: 1720970304180032552}
   adImage: {fileID: 886051734}
   state: CanBuy
+  adsEnabled: 0
 --- !u!1 &1982145768435039940
 GameObject:
   m_ObjectHideFlags: 0
@@ -10382,6 +10384,7 @@ MonoBehaviour:
   button: {fileID: 5791503732254426950}
   adImage: {fileID: 857237259}
   state: CanBuy
+  adsEnabled: 0
 --- !u!1 &1982145769942618334
 GameObject:
   m_ObjectHideFlags: 0
@@ -29106,6 +29109,7 @@ MonoBehaviour:
   button: {fileID: 8045780469752215632}
   adImage: {fileID: 3171750462544168682}
   state: CanBuy
+  adsEnabled: 0
 --- !u!1 &7558124900859221463
 GameObject:
   m_ObjectHideFlags: 0

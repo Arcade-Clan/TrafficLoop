@@ -21,6 +21,7 @@ public class AdsM : MonoSingleton<AdsM>
         public TextMeshProUGUI timer;
         public float timerValue;
         public float multiplierValue;
+        public bool adsEnabled = true;
     }
     public AdButtonsClass[] adDetails;
     public TMP_Text noAdsText;

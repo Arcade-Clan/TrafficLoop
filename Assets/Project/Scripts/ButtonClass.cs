@@ -11,6 +11,7 @@ public class ButtonClass : MonoBehaviour
     public Button button;
     public GameObject adImage;
     public string state = "NoMoney";
+    public bool adsEnabled = false;
     public IEnumerator WaitForAdRoutine()
     {
         yield return new WaitForSeconds(2);

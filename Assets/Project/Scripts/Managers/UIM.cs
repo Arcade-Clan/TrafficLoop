@@ -153,7 +153,8 @@ public class UIM : MonoSingleton<UIM>
             upgrades[index].adImage.Hide();
             upgrades[index].button.interactable = false;
             upgrades[index].state = "NoMoney";
-            upgrades[index].StartCoroutine("WaitForAdRoutine");
+            if (upgrades[index].adsEnabled)
+               upgrades[index].StartCoroutine("WaitForAdRoutine");
          }
       }
       
@@ -183,7 +184,7 @@ public class UIM : MonoSingleton<UIM>
             merge.state = "CanBuy";
          }
       }
-      else
+      else 
       {
          bool canMerge = PM.Instance.CanMerge();
          if ((merge.state == "CanBuy"||merge.state == "NoMerge") && canMerge)
@@ -191,6 +192,7 @@ public class UIM : MonoSingleton<UIM>
             merge.adImage.Hide();
             merge.button.interactable = false;
             merge.state = "NoMoney";
+            if (merge.adsEnabled)
             merge.StartCoroutine("WaitForAdRoutine");
          }
          else if ((merge.state == "CanBuy"||merge.state == "AdButton") && !canMerge)

@@ -21,8 +21,7 @@ public class Car : MonoBehaviour
     public List<Car> ignoredCars;
     public Car lastCar;
     public int priority;
-    public bool feverCar;
-    
+
     void Awake()
     {
         priority = Random.Range(-int.MaxValue, int.MaxValue);
@@ -73,7 +72,7 @@ public class Car : MonoBehaviour
                 text.text = "Crash\n" + collidedCar.gameObject.name;
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GM.Instance.slowStrength);
             }
-            else if (trafficLight&& !feverCar)
+            else if (trafficLight&& !cars[carIndex].feverCar)
             {
                 text.text = "Light";
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GM.Instance.slowStrength);
@@ -124,7 +123,7 @@ public class Car : MonoBehaviour
     
     Car CheckRay()
     {
-        if (feverCar)
+        if (cars[carIndex].feverCar)
             return null;
         float ray = GM.Instance.rayDistance;
 

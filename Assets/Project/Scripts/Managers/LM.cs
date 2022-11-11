@@ -38,7 +38,7 @@ public class LM : MonoSingleton<LM>
     public void ProcessTaggedObjects()
     {
         List<GameObject> roads = GameObject.FindGameObjectsWithTag("Road").ToList();
-        roads = roads.OrderBy(p => p.transform.position.x+p.transform.position.z).ToList();
+        roads = roads.OrderBy(p => Mathf.Abs(p.transform.position.x+p.transform.position.z)).ToList();
         for (int a = 0; a < roads.Count; a++)
             Place(roads[a].transform,a);
     }

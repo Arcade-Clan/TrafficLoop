@@ -308,12 +308,15 @@ public class PM : MonoSingleton<PM>
         AdsM.Instance.adDetails[index].timer.Show();
         AdsM.Instance.adDetails[index].adImage.Hide();
         AdsM.Instance.adDetails[index].rayImage.Show();
+        AdsM.Instance.adDetails[index].buttonObject.transform.DOScale(1.1f,0.5f).SetDelay(0.5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetUpdate(UpdateType.Normal,true);
         float timer = Time.realtimeSinceStartup;
         while (timer + AdsM.Instance.adDetails[index].timerValue > Time.realtimeSinceStartup)
         {
             AdsM.Instance.adDetails[index].timer.text = "" + string.Format("{0:N1}", (AdsM.Instance.adDetails[4].timerValue - (Time.realtimeSinceStartup - timer)));
             yield return null;
         }
+        AdsM.Instance.adDetails[index].buttonObject.transform.DOKill();
+        AdsM.Instance.adDetails[index].buttonObject.transform.localScale = Vector3.one;
         AdsM.Instance.adDetails[index].text.Show();
         AdsM.Instance.adDetails[index].timer.Hide();
         AdsM.Instance.adDetails[index].adImage.Show();
@@ -369,19 +372,13 @@ public static class SizeUpExtension
     {        
         GM.Instance.PlaySound(0);
         if(Options.Instance.vibrationsOn)
-        Taptic.Medium();
+            Taptic.Medium();
         button.DOKill();
-        if (button.GetComponent<DOTweenAnimation>())
-            button.GetComponent<DOTweenAnimation>().DOPause();
         button.DOScale(1.2f, 0.25f).SetUpdate(UpdateType.Normal,true).OnComplete(
             ()=>
             {
                 button.localScale = Vector3.one*1.2f;
-                button.DOScale(1f, 0.25f).SetEase(Ease.InSine).SetUpdate(UpdateType.Normal, true).OnComplete(() =>
-                {
-                    if (button.GetComponent<DOTweenAnimation>())
-                        button.GetComponent<DOTweenAnimation>().DOPlay();
-                });
+                button.DOScale(1f, 0.25f).SetEase(Ease.InSine).SetUpdate(UpdateType.Normal, true);
             });
     }  
 }

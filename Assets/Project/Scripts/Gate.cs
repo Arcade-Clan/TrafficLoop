@@ -14,8 +14,9 @@ public class Gate : MonoBehaviour
     public float openTime = 1;
     public float closeTime = 1;
 
-    private bool opened = false;
-    private void OnEnable()
+    public  bool opened = false;
+    
+    public void OnEnable()
     {
         if (opened)
             return;

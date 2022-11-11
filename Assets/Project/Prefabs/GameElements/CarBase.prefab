@@ -6602,6 +6602,7 @@ MonoBehaviour:
   - {fileID: 3232730309715248631}
   trail: {fileID: 874652114481287817}
   carSpeed: 12
+  feverCar: 0
 --- !u!1 &3229449728200590401
 GameObject:
   m_ObjectHideFlags: 0
@@ -7890,7 +7891,6 @@ MonoBehaviour:
   ignoredCars: []
   lastCar: {fileID: 0}
   priority: 0
-  feverCar: 0
 --- !u!54 &5219968147369929050
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8042,6 +8042,7 @@ MonoBehaviour:
   - {fileID: 140929272303803115}
   trail: {fileID: 6538477736475773506}
   carSpeed: 12
+  feverCar: 0
 --- !u!4 &140929272303803115 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400016, guid: 023330564f43c4d5c8c7c13f7ff35a7f,
@@ -8502,6 +8503,7 @@ MonoBehaviour:
   - {fileID: 597630457826528978}
   trail: {fileID: 834913840282037464}
   carSpeed: 12
+  feverCar: 0
 --- !u!4 &597630457826528978 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400008, guid: efca464709bbf45c4888e606d80513fa,
@@ -8797,6 +8799,7 @@ MonoBehaviour:
   - {fileID: 1128896086340455415}
   trail: {fileID: 8894997619185098633}
   carSpeed: 12
+  feverCar: 0
 --- !u!4 &1128896086340455415 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400008, guid: 1764a650689d540d6b7b6fded61dbd78,
@@ -9320,6 +9323,7 @@ MonoBehaviour:
   - {fileID: 1649373797832274772}
   trail: {fileID: 6538477736475773506}
   carSpeed: 12
+  feverCar: 0
 --- !u!1001 &1752653336061454800
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9606,6 +9610,7 @@ MonoBehaviour:
   - {fileID: 1980655106572945999}
   trail: {fileID: 3716835279018700663}
   carSpeed: 12
+  feverCar: 0
 --- !u!1001 &2052077141697548818
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10706,6 +10711,7 @@ MonoBehaviour:
   - {fileID: 2822647337172662517}
   trail: {fileID: 0}
   carSpeed: 12
+  feverCar: 0
 --- !u!1001 &2852297080252639239
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10895,6 +10901,7 @@ MonoBehaviour:
   - {fileID: 2852297080252248719}
   trail: {fileID: 5966149339362112158}
   carSpeed: 12
+  feverCar: 0
 --- !u!1001 &3111884330684882014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10912,7 +10919,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 97bd7a6d9368047778e61f062f52f51c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 97bd7a6d9368047778e61f062f52f51c, type: 3}
       propertyPath: m_RootOrder
@@ -11014,6 +11021,7 @@ MonoBehaviour:
   - {fileID: 3111884330685007574}
   trail: {fileID: 6538477736475773506}
   carSpeed: 12
+  feverCar: 0
 --- !u!4 &3111884330685007574 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400008, guid: 97bd7a6d9368047778e61f062f52f51c,
@@ -11893,6 +11901,7 @@ MonoBehaviour:
   - {fileID: 4005932910765569638}
   trail: {fileID: 7583489058025341504}
   carSpeed: 12
+  feverCar: 0
 --- !u!1001 &4015530360413818779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12264,6 +12273,7 @@ MonoBehaviour:
   - {fileID: 4523386152227701021}
   trail: {fileID: 4768139848934165673}
   carSpeed: 12
+  feverCar: 0
 --- !u!4 &4523386152227701009 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400006, guid: a1376ee7329e94f1b8899a2fcc99f035,
@@ -12576,6 +12586,7 @@ MonoBehaviour:
   - {fileID: 4749118791955509328}
   trail: {fileID: 6538477736475773506}
   carSpeed: 12
+  feverCar: 0
 --- !u!1001 &5137494403607416406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13060,8 +13071,8 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5684524360129100785}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -13083,7 +13094,8 @@ MonoBehaviour:
   - {fileID: 5684524360128997317}
   - {fileID: 5684524360128997319}
   trail: {fileID: 6538477736475773506}
-  carSpeed: 12
+  carSpeed: 30
+  feverCar: 1
 --- !u!1001 &5833290250542396707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13806,6 +13818,7 @@ MonoBehaviour:
   - {fileID: 6096527685816404539}
   trail: {fileID: 7586048007232143855}
   carSpeed: 12
+  feverCar: 0
 --- !u!1001 &6225200497518658116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14051,6 +14064,7 @@ MonoBehaviour:
   - {fileID: 6225200497518270678}
   trail: {fileID: 6091279755948723038}
   carSpeed: 12
+  feverCar: 0
 --- !u!1001 &6463474316898055533
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14375,6 +14389,7 @@ MonoBehaviour:
   - {fileID: 6768745469797854342}
   trail: {fileID: 3888431211703056364}
   carSpeed: 12
+  feverCar: 0
 --- !u!4 &6768745469797854342 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400008, guid: f3ae43071afdf4b1b9cea731dc5a1bee,
@@ -14719,6 +14734,7 @@ MonoBehaviour:
   - {fileID: 7178118505041626212}
   trail: {fileID: 0}
   carSpeed: 12
+  feverCar: 0
 --- !u!1001 &7545209904126024321
 PrefabInstance:
   m_ObjectHideFlags: 0

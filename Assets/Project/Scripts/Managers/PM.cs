@@ -261,7 +261,7 @@ public class PM : MonoSingleton<PM>
     
     public IEnumerator FeverCarRoutine()
     {
-        GM.Instance.trafficController.CreateCar(11);
+        GM.Instance.trafficController.AddCar(16);
         AdsM.Instance.adDetails[0].multiplierValue = 1;
         GM.Instance.trafficController.ProcessProductionIndex();
         UIM.Instance.UpdateEconomyUI();

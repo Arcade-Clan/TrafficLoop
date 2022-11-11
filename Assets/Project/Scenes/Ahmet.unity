@@ -1108,6 +1108,7 @@ MonoBehaviour:
     timerValue: 30
     multiplierValue: -1
     adsEnabled: 1
+    popUpPanel: {fileID: 0}
   - buttonObject: {fileID: 183487501}
     rayImage: {fileID: 1110900734}
     adImage: {fileID: 963393289}
@@ -1116,6 +1117,7 @@ MonoBehaviour:
     timerValue: 30
     multiplierValue: 1
     adsEnabled: 1
+    popUpPanel: {fileID: 0}
   - buttonObject: {fileID: 185151950}
     rayImage: {fileID: 743650397}
     adImage: {fileID: 1527429960}
@@ -1124,6 +1126,7 @@ MonoBehaviour:
     timerValue: 30
     multiplierValue: 1
     adsEnabled: 1
+    popUpPanel: {fileID: 0}
   - buttonObject: {fileID: 1648942048}
     rayImage: {fileID: 127510232}
     adImage: {fileID: 1530120940}
@@ -1132,6 +1135,7 @@ MonoBehaviour:
     timerValue: 30
     multiplierValue: 1
     adsEnabled: 1
+    popUpPanel: {fileID: 0}
   - buttonObject: {fileID: 917606534}
     rayImage: {fileID: 262417693}
     adImage: {fileID: 1683928351}
@@ -1140,6 +1144,7 @@ MonoBehaviour:
     timerValue: 30
     multiplierValue: 0
     adsEnabled: 1
+    popUpPanel: {fileID: 0}
   - buttonObject: {fileID: 1880037868}
     rayImage: {fileID: 322904446}
     adImage: {fileID: 1228528234}
@@ -1148,6 +1153,7 @@ MonoBehaviour:
     timerValue: -1
     multiplierValue: -1
     adsEnabled: 1
+    popUpPanel: {fileID: 0}
   noAdsText: {fileID: 1045671343}
   adReady: 1
 --- !u!4 &1664989339 stripped
@@ -1536,7 +1542,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1873127959}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -1643,8 +1649,8 @@ MonoBehaviour:
   sounds:
   - {fileID: 1843886573}
   - {fileID: 609616818}
-  soundsOn: 0
-  vibrationsOn: 0
+  soundsOn: 1
+  vibrationsOn: 1
 --- !u!114 &1880037868 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3668158586529198833, guid: 2b299400713d7c8409b221abfe170205,

@@ -13,7 +13,7 @@ public class Options : MonoSingleton<Options>
     public bool vibrationsOn;
     void Start()
     {
-        soundsOn = Convert.ToBoolean(PlayerPrefs.GetInt("Sounds", 0));
+        soundsOn = Convert.ToBoolean(PlayerPrefs.GetInt("Sounds", 1));
         vibrationsOn = Convert.ToBoolean(PlayerPrefs.GetInt("Vibrations", 1));
         ProcessOptions();
     }

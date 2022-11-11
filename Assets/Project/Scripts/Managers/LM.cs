@@ -43,8 +43,8 @@ public class LM : MonoSingleton<LM>
         Vector3 scale = road.localScale;
         road.localScale = Vector3.zero;
         road.localPosition += Vector3.up * 10;
-        road.DOScale(scale,0.5f).SetDelay(index/20f).SetEase(Ease.OutBack);
-        road.DOLocalMoveY(position.y, 0.5f).SetDelay(index/20f);
+        road.DOScale(scale,0.5f).SetDelay(index/20f).SetEase(Ease.OutBack).SetUpdate(UpdateType.Normal,true);
+        road.DOLocalMoveY(position.y, 0.5f).SetDelay(index/20f).SetUpdate(UpdateType.Normal, true);
     }
     
     public void UpdateGates()

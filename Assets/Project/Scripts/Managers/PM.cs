@@ -90,7 +90,7 @@ public class PM : MonoSingleton<PM>
 
     public void IncreaseCarCountButton()
     {
-        UIM.Instance.upgrades[0].button.transform.SizeUpAnimation();
+        UIM.Instance.upgrades[0].button.transform.SizeUpAnimation("AddCar");
         if (UIM.Instance.upgrades[0].state == "CanBuy")
         {
             GM.Instance.gold -= GM.Instance.upgrades[0].Cost();
@@ -116,7 +116,7 @@ public class PM : MonoSingleton<PM>
     
     public void IncreaseSizeButton()
     {
-        UIM.Instance.upgrades[1].button.transform.SizeUpAnimation();
+        UIM.Instance.upgrades[1].button.transform.SizeUpAnimation("IncreaseSize");
         if (UIM.Instance.upgrades[1].state == "CanBuy")
         {
             GM.Instance.gold -= GM.Instance.upgrades[1].Cost();
@@ -139,7 +139,7 @@ public class PM : MonoSingleton<PM>
     
     public void IncreaseGatesButton()
     {
-        UIM.Instance.upgrades[2].button.transform.SizeUpAnimation();
+        UIM.Instance.upgrades[2].button.transform.SizeUpAnimation("IncreaseIncome");
         if(UIM.Instance.upgrades[2].state=="CanBuy")
         {
             GM.Instance.gold -= GM.Instance.upgrades[2].Cost();
@@ -167,7 +167,7 @@ public class PM : MonoSingleton<PM>
     }
 
     public void MergeButton()
-    {UIM.Instance.merge.button.transform.SizeUpAnimation();
+    {UIM.Instance.merge.button.transform.SizeUpAnimation("Merge");
         if (UIM.Instance.merge.state == "CanBuy")
         {
             GM.Instance.gold -= GM.Instance.merge.Cost();
@@ -238,15 +238,15 @@ public class PM : MonoSingleton<PM>
         cars[0].StartCoroutine("MoveRoutine");
         GM.Instance.cars[cars[0].carIndex].cars.Add(cars[0]);
         if(Options.Instance.vibrationsOn)
-        Taptic.Medium();
+            Taptic.Medium();
         UIM.Instance.UpdateEconomyUI();
     }
     
     public bool CanMerge()
     {
-        for (int a = 0; a < GM.Instance.cars.Length-1; a++)
+        for (int a = 0; a < 8; a++)
         {
-            if (GM.Instance.cars[a].cars.Count >= 3 && !GM.Instance.cars[a].specialCar)
+            if (GM.Instance.cars[a].cars.Count >= 3)
                 return true;
         }
 
@@ -368,8 +368,9 @@ public class PM : MonoSingleton<PM>
 }
 public static class SizeUpExtension
 {
-    public static void SizeUpAnimation(this Transform button)
-    {        
+    public static void SizeUpAnimation(this Transform button,string name)
+    {
+        Analytics.Instance.ButtonTapped(name);
         GM.Instance.PlaySound(0);
         if(Options.Instance.vibrationsOn)
             Taptic.Medium();

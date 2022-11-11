@@ -98,7 +98,12 @@ public class AdsM : MonoSingleton<AdsM>
                 break;
             }
             case RLRewardedAdResult.Failed:
+            {
+                Analytics.Instance.RewardedFailed(currentRewarded.Method.Name);
+                currentRewarded = null;
                 break;
+            }
+
             default:
                 break;
         }
@@ -106,7 +111,8 @@ public class AdsM : MonoSingleton<AdsM>
 
     void AcceptReward()
     {
-        Analytics.Instance.RewardedImpression(currentRewarded.Method.Name);
+        Analytics.Instance.RewardedCompleted(currentRewarded.Method.Name);
+        Analytics.Instance.BoosterUsed(currentRewarded.Method.Name);
         currentRewarded();
         currentRewarded = null;
         StopCoroutine("InterRoutine");
@@ -154,7 +160,7 @@ public class AdsM : MonoSingleton<AdsM>
     
     public void AddLastCarButton()
     {      
-        adDetails[5].buttonObject.transform.SizeUpAnimation();  
+        adDetails[5].buttonObject.transform.SizeUpAnimation("AddLastCar");  
         Analytics.Instance.RewardedTapped("AddLastCar");
         ProcessAds(AddLastCar);
     }
@@ -165,7 +171,8 @@ public class AdsM : MonoSingleton<AdsM>
     
     
     public void SpeedUpButton()
-    {     adDetails[2].buttonObject.transform.SizeUpAnimation();     
+    {     
+        adDetails[2].buttonObject.transform.SizeUpAnimation("SpeedUp");     
         Analytics.Instance.RewardedTapped("SpeedUp");
         ProcessAds(SpeedUp);
     }
@@ -176,7 +183,8 @@ public class AdsM : MonoSingleton<AdsM>
     
     
     public void AddIncomeButton()
-    {      adDetails[3].buttonObject.transform.SizeUpAnimation();    
+    {      
+        adDetails[3].buttonObject.transform.SizeUpAnimation("AddIncome");    
         Analytics.Instance.RewardedTapped("AddIncome");
         ProcessAds(AddIncome);
     }
@@ -187,7 +195,8 @@ public class AdsM : MonoSingleton<AdsM>
 
     
     public void AutoTapButton()
-    {      adDetails[1].buttonObject.transform.SizeUpAnimation();    
+    {      
+        adDetails[1].buttonObject.transform.SizeUpAnimation("AutoTapButton");    
         Analytics.Instance.RewardedTapped("AutoTapButton");
         ProcessAds(AutoTap);
     }
@@ -199,7 +208,8 @@ public class AdsM : MonoSingleton<AdsM>
     
     
     public void EvolveCarsButton()
-    {      adDetails[4].buttonObject.transform.SizeUpAnimation();    
+    {      
+        adDetails[4].buttonObject.transform.SizeUpAnimation("EvolveCars");    
         Analytics.Instance.RewardedTapped("EvolveCars");
         ProcessAds(EvolveCars);
     }
@@ -210,7 +220,8 @@ public class AdsM : MonoSingleton<AdsM>
     
     
     public void FeverCarButton()
-    {adDetails[0].buttonObject.transform.SizeUpAnimation();  
+    {
+        adDetails[0].buttonObject.transform.SizeUpAnimation("FeverCar");  
         Analytics.Instance.RewardedTapped("FeverCar");
         ProcessAds(FeverCar);
     } 

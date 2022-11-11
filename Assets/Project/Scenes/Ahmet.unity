@@ -358,6 +358,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3686050261199056326, guid: cb71918fbc755ea4385d7efcde5358cf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4933288915614212924, guid: cb71918fbc755ea4385d7efcde5358cf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8165020044108635252, guid: cb71918fbc755ea4385d7efcde5358cf,
         type: 3}
       propertyPath: m_RootOrder
@@ -820,12 +830,12 @@ MonoBehaviour:
   levelIndexes: 0000000000000000
   level: {fileID: 800387462}
   gates: []
-  roadScaleEase: 27
+  roadScaleEase: 21
   roadScaleDuration: 0.5
   roadPositionEase: 3
-  roadStartHeight: 10
+  roadStartHeight: 15
   roadPositionDuration: 0.5
-  roadDelayDuration: 0.05
+  roadDelayDuration: 0.01
 --- !u!4 &1321211127 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 8da5f2e05a5504e6a92c1529545b62e8,
@@ -1333,7 +1343,7 @@ MonoBehaviour:
   tapSpeed: 1
   baseSecondCreation: 10
   baseSecondCreationSpeedUp: 2
-  baseSecondCreationSpeedUpMultiplier: 2
+  baseSecondCreationSpeedUpMultiplier: 1.2
   trafficDensity: 0
   stopCarCreationOnTrafficDensity: 0.55
   specialCarRandomChance: 0.01

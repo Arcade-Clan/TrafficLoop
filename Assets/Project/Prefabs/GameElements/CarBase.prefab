@@ -13126,7 +13126,7 @@ MonoBehaviour:
   - {fileID: 5684524360128997317}
   - {fileID: 5684524360128997319}
   trail: {fileID: 6538477736475773506}
-  carSpeed: 30
+  carSpeed: 21
   feverCar: 1
 --- !u!1001 &5833290250542396707
 PrefabInstance:

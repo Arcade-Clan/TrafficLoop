@@ -75,6 +75,11 @@ public class Analytics : MonoSingleton<Analytics>
         Elephant.Transaction("cash_earned",1, 0,value,"Gate");
         Elephant.Event("money", GM.Instance.gold);
     }
+
+    public void PopUpShown(string value)
+    {
+        Elephant.Event("popup_shown", 1, Params.New().Set("type", value));
+    }
     
     public void SendSizeUp()
     {

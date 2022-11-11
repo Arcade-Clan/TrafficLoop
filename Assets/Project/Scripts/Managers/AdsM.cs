@@ -14,6 +14,7 @@ public class AdsM : MonoSingleton<AdsM>
     [Serializable]
     public class AdButtonsClass
     {
+        public string name;
         public Button buttonObject;
         public GameObject rayImage;
         public GameObject adImage;
@@ -312,7 +313,7 @@ public class AdsM : MonoSingleton<AdsM>
 
     public void OpenPopUp(int index)
     {
-        
+        Analytics.Instance.PopUpShown(adDetails[index].name);
     }
 
     

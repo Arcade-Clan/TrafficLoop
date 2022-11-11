@@ -200,7 +200,7 @@ public class PM : MonoSingleton<PM>
         int carIndex = 0;
         for (int a = 0; a < GM.Instance.cars.Length - 1; a++)
         {
-            if (GM.Instance.cars[a].cars.Count >= 3&&!GM.Instance.cars[a].specialCar)
+            if (GM.Instance.cars[a].carLevel >= 3&&!GM.Instance.cars[a].specialCar)
             {
                 carIndex = a;
                 break;
@@ -250,7 +250,7 @@ public class PM : MonoSingleton<PM>
     {
         for (int a = 0; a < 8; a++)
         {
-            if (GM.Instance.cars[a].cars.Count >= 3)
+            if (GM.Instance.cars[a].carLevel >= 3)
                 return true;
         }
 

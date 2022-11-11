@@ -46,13 +46,7 @@ public class UIM : MonoSingleton<UIM>
    public void TriggerTutorialProgression(int index)
    {
       if (tutorialProgression != index)
-      {
-         upgrades[0].adsEnabled = true;
-         upgrades[1].adsEnabled = true;
-         upgrades[2].adsEnabled = true;
-         merge.adsEnabled = true;
          return;
-      }
       tutorialInProgress = true;
       tutorialHands[index].Show();
    }
@@ -61,7 +55,13 @@ public class UIM : MonoSingleton<UIM>
    public bool IncreaseTutorialProgression(int index)
    {
       if (tutorialProgression > 4)
+      {
+         upgrades[0].adsEnabled = true;
+         upgrades[1].adsEnabled = true;
+         upgrades[2].adsEnabled = true;
+         merge.adsEnabled = true;
          return true;
+      }
       if (tutorialProgression != index)
          return false;
       tutorialProgression++;

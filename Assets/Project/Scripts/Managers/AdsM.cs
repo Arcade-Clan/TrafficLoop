@@ -117,9 +117,6 @@ public class AdsM : MonoSingleton<AdsM>
                 currentRewarded = null;
                 break;
             }
-
-            default:
-                break;
         }
     }
 
@@ -251,7 +248,11 @@ public class AdsM : MonoSingleton<AdsM>
     void Update()
     {
         ShowSpeedUpPopUp();
-        
+        AddIncomePopUp();
+        FeverCarPopUp();
+        EvolveCarsPopUp();
+        AutoTapPopUp();
+        GetNewCarPopUp();
     }
 
 

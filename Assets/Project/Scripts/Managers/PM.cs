@@ -90,6 +90,8 @@ public class PM : MonoSingleton<PM>
 
     public void IncreaseCarCountButton()
     {
+        if (!UIM.Instance.IncreaseTutorialProgression(0))
+            return;
         UIM.Instance.upgrades[0].button.transform.SizeUpAnimation("AddCar");
         if (UIM.Instance.upgrades[0].state == "CanBuy")
         {
@@ -103,8 +105,7 @@ public class PM : MonoSingleton<PM>
     
     public void IncreaseCarCount()
     {
-        if (!UIM.Instance.IncreaseTutorialProgression(0))
-            return;
+
         Analytics.Instance.SendCarBought();
         GM.Instance.trafficController.AddCar(Mathf.RoundToInt(AdsM.Instance.adDetails[4].multiplierValue));
         GM.Instance.cars[0].carLevel += 1; 
@@ -116,6 +117,8 @@ public class PM : MonoSingleton<PM>
     
     public void IncreaseSizeButton()
     {
+        if (!UIM.Instance.IncreaseTutorialProgression(4))
+            return;
         UIM.Instance.upgrades[1].button.transform.SizeUpAnimation("IncreaseSize");
         if (UIM.Instance.upgrades[1].state == "CanBuy")
         {
@@ -129,8 +132,7 @@ public class PM : MonoSingleton<PM>
     
     public void IncreaseSize()
     {
-        if (!UIM.Instance.IncreaseTutorialProgression(4))
-            return;
+
         Analytics.Instance.SendSizeUp();
         Upgrade(1);
         LM.Instance.SwitchLevel();
@@ -139,6 +141,8 @@ public class PM : MonoSingleton<PM>
     
     public void IncreaseGatesButton()
     {
+        if (!UIM.Instance.IncreaseTutorialProgression(2))
+            return;
         UIM.Instance.upgrades[2].button.transform.SizeUpAnimation("IncreaseIncome");
         if(UIM.Instance.upgrades[2].state=="CanBuy")
         {
@@ -152,8 +156,6 @@ public class PM : MonoSingleton<PM>
     
     public void IncreaseGates()
     {
-        if (!UIM.Instance.IncreaseTutorialProgression(2))
-            return;
         Analytics.Instance.SendIncomeClicked();
         Upgrade(2);
         LM.Instance.UpdateGates();
@@ -167,7 +169,10 @@ public class PM : MonoSingleton<PM>
     }
 
     public void MergeButton()
-    {UIM.Instance.merge.button.transform.SizeUpAnimation("Merge");
+    {
+        if (!UIM.Instance.IncreaseTutorialProgression(3))
+            return;
+        UIM.Instance.merge.button.transform.SizeUpAnimation("Merge");
         if (UIM.Instance.merge.state == "CanBuy")
         {
             GM.Instance.gold -= GM.Instance.merge.Cost();
@@ -181,8 +186,7 @@ public class PM : MonoSingleton<PM>
     public void Merge()
     {
 
-        if (!UIM.Instance.IncreaseTutorialProgression(3))
-            return;
+
         if (!CanMerge())
             return;
         GM.Instance.merge.mergeLevel += 1;

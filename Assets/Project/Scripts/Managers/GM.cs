@@ -174,6 +174,11 @@ public class GM : MonoSingleton<GM>
 #region HelperUpdate
 void Update()
     {
+        if (Input.GetMouseButton(1))
+        {
+            PlayerPrefs.DeleteAll();
+            Application.LoadLevel(1);
+        }
         if(Application.isEditor)
         {
             if (Input.GetKey(KeyCode.M) || Input.GetMouseButton(1))
@@ -194,6 +199,8 @@ void Update()
             else if (Input.GetKeyUp(KeyCode.S) || Input.GetMouseButtonUp(2))
                 simulationSpeed = 1;
         }
+
+
     }
 
 #endregion
@@ -212,4 +219,7 @@ public void IncreaseMoney(Car car,Vector3 position)
     UIM.Instance.CreateText(value, position);
     UIM.Instance.UpdateEconomyUI();
 }
+
+
+
 }

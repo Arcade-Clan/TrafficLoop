@@ -17,7 +17,6 @@ public class Gate : MonoBehaviour
     
     public void Start()
     {
-        print(gameObject.name);
         Vector3 position = model.localPosition;
         Vector3 scale = model.localScale;
         model.localScale = Vector3.zero;

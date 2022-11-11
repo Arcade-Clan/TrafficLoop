@@ -22,6 +22,7 @@ public class AdsM : MonoSingleton<AdsM>
         public float timerValue;
         public float multiplierValue;
         public bool adsEnabled = true;
+        public GameObject popUpPanel;
     }
     public AdButtonsClass[] adDetails;
     public TMP_Text noAdsText;
@@ -42,6 +43,8 @@ public class AdsM : MonoSingleton<AdsM>
         RLAdvertisementManager.Instance.rewardedAdResultCallback = RewardedAdResultCallback;
         RLAdvertisementManager.OnRollicAdsSdkInitializedEvent += OnSdkInit;
         RLAdvertisementManager.OnRollicAdsAdFailedEvent += OnBannerFailed;
+        if(Application.isEditor)
+            StartCoroutine("InterRoutine");
     }
     
     void OnSdkInit() 
@@ -54,21 +57,32 @@ public class AdsM : MonoSingleton<AdsM>
     {
         if (!PlayerPrefs.HasKey("FirstInter"))
         {
-            yield return new WaitForSecondsRealtime(120);
+            yield return StartCoroutine("Waiter",120);
             PlayerPrefs.SetInt("FirstInter", 1);
         }
         else
-            yield return new WaitForSecondsRealtime(90);
+            yield return StartCoroutine("Waiter", 90);
 
         while (true)
         {
-            while (!RLAdvertisementManager.Instance.isInterstitialReady())
+            while (!RLAdvertisementManager.Instance.isInterstitialReady() && !Application.isEditor)
                 yield return null;
             Analytics.Instance.InterstitialShown();
             RLAdvertisementManager.Instance.showInterstitial();
-            yield return new WaitForSecondsRealtime(90);
+            print("InterShown");
+            yield return StartCoroutine("Waiter", 90);
         }
     }
+
+    IEnumerator Waiter(float value)
+    {
+        while (value > 0)
+        {
+            value -= 0.0166f;
+            yield return null;
+        }
+    }
+    
     
     void OnBannerFailed(string errorMessage) {
         // You can log the errorMessage and identify why banner is not showing
@@ -157,16 +171,29 @@ public class AdsM : MonoSingleton<AdsM>
         PM.Instance.Merge();
         UIM.Instance.merge.state = "CanBuy";
     }
-    
-    public void AddLastCarButton()
-    {      
-        adDetails[5].buttonObject.transform.SizeUpAnimation("AddLastCar");  
-        Analytics.Instance.RewardedTapped("AddLastCar");
-        ProcessAds(AddLastCar);
-    }
-    void AddLastCar()
+
+    public void FeverCarButton()
     {
-        PM.Instance.AddLastCar();
+        adDetails[0].buttonObject.transform.SizeUpAnimation("FeverCar");
+        Analytics.Instance.RewardedTapped("FeverCar");
+        ProcessAds(FeverCar);
+    }
+    void FeverCar()
+    {
+        PM.Instance.StartCoroutine("FeverCarRoutine");
+    }
+
+    
+    public void AutoTapButton()
+    {
+        adDetails[1].buttonObject.transform.SizeUpAnimation("AutoTapButton");
+        Analytics.Instance.RewardedTapped("AutoTapButton");
+        ProcessAds(AutoTap);
+    }
+
+    void AutoTap()
+    {
+        PM.Instance.StartCoroutine("AutoTapRoutine");
     }
     
     
@@ -176,6 +203,7 @@ public class AdsM : MonoSingleton<AdsM>
         Analytics.Instance.RewardedTapped("SpeedUp");
         ProcessAds(SpeedUp);
     }
+    
     void SpeedUp()
     {
         PM.Instance.StartCoroutine("SpeedUpRoutine");
@@ -188,24 +216,12 @@ public class AdsM : MonoSingleton<AdsM>
         Analytics.Instance.RewardedTapped("AddIncome");
         ProcessAds(AddIncome);
     }
+    
     void AddIncome()
     {
         PM.Instance.StartCoroutine("AddIncomeRoutine");
     }
 
-    
-    public void AutoTapButton()
-    {      
-        adDetails[1].buttonObject.transform.SizeUpAnimation("AutoTapButton");    
-        Analytics.Instance.RewardedTapped("AutoTapButton");
-        ProcessAds(AutoTap);
-    }
-    
-    void AutoTap()
-    {
-        PM.Instance.StartCoroutine("AutoTapRoutine");
-    }
-    
     
     public void EvolveCarsButton()
     {      
@@ -213,23 +229,92 @@ public class AdsM : MonoSingleton<AdsM>
         Analytics.Instance.RewardedTapped("EvolveCars");
         ProcessAds(EvolveCars);
     }
+    
     void EvolveCars()
     {
         PM.Instance.StartCoroutine("EvolveCarsRoutine");
     }
+
     
-    
-    public void FeverCarButton()
+    public void AddLastCarButton()
     {
-        adDetails[0].buttonObject.transform.SizeUpAnimation("FeverCar");  
-        Analytics.Instance.RewardedTapped("FeverCar");
-        ProcessAds(FeverCar);
-    } 
-    void FeverCar()
-    {
-        PM.Instance.StartCoroutine("FeverCarRoutine");
+        adDetails[5].buttonObject.transform.SizeUpAnimation("AddLastCar");
+        Analytics.Instance.RewardedTapped("AddLastCar");
+        ProcessAds(AddLastCar);
     }
 
+    void AddLastCar()
+    {
+        PM.Instance.AddLastCar();
+    }
+
+    void Update()
+    {
+        ShowSpeedUpPopUp();
+        
+    }
+
+
+    public void ShowSpeedUpPopUp()
+    {
+        if(!PlayerPrefs.HasKey("SpeedUpPopUp") && Time.realtimeSinceStartup>120)
+        {
+            PlayerPrefs.SetInt("SpeedUpPopUp", 1);
+           OpenPopUp(2); 
+        }
+    }
+
+    public void AddIncomePopUp()
+    {
+        if (!PlayerPrefs.HasKey("AddIncomePopUp") && Time.realtimeSinceStartup > 180)
+        {
+            PlayerPrefs.SetInt("AddIncomePopUp", 1);
+            OpenPopUp(3);
+        }
+    }
+
+    public void FeverCarPopUp()
+    {
+        if (!PlayerPrefs.HasKey("FeverCarPopUp") && Time.realtimeSinceStartup > 300)
+        {
+            PlayerPrefs.SetInt("FeverCarPopUp", 1);
+            OpenPopUp(0);
+        }
+    }
+
+    public void EvolveCarsPopUp()
+    {
+        if (!PlayerPrefs.HasKey("EvolveCarsPopUp") && Time.realtimeSinceStartup > 420)
+        {
+            PlayerPrefs.SetInt("EvolveCarsPopUp", 1);
+            OpenPopUp(4);
+        }
+    }
+
+    public void AutoTapPopUp()
+    {
+        if (!PlayerPrefs.HasKey("AutoTapPopUp") && Time.realtimeSinceStartup > 120)
+        {
+            PlayerPrefs.SetInt("AutoTapPopUp", 1);
+            OpenPopUp(1);
+        }
+    }
+
+    public void GetNewCarPopUp()
+    {
+        if (!PlayerPrefs.HasKey("GetNewCarPopUp") && Time.realtimeSinceStartup > 120)
+        {
+            PlayerPrefs.SetInt("GetNewCarPopUp", 1);
+            OpenPopUp(0);
+        }
+    }
+
+    public void OpenPopUp(int index)
+    {
+        
+    }
+
+    
     public void ProcessAds(Action action)
     {
         if (Application.isEditor)

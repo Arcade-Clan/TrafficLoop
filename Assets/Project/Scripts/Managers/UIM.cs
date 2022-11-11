@@ -25,7 +25,7 @@ public class UIM : MonoSingleton<UIM>
    
    void Awake()
    {
-      if (!GM.Instance.tutorialOn)
+      if (!GM.Instance.tutorialOn || PlayerPrefs.HasKey("TutorialProgression"))
          PlayerPrefs.SetInt("TutorialProgression",100);
       tutorialProgression = PlayerPrefs.GetInt("TutorialProgression");
 

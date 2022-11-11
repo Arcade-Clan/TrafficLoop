@@ -820,6 +820,12 @@ MonoBehaviour:
   levelIndexes: 0000000000000000
   level: {fileID: 800387462}
   gates: []
+  roadScaleEase: 27
+  roadScaleDuration: 0.5
+  roadPositionEase: 3
+  roadStartHeight: 10
+  roadPositionDuration: 0.5
+  roadDelayDuration: 0.05
 --- !u!4 &1321211127 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 8da5f2e05a5504e6a92c1529545b62e8,
@@ -1720,6 +1726,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 415478, guid: a3267720e82aa41c1a05ab29824902b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114179903453641630, guid: a3267720e82aa41c1a05ab29824902b4,
+        type: 3}
+      propertyPath: appToken
+      value: b0y1j90svuo0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114179903453641630, guid: a3267720e82aa41c1a05ab29824902b4,
+        type: 3}
+      propertyPath: environment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114179903453641630, guid: a3267720e82aa41c1a05ab29824902b4,
+        type: 3}
+      propertyPath: startManually
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

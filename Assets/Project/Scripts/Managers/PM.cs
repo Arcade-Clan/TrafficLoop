@@ -308,7 +308,7 @@ public class PM : MonoSingleton<PM>
         AdsM.Instance.adDetails[index].timer.Show();
         AdsM.Instance.adDetails[index].adImage.Hide();
         AdsM.Instance.adDetails[index].rayImage.Show();
-        AdsM.Instance.adDetails[index].buttonObject.transform.DOScale(1.1f,0.5f).SetDelay(0.5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetUpdate(UpdateType.Normal,true);
+        AdsM.Instance.adDetails[index].buttonObject.transform.DOScale(1.05f,0.5f).SetDelay(0.5f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutQuad).SetUpdate(UpdateType.Normal,true);
         float timer = Time.realtimeSinceStartup;
         while (timer + AdsM.Instance.adDetails[index].timerValue > Time.realtimeSinceStartup)
         {

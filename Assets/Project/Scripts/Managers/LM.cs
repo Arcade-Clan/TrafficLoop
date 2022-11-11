@@ -52,7 +52,7 @@ public class LM : MonoSingleton<LM>
         for (int a = 0; a < gates.Length; a++)
         {
             if(GM.Instance.upgrades[2].upgradeLevel>=a)
-                gates[a].Hide();
+                gates[a].Show();
             else
                 gates[a].Hide();
         }  

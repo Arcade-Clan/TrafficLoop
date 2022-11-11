@@ -1091,6 +1091,7 @@ MonoBehaviour:
     timer: {fileID: 1347331814}
     timerValue: 30
     multiplierValue: -1
+    adsEnabled: 1
   - buttonObject: {fileID: 183487501}
     rayImage: {fileID: 1110900734}
     adImage: {fileID: 963393289}
@@ -1098,6 +1099,7 @@ MonoBehaviour:
     timer: {fileID: 2096201975}
     timerValue: 30
     multiplierValue: 1
+    adsEnabled: 1
   - buttonObject: {fileID: 185151950}
     rayImage: {fileID: 743650397}
     adImage: {fileID: 1527429960}
@@ -1105,6 +1107,7 @@ MonoBehaviour:
     timer: {fileID: 207167547}
     timerValue: 30
     multiplierValue: 1
+    adsEnabled: 1
   - buttonObject: {fileID: 1648942048}
     rayImage: {fileID: 127510232}
     adImage: {fileID: 1530120940}
@@ -1112,6 +1115,7 @@ MonoBehaviour:
     timer: {fileID: 1386263686}
     timerValue: 30
     multiplierValue: 1
+    adsEnabled: 1
   - buttonObject: {fileID: 917606534}
     rayImage: {fileID: 262417693}
     adImage: {fileID: 1683928351}
@@ -1119,6 +1123,7 @@ MonoBehaviour:
     timer: {fileID: 648407011}
     timerValue: 30
     multiplierValue: 0
+    adsEnabled: 1
   - buttonObject: {fileID: 1880037868}
     rayImage: {fileID: 322904446}
     adImage: {fileID: 1228528234}
@@ -1126,6 +1131,7 @@ MonoBehaviour:
     timer: {fileID: 2067656453}
     timerValue: -1
     multiplierValue: -1
+    adsEnabled: 1
   noAdsText: {fileID: 1045671343}
   adReady: 1
 --- !u!4 &1664989339 stripped
@@ -1314,9 +1320,6 @@ MonoBehaviour:
   rayDistance: 4
   carPrefab: {fileID: 8828391772419353904, guid: db1a5b5697ae349b09deb1d33ec1ef17,
     type: 3}
-  specialCarPrefab: {fileID: 0}
-  feverCarPrefab: {fileID: 0}
-  carSpeed: 12
   simulationSpeed: 1
   tapSpeedUpTimer: 0.5
   tapSpeedUpMultiplier: 2

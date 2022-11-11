@@ -21,7 +21,8 @@ public class Car : MonoBehaviour
     public List<Car> ignoredCars;
     public Car lastCar;
     public int priority;
-    public bool specialCar;
+    public bool feverCar;
+    
     void Awake()
     {
         priority = Random.Range(-int.MaxValue, int.MaxValue);
@@ -52,7 +53,7 @@ public class Car : MonoBehaviour
     
     IEnumerator MoveRoutine()
     {
-        float speed  = Random.Range(0.9f, 1.1f) * GM.Instance.carSpeed;
+        float speed  = Random.Range(0.9f, 1.1f) * cars[carIndex].carSpeed;
         currentSpeed = speed;
         TextMeshPro text = GetComponentInChildren<TextMeshPro>();
         while (true)
@@ -72,7 +73,7 @@ public class Car : MonoBehaviour
                 text.text = "Crash\n" + collidedCar.gameObject.name;
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GM.Instance.slowStrength);
             }
-            else if (trafficLight)
+            else if (trafficLight&& !feverCar)
             {
                 text.text = "Light";
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GM.Instance.slowStrength);
@@ -123,6 +124,8 @@ public class Car : MonoBehaviour
     
     Car CheckRay()
     {
+        if (feverCar)
+            return null;
         float ray = GM.Instance.rayDistance;
 
         for (int a = 0; a <= 10; a++)

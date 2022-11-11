@@ -24,9 +24,9 @@ public class TrafficController : MonoBehaviour
             
         }
         if(carProductionIndex.Count * GM.Instance.specialCarRandomChance > Random.Range(0f,1f))
-            carProductionIndex.Add(Random.Range(11,12));
+            carProductionIndex.Add(Random.Range(10,16));
         if(AdsM.Instance.adDetails[0].multiplierValue>0)
-            carProductionIndex.Add(11);
+            carProductionIndex.Add(16);
         carProductionIndex.Shuffle();
     }
 

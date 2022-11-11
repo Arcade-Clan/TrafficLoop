@@ -18,11 +18,8 @@ public class GM : MonoSingleton<GM>
     public float startMoveStrength = 0.05f;
     public float rayDistance = 2;
     public Car carPrefab;
-    public Car specialCarPrefab;
-    public Car feverCarPrefab;
 
     [Header("Time Details")]
-    public float carSpeed;
     [ReadOnly] public float simulationSpeed = 1;
     public float tapSpeedUpTimer = 0.5f;
     public float tapSpeedUpMultiplier = 2f;    

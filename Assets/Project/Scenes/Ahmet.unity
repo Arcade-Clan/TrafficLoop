@@ -1265,7 +1265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab90c66059bd54c659ce9aa21419268c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraFieldOfViewLimits: {x: 60, y: 80}
+  cameraFieldOfViewLimits: {x: 60, y: 120}
   slideSpeed: 0.3
   zoomSpeed: 0.1
   dragActivationPixels: 30

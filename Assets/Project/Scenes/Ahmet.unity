@@ -358,6 +358,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3686050261199056326, guid: cb71918fbc755ea4385d7efcde5358cf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4933288915614212924, guid: cb71918fbc755ea4385d7efcde5358cf,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8165020044108635252, guid: cb71918fbc755ea4385d7efcde5358cf,
         type: 3}
       propertyPath: m_RootOrder
@@ -820,12 +830,12 @@ MonoBehaviour:
   levelIndexes: 0000000000000000
   level: {fileID: 800387462}
   gates: []
-  roadScaleEase: 27
+  roadScaleEase: 21
   roadScaleDuration: 0.5
   roadPositionEase: 3
-  roadStartHeight: 10
+  roadStartHeight: 15
   roadPositionDuration: 0.5
-  roadDelayDuration: 0.05
+  roadDelayDuration: 0.01
 --- !u!4 &1321211127 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 8da5f2e05a5504e6a92c1529545b62e8,
@@ -1333,9 +1343,9 @@ MonoBehaviour:
   tapSpeed: 1
   baseSecondCreation: 10
   baseSecondCreationSpeedUp: 2
-  baseSecondCreationSpeedUpMultiplier: 2
+  baseSecondCreationSpeedUpMultiplier: 1.2
   trafficDensity: 0
-  stopCarCreationOnTrafficDensity: 0.75
+  stopCarCreationOnTrafficDensity: 0.55
   specialCarRandomChance: 0.01
   trafficController: {fileID: 0}
   canvas: {fileID: 0}
@@ -1345,7 +1355,7 @@ MonoBehaviour:
     upgradeLevel: 0
     baseValue: 5
     increment: 1
-    expoRatio: 0.15
+    expoRatio: 0.2
     upgradeValues: []
   - upgradeName: Size
     upgradeLevel: 0
@@ -1354,28 +1364,26 @@ MonoBehaviour:
     expoRatio: 2
     upgradeValues:
     - 5
-    - 150
-    - 1800
-    - 9000
-    - 13500
-    - 27000
+    - 50
+    - 250
+    - 500
+    - 100
+    - 1500
+    - 2000
+    - 7500
+    - 12500
+    - 20000
+    - 30000
     - 75000
-    - 90000
-    - 125000
     - 150000
-    - 750000
-    - 1000000
-    - 1500000
-    - 2000000
-    - 2500000
+    - 250000
+    - 350000
     - 3000000
-    - 5000000
-    - 9999999
   - upgradeName: Income
     upgradeLevel: 0
     baseValue: 15
-    increment: 300
-    expoRatio: 4
+    increment: 10
+    expoRatio: 0.5
     upgradeValues:
     - 5
     - 75

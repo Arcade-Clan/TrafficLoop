@@ -13,6 +13,7 @@ public class Gate : MonoBehaviour
     public Ease gateCloseEase = Ease.OutElastic;
     public float openTime = 1;
     public float closeTime = 1;
+    public float delay = 0.5f;
     
     public void Start()
     {
@@ -21,8 +22,8 @@ public class Gate : MonoBehaviour
         Vector3 scale = model.localScale;
         model.localScale = Vector3.zero;
         model.localPosition+=Vector3.up*5;
-        model.DOScale(scale,1.5f*Random.Range(0.8f,1.2f)).SetEase(Ease.OutElastic).SetDelay(2f).SetUpdate(UpdateType.Normal, true);
-        model.DOLocalMoveY(position.y, 1*Random.Range(0.8f,1.2f)).SetEase(Ease.OutBounce).SetDelay(2f).SetUpdate(UpdateType.Normal, true);
+        model.DOScale(scale,1.5f*Random.Range(0.8f,1.2f)).SetEase(Ease.OutElastic).SetDelay(delay).SetUpdate(UpdateType.Normal, true);
+        model.DOLocalMoveY(position.y, 1*Random.Range(0.8f,1.2f)).SetEase(Ease.OutBounce).SetDelay(delay).SetUpdate(UpdateType.Normal, true);
     }
 
     void OnTriggerEnter(Collider other)

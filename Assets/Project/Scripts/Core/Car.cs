@@ -21,10 +21,11 @@ public class Car : MonoBehaviour
     public List<Car> ignoredCars;
     public Car lastCar;
     public int priority;
-
+    float speed;
     void Awake()
     {
         priority = Random.Range(-int.MaxValue, int.MaxValue);
+
     }
     
     public void MoveCar(int newCarIndex,Road newRoad,float position,bool withAnimation)
@@ -35,6 +36,8 @@ public class Car : MonoBehaviour
             cars[a].gameObject.SetActive(carIndex == a);
         road = newRoad;
         place = position * road.pathLength;
+        speed = Random.Range(0.9f, 1.1f) * cars[carIndex].carSpeed;
+        currentSpeed = speed;
         StartCoroutine("MoveRoutine");
         if (withAnimation)
             Appear();
@@ -52,8 +55,6 @@ public class Car : MonoBehaviour
     
     IEnumerator MoveRoutine()
     {
-        float speed  = Random.Range(0.9f, 1.1f) * cars[carIndex].carSpeed;
-        currentSpeed = speed;
         TextMeshPro text = GetComponentInChildren<TextMeshPro>();
         while (true)
         {

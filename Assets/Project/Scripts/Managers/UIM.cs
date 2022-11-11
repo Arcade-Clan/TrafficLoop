@@ -132,6 +132,7 @@ public class UIM : MonoSingleton<UIM>
             upgrades[a].adImage.Hide();
             upgrades[a].goldText.text = "MAX";
             upgrades[a].StopCoroutine("WaitForAdRoutine");
+            upgrades[a].state = "Max";
          }
          else if (GM.Instance.upgrades[a].Max(a))
             upgrades[a].button.Hide();
@@ -162,14 +163,14 @@ public class UIM : MonoSingleton<UIM>
       }
       else
       {
-         if ((upgrades[index].state == "NoAds" || upgrades[index].state == "CanBuy") && upgrades[index].adsEnabled)
+         if ((upgrades[index].state =="Max"||upgrades[index].state == "NoAds" || upgrades[index].state == "CanBuy") && upgrades[index].adsEnabled)
          {
             upgrades[index].adImage.Hide();
             upgrades[index].button.interactable = false;
             upgrades[index].state = "NoMoney";
             upgrades[index].StartCoroutine("WaitForAdRoutine");
          }
-         else if ((upgrades[index].state == "AdButton" || upgrades[index].state == "CanBuy") && !upgrades[index].adsEnabled)
+         else if ((upgrades[index].state == "Max" || upgrades[index].state == "AdButton" || upgrades[index].state == "CanBuy") && !upgrades[index].adsEnabled)
          {
             upgrades[index].adImage.Hide();
             upgrades[index].button.interactable = false;

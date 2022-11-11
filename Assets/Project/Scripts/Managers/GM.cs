@@ -54,8 +54,8 @@ public class GM : MonoSingleton<GM>
         {
             if (upgradeName == "Car Amount")
                 return Mathf.RoundToInt(baseValue + increment * upgradeLevel + upgradeLevel * ((upgradeLevel + 1) / 2) * expoRatio);
-            if(upgradeName == "Size")
-                return Mathf.RoundToInt(upgradeValues[upgradeLevel]);
+            if (upgradeName == "Income")
+                return Mathf.RoundToInt(baseValue + increment * upgradeLevel + upgradeLevel * ((upgradeLevel + 1) / 2) * expoRatio);
             return Mathf.RoundToInt(upgradeValues[upgradeLevel]);
         }
 

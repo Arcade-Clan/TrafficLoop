@@ -28,6 +28,13 @@ public class LM : MonoSingleton<LM>
         UpdateGates();
     }
 
+    public Ease roadScaleEase = Ease.OutBack;
+    public float roadScaleDuration = 0.5f;
+    public Ease roadPositionEase = Ease.OutSine;
+    public float roadStartHeight = 10;
+    public float roadPositionDuration = 0.5f;
+    public float roadDelayDuration = 0.05f;
+    
     public void ProcessTaggedObjects()
     {
         List<GameObject> roads = GameObject.FindGameObjectsWithTag("Road").ToList();
@@ -42,9 +49,9 @@ public class LM : MonoSingleton<LM>
         Vector3 position = road.localPosition;
         Vector3 scale = road.localScale;
         road.localScale = Vector3.zero;
-        road.localPosition += Vector3.up * 10;
-        road.DOScale(scale,0.5f).SetDelay(index/20f).SetEase(Ease.OutBack).SetUpdate(UpdateType.Normal,true);
-        road.DOLocalMoveY(position.y, 0.5f).SetDelay(index/20f).SetUpdate(UpdateType.Normal, true);
+        road.localPosition += Vector3.up * roadStartHeight;
+        road.DOScale(scale, roadScaleDuration).SetDelay(index* roadDelayDuration).SetEase(roadScaleEase).SetUpdate(UpdateType.Normal,true);
+        road.DOLocalMoveY(position.y, roadPositionDuration).SetDelay(index * roadDelayDuration).SetEase(roadPositionEase).SetUpdate(UpdateType.Normal, true);
     }
     
     public void UpdateGates()

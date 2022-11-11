@@ -1233,7 +1233,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 5
   far clip plane: 1000
   field of view: 70
   orthographic: 0
@@ -1266,7 +1266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraFieldOfViewLimits: {x: 60, y: 80}
-  slideSpeed: 0.5
+  slideSpeed: 0.3
   zoomSpeed: 0.1
   dragActivationPixels: 30
   state: None

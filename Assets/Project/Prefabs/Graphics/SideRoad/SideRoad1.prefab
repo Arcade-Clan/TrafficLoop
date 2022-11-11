@@ -104,10 +104,65 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6382957543799179035, guid: aa4683ac9b1ab6a49a56b1e8ab272c4d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road
+      objectReference: {fileID: 0}
+    - target: {fileID: -6359737012639938390, guid: aa4683ac9b1ab6a49a56b1e8ab272c4d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road
+      objectReference: {fileID: 0}
+    - target: {fileID: -4160733479543274847, guid: aa4683ac9b1ab6a49a56b1e8ab272c4d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road
+      objectReference: {fileID: 0}
+    - target: {fileID: -3191203371335067817, guid: aa4683ac9b1ab6a49a56b1e8ab272c4d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road
+      objectReference: {fileID: 0}
+    - target: {fileID: -2848780508063663276, guid: aa4683ac9b1ab6a49a56b1e8ab272c4d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road
+      objectReference: {fileID: 0}
+    - target: {fileID: -1477351721355819462, guid: aa4683ac9b1ab6a49a56b1e8ab272c4d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road
+      objectReference: {fileID: 0}
+    - target: {fileID: -1082521383904721442, guid: aa4683ac9b1ab6a49a56b1e8ab272c4d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: aa4683ac9b1ab6a49a56b1e8ab272c4d,
         type: 3}
       propertyPath: m_Name
       value: SideRoad (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1081139040831947722, guid: aa4683ac9b1ab6a49a56b1e8ab272c4d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road
+      objectReference: {fileID: 0}
+    - target: {fileID: 1400560315231927895, guid: aa4683ac9b1ab6a49a56b1e8ab272c4d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road
+      objectReference: {fileID: 0}
+    - target: {fileID: 1481427547321683900, guid: aa4683ac9b1ab6a49a56b1e8ab272c4d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road
+      objectReference: {fileID: 0}
+    - target: {fileID: 5785391107381162802, guid: aa4683ac9b1ab6a49a56b1e8ab272c4d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Road
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa4683ac9b1ab6a49a56b1e8ab272c4d, type: 3}

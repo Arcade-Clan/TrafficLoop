@@ -148,14 +148,14 @@ public class UIM : MonoSingleton<UIM>
       }
       else
       {
-         if ((merge.state == "NoAds" || upgrades[index].state == "CanBuy") && upgrades[index].adsEnabled)
+         if ((upgrades[index].state == "NoAds" || upgrades[index].state == "CanBuy") && upgrades[index].adsEnabled)
          {
             upgrades[index].adImage.Hide();
             upgrades[index].button.interactable = false;
             upgrades[index].state = "NoMoney";
             upgrades[index].StartCoroutine("WaitForAdRoutine");
          }
-         else if ((merge.state == "AdButton" || merge.state == "CanBuy") && !upgrades[index].adsEnabled)
+         else if ((upgrades[index].state == "AdButton" || upgrades[index].state == "CanBuy") && !upgrades[index].adsEnabled)
          {
             upgrades[index].adImage.Hide();
             upgrades[index].button.interactable = false;

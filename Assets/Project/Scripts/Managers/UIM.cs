@@ -28,17 +28,31 @@ public class UIM : MonoSingleton<UIM>
       if (!GM.Instance.tutorialOn)
          PlayerPrefs.SetInt("TutorialProgression",100);
       tutorialProgression = PlayerPrefs.GetInt("TutorialProgression");
+
    }
 
    private void Start()
    {
+      if (tutorialProgression > 4)
+      {
+         upgrades[0].adsEnabled = true;
+         upgrades[1].adsEnabled = true;
+         upgrades[2].adsEnabled = true;
+         merge.adsEnabled = true;
+      }
       oldGold = GM.Instance.gold;
    }
 
    public void TriggerTutorialProgression(int index)
    {
       if (tutorialProgression != index)
+      {
+         upgrades[0].adsEnabled = true;
+         upgrades[1].adsEnabled = true;
+         upgrades[2].adsEnabled = true;
+         merge.adsEnabled = true;
          return;
+      }
       tutorialInProgress = true;
       tutorialHands[index].Show();
    }

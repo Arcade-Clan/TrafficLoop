@@ -1467,6 +1467,31 @@ MonoBehaviour:
     carValue: 1
     specialCar: 1
     cars: []
+  - carName: SpecialCar3
+    carLevel: 0
+    carValue: 1
+    specialCar: 1
+    cars: []
+  - carName: SpecialCar4
+    carLevel: 0
+    carValue: 1
+    specialCar: 1
+    cars: []
+  - carName: SpecialCar5
+    carLevel: 0
+    carValue: 1
+    specialCar: 1
+    cars: []
+  - carName: SpecialCar6
+    carLevel: 0
+    carValue: 1
+    specialCar: 1
+    cars: []
+  - carName: FeverCar
+    carLevel: 0
+    carValue: 1
+    specialCar: 1
+    cars: []
   merge:
     mergeName: Merge
     mergeLevel: 0
@@ -1476,7 +1501,7 @@ MonoBehaviour:
   sounds:
   - sound: {fileID: 8300000, guid: 7d366bb0b188584458dc63627c3b1137, type: 3}
     volume: 0.5
-  tutorialOn: 0
+  tutorialOn: 1
 --- !u!114 &1873127962
 MonoBehaviour:
   m_ObjectHideFlags: 0

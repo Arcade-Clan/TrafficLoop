@@ -148,13 +148,19 @@ public class UIM : MonoSingleton<UIM>
       }
       else
       {
-         if (upgrades[index].state == "CanBuy")
+         if ((merge.state == "NoAds" || upgrades[index].state == "CanBuy") && upgrades[index].adsEnabled)
          {
             upgrades[index].adImage.Hide();
             upgrades[index].button.interactable = false;
             upgrades[index].state = "NoMoney";
-            if (upgrades[index].adsEnabled)
-               upgrades[index].StartCoroutine("WaitForAdRoutine");
+            upgrades[index].StartCoroutine("WaitForAdRoutine");
+         }
+         else if ((merge.state == "AdButton" || merge.state == "CanBuy") && !upgrades[index].adsEnabled)
+         {
+            upgrades[index].adImage.Hide();
+            upgrades[index].button.interactable = false;
+            upgrades[index].state = "NoAds";
+            upgrades[index].StopCoroutine("WaitForAdRoutine");
          }
       }
       
@@ -187,13 +193,19 @@ public class UIM : MonoSingleton<UIM>
       else 
       {
          bool canMerge = PM.Instance.CanMerge();
-         if ((merge.state == "CanBuy"||merge.state == "NoMerge") && canMerge)
+         if ((merge.state == "NoAds"||merge.state == "CanBuy"||merge.state == "NoMerge") && canMerge && merge.adsEnabled)
          {
             merge.adImage.Hide();
             merge.button.interactable = false;
             merge.state = "NoMoney";
-            if (merge.adsEnabled)
             merge.StartCoroutine("WaitForAdRoutine");
+         }
+         else if ((merge.state == "AdButton" || merge.state == "CanBuy" || merge.state == "NoMerge") && canMerge && !merge.adsEnabled)
+         {
+            merge.adImage.Hide();
+            merge.button.interactable = false;
+            merge.state = "NoAds";
+            merge.StopCoroutine("WaitForAdRoutine");
          }
          else if ((merge.state == "CanBuy"||merge.state == "AdButton") && !canMerge)
          {

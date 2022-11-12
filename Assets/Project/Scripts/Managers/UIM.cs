@@ -134,7 +134,7 @@ public class UIM : MonoSingleton<UIM>
       
       for (int a = 0; a < upgrades.Length; a++)
       {
-         if (a == 2&& !LM.Instance.gates[GM.Instance.upgrades[2].upgradeLevel+1].transform.parent.gameObject.activeInHierarchy)
+         if (GM.Instance.upgrades[a].Max(a))
          {
             upgrades[a].button.interactable = false;
             upgrades[a].adImage.Hide();
@@ -142,8 +142,15 @@ public class UIM : MonoSingleton<UIM>
             upgrades[a].StopCoroutine("WaitForAdRoutine");
             upgrades[a].state = "Max";
          }
-         else if (GM.Instance.upgrades[a].Max(a))
-            upgrades[a].button.Hide();
+         else if (a == 2&& !LM.Instance.gates[GM.Instance.upgrades[2].upgradeLevel+1].transform.parent.gameObject.activeInHierarchy)
+         {
+            upgrades[a].button.interactable = false;
+            upgrades[a].adImage.Hide();
+            upgrades[a].goldText.text = "MAX";
+            upgrades[a].StopCoroutine("WaitForAdRoutine");
+            upgrades[a].state = "Max";
+         }
+
          else
             ProcessButtons(a);
       }

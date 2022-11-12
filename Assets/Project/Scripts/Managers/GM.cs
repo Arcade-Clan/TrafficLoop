@@ -73,6 +73,8 @@ public class GM : MonoSingleton<GM>
         {
             if (value == 1)
                 return upgradeLevel >= LM.Instance.level.sections.Length-1;
+            if (value == 2)
+                return upgradeLevel >= LM.Instance.gates.Length - 1;
             return false;
         }
 

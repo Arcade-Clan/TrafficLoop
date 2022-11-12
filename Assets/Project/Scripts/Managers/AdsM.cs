@@ -125,9 +125,9 @@ public class AdsM : MonoSingleton<AdsM>
        {
            if(PlayerPrefs.GetInt("Timer")< RemoteConfig.GetInstance().GetInt("popup_loop", 600))
                yield return null;
+           yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("popup_freq", 120));
            OpenPopUp(adIndex + 2);
            adIndex = (adIndex + 1) % 3;
-           yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("popup_freq", 120));
        }
    }
    

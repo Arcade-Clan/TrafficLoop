@@ -39,7 +39,11 @@ public class AdsM : MonoSingleton<AdsM>
 
     public bool adReady = false;
     public Action currentRewarded;
-    
+
+    public int speedUpTimer = 120;
+    public int incomeTimer = 180;
+    public int feverTimer = 300;
+    public int evolveTimer = 420;
     void Awake() 
     {
         RLAdvertisementManager.Instance.init(_appKey);
@@ -342,7 +346,7 @@ public class AdsM : MonoSingleton<AdsM>
 
     public void FeverCarPopUp()
     {
-        if (!PlayerPrefs.HasKey(adDetails[0].name+ "AdOpened") && Time.realtimeSinceStartup > 300)
+        if (!PlayerPrefs.HasKey(adDetails[0].name+ "AdOpened") && Time.realtimeSinceStartup > feverTimer)
         {
             PlayerPrefs.SetInt(adDetails[0].name + "AdOpened", 1);
             adDetails[0].buttonObject.Show();
@@ -377,7 +381,7 @@ public class AdsM : MonoSingleton<AdsM>
     
     public void ShowSpeedUpPopUp()
     {
-        if (!PlayerPrefs.HasKey(adDetails[2].name + "AdOpened") && Time.realtimeSinceStartup > 120)
+        if (!PlayerPrefs.HasKey(adDetails[2].name + "AdOpened") && Time.realtimeSinceStartup > speedUpTimer)
         {
             PlayerPrefs.SetInt(adDetails[2].name + "AdOpened", 1);
             OpenPopUp(2);
@@ -387,7 +391,7 @@ public class AdsM : MonoSingleton<AdsM>
 
     public void AddIncomePopUp()
     {
-        if (!PlayerPrefs.HasKey(adDetails[3].name + "AdOpened") && Time.realtimeSinceStartup > 180)
+        if (!PlayerPrefs.HasKey(adDetails[3].name + "AdOpened") && Time.realtimeSinceStartup > incomeTimer)
         {
             PlayerPrefs.SetInt(adDetails[3].name + "AdOpened", 1);
             OpenPopUp(3);
@@ -397,7 +401,7 @@ public class AdsM : MonoSingleton<AdsM>
     
     public void EvolveCarsPopUp()
     {
-        if (!PlayerPrefs.HasKey(adDetails[4].name + "AdOpened") && Time.realtimeSinceStartup > 420)
+        if (!PlayerPrefs.HasKey(adDetails[4].name + "AdOpened") && Time.realtimeSinceStartup > evolveTimer)
         {
             PlayerPrefs.SetInt(adDetails[4].name + "AdOpened", 1);
             OpenPopUp(4);

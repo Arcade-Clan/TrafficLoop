@@ -211,9 +211,6 @@ public class PM : MonoSingleton<PM>
     IEnumerator MergeCarsRoutine(Car[] cars)
     {
         cars[0].StopCoroutine("MoveRoutine");
-        print(cars[0].carIndex);
-        print(cars[1].carIndex);
-        print(cars[2].carIndex);
         GM.Instance.cars[cars[0].carIndex].cars.Remove(cars[0]);
         GM.Instance.cars[cars[1].carIndex].cars.Remove(cars[1]);
         GM.Instance.cars[cars[2].carIndex].cars.Remove(cars[2]);

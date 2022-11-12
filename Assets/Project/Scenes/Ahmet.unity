@@ -250,6 +250,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1194791338}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &613189809 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3665162912839628240, guid: 2b299400713d7c8409b221abfe170205,
+    type: 3}
+  m_PrefabInstance: {fileID: 1194791338}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &648407011 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7702028331264417753, guid: 2b299400713d7c8409b221abfe170205,
@@ -604,6 +610,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1663817246}
+    - target: {fileID: 1312459020569477017, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: tutorialHands.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312459020569477017, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: tutorialHands.Array.data[5]
+      value: 
+      objectReference: {fileID: 613189809}
     - target: {fileID: 1720970304180032552, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -619,6 +635,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1663817246}
+    - target: {fileID: 3665162912839628240, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3668158586529198833, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1607,7 +1628,7 @@ MonoBehaviour:
   sounds:
   - sound: {fileID: 8300000, guid: 7d366bb0b188584458dc63627c3b1137, type: 3}
     volume: 0.5
-  tutorialOn: 0
+  tutorialOn: 1
 --- !u!114 &1873127962
 MonoBehaviour:
   m_ObjectHideFlags: 0

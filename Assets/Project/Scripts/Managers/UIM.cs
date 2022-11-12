@@ -33,7 +33,7 @@ public class UIM : MonoSingleton<UIM>
 
    private void Start()
    {
-      if (tutorialProgression > 4)
+      if (tutorialProgression > 5)
       {
          upgrades[0].adsEnabled = true;
          upgrades[1].adsEnabled = true;
@@ -54,7 +54,7 @@ public class UIM : MonoSingleton<UIM>
 
    public bool IncreaseTutorialProgression(int index)
    {
-      if (tutorialProgression > 4)
+      if (tutorialProgression > 5)
       {
          upgrades[0].adsEnabled = true;
          upgrades[1].adsEnabled = true;

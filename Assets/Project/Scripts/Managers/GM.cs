@@ -56,7 +56,9 @@ public class GM : MonoSingleton<GM>
                 return Mathf.RoundToInt(baseValue + increment * upgradeLevel + upgradeLevel * ((upgradeLevel + 1) / 2) * expoRatio);
             if (upgradeName == "Income")
                 return Mathf.RoundToInt(baseValue + increment * upgradeLevel + upgradeLevel * ((upgradeLevel + 1) / 2) * expoRatio);
-            return Mathf.RoundToInt(upgradeValues[upgradeLevel]);
+            if (upgradeValues.Length > upgradeLevel)
+                return Mathf.RoundToInt(upgradeValues[upgradeLevel]);
+            return -1;
         }
 
 
@@ -174,7 +176,7 @@ public class GM : MonoSingleton<GM>
 #region HelperUpdate
 void Update()
     {
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(2))
         {
             PlayerPrefs.DeleteAll();
             Application.LoadLevel(1);

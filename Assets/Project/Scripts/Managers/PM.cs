@@ -50,7 +50,8 @@ public class PM : MonoSingleton<PM>
         UIM.Instance.IncreaseTutorialProgression(1);
         Analytics.Instance.SendSpeedUp();
         if(Options.Instance.vibrationsOn)
-        Taptic.Light();
+            Taptic.Light();
+        AdsM.Instance.ResetAutoTapTime();
         StopCoroutine("SpeedUpCoolDown");
         GM.Instance.tapSpeed = GM.Instance.tapSpeedUpMultiplier;
         StartCoroutine("SpeedUpCoolDown");
@@ -197,15 +198,7 @@ public class PM : MonoSingleton<PM>
 
     void MergeCars()
     {
-        int carIndex = 0;
-        for (int a = 0; a < GM.Instance.cars.Length - 1; a++)
-        {
-            if (GM.Instance.cars[a].carLevel >= 3&&!GM.Instance.cars[a].specialCar)
-            {
-                carIndex = a;
-                break;
-            }
-        }
+        int carIndex = LastCarIndex();
         Car[] closestCars = GM.Instance.cars[carIndex].cars.OrderBy(p => Vector3.Distance(p.transform.position,Vector3.zero)).ToArray();
         GM.Instance.cars[carIndex].carLevel = Mathf.Max(GM.Instance.cars[carIndex].carLevel-3,0);
         GM.Instance.cars[carIndex+1].carLevel += 1;
@@ -218,6 +211,9 @@ public class PM : MonoSingleton<PM>
     IEnumerator MergeCarsRoutine(Car[] cars)
     {
         cars[0].StopCoroutine("MoveRoutine");
+        print(cars[0].carIndex);
+        print(cars[1].carIndex);
+        print(cars[2].carIndex);
         GM.Instance.cars[cars[0].carIndex].cars.Remove(cars[0]);
         GM.Instance.cars[cars[1].carIndex].cars.Remove(cars[1]);
         GM.Instance.cars[cars[2].carIndex].cars.Remove(cars[2]);
@@ -244,20 +240,26 @@ public class PM : MonoSingleton<PM>
         if(Options.Instance.vibrationsOn)
             Taptic.Medium();
         UIM.Instance.UpdateEconomyUI();
+        AdsM.Instance.GetNewCarPopUp();
     }
     
     public bool CanMerge()
     {
+        if(LastCarIndex()==-1)
+            return false;
+        return true;
+    }
+
+    public int LastCarIndex()
+    {
         for (int a = 0; a < 8; a++)
         {
-            if (GM.Instance.cars[a].carLevel >= 3)
-                return true;
+            if (GM.Instance.cars[a].carLevel >= 3 && GM.Instance.cars[a].cars.Count >= 3)
+                return a;
         }
 
-        return false;
+        return -1;
     }
-    
-
 
     #region AdProcesses
     
@@ -327,16 +329,10 @@ public class PM : MonoSingleton<PM>
         AdsM.Instance.adDetails[index].rayImage.Hide();
         AdsM.Instance.adDetails[index].buttonObject.enabled=true;
     }
+    
     public void AddLastCar()
     {
-        int carIndex = 0;
-        for (int a = GM.Instance.cars.Length - 2; a >= 0; a--)
-        {
-            if (GM.Instance.cars[a].carLevel <= 0)
-                continue;
-            carIndex = a;
-            break;
-        }
+        int carIndex = AdsM.Instance.CarLevel();
         GM.Instance.cars[carIndex].carLevel += 1; 
         PlayerPrefs.SetInt(GM.Instance.cars[carIndex].carName, GM.Instance.cars[carIndex].carLevel);
         GM.Instance.trafficController.AddCar(carIndex);
@@ -344,6 +340,7 @@ public class PM : MonoSingleton<PM>
         GM.Instance.trafficController.ProcessProductionIndex();
         UIM.Instance.UpdateEconomyUI();
     }
+    
     public IEnumerator Add3CarRoutine()
     {
         for (int a = 0; a < 3; a++)
@@ -352,11 +349,29 @@ public class PM : MonoSingleton<PM>
             yield return new WaitForSeconds(0.5f);
         }
     }
+
+    public IEnumerator AddClosest3CarRoutine()
+    {
+        for (int a = 0; a < 3; a++)
+        {
+            AddClosest3Car();
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    public void AddClosest3Car()
+    {
+        int carIndex = AdsM.Instance.CarLevel() - 1;
+        GM.Instance.trafficController.AddCar(carIndex);
+        GM.Instance.cars[carIndex].carLevel += 1;
+        PlayerPrefs.SetInt(GM.Instance.cars[carIndex].carName, GM.Instance.cars[carIndex].carLevel);
+        GM.Instance.PlaySound(0);
+        GM.Instance.trafficController.ProcessProductionIndex();
+        UIM.Instance.UpdateEconomyUI();
+    }
     
     public void Add3Car()
     {
-        if (!UIM.Instance.IncreaseTutorialProgression(0))
-            return;
         GM.Instance.trafficController.AddCar(Mathf.RoundToInt(AdsM.Instance.adDetails[4].multiplierValue));
         GM.Instance.cars[0].carLevel += 1; 
         PlayerPrefs.SetInt(GM.Instance.cars[0].carName, GM.Instance.cars[0].carLevel);

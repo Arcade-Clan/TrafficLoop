@@ -28,6 +28,7 @@ public class AdsM : MonoSingleton<AdsM>
     public AdButtonsClass[] adDetails;
     public TMP_Text noAdsText;
     public Image newCarImage;
+    public Image newCarImagePopUp;
     public Image newCarButtonImage;
     public Sprite[] newCarSprites;
     
@@ -93,11 +94,24 @@ public class AdsM : MonoSingleton<AdsM>
                 yield return null;
             Analytics.Instance.InterstitialShown();
             RLAdvertisementManager.Instance.showInterstitial();
+            StartCoroutine("ShowPopUpsRoutine");
             print("InterShown");
             yield return StartCoroutine("Waiter", 90);
         }
     }
 
+   IEnumerator ShowPopUpsRoutine()
+   {
+       if (Time.realtimeSinceStartup < 600)
+           yield break;
+       yield return StartCoroutine("Waiter", 45);
+       OpenPopUp(adIndex+2);
+       adIndex = (adIndex + 1) % 3;
+
+   }
+   
+   public int adIndex = 0;
+   
     IEnumerator Waiter(float value)
     {
         while (value > 0)
@@ -342,6 +356,9 @@ public class AdsM : MonoSingleton<AdsM>
         ShowSpeedUpPopUp();
         AddIncomePopUp();
         EvolveCarsPopUp();
+        newCarImage.sprite = newCarSprites[PlayerPrefs.GetInt("CarLevel", 1)];
+        newCarImagePopUp.sprite = newCarSprites[PlayerPrefs.GetInt("CarLevel", 1)];
+        newCarButtonImage.sprite = newCarSprites[PlayerPrefs.GetInt("CarLevel", 1)-1];
     }
 
     public void FeverCarPopUp()
@@ -425,8 +442,7 @@ public class AdsM : MonoSingleton<AdsM>
         if (PlayerPrefs.GetInt("CarLevel",1)<CarLevel())
         {
             PlayerPrefs.SetInt("CarLevel", PlayerPrefs.GetInt("CarLevel",1)+1);
-            newCarImage.sprite = newCarSprites[PlayerPrefs.GetInt("CarLevel", 1)];
-            newCarButtonImage.sprite = newCarSprites[PlayerPrefs.GetInt("CarLevel", 1)];
+            PlayerPrefs.SetInt(adDetails[5].name + "AdOpened", 1);
             adDetails[5].buttonObject.Show();
             OpenPopUp(5);
         }

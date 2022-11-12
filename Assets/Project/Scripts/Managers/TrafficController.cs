@@ -123,7 +123,7 @@ public class TrafficController : MonoBehaviour
                 }
             }
 
-            yield return new WaitForSeconds(timer);
+            yield return new WaitForSecondsRealtime(timer);
             trafficIndex += 1;  
         }
     }

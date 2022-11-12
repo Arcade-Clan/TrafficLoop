@@ -51,25 +51,33 @@ public class UIM : MonoSingleton<UIM>
       tutorialHands[index].Show();
    }
 
+   public void TriggerCamera()
+   {
+      IncreaseTutorialProgression(5);
+      GM.Instance.PlaySound(0);
+   }
 
    public bool IncreaseTutorialProgression(int index)
    {
+      if (tutorialProgression > 5)
+         return true;
+      if (tutorialProgression != index)
+         return false;
+      tutorialProgression++;
       if (tutorialProgression > 5)
       {
          upgrades[0].adsEnabled = true;
          upgrades[1].adsEnabled = true;
          upgrades[2].adsEnabled = true;
          merge.adsEnabled = true;
-         return true;
       }
-      if (tutorialProgression != index)
-         return false;
-      tutorialProgression++;
       PlayerPrefs.SetInt("TutorialProgression", tutorialProgression);
       tutorialHands[index].Hide();
       tutorialInProgress = false;
       if (index == 0)
          TriggerTutorialProgression(1);
+      if (index == 4)
+         TriggerTutorialProgression(5);
       return true;
    }
    

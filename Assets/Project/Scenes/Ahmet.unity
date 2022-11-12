@@ -678,6 +678,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1663817246}
+    - target: {fileID: 4445155562033843252, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4910965883709827312, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1473,7 +1478,7 @@ MonoBehaviour:
   baseSecondCreationSpeedUp: 2
   baseSecondCreationSpeedUpMultiplier: 1.2
   trafficDensity: 0
-  stopCarCreationOnTrafficDensity: 0.55
+  stopCarCreationOnTrafficDensity: 0.75
   specialCarRandomChance: 0.01
   trafficController: {fileID: 0}
   canvas: {fileID: 0}
@@ -1644,7 +1649,7 @@ MonoBehaviour:
   sounds:
   - sound: {fileID: 8300000, guid: 7d366bb0b188584458dc63627c3b1137, type: 3}
     volume: 0.5
-  tutorialOn: 0
+  tutorialOn: 1
 --- !u!114 &1873127962
 MonoBehaviour:
   m_ObjectHideFlags: 0

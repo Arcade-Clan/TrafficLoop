@@ -329,7 +329,7 @@ public class AdsM : MonoSingleton<AdsM>
 
     void AddClosest3Car()
     {
-        PM.Instance.AddClosest3Car();
+        PM.Instance.StartCoroutine("AddClosest3CarRoutine");
     }
     
 #endregion
@@ -363,27 +363,23 @@ public class AdsM : MonoSingleton<AdsM>
 
     IEnumerator ResetAutoTapRoutine()
     {
-        yield return StartCoroutine("Waiter",15);
+        yield return StartCoroutine("Waiter",60);
         AutoTapPopUp();
     }
 
     public void AutoTapPopUp()
     {
-        if (!PlayerPrefs.HasKey(adDetails[1].name + "AdOpened"))
-        {
-            PlayerPrefs.SetInt(adDetails[1].name + "AdOpened", 1);
-            OpenPopUp(1);
-            adDetails[1].buttonObject.Show();
-        }
+        PlayerPrefs.SetInt(adDetails[1].name + "AdOpened", 1);
+        OpenPopUp(1);
+        adDetails[1].buttonObject.Show();
     }
 
 #endregion
     
     public void ShowSpeedUpPopUp()
-    {print("yes1");
+    {
         if (!PlayerPrefs.HasKey(adDetails[2].name + "AdOpened") && Time.realtimeSinceStartup > speedUpTimer)
         {
-            print("yes2");
             PlayerPrefs.SetInt(adDetails[2].name + "AdOpened", 1);
             OpenPopUp(2);
             adDetails[2].buttonObject.Show();
@@ -415,24 +411,20 @@ public class AdsM : MonoSingleton<AdsM>
 
     public int CarLevel()
     {
-        int carIndex = 0;
-        for (int a = GM.Instance.cars.Length-1; a >= 0; a--)
+        for (int a = 9; a >= 0; a--)
         {
-            if (GM.Instance.cars[a].specialCar)
-                continue;
             if (GM.Instance.cars[a].carLevel <= 0)
                 continue;
-            return carIndex;
+            return a;
         }
-        return carIndex;
+        return 0;
     }
     
     public void GetNewCarPopUp()
     {
-        if (!PlayerPrefs.HasKey(adDetails[5].name + "AdOpened") && PlayerPrefs.GetInt("CarLevel",1)<CarLevel())
+        if (PlayerPrefs.GetInt("CarLevel",1)<CarLevel())
         {
             PlayerPrefs.SetInt("CarLevel", PlayerPrefs.GetInt("CarLevel",1)+1);
-            PlayerPrefs.SetInt(adDetails[5].name + "AdOpened", 1);
             newCarImage.sprite = newCarSprites[PlayerPrefs.GetInt("CarLevel", 1)];
             newCarButtonImage.sprite = newCarSprites[PlayerPrefs.GetInt("CarLevel", 1)];
             adDetails[5].buttonObject.Show();

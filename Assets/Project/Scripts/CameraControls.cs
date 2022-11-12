@@ -38,10 +38,12 @@ public class CameraControls : MonoBehaviour
             if (dragActivationPixels < Mathf.Abs(position.x - data.position.x))
             {
                 state = "Horizontal";
+                UIM.Instance.TriggerCamera();
             }
 
             else if (dragActivationPixels < Mathf.Abs(position.y - data.position.y))
             {
+                UIM.Instance.TriggerCamera();
                 state = "Vertical";
             }   
         }

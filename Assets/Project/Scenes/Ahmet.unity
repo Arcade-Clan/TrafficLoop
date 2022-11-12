@@ -244,12 +244,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1194791338}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &613189809 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3665162912839628240, guid: 2b299400713d7c8409b221abfe170205,
-    type: 3}
-  m_PrefabInstance: {fileID: 1194791338}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &648407011 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7702028331264417753, guid: 2b299400713d7c8409b221abfe170205,
@@ -628,16 +622,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1663817246}
-    - target: {fileID: 1312459020569477017, guid: 2b299400713d7c8409b221abfe170205,
-        type: 3}
-      propertyPath: tutorialHands.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1312459020569477017, guid: 2b299400713d7c8409b221abfe170205,
-        type: 3}
-      propertyPath: tutorialHands.Array.data[5]
-      value: 
-      objectReference: {fileID: 613189809}
     - target: {fileID: 1720970304180032552, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -653,11 +637,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1663817246}
-    - target: {fileID: 3665162912839628240, guid: 2b299400713d7c8409b221abfe170205,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3668158586529198833, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -678,11 +657,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1663817246}
-    - target: {fileID: 4445155562033843252, guid: 2b299400713d7c8409b221abfe170205,
-        type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4910965883709827312, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1220,7 +1194,7 @@ MonoBehaviour:
     adImage: {fileID: 963393289}
     text: {fileID: 1602472346}
     timer: {fileID: 2096201975}
-    timerValue: 30
+    timerValue: 45
     multiplierValue: 1
     adsEnabled: 1
     popUpPanel: {fileID: 1584703829}
@@ -1284,6 +1258,7 @@ MonoBehaviour:
   incomeTimer: 180
   feverTimer: 300
   evolveTimer: 420
+  adIndex: 0
 --- !u!4 &1664989339 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 3b922716a5e2c4abd8b9e7f5815bd22f,
@@ -1663,7 +1638,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bacf8906c5f4af293505dbf34de298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplier: 1
 --- !u!82 &1873127963
 AudioSource:
   m_ObjectHideFlags: 0

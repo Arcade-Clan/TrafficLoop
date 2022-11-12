@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using ElephantSDK;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityExtensions;
 public class PM : MonoSingleton<PM>
 {
+    
+    
+    
     public IEnumerator GetStatsRoutine()
     {
         while(true)
@@ -251,8 +255,16 @@ public class PM : MonoSingleton<PM>
     {
         for (int a = 0; a < 8; a++)
         {
-            if (GM.Instance.cars[a].carLevel >= 3 && GM.Instance.cars[a].cars.Count >= 3)
-                return a;
+            if(RemoteConfig.GetInstance().GetBool("merge_list", true))
+            {
+                if (GM.Instance.cars[a].carLevel >= 3 && GM.Instance.cars[a].cars.Count >= 3)
+                    return a;
+            }
+            else
+            {
+                if (GM.Instance.cars[a].cars.Count >= 3)
+                    return a;
+            }
         }
 
         return -1;

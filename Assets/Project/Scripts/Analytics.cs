@@ -9,11 +9,32 @@ using UnityExtensions;
 
 public class Analytics : MonoSingleton<Analytics>
 {
-    public float multiplier = 1;
-    
+
     void Start()
     {
-        multiplier = RemoteConfig.GetInstance().GetFloat("Economy", 1);
+        //RemoteConfig.GetInstance().GetFloat("car_value", 1);
+        //RemoteConfig.GetInstance().Getfloat("addcar_baseValue", 5);
+        //RemoteConfig.GetInstance().GetFloat("addcar_increment", 1);
+        //RemoteConfig.GetInstance().GetFloat("addcar_expoRatio", 0.2f);
+        //RemoteConfig.GetInstance().GetFloat("mergecar_baseValue", 5);
+        //RemoteConfig.GetInstance().GetFloat("mergecar_increment", 3);
+        //RemoteConfig.GetInstance().GetFloat("sizeup_mult", 1);
+        //RemoteConfig.GetInstance().GetFloat("income_baseValue", 5);
+        //RemoteConfig.GetInstance().GetFloat("income_increment", 10);
+        //RemoteConfig.GetInstance().GetFloat("income_expoRatio", 0.5f);
+        //RemoteConfig.GetInstance().GetFloat("mergecar_expoRatio", 1);
+        //RemoteConfig.GetInstance().GetInt("x2speed_time", 120);
+        //RemoteConfig.GetInstance().GetInt("x2money_time", 180);
+        //RemoteConfig.GetInstance().GetInt("fever_time", 300);
+        //RemoteConfig.GetInstance().GetInt("evolvecars_time", 420);
+        //RemoteConfig.GetInstance().GetInt("autoclick_time", 60);
+        //RemoteConfig.GetInstance().GetFloat("autoclick_duration", 45);
+        //RemoteConfig.GetInstance().GetFloat("fever_valuemult", 1);
+        //RemoteConfig.GetInstance().GetInt("popup_loop", 600);
+        //RemoteConfig.GetInstance().GetInt("inter_init", 120);
+        //RemoteConfig.GetInstance().GetInt("popup_freq", 120);
+        //RemoteConfig.GetInstance().GetInt("inter_freq", 90);
+        //RemoteConfig.GetInstance().GetBool("merge_list", true);
         Elephant.Event("level_started", GM.Instance.upgrades[1].upgradeLevel);
     }
 

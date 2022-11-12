@@ -7622,7 +7622,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: -5, y: 10}
-  m_SizeDelta: {x: 170, y: 80}
+  m_SizeDelta: {x: 208.4, y: 86.1}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &5099308843989409202
 CanvasRenderer:
@@ -7652,7 +7652,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20K
+  m_text: 'MONSTER
+
+    CAR'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6743e02c0ba17c84a831a8d0e46739bc, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 8c7c9b71183bcee4195c3ba728c2fb05, type: 2}
@@ -7679,7 +7681,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
+  m_fontSize: 41.25
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -17183,7 +17185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.65, g: 0.65, b: 0.65, a: 0.2509804}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -26087,6 +26089,7 @@ MonoBehaviour:
   - {fileID: 4010919964730743540}
   - {fileID: 534537275952125270}
   - {fileID: 4845963921494371945}
+  - {fileID: 3665162912839628240}
   tutorialInProgress: 0
 --- !u!1 &6519744099083867231
 GameObject:

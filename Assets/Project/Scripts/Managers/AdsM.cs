@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using ElephantSDK;
 using RollicGames.Advertisements;
 using TMPro;
 using UnityEngine;
@@ -54,6 +55,12 @@ public class AdsM : MonoSingleton<AdsM>
         if(Application.isEditor)
             PrepareAds();
     }
+
+    void Start()
+    {
+        adDetails[1].timerValue = RemoteConfig.GetInstance().GetFloat("autoclick_duration", adDetails[1].timerValue);
+        StartCoroutine("PopUpTimer");
+    }
     
     void OnSdkInit() 
     {
@@ -82,11 +89,11 @@ public class AdsM : MonoSingleton<AdsM>
         ResetAutoTapTime();
         if (!PlayerPrefs.HasKey("FirstInter"))
         {
-            yield return StartCoroutine("Waiter",120);
+            yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("inter_init", 120));
             PlayerPrefs.SetInt("FirstInter", 1);
         }
         else
-            yield return StartCoroutine("Waiter", 90);
+            yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("inter_freq", 90));
 
         while (true)
         {
@@ -94,23 +101,37 @@ public class AdsM : MonoSingleton<AdsM>
                 yield return null;
             Analytics.Instance.InterstitialShown();
             RLAdvertisementManager.Instance.showInterstitial();
-            StartCoroutine("ShowPopUpsRoutine");
             print("InterShown");
-            yield return StartCoroutine("Waiter", 90);
+            yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("inter_freq", 90));
         }
     }
 
-   IEnumerator ShowPopUpsRoutine()
-   {
-       if (Time.realtimeSinceStartup < 600)
-           yield break;
-       yield return StartCoroutine("Waiter", 45);
-       OpenPopUp(adIndex+2);
-       adIndex = (adIndex + 1) % 3;
 
+   IEnumerator PopUpTimer()
+   {
+       StartCoroutine("ShowPopUpsRoutine");
+       while (true)
+       {
+           yield return StartCoroutine("Waiter", 1);
+           PlayerPrefs.SetInt("Timer",PlayerPrefs.GetInt("Timer")+1);
+       }
    }
    
    public int adIndex = 0;
+   
+   IEnumerator ShowPopUpsRoutine()
+   {
+       while (true)
+       {
+           if(PlayerPrefs.GetInt("Timer")< RemoteConfig.GetInstance().GetInt("popup_loop", 600))
+               yield return null;
+           OpenPopUp(adIndex + 2);
+           adIndex = (adIndex + 1) % 3;
+           yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("popup_freq", 120));
+       }
+   }
+   
+
    
     IEnumerator Waiter(float value)
     {
@@ -363,7 +384,8 @@ public class AdsM : MonoSingleton<AdsM>
 
     public void FeverCarPopUp()
     {
-        if (!PlayerPrefs.HasKey(adDetails[0].name+ "AdOpened") && Time.realtimeSinceStartup > feverTimer)
+        if (!PlayerPrefs.HasKey(adDetails[0].name+ "AdOpened") && Time.realtimeSinceStartup >
+            RemoteConfig.GetInstance().GetInt("fever_time", feverTimer))
         {
             PlayerPrefs.SetInt(adDetails[0].name + "AdOpened", 1);
             adDetails[0].buttonObject.Show();
@@ -380,7 +402,7 @@ public class AdsM : MonoSingleton<AdsM>
 
     IEnumerator ResetAutoTapRoutine()
     {
-        yield return StartCoroutine("Waiter",60);
+        yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("autoclick_time", 60));
         AutoTapPopUp();
     }
 
@@ -395,7 +417,8 @@ public class AdsM : MonoSingleton<AdsM>
     
     public void ShowSpeedUpPopUp()
     {
-        if (!PlayerPrefs.HasKey(adDetails[2].name + "AdOpened") && Time.realtimeSinceStartup > speedUpTimer)
+        if (!PlayerPrefs.HasKey(adDetails[2].name + "AdOpened") && Time.realtimeSinceStartup >
+            RemoteConfig.GetInstance().GetInt("x2speed_time", speedUpTimer))
         {
             PlayerPrefs.SetInt(adDetails[2].name + "AdOpened", 1);
             OpenPopUp(2);
@@ -405,7 +428,8 @@ public class AdsM : MonoSingleton<AdsM>
 
     public void AddIncomePopUp()
     {
-        if (!PlayerPrefs.HasKey(adDetails[3].name + "AdOpened") && Time.realtimeSinceStartup > incomeTimer)
+        if (!PlayerPrefs.HasKey(adDetails[3].name + "AdOpened") && Time.realtimeSinceStartup >
+            RemoteConfig.GetInstance().GetInt("x2money_time", incomeTimer))
         {
             PlayerPrefs.SetInt(adDetails[3].name + "AdOpened", 1);
             OpenPopUp(3);
@@ -415,7 +439,8 @@ public class AdsM : MonoSingleton<AdsM>
     
     public void EvolveCarsPopUp()
     {
-        if (!PlayerPrefs.HasKey(adDetails[4].name + "AdOpened") && Time.realtimeSinceStartup > evolveTimer)
+        if (!PlayerPrefs.HasKey(adDetails[4].name + "AdOpened") && Time.realtimeSinceStartup >
+            RemoteConfig.GetInstance().GetInt("evolvecars_time", evolveTimer))
         {
             PlayerPrefs.SetInt(adDetails[4].name + "AdOpened", 1);
             OpenPopUp(4);

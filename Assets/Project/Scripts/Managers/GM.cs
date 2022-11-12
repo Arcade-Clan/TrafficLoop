@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using ElephantSDK;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
@@ -53,11 +54,16 @@ public class GM : MonoSingleton<GM>
         public int Cost()
         {
             if (upgradeName == "Car Amount")
-                return Mathf.RoundToInt(baseValue + increment * upgradeLevel + upgradeLevel * ((upgradeLevel + 1) / 2) * expoRatio);
+                return Mathf.RoundToInt(RemoteConfig.GetInstance().GetFloat("addcar_baseValue", (int)baseValue) +
+                                        RemoteConfig.GetInstance().GetFloat("addcar_increment", increment)
+             * upgradeLevel + upgradeLevel * ((upgradeLevel + 1) / 2) *
+                                        RemoteConfig.GetInstance().GetFloat("addcar_expoRatio", expoRatio));
             if (upgradeName == "Income")
-                return Mathf.RoundToInt(baseValue + increment * upgradeLevel + upgradeLevel * ((upgradeLevel + 1) / 2) * expoRatio);
+                return Mathf.RoundToInt(RemoteConfig.GetInstance().GetFloat("income_baseValue", baseValue) +
+                                        RemoteConfig.GetInstance().GetFloat("income_increment", increment) * upgradeLevel + upgradeLevel * ((upgradeLevel + 1) / 2) *
+                                        RemoteConfig.GetInstance().GetFloat("income_expoRatio", expoRatio));
             if (upgradeValues.Length > upgradeLevel)
-                return Mathf.RoundToInt(upgradeValues[upgradeLevel]);
+                return Mathf.RoundToInt(upgradeValues[upgradeLevel] * RemoteConfig.GetInstance().GetFloat("sizeup_mult", 1));
             return 100000000;
         }
 
@@ -96,7 +102,9 @@ public class GM : MonoSingleton<GM>
 
         public int Cost()
         {
-            return Mathf.RoundToInt(baseValue + increment * mergeLevel + mergeLevel * ((mergeLevel + 1) / 2) * expoRatio);
+            return Mathf.RoundToInt(RemoteConfig.GetInstance().GetFloat("mergecar_baseValue", baseValue) +
+                                    RemoteConfig.GetInstance().GetFloat("mergecar_increment", increment)
+             * mergeLevel + mergeLevel * ((mergeLevel + 1) / 2) * RemoteConfig.GetInstance().GetFloat("mergecar_expoRatio", expoRatio));
         }
     }
 
@@ -212,9 +220,12 @@ public void IncreaseMoney(Car car,Vector3 position)
     if (UIM.Instance.tutorialInProgress)
         return;
 
-    int value = cars[car.carIndex].carValue * Mathf.RoundToInt(AdsM.Instance.adDetails[3].multiplierValue);
+    int value = cars[car.carIndex].carValue * Mathf.RoundToInt(AdsM.Instance.adDetails[3].multiplierValue*
+                RemoteConfig.GetInstance().GetFloat("car_value", 1));
     if(cars[car.carIndex].specialCar)
-        value = cars[car.carIndex].carValue * merge.Cost() * Mathf.RoundToInt(AdsM.Instance.adDetails[3].multiplierValue);
+        value = cars[car.carIndex].carValue * merge.Cost() * Mathf.RoundToInt(AdsM.Instance.adDetails[3].multiplierValue *
+                                                                              RemoteConfig.GetInstance().GetFloat("car_value", 1)*
+                                                                              RemoteConfig.GetInstance().GetFloat("fever_valuemult", 1));
     Analytics.Instance.EarnedMoney(value);
     gold += Mathf.RoundToInt(value);
     UIM.Instance.UpdateGold();

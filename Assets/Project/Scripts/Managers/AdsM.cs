@@ -114,6 +114,7 @@ public class AdsM : MonoSingleton<AdsM>
        {
            yield return StartCoroutine("Waiter", 1);
            PlayerPrefs.SetInt("Timer",PlayerPrefs.GetInt("Timer")+1);
+           Debug.Log(PlayerPrefs.GetInt("Timer"));
        }
    }
    
@@ -355,6 +356,9 @@ public class AdsM : MonoSingleton<AdsM>
     IEnumerator WaitFor3CarOffer()
     {
         yield return StartCoroutine("Waiter", 15);
+        if (PlayerPrefs.HasKey("ClosestCarOffer" + PlayerPrefs.GetInt("CarLevel", 1)))
+            yield break;
+        PlayerPrefs.SetInt("ClosestCarOffer" + PlayerPrefs.GetInt("CarLevel", 1), 1);
         OpenPopUp(0);
     }
 

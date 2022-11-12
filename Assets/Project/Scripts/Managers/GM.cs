@@ -155,6 +155,9 @@ public class GM : MonoSingleton<GM>
 
     public void GetSaves()
     {
+        if (!tutorialOn || PlayerPrefs.HasKey("TutorialProgression"))
+            PlayerPrefs.SetInt("TutorialProgression", 100);
+        UIM.Instance.tutorialProgression = PlayerPrefs.GetInt("TutorialProgression");
         gold = PlayerPrefs.GetInt("Gold",3);
         UIM.Instance.UpdateGold();
         for (int a = 0; a < upgrades.Length; a++)
@@ -186,11 +189,6 @@ public class GM : MonoSingleton<GM>
 #region HelperUpdate
 void Update()
     {
-        if (Input.GetMouseButton(2))
-        {
-            PlayerPrefs.DeleteAll();
-            Application.LoadLevel(1);
-        }
         if(Application.isEditor)
         {
             if (Input.GetKey(KeyCode.M) || Input.GetMouseButton(1))

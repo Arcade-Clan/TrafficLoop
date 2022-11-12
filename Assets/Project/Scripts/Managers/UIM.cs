@@ -23,13 +23,7 @@ public class UIM : MonoSingleton<UIM>
    public GameObject[] tutorialHands;
    public bool tutorialInProgress;
    
-   void Awake()
-   {
-      if (!GM.Instance.tutorialOn || PlayerPrefs.HasKey("TutorialProgression"))
-         PlayerPrefs.SetInt("TutorialProgression",100);
-      tutorialProgression = PlayerPrefs.GetInt("TutorialProgression");
-
-   }
+   
 
    private void Start()
    {
@@ -54,7 +48,6 @@ public class UIM : MonoSingleton<UIM>
    public void TriggerCamera()
    {
       IncreaseTutorialProgression(5);
-      GM.Instance.PlaySound(0);
    }
 
    public bool IncreaseTutorialProgression(int index)

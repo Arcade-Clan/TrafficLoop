@@ -126,9 +126,7 @@ public class UIM : MonoSingleton<UIM>
       
       for (int a = 0; a < upgrades.Length; a++)
       {
-         if (a == 2&& 
-             (!LM.Instance.gates[GM.Instance.upgrades[2].upgradeLevel+1].transform.parent.gameObject.activeInHierarchy 
-              || GM.Instance.upgrades[2].Cost()==-1))
+         if (a == 2&& !LM.Instance.gates[GM.Instance.upgrades[2].upgradeLevel+1].transform.parent.gameObject.activeInHierarchy)
          {
             upgrades[a].button.interactable = false;
             upgrades[a].adImage.Hide();
@@ -150,7 +148,7 @@ public class UIM : MonoSingleton<UIM>
    void ProcessButtons(int index)
    {
       float cost = GM.Instance.upgrades[index].Cost();
-      upgrades[index].goldText.text = "$" + PriceFormatting(cost);
+      upgrades[index].goldText.text = PriceFormatting(cost);
       bool canBeBought = cost <= GM.Instance.gold;
       upgrades[index].button.Show();
       if (canBeBought)
@@ -195,7 +193,7 @@ public class UIM : MonoSingleton<UIM>
    void ProcessMerge()
    {
       float cost = GM.Instance.merge.Cost();
-      merge.goldText.text = "$" + PriceFormatting(cost);
+      merge.goldText.text =PriceFormatting(cost);
       bool canBeBought = cost <= GM.Instance.gold;
       if (canBeBought && PM.Instance.CanMerge())
       {
@@ -253,9 +251,9 @@ public class UIM : MonoSingleton<UIM>
    public string PriceFormatting(float value)
    {
       if (value >= 1000000)
-         return string.Format("{0:N2}", value / 1000000f)+"M";
-      else if (value >= 1000)
-         return string.Format("{0:N2}", value / 1000f)+"K";
-      return "" + value;
+         return "$" + string.Format("{0:N2}", value / 1000000f)+"M";
+      if (value >= 1000)
+         return "$" + string.Format("{0:N2}", value / 1000f)+"K";
+      return "$" + value;
    }
 }

@@ -887,7 +887,7 @@ MonoBehaviour:
   roadScaleEase: 21
   roadScaleDuration: 0.5
   roadPositionEase: 3
-  roadStartHeight: 15
+  roadStartHeight: 7.5
   roadPositionDuration: 0.5
   roadDelayDuration: 0.01
 --- !u!4 &1321211127 stripped
@@ -1470,6 +1470,7 @@ MonoBehaviour:
     - 250000
     - 350000
     - 3000000
+    - 10000000
   - upgradeName: Income
     upgradeLevel: 0
     baseValue: 5
@@ -1606,7 +1607,7 @@ MonoBehaviour:
   sounds:
   - sound: {fileID: 8300000, guid: 7d366bb0b188584458dc63627c3b1137, type: 3}
     volume: 0.5
-  tutorialOn: 1
+  tutorialOn: 0
 --- !u!114 &1873127962
 MonoBehaviour:
   m_ObjectHideFlags: 0

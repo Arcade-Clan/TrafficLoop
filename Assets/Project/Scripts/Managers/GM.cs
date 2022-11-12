@@ -58,7 +58,7 @@ public class GM : MonoSingleton<GM>
                 return Mathf.RoundToInt(baseValue + increment * upgradeLevel + upgradeLevel * ((upgradeLevel + 1) / 2) * expoRatio);
             if (upgradeValues.Length > upgradeLevel)
                 return Mathf.RoundToInt(upgradeValues[upgradeLevel]);
-            return -1;
+            return 100000000;
         }
 
 
@@ -66,7 +66,7 @@ public class GM : MonoSingleton<GM>
         public bool Max(int value)
         {
             if (value == 1)
-                return upgradeLevel == LM.Instance.level.sections.Length-1;
+                return upgradeLevel >= LM.Instance.level.sections.Length-1;
             return false;
         }
 

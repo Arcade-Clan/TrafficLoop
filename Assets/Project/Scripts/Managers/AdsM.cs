@@ -380,9 +380,10 @@ public class AdsM : MonoSingleton<AdsM>
 #endregion
     
     public void ShowSpeedUpPopUp()
-    {
+    {print("yes1");
         if (!PlayerPrefs.HasKey(adDetails[2].name + "AdOpened") && Time.realtimeSinceStartup > speedUpTimer)
         {
+            print("yes2");
             PlayerPrefs.SetInt(adDetails[2].name + "AdOpened", 1);
             OpenPopUp(2);
             adDetails[2].buttonObject.Show();
@@ -444,6 +445,8 @@ public class AdsM : MonoSingleton<AdsM>
         Analytics.Instance.PopUpShown(adDetails[index].name);
         for (int a = 0; a < adDetails.Length; a++)
             adDetails[a].popUpPanel.Hide();
+        print(adDetails[index].popUpPanel.transform.parent.parent.name);
+        print(adDetails[index].popUpPanel.gameObject.name);
         adDetails[index].popUpPanel.transform.parent.parent.Show();
         adDetails[index].popUpPanel.Show();
     }

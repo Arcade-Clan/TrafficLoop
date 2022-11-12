@@ -137,7 +137,7 @@ public class AdsM : MonoSingleton<AdsM>
     {
         while (value > 0)
         {
-            value -= Time.unscaledDeltaTime;
+            value -= 1 / 60f;
             yield return null;
         }
     }
@@ -193,16 +193,19 @@ public class AdsM : MonoSingleton<AdsM>
         {
             case RLRewardedAdResult.Finished:
             {
+                Debug.Log("XXXFinished"+ currentRewarded.Method.Name);
                 AcceptReward();
                 break;
             }
             case RLRewardedAdResult.Skipped:
             {
+                Debug.Log("XXXSkipped" + currentRewarded.Method.Name);
                 currentRewarded = null;
                 break;
             }
             case RLRewardedAdResult.Failed:
             {
+                Debug.Log("XXXFailed" + currentRewarded.Method.Name);
                 Analytics.Instance.RewardedFailed(currentRewarded.Method.Name);
                 currentRewarded = null;
                 break;
@@ -384,7 +387,7 @@ public class AdsM : MonoSingleton<AdsM>
 
     public void FeverCarPopUp()
     {
-        if (!PlayerPrefs.HasKey(adDetails[0].name+ "AdOpened") && Time.realtimeSinceStartup >
+        if (!PlayerPrefs.HasKey(adDetails[0].name+ "AdOpened") && PlayerPrefs.GetInt("Timer") >
             RemoteConfig.GetInstance().GetInt("fever_time", feverTimer))
         {
             PlayerPrefs.SetInt(adDetails[0].name + "AdOpened", 1);
@@ -417,7 +420,7 @@ public class AdsM : MonoSingleton<AdsM>
     
     public void ShowSpeedUpPopUp()
     {
-        if (!PlayerPrefs.HasKey(adDetails[2].name + "AdOpened") && Time.realtimeSinceStartup >
+        if (!PlayerPrefs.HasKey(adDetails[2].name + "AdOpened") && PlayerPrefs.GetInt("Timer") >
             RemoteConfig.GetInstance().GetInt("x2speed_time", speedUpTimer))
         {
             PlayerPrefs.SetInt(adDetails[2].name + "AdOpened", 1);
@@ -428,7 +431,7 @@ public class AdsM : MonoSingleton<AdsM>
 
     public void AddIncomePopUp()
     {
-        if (!PlayerPrefs.HasKey(adDetails[3].name + "AdOpened") && Time.realtimeSinceStartup >
+        if (!PlayerPrefs.HasKey(adDetails[3].name + "AdOpened") && PlayerPrefs.GetInt("Timer") >
             RemoteConfig.GetInstance().GetInt("x2money_time", incomeTimer))
         {
             PlayerPrefs.SetInt(adDetails[3].name + "AdOpened", 1);
@@ -439,7 +442,7 @@ public class AdsM : MonoSingleton<AdsM>
     
     public void EvolveCarsPopUp()
     {
-        if (!PlayerPrefs.HasKey(adDetails[4].name + "AdOpened") && Time.realtimeSinceStartup >
+        if (!PlayerPrefs.HasKey(adDetails[4].name + "AdOpened") && PlayerPrefs.GetInt("Timer") >
             RemoteConfig.GetInstance().GetInt("evolvecars_time", evolveTimer))
         {
             PlayerPrefs.SetInt(adDetails[4].name + "AdOpened", 1);

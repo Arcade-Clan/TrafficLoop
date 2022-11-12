@@ -328,7 +328,7 @@ public class PM : MonoSingleton<PM>
         while (timer>0)
         {
             AdsM.Instance.adDetails[index].timer.text = "" + string.Format("{0:N1}", timer);
-            timer -= Time.unscaledDeltaTime;
+            timer -= 1/60f;
             yield return null;
         }
         AdsM.Instance.adDetails[index].buttonObject.transform.DOKill();

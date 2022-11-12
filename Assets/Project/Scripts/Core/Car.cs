@@ -85,7 +85,7 @@ public class Car : MonoBehaviour
             }
             Vector3 rotation = road.tween.PathGetPoint((place + currentSpeed / 60) / road.pathLength);
             float angle = Vector3.Angle((rotation - transform.position).normalized, transform.forward);
-            place += currentSpeed * (1 - angle / 28f) / 60;
+            place += currentSpeed / 60;
             Vector3 newPosition = road.tween.PathGetPoint(place / road.pathLength);
             Rotate(newPosition);
             transform.position = newPosition;
@@ -136,7 +136,7 @@ public class Car : MonoBehaviour
             Collider[] hits = Physics.OverlapSphere(position, 0.75f,LayerMask.GetMask("Car"));
             for (int b = 0; b < hits.Length; b++)
             {
-                Debug.DrawLine(position + Vector3.up * 5f, position, Color.red);
+                Debug.DrawLine(position + Vector3.up * 1f, position, Color.red);
                 Car checkingCar = hits[b].transform.GetComponentInParent<Car>();
                 if (!checkingCar)
                     continue;

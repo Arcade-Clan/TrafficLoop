@@ -33,6 +33,7 @@ public class AdsM : MonoSingleton<AdsM>
     public Image newCarImagePopUp;
     public Image newCarButtonImage;
     public Sprite[] newCarSprites;
+    public GameObject add3CarOffer;
     
 #if UNITY_IOS
     private string _appKey = "1728094ad";
@@ -370,7 +371,7 @@ public class AdsM : MonoSingleton<AdsM>
         if (PlayerPrefs.HasKey("ClosestCarOffer" + PlayerPrefs.GetInt("LastCarLevel", 1)))
             yield break;
         PlayerPrefs.SetInt("ClosestCarOffer" + PlayerPrefs.GetInt("LastCarLevel", 1), 1);
-        OpenPopUp(0);
+        OpenPopUpAdd3Car();
     }
 
     public void AddClosest3CarButton()
@@ -406,6 +407,7 @@ public class AdsM : MonoSingleton<AdsM>
             RemoteConfig.GetInstance().GetInt("fever_time", feverTimer))
         {
             PlayerPrefs.SetInt(adDetails[0].name + "AdOpened", 1);
+            OpenPopUp(0);
             adDetails[0].buttonObject.Show();
         }
     }
@@ -496,12 +498,20 @@ public class AdsM : MonoSingleton<AdsM>
         Analytics.Instance.PopUpShown(adDetails[index].name);
         for (int a = 0; a < adDetails.Length; a++)
             adDetails[a].popUpPanel.Hide();
-        print(adDetails[index].popUpPanel.transform.parent.parent.name);
-        print(adDetails[index].popUpPanel.gameObject.name);
+        add3CarOffer.Hide();
         adDetails[index].popUpPanel.transform.parent.parent.Show();
         adDetails[index].popUpPanel.Show();
     }
 
+    public void OpenPopUpAdd3Car()
+    {
+        Analytics.Instance.PopUpShown("Add3Car");
+        for (int a = 0; a < adDetails.Length; a++)
+            adDetails[a].popUpPanel.Hide();
+        add3CarOffer.transform.parent.parent.Show();
+        add3CarOffer.Show();
+    }
+    
 #endregion
     
 }

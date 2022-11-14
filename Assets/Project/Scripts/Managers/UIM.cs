@@ -114,7 +114,7 @@ public class UIM : MonoSingleton<UIM>
    public void CreateText(int value, Vector3 position)
    {
       GameObject newText = Instantiate(counterText, GM.Instance.canvas.transform, true);
-      newText.GetComponentInChildren<TextMeshProUGUI>().text = "+" + value;
+      newText.GetComponentInChildren<TextMeshProUGUI>().text = "" + PriceFormatting(value);
       newText.transform.SetAsFirstSibling();
       newText.GetComponent<RectTransform>().anchoredPosition =
          RectTransformUtility.WorldToScreenPoint(GM.Instance.cam, position) /

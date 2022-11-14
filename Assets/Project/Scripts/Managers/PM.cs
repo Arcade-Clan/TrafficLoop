@@ -71,8 +71,8 @@ public class PM : MonoSingleton<PM>
     {
         while (true)
         {
-            if(Mathf.Max(GM.Instance.tapSpeed, AdsM.Instance.adDetails[1].multiplierValue)>1)
-                GM.Instance.baseSecondCreationSpeedUp = GM.Instance.baseSecondCreationSpeedUpMultiplier;
+            if(Mathf.Max(GM.Instance.tapSpeed, AdsM.Instance.adDetails[1].multiplierValue) > 1)
+                GM.Instance.baseSecondCreationSpeedUp = RemoteConfig.GetInstance().GetFloat("speed_up_creation", 1);
             else
                 GM.Instance.baseSecondCreationSpeedUp = 1;
             GM.Instance.simulationSpeed = Mathf.Max(GM.Instance.tapSpeed, AdsM.Instance.adDetails[1].multiplierValue) * AdsM.Instance.adDetails[2].multiplierValue;
@@ -255,25 +255,14 @@ public class PM : MonoSingleton<PM>
     {
         for (int a = 0; a < 9; a++)
         {
-            if(RemoteConfig.GetInstance().GetBool("merge_list", true))
-            {
-                if (GM.Instance.cars[a].cars.Count >= 3)
+            if (GM.Instance.cars[a].carLevel >= 3 && GM.Instance.cars[a].cars.Count >= 3)
                     return a;
-            }
-            else
-            {
-                if (GM.Instance.cars[a].carLevel >= 3 && GM.Instance.cars[a].cars.Count >= 3)
-                    return a;
-            }
         }
-
         return -1;
     }
 
     #region AdProcesses
-    
-
-    
+        
     public IEnumerator FeverCarRoutine()
     {
         GM.Instance.trafficController.AddCar(16);

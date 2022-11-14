@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using ElephantSDK;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -55,7 +56,9 @@ public class Car : MonoBehaviour
     
     IEnumerator MoveRoutine()
     {
-        TextMeshPro text = GetComponentInChildren<TextMeshPro>();
+        //TextMeshPro text = cars[carIndex].GetComponentInChildren<TextMeshPro>();
+        //if (!RemoteConfig.GetInstance().GetBool("merge_list", true))
+        //    text.enabled = false;
         while (true)
         {
             collidedCar = CheckRay();
@@ -64,23 +67,23 @@ public class Car : MonoBehaviour
                 (Vector3.Distance(road.transform.position, collidedCar.road.transform.position) <1f || 
                  Vector3.Distance(road.path.wps.Last(), collidedCar.road.path.wps.Last()) < 1f))
             {
-                text.text = "Same Path\n"+collidedCar.gameObject.name;
+                //text.text = "Same Path\n"+collidedCar.gameObject.name;
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GM.Instance.slowStrength);
             }
             else if (collidedCar && (!collidedCar.collidedCar || !collidedCar.collidedCar.collidedCar||priority<collidedCar.priority))
             {
                 CheckLastCar(collidedCar);
-                text.text = "Crash\n" + collidedCar.gameObject.name;
+                //text.text = "Crash\n" + collidedCar.gameObject.name;
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GM.Instance.slowStrength);
             }
             else if (trafficLight&& !cars[carIndex].feverCar)
             {
-                text.text = "Light";
+                //text.text = "Light";
                 currentSpeed = Mathf.Lerp(currentSpeed, 0, GM.Instance.slowStrength);
             }
             else
             {
-                text.text = "Go";
+                //text.text = "Go";
                 currentSpeed = Mathf.Lerp(currentSpeed, speed, GM.Instance.startMoveStrength);
             }
             Vector3 rotation = road.tween.PathGetPoint((place + currentSpeed / 60) / road.pathLength);

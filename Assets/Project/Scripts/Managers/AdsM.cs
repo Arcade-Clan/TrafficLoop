@@ -139,8 +139,9 @@ public class AdsM : MonoSingleton<AdsM>
    {
        while (true)
        {
-           if(PlayerPrefs.GetInt("Timer")< RemoteConfig.GetInstance().GetInt("popup_loop", 600))
+           while(PlayerPrefs.GetInt("Timer")< RemoteConfig.GetInstance().GetInt("popup_loop", 600))
                yield return null;
+           print("PopUpTimer");
            yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("popup_freq", 120));
            OpenPopUp(adIndex + 2);
            adIndex = (adIndex + 1) % 3;
@@ -443,6 +444,7 @@ public class AdsM : MonoSingleton<AdsM>
         if (!PlayerPrefs.HasKey(adDetails[2].name + "AdOpened") && PlayerPrefs.GetInt("Timer") >
             RemoteConfig.GetInstance().GetInt("x2speed_time", speedUpTimer))
         {
+            print("SpeedUpPopUp");
             PlayerPrefs.SetInt(adDetails[2].name + "AdOpened", 1);
             OpenPopUp(2);
             adDetails[2].buttonObject.Show();
@@ -498,6 +500,7 @@ public class AdsM : MonoSingleton<AdsM>
 
     public void OpenPopUp(int index)
     {
+        print("OpenPopUp");
         Analytics.Instance.PopUpShown(adDetails[index].name);
         for (int a = 0; a < adDetails.Length; a++)
             adDetails[a].popUpPanel.Hide();

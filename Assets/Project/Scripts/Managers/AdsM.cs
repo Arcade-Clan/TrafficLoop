@@ -367,9 +367,9 @@ public class AdsM : MonoSingleton<AdsM>
     IEnumerator WaitFor3CarOffer()
     {
         yield return StartCoroutine("Waiter", 15);
-        if (PlayerPrefs.HasKey("ClosestCarOffer" + PlayerPrefs.GetInt("LastCarLevel", 0)))
+        if (PlayerPrefs.HasKey("ClosestCarOffer" + PlayerPrefs.GetInt("LastCarLevel", 1)))
             yield break;
-        PlayerPrefs.SetInt("ClosestCarOffer" + PlayerPrefs.GetInt("LastCarLevel", 0), 1);
+        PlayerPrefs.SetInt("ClosestCarOffer" + PlayerPrefs.GetInt("LastCarLevel", 1), 1);
         OpenPopUp(0);
     }
 
@@ -395,12 +395,9 @@ public class AdsM : MonoSingleton<AdsM>
         ShowSpeedUpPopUp();
         AddIncomePopUp();
         EvolveCarsPopUp();
-        if(PlayerPrefs.GetInt("LastCarLevel", 0)>0)
-        {
-            newCarImage.sprite = newCarSprites[PlayerPrefs.GetInt("LastCarLevel", 0)];
-            newCarImagePopUp.sprite = newCarSprites[PlayerPrefs.GetInt("LastCarLevel", 0)];
-            newCarButtonImage.sprite = newCarSprites[PlayerPrefs.GetInt("LastCarLevel", 0) - 1];
-        }
+        newCarImage.sprite = newCarSprites[PlayerPrefs.GetInt("LastCarLevel", 1)];
+        newCarImagePopUp.sprite = newCarSprites[PlayerPrefs.GetInt("LastCarLevel", 1)];
+        newCarButtonImage.sprite = newCarSprites[PlayerPrefs.GetInt("LastCarLevel", 1)-1];
     }
 
     public void FeverCarPopUp()
@@ -485,9 +482,9 @@ public class AdsM : MonoSingleton<AdsM>
     
     public void GetNewCarPopUp()
     {
-        if (PlayerPrefs.GetInt("LastCarLevel",0)<LastCarLevel())
+        if (PlayerPrefs.GetInt("LastCarLevel",1)<LastCarLevel())
         {
-            PlayerPrefs.SetInt("LastCarLevel", PlayerPrefs.GetInt("LastCarLevel",0)+1);
+            PlayerPrefs.SetInt("LastCarLevel", PlayerPrefs.GetInt("LastCarLevel",1)+1);
             PlayerPrefs.SetInt(adDetails[5].name + "AdOpened", 1);
             adDetails[5].buttonObject.Show();
             OpenPopUp(5);

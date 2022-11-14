@@ -292,13 +292,13 @@ public class PM : MonoSingleton<PM>
     }
     public IEnumerator SpeedUpRoutine()
     {
-        AdsM.Instance.adDetails[2].multiplierValue = 2;
+        AdsM.Instance.adDetails[2].multiplierValue = 3;
         yield return WaitForAddRoutine(2);
         AdsM.Instance.adDetails[2].multiplierValue = 1;
     }
     public IEnumerator AddIncomeRoutine()
     {
-        AdsM.Instance.adDetails[3].multiplierValue = 2;
+        AdsM.Instance.adDetails[3].multiplierValue = 3;
         UIM.Instance.UpdateEconomyUI();
         yield return WaitForAddRoutine(3);
         AdsM.Instance.adDetails[3].multiplierValue = 1;

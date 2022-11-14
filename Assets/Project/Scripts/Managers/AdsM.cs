@@ -6,7 +6,10 @@ using ElephantSDK;
 using RollicGames.Advertisements;
 using TMPro;
 using UnityEngine;
+
+#if UNITY_IOS
 using UnityEngine.iOS;
+#endif
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityExtensions;
@@ -33,6 +36,7 @@ public class AdsM : MonoSingleton<AdsM>
     public Image newCarImagePopUp;
     public Image newCarButtonImage;
     public Sprite[] newCarSprites;
+    public GameObject add3CarOffer;
     
 #if UNITY_IOS
     private string _appKey = "1728094ad";
@@ -135,8 +139,9 @@ public class AdsM : MonoSingleton<AdsM>
    {
        while (true)
        {
-           if(PlayerPrefs.GetInt("Timer")< RemoteConfig.GetInstance().GetInt("popup_loop", 600))
+           while(PlayerPrefs.GetInt("Timer")< RemoteConfig.GetInstance().GetInt("popup_loop", 600))
                yield return null;
+           print("PopUpTimer");
            yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("popup_freq", 120));
            OpenPopUp(adIndex + 2);
            adIndex = (adIndex + 1) % 3;
@@ -370,7 +375,7 @@ public class AdsM : MonoSingleton<AdsM>
         if (PlayerPrefs.HasKey("ClosestCarOffer" + PlayerPrefs.GetInt("LastCarLevel", 1)))
             yield break;
         PlayerPrefs.SetInt("ClosestCarOffer" + PlayerPrefs.GetInt("LastCarLevel", 1), 1);
-        OpenPopUp(0);
+        OpenPopUpAdd3Car();
     }
 
     public void AddClosest3CarButton()
@@ -406,6 +411,7 @@ public class AdsM : MonoSingleton<AdsM>
             RemoteConfig.GetInstance().GetInt("fever_time", feverTimer))
         {
             PlayerPrefs.SetInt(adDetails[0].name + "AdOpened", 1);
+            OpenPopUp(0);
             adDetails[0].buttonObject.Show();
         }
     }
@@ -438,6 +444,7 @@ public class AdsM : MonoSingleton<AdsM>
         if (!PlayerPrefs.HasKey(adDetails[2].name + "AdOpened") && PlayerPrefs.GetInt("Timer") >
             RemoteConfig.GetInstance().GetInt("x2speed_time", speedUpTimer))
         {
+            print("SpeedUpPopUp");
             PlayerPrefs.SetInt(adDetails[2].name + "AdOpened", 1);
             OpenPopUp(2);
             adDetails[2].buttonObject.Show();
@@ -493,15 +500,24 @@ public class AdsM : MonoSingleton<AdsM>
 
     public void OpenPopUp(int index)
     {
+        print("OpenPopUp");
         Analytics.Instance.PopUpShown(adDetails[index].name);
         for (int a = 0; a < adDetails.Length; a++)
             adDetails[a].popUpPanel.Hide();
-        print(adDetails[index].popUpPanel.transform.parent.parent.name);
-        print(adDetails[index].popUpPanel.gameObject.name);
+        add3CarOffer.Hide();
         adDetails[index].popUpPanel.transform.parent.parent.Show();
         adDetails[index].popUpPanel.Show();
     }
 
+    public void OpenPopUpAdd3Car()
+    {
+        Analytics.Instance.PopUpShown("Add3Car");
+        for (int a = 0; a < adDetails.Length; a++)
+            adDetails[a].popUpPanel.Hide();
+        add3CarOffer.transform.parent.parent.Show();
+        add3CarOffer.Show();
+    }
+    
 #endregion
     
 }

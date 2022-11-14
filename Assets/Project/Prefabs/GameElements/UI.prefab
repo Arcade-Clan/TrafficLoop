@@ -240,13 +240,14 @@ GameObject:
   - component: {fileID: 290116763}
   - component: {fileID: 290116762}
   - component: {fileID: 290116761}
+  - component: {fileID: 1648942052}
   m_Layer: 5
   m_Name: 3AddIncomeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &290116760
 RectTransform:
   m_ObjectHideFlags: 0
@@ -366,6 +367,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1648942052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290116759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0fc18fa08044a57b416a4bc24f60d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 17
 --- !u!1 &348498810
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,13 +1022,14 @@ GameObject:
   - component: {fileID: 712927459}
   - component: {fileID: 712927458}
   - component: {fileID: 712927457}
+  - component: {fileID: 1943118268}
   m_Layer: 5
   m_Name: 1AutoTapButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &712927456
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1135,6 +1150,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1943118268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712927455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0fc18fa08044a57b416a4bc24f60d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 20
 --- !u!1 &721471459
 GameObject:
   m_ObjectHideFlags: 0
@@ -1437,13 +1465,14 @@ GameObject:
   - component: {fileID: 917606536}
   - component: {fileID: 917606535}
   - component: {fileID: 917606534}
+  - component: {fileID: 1025003997}
   m_Layer: 5
   m_Name: 4EvolveCarsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &917606533
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1563,6 +1592,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1025003997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917606532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0fc18fa08044a57b416a4bc24f60d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 18
 --- !u!1 &1008809427
 GameObject:
   m_ObjectHideFlags: 0
@@ -5403,7 +5445,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: EVOLVE YOUR CARS FOR 30SEC
+  m_text: 'EVOLVE ALL YOUR CARS
+
+    FOR 30 SEC!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6743e02c0ba17c84a831a8d0e46739bc, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 667898c0102e2c84db950081893fcd55, type: 2}
@@ -7132,7 +7176,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AdsM, Assembly-CSharp
-        m_MethodName: EvolveCarsButton
+        m_MethodName: FeverCarButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7166,13 +7210,14 @@ GameObject:
   - component: {fileID: 7701690525609983277}
   - component: {fileID: 8797062247864020750}
   - component: {fileID: 819303698844468236}
+  - component: {fileID: 1643903806}
   m_Layer: 5
   m_Name: 0FeverCarButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1956180636676206450
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7292,6 +7337,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1643903806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 975949644041138275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0fc18fa08044a57b416a4bc24f60d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 15
 --- !u!1 &988986299938903754
 GameObject:
   m_ObjectHideFlags: 0
@@ -13504,10 +13562,10 @@ RectTransform:
   m_Father: {fileID: 8580906221869077815}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 575, y: -100}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8846983745185224049
 CanvasRenderer:
@@ -15556,7 +15614,7 @@ GameObject:
   - component: {fileID: 5055525618020345538}
   - component: {fileID: 5143330916991458920}
   m_Layer: 5
-  m_Name: 7MonsterCarOffer
+  m_Name: 0MonsterCarOffer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15664,10 +15722,10 @@ RectTransform:
   m_Father: {fileID: 8580906221869077815}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 95, y: -260}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &68323807056946691
 CanvasRenderer:
@@ -15849,7 +15907,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: DOUBLE YOUR INCOME FOR 30SEC
+  m_text: TRIPLE YOUR INCOME FOR      30 SECONDS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6743e02c0ba17c84a831a8d0e46739bc, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 667898c0102e2c84db950081893fcd55, type: 2}
@@ -15984,7 +16042,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SPEED UP YOUR CARS FOR 30SEC
+  m_text: 'TRIPLE YOUR CAR SPEED FOR
+
+    30 SECONDS'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6743e02c0ba17c84a831a8d0e46739bc, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 667898c0102e2c84db950081893fcd55, type: 2}
@@ -16690,10 +16750,10 @@ RectTransform:
   m_Father: {fileID: 8580906221869077815}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 415, y: -260}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2685177593699797157
 CanvasRenderer:
@@ -16923,10 +16983,10 @@ RectTransform:
   m_Father: {fileID: 8580906221869077815}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 255, y: -420}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1913552774748029230
 CanvasRenderer:
@@ -16978,13 +17038,14 @@ GameObject:
   - component: {fileID: 308831579035864332}
   - component: {fileID: 786580832417898951}
   - component: {fileID: 3668158586529198833}
+  - component: {fileID: 1880037872}
   m_Layer: 5
   m_Name: 5AddLastCarButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &462710219102408293
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17104,6 +17165,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1880037872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3337508882439432402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0fc18fa08044a57b416a4bc24f60d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 19
 --- !u!1 &3440404277474355513
 GameObject:
   m_ObjectHideFlags: 0
@@ -17866,9 +17940,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'DO YOU WANT THESE
-
-    3 CARS'
+  m_text: "DO YOU WANT THESE \nAWESOME 3 CARS ??"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6743e02c0ba17c84a831a8d0e46739bc, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 667898c0102e2c84db950081893fcd55, type: 2}
@@ -20079,10 +20151,10 @@ RectTransform:
   m_Father: {fileID: 8580906221869077815}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 255, y: -260}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &29456254082208452
 CanvasRenderer:
@@ -21261,10 +21333,10 @@ RectTransform:
   m_Father: {fileID: 8580906221869077815}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 95, y: -100}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1816856391947655700
 CanvasRenderer:
@@ -21372,7 +21444,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'DO YOU WANT
 
-    ONE MORE'
+    ONE MORE ?'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6743e02c0ba17c84a831a8d0e46739bc, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 667898c0102e2c84db950081893fcd55, type: 2}
@@ -24125,10 +24197,10 @@ RectTransform:
   m_Father: {fileID: 8580906221869077815}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 255, y: -100}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8243747775840099761
 CanvasRenderer:
@@ -25859,10 +25931,10 @@ RectTransform:
   m_Father: {fileID: 8580906221869077815}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 415, y: -100}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6382866046460964679
 CanvasRenderer:
@@ -26076,10 +26148,10 @@ RectTransform:
   m_Father: {fileID: 8580906221869077815}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 575, y: -260}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2701241571347605877
 CanvasRenderer:
@@ -26157,10 +26229,10 @@ RectTransform:
   m_Father: {fileID: 8580906221869077815}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 415, y: -420}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2366687025345574937
 CanvasRenderer:
@@ -31191,13 +31263,14 @@ GameObject:
   - component: {fileID: 6067694893775756451}
   - component: {fileID: 7042681040935470322}
   - component: {fileID: 4418659414311680478}
+  - component: {fileID: 2054227465}
   m_Layer: 5
   m_Name: 2SpeedUpButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4406793889884624255
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31317,6 +31390,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2054227465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7168733236460062392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0fc18fa08044a57b416a4bc24f60d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 16
 --- !u!1 &7173044498400265127
 GameObject:
   m_ObjectHideFlags: 0
@@ -32404,10 +32490,10 @@ RectTransform:
   m_Father: {fileID: 8580906221869077815}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 95, y: -420}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7221304227094483100
 CanvasRenderer:

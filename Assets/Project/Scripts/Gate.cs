@@ -14,15 +14,21 @@ public class Gate : MonoBehaviour
     public float openTime = 1;
     public float closeTime = 1;
     public float delay = 0.5f;
+    public GameObject particleObject;
+    
     
     public void Start()
     {
         Vector3 position = model.localPosition;
         Vector3 scale = model.localScale;
-        model.localScale = Vector3.zero;
+        model.localScale = Vector3.one*4;
         model.localPosition+=Vector3.up*5;
-        model.DOScale(scale,1.5f*Random.Range(0.8f,1.2f)).SetEase(Ease.OutElastic).SetDelay(delay).SetUpdate(UpdateType.Normal, true);
-        model.DOLocalMoveY(position.y, 1*Random.Range(0.8f,1.2f)).SetEase(Ease.OutBounce).SetDelay(delay).SetUpdate(UpdateType.Normal, true);
+        float random = Random.Range(0.8f, 1.2f);
+        model.DOScale(scale, random).SetEase(Ease.OutBounce).SetDelay(delay).SetUpdate(UpdateType.Normal, true);
+        model.DOLocalMoveY(position.y, random).SetEase(Ease.OutBounce).SetDelay(delay).SetUpdate(UpdateType.Normal, true);
+        
+        particleObject.transform.DOScale(1.5f,0.1f).SetDelay(delay + random / 2).OnStart(()=>particleObject.SetActive(true))
+            .SetUpdate(UpdateType.Normal, true);
     }
 
     void OnTriggerEnter(Collider other)

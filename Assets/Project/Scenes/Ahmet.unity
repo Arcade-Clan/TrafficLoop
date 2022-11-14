@@ -848,6 +848,19 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1663817246}
+    - target: {fileID: 1384093023, guid: 2b299400713d7c8409b221abfe170205, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1384093024, guid: 2b299400713d7c8409b221abfe170205, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 462710219102408293, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 525
+      objectReference: {fileID: 0}
     - target: {fileID: 594810814939396036, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -877,10 +890,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-    - target: {fileID: 462710219102408293, guid: 2b299400713d7c8409b221abfe170205,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 525
       objectReference: {fileID: 0}
     - target: {fileID: 819303698844468236, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
@@ -1969,9 +1978,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: bc171646f6c22bb4c9ddb13d3e38e513, type: 3}
   adReady: 1
   speedUpTimer: 120
-  incomeTimer: 180
+  incomeTimer: 210
   feverTimer: 300
-  evolveTimer: 420
+  evolveTimer: 390
   adIndex: 0
 --- !u!4 &1664989339 stripped
 Transform:

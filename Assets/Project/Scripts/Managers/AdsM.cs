@@ -6,6 +6,7 @@ using ElephantSDK;
 using RollicGames.Advertisements;
 using TMPro;
 using UnityEngine;
+using UnityEngine.iOS;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityExtensions;
@@ -89,7 +90,13 @@ public class AdsM : MonoSingleton<AdsM>
         ResetAutoTapTime();
         if (!PlayerPrefs.HasKey("FirstInter"))
         {
-            yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("inter_init", 120));
+            yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("inter_init", 105));
+#if UNITY_IOS
+            Device.RequestStoreReview();
+#elif UNITY_ANDROID || UNITY_EDITOR
+            UIM.Instance.rateUsPanel.Show();
+#endif
+            yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("inter_init", 15));
             PlayerPrefs.SetInt("FirstInter", 1);
         }
         else
@@ -106,7 +113,11 @@ public class AdsM : MonoSingleton<AdsM>
         }
     }
 
-
+   public void AndroidRate()
+   {
+       Application.OpenURL("market://details?id=" + Application.identifier);
+   }
+   
    IEnumerator PopUpTimer()
    {
        StartCoroutine("ShowPopUpsRoutine");
@@ -114,7 +125,7 @@ public class AdsM : MonoSingleton<AdsM>
        {
            yield return StartCoroutine("Waiter", 1);
            PlayerPrefs.SetInt("Timer",PlayerPrefs.GetInt("Timer")+1);
-           Debug.Log(PlayerPrefs.GetInt("Timer"));
+           //Debug.Log(PlayerPrefs.GetInt("Timer"));
        }
    }
    
@@ -356,9 +367,9 @@ public class AdsM : MonoSingleton<AdsM>
     IEnumerator WaitFor3CarOffer()
     {
         yield return StartCoroutine("Waiter", 15);
-        if (PlayerPrefs.HasKey("ClosestCarOffer" + PlayerPrefs.GetInt("CarLevel", 1)))
+        if (PlayerPrefs.HasKey("ClosestCarOffer" + PlayerPrefs.GetInt("LastCarLevel", 1)))
             yield break;
-        PlayerPrefs.SetInt("ClosestCarOffer" + PlayerPrefs.GetInt("CarLevel", 1), 1);
+        PlayerPrefs.SetInt("ClosestCarOffer" + PlayerPrefs.GetInt("LastCarLevel", 1), 1);
         OpenPopUp(0);
     }
 
@@ -384,9 +395,9 @@ public class AdsM : MonoSingleton<AdsM>
         ShowSpeedUpPopUp();
         AddIncomePopUp();
         EvolveCarsPopUp();
-        newCarImage.sprite = newCarSprites[PlayerPrefs.GetInt("CarLevel", 1)];
-        newCarImagePopUp.sprite = newCarSprites[PlayerPrefs.GetInt("CarLevel", 1)];
-        newCarButtonImage.sprite = newCarSprites[PlayerPrefs.GetInt("CarLevel", 1)-1];
+        newCarImage.sprite = newCarSprites[PlayerPrefs.GetInt("LastCarLevel", 1)];
+        newCarImagePopUp.sprite = newCarSprites[PlayerPrefs.GetInt("LastCarLevel", 1)];
+        newCarButtonImage.sprite = newCarSprites[PlayerPrefs.GetInt("LastCarLevel", 1)-1];
     }
 
     public void FeverCarPopUp()
@@ -458,7 +469,7 @@ public class AdsM : MonoSingleton<AdsM>
 
     
 
-    public int CarLevel()
+    public int LastCarLevel()
     {
         for (int a = 9; a >= 0; a--)
         {
@@ -471,9 +482,9 @@ public class AdsM : MonoSingleton<AdsM>
     
     public void GetNewCarPopUp()
     {
-        if (PlayerPrefs.GetInt("CarLevel",1)<CarLevel())
+        if (PlayerPrefs.GetInt("LastCarLevel",1)<LastCarLevel())
         {
-            PlayerPrefs.SetInt("CarLevel", PlayerPrefs.GetInt("CarLevel",1)+1);
+            PlayerPrefs.SetInt("LastCarLevel", PlayerPrefs.GetInt("LastCarLevel",1)+1);
             PlayerPrefs.SetInt(adDetails[5].name + "AdOpened", 1);
             adDetails[5].buttonObject.Show();
             OpenPopUp(5);

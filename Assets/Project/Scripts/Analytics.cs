@@ -146,9 +146,13 @@ public class Analytics : MonoSingleton<Analytics>
         Elephant.Event("money", GM.Instance.gold);
     }
 
+    int speedUpClicked;
+    
     public void SendSpeedUp()
     {
-        Elephant.Event("SpeedUpClicked", 1);
+        speedUpClicked += 1;
+        if(speedUpClicked%10==0)
+            Elephant.Event("SpeedUpClicked", 10);
     }
     
 }

@@ -253,16 +253,16 @@ public class PM : MonoSingleton<PM>
 
     public int LastCarIndex()
     {
-        for (int a = 0; a < 8; a++)
+        for (int a = 0; a < 9; a++)
         {
             if(RemoteConfig.GetInstance().GetBool("merge_list", true))
             {
-                if (GM.Instance.cars[a].carLevel >= 3 && GM.Instance.cars[a].cars.Count >= 3)
+                if (GM.Instance.cars[a].cars.Count >= 3)
                     return a;
             }
             else
             {
-                if (GM.Instance.cars[a].cars.Count >= 3)
+                if (GM.Instance.cars[a].carLevel >= 3 && GM.Instance.cars[a].cars.Count >= 3)
                     return a;
             }
         }
@@ -342,7 +342,7 @@ public class PM : MonoSingleton<PM>
     
     public void AddLastCar()
     {
-        int carIndex = AdsM.Instance.CarLevel();
+        int carIndex = AdsM.Instance.LastCarLevel();
         GM.Instance.cars[carIndex].carLevel += 1; 
         PlayerPrefs.SetInt(GM.Instance.cars[carIndex].carName, GM.Instance.cars[carIndex].carLevel);
         GM.Instance.trafficController.AddCar(carIndex);
@@ -371,7 +371,7 @@ public class PM : MonoSingleton<PM>
 
     public void AddClosest3Car()
     {
-        int carIndex = AdsM.Instance.CarLevel() - 1;
+        int carIndex = AdsM.Instance.LastCarLevel() - 1;
         GM.Instance.trafficController.AddCar(carIndex);
         GM.Instance.cars[carIndex].carLevel += 1;
         PlayerPrefs.SetInt(GM.Instance.cars[carIndex].carName, GM.Instance.cars[carIndex].carLevel);

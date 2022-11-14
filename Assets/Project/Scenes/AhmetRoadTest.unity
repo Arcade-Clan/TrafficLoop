@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5494813, g: 0.90877265, b: 0.8706339, a: 1}
+  m_IndirectSpecularColor: {r: 0.54948133, g: 0.9087725, b: 0.8706339, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -249,57 +249,87 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   adDetails:
-  - buttonObject: {fileID: 998739884}
+  - name: 
+    buttonObject: {fileID: 998739884}
     rayImage: {fileID: 0}
     adImage: {fileID: 0}
     text: {fileID: 998739882}
     timer: {fileID: 998739881}
     timerValue: 30
     multiplierValue: -1
-  - buttonObject: {fileID: 998739880}
+    adsEnabled: 1
+    popUpPanel: {fileID: 0}
+  - name: 
+    buttonObject: {fileID: 998739880}
     rayImage: {fileID: 0}
     adImage: {fileID: 0}
     text: {fileID: 998739878}
     timer: {fileID: 998739877}
     timerValue: 30
     multiplierValue: 1
-  - buttonObject: {fileID: 998739876}
+    adsEnabled: 1
+    popUpPanel: {fileID: 0}
+  - name: 
+    buttonObject: {fileID: 998739876}
     rayImage: {fileID: 0}
     adImage: {fileID: 0}
     text: {fileID: 998739874}
     timer: {fileID: 998739873}
     timerValue: 30
     multiplierValue: 1
-  - buttonObject: {fileID: 998739872}
+    adsEnabled: 1
+    popUpPanel: {fileID: 0}
+  - name: 
+    buttonObject: {fileID: 998739872}
     rayImage: {fileID: 0}
     adImage: {fileID: 0}
     text: {fileID: 998739870}
     timer: {fileID: 998739869}
     timerValue: 30
     multiplierValue: 1
-  - buttonObject: {fileID: 998739868}
+    adsEnabled: 1
+    popUpPanel: {fileID: 0}
+  - name: 
+    buttonObject: {fileID: 998739868}
     rayImage: {fileID: 0}
     adImage: {fileID: 0}
     text: {fileID: 998739866}
     timer: {fileID: 998739865}
     timerValue: 30
     multiplierValue: 0
-  - buttonObject: {fileID: 998739864}
+    adsEnabled: 1
+    popUpPanel: {fileID: 0}
+  - name: 
+    buttonObject: {fileID: 998739864}
     rayImage: {fileID: 0}
     adImage: {fileID: 0}
     text: {fileID: 998739862}
     timer: {fileID: 998739861}
     timerValue: -1
     multiplierValue: -1
-  - buttonObject: {fileID: 0}
+    adsEnabled: 1
+    popUpPanel: {fileID: 0}
+  - name: 
+    buttonObject: {fileID: 0}
     rayImage: {fileID: 0}
     adImage: {fileID: 0}
     text: {fileID: 0}
     timer: {fileID: 0}
     timerValue: -1
     multiplierValue: -1
+    adsEnabled: 1
+    popUpPanel: {fileID: 0}
   noAdsText: {fileID: 998739856}
+  newCarImage: {fileID: 0}
+  newCarImagePopUp: {fileID: 0}
+  newCarButtonImage: {fileID: 0}
+  newCarSprites: []
   adReady: 0
+  speedUpTimer: 120
+  incomeTimer: 180
+  feverTimer: 300
+  evolveTimer: 420
+  adIndex: 0
 --- !u!1 &915254457
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,6 +369,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 290116760, guid: 2b299400713d7c8409b221abfe170205, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 290116761, guid: 2b299400713d7c8409b221abfe170205, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -347,6 +381,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AddIncomeButton
       objectReference: {fileID: 0}
+    - target: {fileID: 712927456, guid: 2b299400713d7c8409b221abfe170205, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 800
+      objectReference: {fileID: 0}
     - target: {fileID: 712927457, guid: 2b299400713d7c8409b221abfe170205, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -354,6 +392,10 @@ PrefabInstance:
     - target: {fileID: 712927457, guid: 2b299400713d7c8409b221abfe170205, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AutoTapButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 917606533, guid: 2b299400713d7c8409b221abfe170205, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -225
       objectReference: {fileID: 0}
     - target: {fileID: 917606534, guid: 2b299400713d7c8409b221abfe170205, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -372,6 +414,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Add3CarButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 462710219102408293, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -475
       objectReference: {fileID: 0}
     - target: {fileID: 819303698844468236, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
@@ -398,6 +445,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: IncreaseGates
       objectReference: {fileID: 0}
+    - target: {fileID: 1956180636676206450, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 525
+      objectReference: {fileID: 0}
     - target: {fileID: 1982145769761335774, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -417,6 +469,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: AddLastCarButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4406793889884624255, guid: 2b299400713d7c8409b221abfe170205,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 275
       objectReference: {fileID: 0}
     - target: {fileID: 4418659414311680478, guid: 2b299400713d7c8409b221abfe170205,
         type: 3}
@@ -1049,7 +1106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32bacf8906c5f4af293505dbf34de298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  multiplier: 1
 --- !u!114 &1241887130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1068,9 +1124,6 @@ MonoBehaviour:
   rayDistance: 4
   carPrefab: {fileID: 8828391772419353904, guid: db1a5b5697ae349b09deb1d33ec1ef17,
     type: 3}
-  specialCarPrefab: {fileID: 0}
-  feverCarPrefab: {fileID: 0}
-  carSpeed: 12
   simulationSpeed: 1
   tapSpeedUpTimer: 0.5
   tapSpeedUpMultiplier: 2
@@ -1302,6 +1355,12 @@ MonoBehaviour:
   levelIndexes: 0000000000000000
   level: {fileID: 1877460948}
   gates: []
+  roadScaleEase: 27
+  roadScaleDuration: 0.5
+  roadPositionEase: 3
+  roadStartHeight: 10
+  roadPositionDuration: 0.5
+  roadDelayDuration: 0.05
 --- !u!1 &1306744680
 GameObject:
   m_ObjectHideFlags: 0

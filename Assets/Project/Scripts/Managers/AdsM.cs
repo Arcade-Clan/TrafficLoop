@@ -395,9 +395,12 @@ public class AdsM : MonoSingleton<AdsM>
         ShowSpeedUpPopUp();
         AddIncomePopUp();
         EvolveCarsPopUp();
-        newCarImage.sprite = newCarSprites[PlayerPrefs.GetInt("LastCarLevel", 0)];
-        newCarImagePopUp.sprite = newCarSprites[PlayerPrefs.GetInt("LastCarLevel", 0)];
-        newCarButtonImage.sprite = newCarSprites[PlayerPrefs.GetInt("LastCarLevel", 0)-1];
+        if(PlayerPrefs.GetInt("LastCarLevel", 0)>0)
+        {
+            newCarImage.sprite = newCarSprites[PlayerPrefs.GetInt("LastCarLevel", 0)];
+            newCarImagePopUp.sprite = newCarSprites[PlayerPrefs.GetInt("LastCarLevel", 0)];
+            newCarButtonImage.sprite = newCarSprites[PlayerPrefs.GetInt("LastCarLevel", 0) - 1];
+        }
     }
 
     public void FeverCarPopUp()

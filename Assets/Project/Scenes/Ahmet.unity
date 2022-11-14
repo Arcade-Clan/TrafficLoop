@@ -1473,9 +1473,9 @@ MonoBehaviour:
   tapSpeedUpMultiplier: 2
   ignoreCarWaiter: 3
   tapSpeed: 1
-  baseSecondCreation: 10
+  baseSecondCreation: 15
   baseSecondCreationSpeedUp: 2
-  baseSecondCreationSpeedUpMultiplier: 1.2
+  baseSecondCreationSpeedUpMultiplier: 1
   trafficDensity: 0
   stopCarCreationOnTrafficDensity: 0.75
   specialCarRandomChance: 0.01

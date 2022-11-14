@@ -1473,9 +1473,9 @@ MonoBehaviour:
   tapSpeedUpMultiplier: 2
   ignoreCarWaiter: 3
   tapSpeed: 1
-  baseSecondCreation: 10
+  baseSecondCreation: 15
   baseSecondCreationSpeedUp: 2
-  baseSecondCreationSpeedUpMultiplier: 1.2
+  baseSecondCreationSpeedUpMultiplier: 1
   trafficDensity: 0
   stopCarCreationOnTrafficDensity: 0.75
   specialCarRandomChance: 0.01
@@ -1487,7 +1487,7 @@ MonoBehaviour:
     upgradeLevel: 0
     baseValue: 5
     increment: 1
-    expoRatio: 0.2
+    expoRatio: 0.1
     upgradeValues: []
   - upgradeName: Size
     upgradeLevel: 0
@@ -1496,16 +1496,16 @@ MonoBehaviour:
     expoRatio: 2
     upgradeValues:
     - 5
-    - 50
+    - 25
+    - 100
     - 250
     - 500
+    - 750
     - 1000
     - 1500
-    - 2000
-    - 7500
-    - 12500
-    - 20000
-    - 30000
+    - 3000
+    - 10000
+    - 25000
     - 75000
     - 150000
     - 250000
@@ -1515,7 +1515,7 @@ MonoBehaviour:
   - upgradeName: Income
     upgradeLevel: 0
     baseValue: 5
-    increment: 15
+    increment: 5
     expoRatio: 0.5
     upgradeValues:
     - 5
@@ -1644,7 +1644,7 @@ MonoBehaviour:
     mergeLevel: 0
     baseValue: 5
     increment: 3
-    expoRatio: 1
+    expoRatio: 0.8
   sounds:
   - sound: {fileID: 8300000, guid: 7d366bb0b188584458dc63627c3b1137, type: 3}
     volume: 0.5

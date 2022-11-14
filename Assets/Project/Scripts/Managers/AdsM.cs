@@ -6,7 +6,10 @@ using ElephantSDK;
 using RollicGames.Advertisements;
 using TMPro;
 using UnityEngine;
+
+#if UNITY_IOS
 using UnityEngine.iOS;
+#endif
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityExtensions;

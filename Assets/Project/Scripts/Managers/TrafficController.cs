@@ -172,8 +172,15 @@ public class TrafficController : MonoBehaviour
     {
         for (int a = 0; a <10 ; a++)
         {
-            if (Input.GetKeyDown(""+a))
-                CreateCar(a);
+            if (Input.GetKeyDown("" + a))
+            {
+                int carIndex = a;
+                GM.Instance.cars[carIndex].carLevel += 1;
+                PlayerPrefs.SetInt(GM.Instance.cars[carIndex].carName, GM.Instance.cars[carIndex].carLevel);
+                GM.Instance.trafficController.AddCar(carIndex);
+                GM.Instance.trafficController.ProcessProductionIndex();
+                UIM.Instance.UpdateEconomyUI();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.T))

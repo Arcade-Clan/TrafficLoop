@@ -22,7 +22,7 @@ public class UIM : MonoSingleton<UIM>
    public int tutorialProgression;
    public GameObject[] tutorialHands;
    public bool tutorialInProgress;
-   
+   public GameObject rateUsPanel;
    
 
    private void Start()

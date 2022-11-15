@@ -112,7 +112,7 @@ public class AdsM : MonoSingleton<AdsM>
                 yield return null;
             Analytics.Instance.InterstitialShown();
             RLAdvertisementManager.Instance.showInterstitial();
-            print("InterShown");
+            Debug.Log("InterShown");
             yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("inter_freq", 90));
         }
     }

@@ -224,12 +224,11 @@ public void IncreaseMoney(Car car,Vector3 position,Gate gate)
         return;
 
     int value = cars[car.carIndex].carValue * Mathf.RoundToInt(AdsM.Instance.adDetails[3].multiplierValue*
-                RemoteConfig.GetInstance().GetFloat("car_value", 1) * gate.value);
+                RemoteConfig.GetInstance().GetFloat("car_value", 1));
     if(cars[car.carIndex].specialCar)
         value = cars[car.carIndex].carValue * merge.Cost() * Mathf.RoundToInt(AdsM.Instance.adDetails[3].multiplierValue *
                                                                               RemoteConfig.GetInstance().GetFloat("car_value", 1)*
-                                                                              RemoteConfig.GetInstance().GetFloat("fever_valuemult", 1) *
-                                                                              gate.value);
+                                                                              RemoteConfig.GetInstance().GetFloat("fever_valuemult", 1));
     Analytics.Instance.EarnedMoney(value);
     gold += Mathf.RoundToInt(value);
     UIM.Instance.UpdateGold();

@@ -205,13 +205,16 @@ void Update()
             }
 
             if (Input.GetKeyDown(KeyCode.S) || Input.GetMouseButtonDown(2))
-                simulationSpeed = 10;
+                editorSpeedUp = 4;
             else if (Input.GetKeyUp(KeyCode.S) || Input.GetMouseButtonUp(2))
-                simulationSpeed = 1;
+                editorSpeedUp = 1;
         }
 
 
     }
+
+public float editorSpeedUp = 1;
+
 
 #endregion
 

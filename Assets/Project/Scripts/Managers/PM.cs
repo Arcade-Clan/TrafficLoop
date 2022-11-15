@@ -75,12 +75,14 @@ public class PM : MonoSingleton<PM>
                 GM.Instance.baseSecondCreationSpeedUp = RemoteConfig.GetInstance().GetFloat("speed_up_creation", 1);
             else
                 GM.Instance.baseSecondCreationSpeedUp = 1;
-            GM.Instance.simulationSpeed = Mathf.Max(GM.Instance.tapSpeed, AdsM.Instance.adDetails[1].multiplierValue) * AdsM.Instance.adDetails[2].multiplierValue;
+            GM.Instance.simulationSpeed = Mathf.Max(GM.Instance.tapSpeed, AdsM.Instance.adDetails[1].multiplierValue) * AdsM.Instance.adDetails[2].multiplierValue*
+                                          GM.Instance.editorSpeedUp;
             Time.timeScale = Mathf.Lerp(Time.timeScale, GM.Instance.simulationSpeed, 0.2f);
             ProcessTrails();
             yield return null;
         }
     }
+    
     void ProcessTrails()
     {
         for (int a = 0; a < GM.Instance.cars.Length; a++)

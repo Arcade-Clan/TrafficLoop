@@ -1493,7 +1493,7 @@ MonoBehaviour:
   baseSecondCreationSpeedUpMultiplier: 1
   trafficDensity: 0
   stopCarCreationOnTrafficDensity: 0.75
-  specialCarRandomChance: 0.01
+  specialCarRandomChance: 0.001
   trafficController: {fileID: 0}
   canvas: {fileID: 0}
   cam: {fileID: 0}
@@ -1515,18 +1515,18 @@ MonoBehaviour:
     - 50
     - 100
     - 150
-    - 500
-    - 750
-    - 1250
-    - 2000
-    - 3000
-    - 5000
+    - 1500
+    - 4500
+    - 13500
     - 20000
+    - 30000
     - 40000
+    - 50000
     - 75000
     - 100000
+    - 150000
     - 250000
-    - 10000000
+    - 1000000
   - upgradeName: Income
     upgradeLevel: 0
     baseValue: 5
@@ -1659,7 +1659,7 @@ MonoBehaviour:
     mergeLevel: 0
     baseValue: 5
     increment: 2
-    expoRatio: 0.8
+    expoRatio: 0.75
   sounds:
   - sound: {fileID: 8300000, guid: 7d366bb0b188584458dc63627c3b1137, type: 3}
     volume: 0.5

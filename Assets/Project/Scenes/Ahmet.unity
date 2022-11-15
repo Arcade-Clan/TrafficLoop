@@ -1480,7 +1480,7 @@ MonoBehaviour:
   gold: 0
   slowStrength: 0.25
   startMoveStrength: 0.25
-  rayDistance: 5
+  rayDistance: 4
   carPrefab: {fileID: 8828391772419353904, guid: db1a5b5697ae349b09deb1d33ec1ef17,
     type: 3}
   simulationSpeed: 1
@@ -1501,7 +1501,7 @@ MonoBehaviour:
   - upgradeName: Car Amount
     upgradeLevel: 0
     baseValue: 5
-    increment: 1
+    increment: 0.5
     expoRatio: 0.1
     upgradeValues: []
   - upgradeName: Size
@@ -1511,27 +1511,27 @@ MonoBehaviour:
     expoRatio: 2
     upgradeValues:
     - 5
-    - 25
+    - 15
+    - 50
     - 100
-    - 250
+    - 150
     - 500
     - 750
-    - 1000
-    - 1500
+    - 1250
+    - 2000
     - 3000
-    - 10000
-    - 25000
+    - 5000
+    - 20000
+    - 40000
     - 75000
-    - 150000
+    - 100000
     - 250000
-    - 350000
-    - 3000000
     - 10000000
   - upgradeName: Income
     upgradeLevel: 0
     baseValue: 5
-    increment: 5
-    expoRatio: 0.5
+    increment: 3
+    expoRatio: 0.3
     upgradeValues:
     - 5
     - 75
@@ -1576,47 +1576,47 @@ MonoBehaviour:
     cars: []
   - carName: Car2
     carLevel: 0
-    carValue: 3
+    carValue: 4
     specialCar: 0
     cars: []
   - carName: Car3
     carLevel: 0
-    carValue: 5
+    carValue: 16
     specialCar: 0
     cars: []
   - carName: Car4
     carLevel: 0
-    carValue: 10
+    carValue: 48
     specialCar: 0
     cars: []
   - carName: Car5
     carLevel: 0
-    carValue: 25
+    carValue: 81
     specialCar: 0
     cars: []
   - carName: Car6
     carLevel: 0
-    carValue: 50
+    carValue: 125
     specialCar: 0
     cars: []
   - carName: Car7
     carLevel: 0
-    carValue: 100
+    carValue: 250
     specialCar: 0
     cars: []
   - carName: Car8
     carLevel: 0
-    carValue: 300
+    carValue: 500
     specialCar: 0
     cars: []
   - carName: Car9
     carLevel: 0
-    carValue: 500
+    carValue: 1000
     specialCar: 0
     cars: []
   - carName: Car10
     carLevel: 0
-    carValue: 1000
+    carValue: 2500
     specialCar: 0
     cars: []
   - carName: SpecialCar1
@@ -1658,7 +1658,7 @@ MonoBehaviour:
     mergeName: Merge
     mergeLevel: 0
     baseValue: 5
-    increment: 3
+    increment: 2
     expoRatio: 0.8
   sounds:
   - sound: {fileID: 8300000, guid: 7d366bb0b188584458dc63627c3b1137, type: 3}

@@ -15,8 +15,10 @@ public class LM : MonoSingleton<LM>
     {
         levelIndexes = GetLevelIndexes();
         gates = level.GetComponentsInChildren<Gate>(true);
+        for (int a = 0; a < gates.Length; a++)
+            gates[a].value = a + 1;
         for (int a = 0; a < level.sections[levelIndexes[1]].elements.Count; a++)
-                level.sections[levelIndexes[1]].elements[a].Show();
+            level.sections[levelIndexes[1]].elements[a].Show();
         if (level.sections[levelIndexes[1]].cam)
         {
             level.sections[levelIndexes[1]].cam.Hide();

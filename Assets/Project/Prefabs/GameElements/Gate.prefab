@@ -54,6 +54,7 @@ MonoBehaviour:
   closeTime: 1
   delay: 0.5
   particleObject: {fileID: 4121834274797898332}
+  value: 1
 --- !u!65 &8326037909054375437
 BoxCollider:
   m_ObjectHideFlags: 0

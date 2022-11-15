@@ -15,7 +15,7 @@ public class Gate : MonoBehaviour
     public float closeTime = 1;
     public float delay = 0.5f;
     public GameObject particleObject;
-    
+    public float value;
     
     public void Start()
     {
@@ -33,7 +33,7 @@ public class Gate : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        GM.Instance.IncreaseMoney(other.transform.parent.GetComponent<Car>(),transform.position+Vector3.up);
+        GM.Instance.IncreaseMoney(other.transform.parent.GetComponent<Car>(),transform.position+Vector3.up,this);
         model.DOLocalRotate(new Vector3(0,180,0), openTime).SetEase(gateOpenEase);
     }
 

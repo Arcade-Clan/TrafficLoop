@@ -218,17 +218,18 @@ public float editorSpeedUp = 1;
 
 #endregion
 
-public void IncreaseMoney(Car car,Vector3 position)
+public void IncreaseMoney(Car car,Vector3 position,Gate gate)
 {
     if (UIM.Instance.tutorialInProgress)
         return;
 
     int value = cars[car.carIndex].carValue * Mathf.RoundToInt(AdsM.Instance.adDetails[3].multiplierValue*
-                RemoteConfig.GetInstance().GetFloat("car_value", 1));
+                RemoteConfig.GetInstance().GetFloat("car_value", 1) * gate.value);
     if(cars[car.carIndex].specialCar)
         value = cars[car.carIndex].carValue * merge.Cost() * Mathf.RoundToInt(AdsM.Instance.adDetails[3].multiplierValue *
                                                                               RemoteConfig.GetInstance().GetFloat("car_value", 1)*
-                                                                              RemoteConfig.GetInstance().GetFloat("fever_valuemult", 1));
+                                                                              RemoteConfig.GetInstance().GetFloat("fever_valuemult", 1) *
+                                                                              gate.value);
     Analytics.Instance.EarnedMoney(value);
     gold += Mathf.RoundToInt(value);
     UIM.Instance.UpdateGold();

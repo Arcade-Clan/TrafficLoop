@@ -155,6 +155,7 @@ public class AdsM : MonoSingleton<AdsM>
         while (value > 0)
         {
             value -= 1 / 60f;
+            print(Time.deltaTime*60);
             yield return null;
         }
     }

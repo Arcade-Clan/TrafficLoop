@@ -160,10 +160,11 @@ public class AdsM : MonoSingleton<AdsM>
     {
         while (value >= 0)
         {
-            value -= Time.fixedDeltaTime;
+            value -= Time.fixedDeltaTime/Time.timeScale;
             //print("A"+ Time.deltaTime);
             //print("B" + Time.unscaledDeltaTime);
             //print("C" + Time.fixedUnscaledDeltaTime);
+            //print("A"+Time.timeScale);
             //print("D" + Time.fixedDeltaTime);
             yield return new WaitForFixedUpdate();
         }

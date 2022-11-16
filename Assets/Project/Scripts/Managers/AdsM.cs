@@ -64,13 +64,13 @@ public class AdsM : MonoSingleton<AdsM>
     void Start()
     {
         adDetails[1].timerValue = RemoteConfig.GetInstance().GetFloat("autoclick_duration", adDetails[1].timerValue);
-        StartCoroutine("PopUpTimer");
+        StartCoroutine("Timer");
+        PrepareAds();
     }
     
     void OnSdkInit() 
     {
         RLAdvertisementManager.Instance.loadBanner();
-        PrepareAds();
     }
 
     void PrepareAds()
@@ -92,15 +92,20 @@ public class AdsM : MonoSingleton<AdsM>
    IEnumerator InterRoutine()
     {
         ResetAutoTapTime();
+        StopCoroutine("ShowPopUpsRoutine");
+        StartCoroutine("ShowPopUpsRoutine");
+        int interInit = RemoteConfig.GetInstance().GetInt("inter_init", 120);
+        
         if (!PlayerPrefs.HasKey("FirstInter"))
         {
-            yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("inter_init", 105));
+            yield return StartCoroutine("Waiter", interInit - 15);
+            Debug.Log("RateUs");
 #if UNITY_IOS
             Device.RequestStoreReview();
 #elif UNITY_ANDROID || UNITY_EDITOR
             UIM.Instance.rateUsPanel.Show();
 #endif
-            yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("inter_init", 15));
+            yield return StartCoroutine("Waiter", 15);
             PlayerPrefs.SetInt("FirstInter", 1);
         }
         else
@@ -122,14 +127,14 @@ public class AdsM : MonoSingleton<AdsM>
        Application.OpenURL("market://details?id=" + Application.identifier);
    }
    
-   IEnumerator PopUpTimer()
+   IEnumerator Timer()
    {
-       StartCoroutine("ShowPopUpsRoutine");
+       
        while (true)
        {
            yield return StartCoroutine("Waiter", 1);
            PlayerPrefs.SetInt("Timer",PlayerPrefs.GetInt("Timer")+1);
-           print(PlayerPrefs.GetInt("Timer"));
+           Debug.Log(PlayerPrefs.GetInt("Timer"));
        }
    }
    
@@ -137,14 +142,15 @@ public class AdsM : MonoSingleton<AdsM>
    
    IEnumerator ShowPopUpsRoutine()
    {
+       yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("popup_freq", 90) / 2);
        while (true)
        {
-           while(PlayerPrefs.GetInt("Timer")< RemoteConfig.GetInstance().GetInt("popup_loop", 600))
+           while(PlayerPrefs.GetInt("Timer")< RemoteConfig.GetInstance().GetInt("popup_loop", 555))
                yield return null;
-           print("PopUpTimer");
-           yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("popup_freq", 120));
+           //print("Timer");
            OpenPopUp(adIndex + 2);
            adIndex = (adIndex + 1) % 3;
+           yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("popup_freq", 90));
        }
    }
    
@@ -152,11 +158,14 @@ public class AdsM : MonoSingleton<AdsM>
    
     IEnumerator Waiter(float value)
     {
-        while (value > 0)
+        while (value >= 0)
         {
-            value -= 1 / 60f;
-            print(Time.deltaTime*60);
-            yield return null;
+            value -= Time.fixedDeltaTime;
+            //print("A"+ Time.deltaTime);
+            //print("B" + Time.unscaledDeltaTime);
+            //print("C" + Time.fixedUnscaledDeltaTime);
+            //print("D" + Time.fixedDeltaTime);
+            yield return new WaitForFixedUpdate();
         }
     }
     
@@ -202,7 +211,7 @@ public class AdsM : MonoSingleton<AdsM>
         noAdsText.enabled = true;
         noAdsText.alpha = 1;
         noAdsText.DOFade(0, 0.5f).SetDelay(0.5f).OnComplete(() => noAdsText.enabled = false);
-        Debug.Log("No Ads");
+        //Debug.Log("No Ads");
     }
     
     void RewardedAdResultCallback(RLRewardedAdResult result)
@@ -211,19 +220,19 @@ public class AdsM : MonoSingleton<AdsM>
         {
             case RLRewardedAdResult.Finished:
             {
-                Debug.Log("XXXFinished"+ currentRewarded.Method.Name);
+                //Debug.Log("XXXFinished"+ currentRewarded.Method.Name);
                 AcceptReward();
                 break;
             }
             case RLRewardedAdResult.Skipped:
             {
-                Debug.Log("XXXSkipped" + currentRewarded.Method.Name);
+                //Debug.Log("XXXSkipped" + currentRewarded.Method.Name);
                 currentRewarded = null;
                 break;
             }
             case RLRewardedAdResult.Failed:
             {
-                Debug.Log("XXXFailed" + currentRewarded.Method.Name);
+                //Debug.Log("XXXFailed" + currentRewarded.Method.Name);
                 Analytics.Instance.RewardedFailed(currentRewarded.Method.Name);
                 currentRewarded = null;
                 break;
@@ -445,7 +454,7 @@ public class AdsM : MonoSingleton<AdsM>
         if (!PlayerPrefs.HasKey(adDetails[2].name + "AdOpened") && PlayerPrefs.GetInt("Timer") >
             RemoteConfig.GetInstance().GetInt("x2speed_time", speedUpTimer))
         {
-            print("SpeedUpPopUp");
+            //print("SpeedUpPopUp");
             PlayerPrefs.SetInt(adDetails[2].name + "AdOpened", 1);
             OpenPopUp(2);
             adDetails[2].buttonObject.Show();
@@ -501,7 +510,7 @@ public class AdsM : MonoSingleton<AdsM>
 
     public void OpenPopUp(int index)
     {
-        print("OpenPopUp");
+        //print("OpenPopUp");
         Analytics.Instance.PopUpShown(adDetails[index].name);
         for (int a = 0; a < adDetails.Length; a++)
             adDetails[a].popUpPanel.Hide();

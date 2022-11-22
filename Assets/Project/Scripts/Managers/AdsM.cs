@@ -134,7 +134,7 @@ public class AdsM : MonoSingleton<AdsM>
        {
            yield return StartCoroutine("Waiter", 1);
            PlayerPrefs.SetInt("Timer",PlayerPrefs.GetInt("Timer")+1);
-           Debug.Log(PlayerPrefs.GetInt("Timer"));
+           //Debug.Log(PlayerPrefs.GetInt("Timer"));
        }
    }
    

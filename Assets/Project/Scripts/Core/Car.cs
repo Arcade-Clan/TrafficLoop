@@ -23,15 +23,14 @@ public class Car : MonoBehaviour
     public Car lastCar;
     public int priority;
     float speed;
+    
     void Awake()
     {
         priority = Random.Range(-int.MaxValue, int.MaxValue);
-
     }
     
     public void MoveCar(int newCarIndex,Road newRoad,float position,bool withAnimation)
     {
-        
         carIndex = newCarIndex;
         for (int a = 0; a < cars.Length; a++)
             cars[a].gameObject.SetActive(carIndex == a);
@@ -53,16 +52,19 @@ public class Car : MonoBehaviour
         model.transform.DOScale(scale,1.5f).SetEase(Ease.OutElastic);
         model.transform.DOLocalMoveY(0, 1).SetEase(Ease.OutBounce);
     }
-    
+
+    bool doubleTime;
     IEnumerator MoveRoutine()
     {
         //TextMeshPro text = cars[carIndex].GetComponentInChildren<TextMeshPro>();
         //if (!RemoteConfig.GetInstance().GetBool("merge_list", true))
         //    text.enabled = false;
+        
         while (true)
         {
-            collidedCar = CheckRay();
-            
+            if(!doubleTime)
+                collidedCar = CheckRay();
+            doubleTime = !doubleTime;
             if (collidedCar && place < collidedCar.place &&  
                 (Vector3.Distance(road.transform.position, collidedCar.road.transform.position) <1f || 
                  Vector3.Distance(road.path.wps.Last(), collidedCar.road.path.wps.Last()) < 1f))
@@ -86,8 +88,8 @@ public class Car : MonoBehaviour
                 //text.text = "Go";
                 currentSpeed = Mathf.Lerp(currentSpeed, speed, GM.Instance.startMoveStrength);
             }
-            Vector3 rotation = road.tween.PathGetPoint((place + currentSpeed / 60) / road.pathLength);
-            float angle = Vector3.Angle((rotation - transform.position).normalized, transform.forward);
+            //Vector3 rotation = road.tween.PathGetPoint((place + currentSpeed / 60) / road.pathLength);
+            //float angle = Vector3.Angle((rotation - transform.position).normalized, transform.forward);
             place += currentSpeed / 60;
             Vector3 newPosition = road.tween.PathGetPoint(place / road.pathLength);
             Rotate(newPosition);
@@ -131,15 +133,15 @@ public class Car : MonoBehaviour
             return null;
         float ray = GM.Instance.rayDistance;
 
-        for (int a = 0; a <= 10; a++)
+        for (int a = 0; a <= 5; a++)
         {
 
-            Vector3 position = road.tween.PathGetPoint((place + ray * a / 10f) / road.pathLength);
+            Vector3 position = road.tween.PathGetPoint((place + ray * a / 5f) / road.pathLength);
             
             Collider[] hits = Physics.OverlapSphere(position, 0.75f,LayerMask.GetMask("Car"));
             for (int b = 0; b < hits.Length; b++)
             {
-                Debug.DrawLine(position + Vector3.up * 1f, position, Color.red);
+                //Debug.DrawLine(position + Vector3.up * 1f, position, Color.red);
                 Car checkingCar = hits[b].transform.GetComponentInParent<Car>();
                 if (!checkingCar)
                     continue;
@@ -151,7 +153,7 @@ public class Car : MonoBehaviour
             }
 
             //openValue = a;
-            Debug.DrawLine(position + Vector3.up * 5f, position, Color.green);
+            //Debug.DrawLine(position + Vector3.up * 5f, position, Color.green);
         }
         return null;
     }

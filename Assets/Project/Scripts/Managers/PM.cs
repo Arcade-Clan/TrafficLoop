@@ -32,7 +32,7 @@ public class PM : MonoSingleton<PM>
                 GM.Instance.trafficDensity = density / calculatedCars.Count;
                 UIM.Instance.trafficDensity.fillAmount = Mathf.Lerp(UIM.Instance.trafficDensity.fillAmount, GM.Instance.trafficDensity, 0.1f);
             }
-            yield return new WaitForFixedUpdate();
+            yield return null;
         }
     }
 

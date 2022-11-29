@@ -57,6 +57,22 @@ namespace ElephantSDK
 
             ElephantCore.Instance.IsIapBanned(callback);
         }
+        
+        public static void VerifyPurchase(IapVerifyRequest request, Action<bool> callback)
+        {
+            if (ElephantCore.Instance == null)
+            {
+                ElephantLog.LogError("<ELEPHANT>","Elephant SDK isn't working correctly, make sure you put Elephant prefab into your first scene..");
+                return;
+            }
+
+            if (callback == null)
+            {
+                throw new NullReferenceException("ValidatePurchase callback cannot be null!");
+            }
+
+            ElephantCore.Instance.VerifyPurchase(request, callback);
+        }
 
         public static void ShowAlertDialog(string title, string message)
         {
@@ -249,6 +265,10 @@ namespace ElephantSDK
         {
             if (!Utils.IsConnected())
             {
+                if (ElephantCore.Instance != null)
+                {
+                    Utils.SaveToFile(ElephantCore.OFFLINE_FLAG, ElephantCore.Instance.GetCurrentSession().GetSessionID().ToString());
+                }
 #if UNITY_EDITOR
                 ElephantLog.Log("Connection", "No internet connection.\nPlease check your internet settings.");
 #elif UNITY_IOS
@@ -349,6 +369,14 @@ namespace ElephantSDK
 
                 c++;
             }
+        }
+        
+        public class IapSource
+        {
+            public const string SOURCE_SHOP = "shop";
+            public const string SOURCE_OFFERWALL = "offerwall";
+            public const string SOURCE_IN_GAME = "in_game";
+            public const string SOURCE_LEVEL_END = "level_end";
         }
     }
 }

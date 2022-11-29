@@ -1,9 +1,11 @@
 package com.rollic.elephantsdk;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -43,6 +45,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.HashMap;
@@ -316,6 +319,54 @@ public class ElephantController implements InteractionInterface {
         }
 
         return adId;
+    }
+    
+    public int gameMemoryUsage() {
+        try {
+            ActivityManager mgr = (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE);
+            List<ActivityManager.RunningAppProcessInfo> processes = mgr.getRunningAppProcesses();
+            double memoryUsage = 0;
+            
+            if (processes.size() == 0) return 0;
+    
+            for (ActivityManager.RunningAppProcessInfo p : processes) {
+                int[] pids = new int[1];
+                pids[0] = p.pid;
+                android.os.Debug.MemoryInfo[] MI = mgr.getProcessMemoryInfo(pids);
+                if (MI[0] == null || MI[0].getTotalPss() <= 0) continue;
+                memoryUsage = MI[0].getTotalPss() / 1000.0;
+            }
+            if (memoryUsage <= 0) return 0;
+            return (int) memoryUsage;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    
+    public int gameMemoryUsagePercentage() {
+        try {
+            double memoryUsage = gameMemoryUsage();
+            if (memoryUsage <= 0) return 0;
+    
+            ActivityManager.MemoryInfo mi = new ActivityManager.MemoryInfo();
+            ActivityManager activityManager = (ActivityManager) ctx.getSystemService(Context.ACTIVITY_SERVICE);
+            activityManager.getMemoryInfo(mi);
+            if (mi.totalMem <= 0) return 0;
+            double totalMemory = (double) mi.totalMem / 0x100000L;
+            return ((int) memoryUsage * 100) / (int) totalMemory;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    
+    public long getFirstInstallTime() {
+        try {
+            return ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), 0).firstInstallTime;
+        } catch (PackageManager.NameNotFoundException e) {
+            return 0;
+        }
     }
 
     public String test() {

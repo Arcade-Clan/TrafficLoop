@@ -11,6 +11,8 @@ namespace ElephantSDK
         public List<double> fpsLogs;
         public List<int> currentLevelLog;
         public int systemMemory;
+        public int memoryUsage;
+        public int memoryUsagePercentage;
         
         private MonitoringData()
         {
@@ -21,6 +23,8 @@ namespace ElephantSDK
             currentLevelLog.AddRange(MonitoringUtils.GetInstance().GetCurrentLevelLog());
 
             systemMemory = SystemInfo.systemMemorySize;
+            memoryUsage = MonitoringUtils.GetInstance().GetMemoryUsage();
+            memoryUsagePercentage = MonitoringUtils.GetInstance().GetMemoryUsagePercentage();
             
             MonitoringUtils.GetInstance().Flush();
         }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using com.adjust.sdk;
 using ElephantSDK;
+using Firebase.Analytics;
 //using GameAnalyticsSDK;
 using UnityEngine;
 //using Facebook.Unity;
@@ -56,6 +57,7 @@ public class Analytics : MonoSingleton<Analytics>
     
     public void RewardedCompleted(string value)
     {
+        FirebaseAnalytics.LogEvent("watch_rewarded");
         Elephant.Event("rw_completed", 1,Params.New().Set("activity_name", value));
     }
        
@@ -112,6 +114,10 @@ public class Analytics : MonoSingleton<Analytics>
         Elephant.Event("area_unlocked", GM.Instance.upgrades[1].upgradeLevel+1);
         Elephant.Transaction("cash_spent",1, 0, GM.Instance.gold,"SizeUp");
         Elephant.Event("money", GM.Instance.gold);
+        if (GM.Instance.upgrades[1].upgradeLevel%5==0)
+        {
+            FirebaseAnalytics.LogEvent("level_completed_" + GM.Instance.upgrades[1].upgradeLevel);
+        }
         if(GM.Instance.upgrades[1].upgradeLevel==1)
         {
             AdjustEvent adjustEvent = new ("yg1mza");

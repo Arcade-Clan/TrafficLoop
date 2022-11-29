@@ -22,6 +22,8 @@ public class GM : MonoSingleton<GM>
 
     [Header("Time Details")]
     [ReadOnly] public float simulationSpeed = 1;
+
+    [ReadOnly] public float editorSimulationSpeed = 1;
     public float tapSpeedUpTimer = 0.5f;
     public float tapSpeedUpMultiplier = 2f;    
     public float ignoreCarWaiter = 3;
@@ -31,7 +33,6 @@ public class GM : MonoSingleton<GM>
     [Header("Traffic Details")]
     public float baseSecondCreation = 60;
     [ReadOnly] public float baseSecondCreationSpeedUp = 2;
-    public float baseSecondCreationSpeedUpMultiplier = 2;
     [ReadOnly] public float trafficDensity;
     public float stopCarCreationOnTrafficDensity = 0.5f;
     [FormerlySerializedAs("fireTruckComesAfterAmount")] public float specialCarRandomChance = 0.1f;
@@ -205,16 +206,13 @@ void Update()
             }
 
             if (Input.GetKeyDown(KeyCode.S) || Input.GetMouseButtonDown(2))
-                editorSpeedUp = 4;
+                editorSimulationSpeed = 4;
             else if (Input.GetKeyUp(KeyCode.S) || Input.GetMouseButtonUp(2))
-                editorSpeedUp = 1;
+                editorSimulationSpeed = 1;
         }
 
 
     }
-
-public float editorSpeedUp = 1;
-
 
 #endregion
 

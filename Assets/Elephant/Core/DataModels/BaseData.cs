@@ -31,6 +31,7 @@ namespace ElephantSDK
         public long session_id;
         public long real_session_id;
         public float real_time_since_start_up;
+        public long first_install_time;
         public string timezone_offset = "";
         public string user_id;
         public string client_id;
@@ -57,6 +58,7 @@ namespace ElephantSDK
                 this.session_id = sessionID;
                 this.real_session_id = ElephantCore.Instance.realSessionId;
                 this.real_time_since_start_up = Time.realtimeSinceStartup;
+                this.first_install_time = ElephantCore.Instance.firstInstallTime;
                 this.user_id = ElephantCore.Instance.userId;
                 this.client_id = ElephantCore.Instance.clientId;
                 this.consent_status = ElephantCore.Instance.consentStatus;

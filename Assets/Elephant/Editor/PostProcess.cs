@@ -24,6 +24,7 @@ namespace ElephantSDK
                 project.AddFrameworkToProject(xcodeTarget, "StoreKit.framework", true);
                 project.AddFrameworkToProject(xcodeTarget, "AppTrackingTransparency.framework", true);
                 project.AddFrameworkToProject(xcodeTarget, "WebKit.framework", false);
+                project.AddFrameworkToProject(xcodeTarget, "AdSupport.framework", true);
 
                 EditInfoPlist(pathToBuiltProject);
 

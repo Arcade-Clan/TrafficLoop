@@ -55,5 +55,14 @@ public class ElephantIOS
 
     [DllImport("__Internal")]
     public static extern void showNetworkOfflinePopUpView(string content, string buttonTitle);
+    
+    [DllImport("__Internal")]
+    public static extern int gameMemoryUsage();
+    
+    [DllImport("__Internal")]
+    public static extern int gameMemoryUsagePercent();
+    
+    [DllImport("__Internal")]
+    public static extern long getFirstInstallTime();
 #endif
 }

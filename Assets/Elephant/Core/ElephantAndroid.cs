@@ -122,5 +122,35 @@ public class ElephantAndroid
         }
     }
     
+    public static int GameMemoryUsage()
+    {
+        var memoryUsage = 1;
+        if (elephantController != null)
+        {
+            memoryUsage = elephantController.Call<int>("gameMemoryUsage");
+        }
+        return memoryUsage;
+    }
+    
+    public static int GameMemoryUsagePercentage()
+    {
+        var memoryUsagePercentage = 1;
+        if (elephantController != null)
+        {
+            memoryUsagePercentage = elephantController.Call<int>("gameMemoryUsagePercentage");
+        }
+        return memoryUsagePercentage;
+    }
+    
+    public static long GetFirstInstallTime()
+    {
+        long firstInstallTime = 0;
+        if (elephantController != null)
+        {
+            firstInstallTime = elephantController.Call<long>("getFirstInstallTime");
+        }
+        return firstInstallTime;
+    }
+    
     #endif
 }

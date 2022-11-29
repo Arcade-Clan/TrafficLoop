@@ -51,8 +51,11 @@ public class AdsM : MonoSingleton<AdsM>
     public int incomeTimer = 180;
     public int feverTimer = 300;
     public int evolveTimer = 420;
-    void Awake() 
+    bool specialBuild;
+    void Awake()
     {
+        if (FindObjectOfType<SpecialBuild>())
+            specialBuild = true;
         RLAdvertisementManager.Instance.init(_appKey);
         RLAdvertisementManager.Instance.rewardedAdResultCallback = RewardedAdResultCallback;
         RLAdvertisementManager.OnRollicAdsSdkInitializedEvent += OnSdkInit;
@@ -68,9 +71,10 @@ public class AdsM : MonoSingleton<AdsM>
         PrepareAds();
     }
     
-    void OnSdkInit() 
+    void OnSdkInit()
     {
-        RLAdvertisementManager.Instance.loadBanner();
+        if (!specialBuild)
+            RLAdvertisementManager.Instance.loadBanner();
     }
 
     void PrepareAds()
@@ -116,7 +120,8 @@ public class AdsM : MonoSingleton<AdsM>
             while (!RLAdvertisementManager.Instance.isInterstitialReady() && !Application.isEditor)
                 yield return null;
             Analytics.Instance.InterstitialShown();
-            RLAdvertisementManager.Instance.showInterstitial();
+            if (!specialBuild)
+                RLAdvertisementManager.Instance.showInterstitial();
             Debug.Log("InterShown");
             yield return StartCoroutine("Waiter", RemoteConfig.GetInstance().GetInt("inter_freq", 90));
         }
@@ -186,7 +191,7 @@ public class AdsM : MonoSingleton<AdsM>
 
     public void ProcessAds(Action action)
     {
-        if (Application.isEditor)
+        if (Application.isEditor|| specialBuild)
         {
             if (adReady)
             {

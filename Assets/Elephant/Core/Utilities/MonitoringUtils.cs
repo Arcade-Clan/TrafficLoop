@@ -10,12 +10,16 @@ namespace ElephantSDK
         private readonly List<int> _currentLevelLog;
 
         private int _currentLevel;
+        private int _memoryUsage;
+        private int _memoryUsagePercentage;
 
         private MonitoringUtils()
         {
             _fpsSessionLog = new List<double>();
             _currentLevelLog = new List<int>();
             _currentLevel = -1;
+            _memoryUsage = 0;
+            _memoryUsagePercentage = 0;
         }
 
         public static MonitoringUtils GetInstance()
@@ -51,6 +55,26 @@ namespace ElephantSDK
         public int GetCurrentLevel()
         {
             return _currentLevel;
+        }
+        
+        public void SetMemoryUsage(int memoryUsageValue)
+        {
+            _memoryUsage = memoryUsageValue;
+        }
+        
+        public int GetMemoryUsage()
+        {
+            return _memoryUsage;
+        }
+        
+        public void SetMemoryUsagePercentage(int memoryUsagePercentage)
+        {
+            _memoryUsagePercentage = memoryUsagePercentage;
+        }
+        
+        public int GetMemoryUsagePercentage()
+        {
+            return _memoryUsagePercentage;
         }
 
         public void Flush()

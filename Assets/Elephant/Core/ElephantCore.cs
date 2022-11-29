@@ -47,6 +47,7 @@ namespace ElephantSDK
         public const string TRANSACTION_EP = ELEPHANT_BASE_URL + "/transaction";
         public const string AD_REVENUE_EP = ELEPHANT_BASE_URL + "/adrevenue";
         public const string IAP_STATUS_EP = ELEPHANT_BASE_URL + "/user/iap/status";
+        public const string IAP_VERIFY_EP = ELEPHANT_BASE_URL + "/iap/verify";
         public const string ZIS_EP = ELEPHANT_BASE_URL + "/user/player_data";
         public const string PIN_EP = ELEPHANT_BASE_URL + "/gdpr/pin";
         public const string TOS_ACCEPT_EP = ELEPHANT_BASE_URL + "/tos/accept";
@@ -73,6 +74,7 @@ namespace ElephantSDK
         private bool openRequestSucceded;
         private SessionData currentSession;
         internal long realSessionId;
+        internal long firstInstallTime;
         internal string idfa = "";
         internal string idfv = "";
         internal string adjustId = "";
@@ -99,11 +101,13 @@ namespace ElephantSDK
         private static string USER_DB_ID = "USER_DB_ID_6";
         private static string CLIENT_DB_ID = "CLIENT_DB_ID_6";
         private static string CACHED_OPEN_RESPONSE = "CACHED_OPEN_RESPONSE_DEBUG";
+        public static string OFFLINE_FLAG = "OFFLINE_FLAG";
 #else
         private static string REMOTE_CONFIG_FILE = "ELEPHANT_REMOTE_CONFIG_DATA";
         private static string USER_DB_ID = "USER_DB_ID";
         private static string CLIENT_DB_ID = "CLIENT_DB_ID";
         private static string CACHED_OPEN_RESPONSE = "CACHED_OPEN_RESPONSE";
+        public static string OFFLINE_FLAG = "OFFLINE_FLAG";
 #endif
 
 
@@ -157,6 +161,18 @@ namespace ElephantSDK
 
         private void LogMonitoringData()
         {
+            if (InternalConfig.GetInstance().memory_usage_enabled)
+            {
+#if UNITY_EDITOR
+#elif UNITY_IOS
+                MonitoringUtils.GetInstance().SetMemoryUsage(ElephantIOS.gameMemoryUsage());
+                MonitoringUtils.GetInstance().SetMemoryUsagePercentage(ElephantIOS.gameMemoryUsagePercent());
+#elif UNITY_ANDROID
+                MonitoringUtils.GetInstance().SetMemoryUsage(ElephantAndroid.GameMemoryUsage());
+                MonitoringUtils.GetInstance().SetMemoryUsagePercentage(ElephantAndroid.GameMemoryUsagePercentage());
+#endif
+            } 
+            
             _fps = (1f / Time.unscaledDeltaTime);
             if (float.IsInfinity(_fps) || float.IsNaN(_fps) ) return;
 
@@ -203,7 +219,18 @@ namespace ElephantSDK
 #else 
             buildNumber = "";
 #endif
-
+            
+#if UNITY_EDITOR
+            // No-op
+            firstInstallTime = 0;
+#elif UNITY_IOS
+            firstInstallTime = ElephantIOS.getFirstInstallTime();
+#elif UNITY_ANDROID
+            firstInstallTime = ElephantAndroid.GetFirstInstallTime();
+#else 
+            firstInstallTime = 0;
+#endif
+            
             if (!FB.IsInitialized)
             {
                 FB.Init(OnFbInitComplete);
@@ -326,6 +353,15 @@ namespace ElephantSDK
             
             // T4 - start zynga player id request async..
             StartCoroutine(ZisRequest());
+            
+            // T5 - if offline session flag is filled, send the data and flush it
+            var offlineFlag = Utils.ReadFromFile(OFFLINE_FLAG);
+            if (!string.IsNullOrEmpty(offlineFlag))
+            {
+                var param = Params.New().Set("sessionId", offlineFlag);
+                Elephant.Event("previous_offline_session", -1, param);
+                Utils.SaveToFile(OFFLINE_FLAG, "");
+            }
 
             sdkIsReady = true;
             if (onRemoteConfigLoaded != null)
@@ -608,6 +644,25 @@ namespace ElephantSDK
             }
         }
 
+        public void VerifyPurchase(IapVerifyRequest request, Action<bool> callback)
+        {
+            var json = JsonUtility.ToJson(request);
+            var bodyJson = JsonUtility.ToJson(new ElephantData(json, Instance.GetCurrentSession().GetSessionID()));
+            var networkManager = new GenericNetworkManager<IapVerification>();
+            var postWithResponse = networkManager.PostWithResponse(IAP_VERIFY_EP, bodyJson, response =>
+            {
+                var responseData = response.data;
+                if (responseData != null)
+                {
+                    callback(responseData.verified);
+                }
+            }, s =>
+            {
+                callback(false);
+            });
+            StartCoroutine(postWithResponse);
+        }
+        
         public void IsIapBanned(Action<bool, string> callback)
         {
             StartCoroutine(IsIapBannedRequest(callback));

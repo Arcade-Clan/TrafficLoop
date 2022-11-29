@@ -45,7 +45,6 @@ void showCcpaPopUpView(const char * action, const char * title, const char * con
 void showSettingsView(const char * popUpSubviewType, const char * actions);
 void showBlockedPopUpView(const char * title, const char * content, const char * warningContent, const char * buttonTitle);
 void showNetworkOfflinePopUpView(const char * content, const char * buttonTitle);
-
 const char * ElephantCopyString(const char * string)
 {
    char * copy = (char*)malloc(strlen(string) + 1);
@@ -53,6 +52,9 @@ const char * ElephantCopyString(const char * string)
    return copy;
 }
 
+int gameMemoryUsagePercent();
+int gameMemoryUsage();
+const long long getFirstInstallTime();
     
 #ifdef __cplusplus
 } // extern "C"

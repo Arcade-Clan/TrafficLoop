@@ -2,6 +2,7 @@
 #import "IdfaConsentViewController.h"
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
+#import <mach/mach.h>
 
 @implementation ElephantController
 
@@ -325,6 +326,35 @@ void showNetworkOfflinePopUpView(const char * content, const char * buttonTitle)
     };
     
     [popUpView showWithSubviewType:CONTENT];
+}
+
+int gameMemoryUsage() {
+    task_vm_info_data_t vmInfo;
+    mach_msg_type_number_t count = TASK_VM_INFO_COUNT;
+    if (task_info(mach_task_self(), TASK_VM_INFO, (task_info_t) &vmInfo, &count) != KERN_SUCCESS) return 0;
+    if (vmInfo.phys_footprint <= 0) return 0;
+    return (int)(vmInfo.phys_footprint / 1000000);
+}
+
+int gameMemoryUsagePercent() {
+    int memoryUsage = gameMemoryUsage();
+    if (memoryUsage <= 0) return 0;
+    int totalMemory = (int)([NSProcessInfo processInfo].physicalMemory / 1000000);
+    int memoryUsagePercent = (memoryUsage * 100) / totalMemory;
+    return memoryUsagePercent;
+}
+
+const long long getFirstInstallTime() {
+    NSURL* urlToDocumentsFolder = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+        
+    if (!urlToDocumentsFolder) return -1;
+    
+    NSError *error;
+    NSDate *installDate = [[[NSFileManager defaultManager] attributesOfItemAtPath:urlToDocumentsFolder.path error:&error] objectForKey:NSFileCreationDate];
+    
+    if (!installDate || error) return -1;
+    
+    return [@(floor([installDate timeIntervalSince1970] * 1000)) longLongValue];
 }
 
 @end

@@ -76,7 +76,7 @@ public class PM : MonoSingleton<PM>
             else
                 GM.Instance.baseSecondCreationSpeedUp = 1;
             GM.Instance.simulationSpeed = Mathf.Max(GM.Instance.tapSpeed, AdsM.Instance.adDetails[1].multiplierValue) * AdsM.Instance.adDetails[2].multiplierValue*
-                                          GM.Instance.editorSpeedUp;
+                                          GM.Instance.editorSimulationSpeed;
             Time.timeScale = Mathf.Lerp(Time.timeScale, GM.Instance.simulationSpeed, 0.2f);
             ProcessTrails();
             yield return null;

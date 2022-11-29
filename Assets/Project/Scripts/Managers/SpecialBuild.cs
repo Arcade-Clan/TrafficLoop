@@ -11,7 +11,7 @@ public class SpecialBuild : MonoBehaviour
     public Material material;
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space) || (Input.GetMouseButtonDown(0)&&Input.touchCount == 3))
+        if(Input.GetKeyDown(KeyCode.Space) || (Input.GetMouseButtonDown(0)&&Input.touchCount == 2))
             childPanel.SetActive(!childPanel.activeSelf);
     }
 
